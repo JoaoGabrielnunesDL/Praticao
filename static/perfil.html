@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Consulte os dados da sua conta PratiCão.">
+  <title>Meu perfil | PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css?v=2">
+  <link rel="stylesheet" href="css/header.css">
+  <style>.perfil { max-width: 720px; margin: 42px auto; padding: 28px; }.perfil dl { display: grid; grid-template-columns: 150px 1fr; gap: 14px; }.perfil dt { color: var(--azul-escuro); font-weight: 800; }.perfil dd { margin: 0; overflow-wrap: anywhere; }@media(max-width:480px){.perfil dl{grid-template-columns:1fr;gap:3px}.perfil dd{margin-bottom:12px}}</style>
+</head>
+<body>
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <div class="barra-superior"><div class="container barra-superior__conteudo"><div class="barra-superior__contato"><a href="tel:+5511987654321">(11) 98765-4321</a><a class="barra-superior__email" href="mailto:contato@praticao.com.br">contato@praticao.com.br</a></div><div class="barra-superior__direita"><span class="barra-superior__areas"><a href="tutor.html" data-area="tutor">Área do Tutor</a><a href="painel.html" data-area="funcionario">Área do Funcionário</a></span><span class="fonte-botoes"><span class="barra-superior__email">Acessibilidade:</span><button type="button" data-fonte="menor" aria-label="Diminuir o tamanho da letra">A</button><button type="button" data-fonte="normal" aria-label="Tamanho normal da letra">A</button><button type="button" data-fonte="maior" aria-label="Aumentar o tamanho da letra">A</button></span></div></div></div>
+  <header class="cabecalho"><div class="container cabecalho__conteudo"><a class="logo" href="index.html"><img src="img/logo.png" alt="PratiCão, página inicial" width="72" height="72"></a><nav class="menu-principal" aria-label="Menu principal"><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a></nav><div class="cabecalho__acoes"><div data-auth-slot></div><button id="botao-menu" class="btn-hamburguer" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu">☰</button></div></div><nav id="menu-mobile" class="menu-mobile" aria-label="Menu principal (celular)" hidden><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a></nav></header>
+  <main id="conteudo" class="container"><section class="cartao perfil"><h1>Meu perfil</h1><p>Dados da sua conta PratiCão.</p><div id="perfil-carregando" role="status">Carregando perfil...</div><dl id="perfil-dados" hidden><dt>Nome</dt><dd id="perfil-nome"></dd><dt>E-mail</dt><dd id="perfil-email"></dd><dt>Tipo de conta</dt><dd id="perfil-tipo"></dd></dl><div id="perfil-erro" class="mensagem-erro" role="alert" hidden></div></section></main>
+  <script src="js/api.js"></script><script src="js/auth.js"></script><script src="js/header.js"></script><script src="js/perfil.js"></script>
+</body>
+</html>

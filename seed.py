@@ -4,29 +4,16 @@ from app import models, auth
 Base.metadata.create_all(bind=engine)
 db = SessionLocal()
 
-USUARIOS = [
-    ('Funcionário', 'funcionario@praticao.com', 'funcionario'),
-    ('Administrador', 'admin@praticao.com', 'administrador'),
-    ('Tutor Teste', 'tutor@teste.com', 'tutor'),
-]
-
-SERVICOS = [
-    ('Banho', 'Banho completo com secagem', 50, 60),
-    ('Tosa', 'Tosa higiênica ou completa', 70, 90),
-]
-
-criados = 0
-
-for nome, email, perfil in USUARIOS:
-    if not db.query(models.Usuario).filter_by(email=email).first():
-        db.add(models.Usuario(nome=nome, email=email,
-                              senha_hash=auth.gerar_hash('123456'), perfil=perfil))
-        criados += 1
-
-for nome, descricao, preco, duracao in SERVICOS:
-    if not db.query(models.Servico).filter_by(nome=nome).first():
-        db.add(models.Servico(nome=nome, descricao=descricao, preco=preco, duracao_min=duracao))
-        criados += 1
-
-db.commit()
-print('Dados iniciais criados' if criados else 'Dados iniciais já existem')
+if not db.query(models.Usuario).filter_by(email='funcionario@praticao.com').first():
+    db.add(models.Usuario(nome='Funcionário', email='funcionario@praticao.com',
+                          senha_hash=auth.gerar_hash('123456'), perfil='funcionario'))
+    db.add(models.Usuario(nome='Administrador', email='admin@praticao.com',
+                          senha_hash=auth.gerar_hash('123456'), perfil='administrador'))
+    db.add_all([
+        models.Servico(nome='Banho', descricao='Banho completo com secagem', preco=50, duracao_min=60),
+        models.Servico(nome='Tosa', descricao='Tosa higiênica ou completa', preco=70, duracao_min=90),
+    ])
+    db.commit()
+    print('Dados iniciais criados')
+else:
+    print('Dados iniciais já existem')
