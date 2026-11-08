@@ -1,4 +1,6 @@
 venv/
+.venv/
+.aws/
 __pycache__/
 *.pyc
 *.db

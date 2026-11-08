@@ -1,25 +1,195 @@
 <!DOCTYPE html>
-<html lang='pt-br'>
+<html lang="pt-br">
 <head>
-  <meta charset='UTF-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <title>PratiCão</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Banho, tosa e cuidados especiais para seu melhor amigo. Conheça o PratiCão e agende um atendimento.">
+  <title>PratiCão | Cuidado e diversão para seu pet</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css?v=2">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/index.css?v=12">
 </head>
 <body>
-  <h1>PratiCão</h1>
-  <h2>Nossos serviços</h2>
-  <ul id='lista'></ul>
-  <script>
-    fetch('/servicos')
-      .then(r => r.json())
-      .then(servicos => {
-        const lista = document.getElementById('lista');
-        servicos.forEach(s => {
-          const li = document.createElement('li');
-          li.textContent = s.nome + ' - R$ ' + s.preco + ' (' + s.duracao_min + ' min)';
-          lista.appendChild(li);
-        });
-      });
-  </script>
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+  <div class="barra-superior">
+    <div class="container barra-superior__conteudo">
+      <div class="barra-superior__contato">
+        <a href="tel:+5511987654321">☎ (11) 98765-4321</a>
+        <a class="barra-superior__email" href="mailto:contato@praticao.com.br">✉ contato@praticao.com.br</a>
+      </div>
+      <div class="barra-superior__direita">
+        <span class="barra-superior__areas"><a href="tutor.html" data-area="tutor">Área do Tutor</a><a href="painel.html" data-area="funcionario">Área do Funcionário</a></span>
+        <span class="fonte-botoes"><span class="barra-superior__email">Acessibilidade:</span><button type="button" data-fonte="menor" aria-label="Diminuir o tamanho da letra">A</button><button type="button" data-fonte="normal" aria-label="Tamanho normal da letra">A</button><button type="button" data-fonte="maior" aria-label="Aumentar o tamanho da letra">A</button></span>
+      </div>
+    </div>
+  </div>
+  <div id="aviso-cabecalho" class="aviso-cabecalho" role="status" aria-live="polite" hidden></div>
+
+  <header class="cabecalho">
+    <div class="container cabecalho__conteudo">
+      <a class="logo" href="index.html" aria-label="PratiCão, página inicial"><img src="img/logo.png" alt="PratiCão" width="80" height="80"></a>
+      <nav class="menu-principal" aria-label="Menu principal">
+        <a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#agendamento">Agendamento</a><a href="#sobre">Sobre Nós</a><a href="#contato">Contato</a>
+      </nav>
+      <div class="cabecalho__acoes">
+        <div data-auth-slot></div>
+        <button id="botao-menu" class="btn-hamburguer" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu">☰</button>
+      </div>
+    </div>
+    <nav id="menu-mobile" class="menu-mobile" aria-label="Menu principal (celular)" hidden>
+      <a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#agendamento">Agendamento</a><a href="#sobre">Sobre Nós</a><a href="#contato">Contato</a>
+      <a href="tutor.html" data-area="tutor">Área do Tutor</a><a href="painel.html" data-area="funcionario">Área do Funcionário</a><a class="menu-mobile__email" href="mailto:contato@praticao.com.br">contato@praticao.com.br</a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section id="inicio" class="home-hero">
+      <div class="container home-hero__inner">
+        <div class="home-hero__texto">
+          <p class="home-eyebrow">PET SHOP · BANHO E TOSA</p>
+          <h1>Cuidado &amp; Diversão <span>para o seu melhor amigo!</span></h1>
+          <p>Serviços de banho e tosa, hidratação e muito mais. Tudo para o bem-estar do seu pet.</p>
+          <a class="btn btn--laranja" href="#agendamento">Agendar Banho &amp; Tosa <span aria-hidden="true">→</span></a>
+        </div>
+        <figure class="home-hero__foto foto-placeholder">
+          <img src="img/hero-home.jpg" alt="Cachorro golden e gato juntos" width="1600" height="533" fetchpriority="high" onload="this.parentNode.classList.add('tem-imagem')" onerror="this.hidden=true">
+          <span class="pata-decor pata-decor--hero" aria-hidden="true">🐾</span>
+        </figure>
+      </div>
+    </section>
+
+    <section id="servicos" class="secao secao--azul">
+      <div class="container">
+        <div class="titulo-secao">
+          <div><p class="secao-kicker">🐾 Cuidado em cada detalhe</p><h2>Nossos <span>Serviços</span></h2><p>Qualidade, carinho e segurança em cada detalhe.</p></div>
+          <a class="link-mais" href="#servicos" data-em-breve>Ver mais <span aria-hidden="true">→</span></a>
+        </div>
+        <div id="cartoes-servicos" class="servicos-grade" aria-live="polite">
+          <article class="servico-card" data-servico-card="banho"><span class="servico-card__icone servico-card__icone--foto servico-card__icone--banho" aria-hidden="true"><span class="servico-card__badge"><svg viewBox="0 0 24 24"><path d="M3 12h18l-1.5 7h-15L3 12Z"/><path d="M6 12V7a2 2 0 0 1 4 0v1m8 4V6a2 2 0 0 1 4 0v2M7 22v-3m10 3v-3"/></svg></span></span><div><h3>Banho</h3><p class="servico-card__detalhe">Limpeza completa, higiene e bem-estar para o seu pet.</p><p class="servico-card__preco">a partir de R$ 79,90</p></div></article>
+          <article class="servico-card" data-servico-card="tosa"><span class="servico-card__icone servico-card__icone--foto servico-card__icone--tosa" aria-hidden="true"><span class="servico-card__badge"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="m8 8 13 12M8 16 21 4M10 10l6 6"/></svg></span></span><div><h3>Tosa</h3><p class="servico-card__detalhe">Estilo, conforto e mais praticidade no dia a dia.</p><p class="servico-card__preco">a partir de R$ 89,90</p></div></article>
+          <article class="servico-card"><span class="servico-card__icone servico-card__icone--foto servico-card__icone--hidratacao" aria-hidden="true"><span class="servico-card__badge"><svg viewBox="0 0 24 24"><path d="M12 3s-7 8-7 13a7 7 0 0 0 14 0c0-5-7-13-7-13Z"/><path d="M9 16c.4 1.5 1.4 2.5 3 2.8"/></svg></span></span><div><h3>Hidratação</h3><p class="servico-card__detalhe">Pelos mais saudáveis, macios e brilhantes.</p><p class="servico-card__preco">a partir de R$ 79,90</p></div></article>
+          <article class="servico-card"><span class="servico-card__icone servico-card__icone--foto servico-card__icone--unhas" aria-hidden="true"><span class="servico-card__badge"><svg viewBox="0 0 24 24"><circle cx="6" cy="7" r="2"/><circle cx="11" cy="4.5" r="2"/><circle cx="16" cy="5.5" r="2"/><circle cx="19" cy="10" r="2"/><path d="M5 15c0-2.5 2-4.5 4.5-4.5S14 12 14 15c0 2.4-2 4.5-4.5 4.5S5 17.4 5 15Zm9.5 1c0-1.8 1.4-3.2 3.2-3.2s3.2 1.4 3.2 3.2-1.4 3.2-3.2 3.2"/></svg></span></span><div><h3>Corte de Unhas</h3><p class="servico-card__detalhe">Mais conforto, segurança e saúde para o seu pet.</p><p class="servico-card__preco">a partir de R$ 49,90</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="agendamento" class="secao agendamento">
+      <div class="container agendamento__grade">
+        <figure class="agendamento__ilustracao foto-placeholder">
+          <img src="img/Retrato Encantador de Cão e Gato.png" alt="Retrato de um cachorro golden e um gato juntos" width="941" height="1672" loading="lazy" onload="this.parentNode.classList.add('tem-imagem')" onerror="this.hidden=true">
+          <span aria-hidden="true">🐾</span>
+        </figure>
+        <div class="agendamento__apresentacao">
+          <div class="agendamento__texto">
+            <p class="secao-kicker">Um cuidado especial, sem complicação</p>
+            <h2>Quer agendar um serviço com <span>comodidade?</span></h2>
+            <p>Preencha o formulário ao lado e escolha o melhor horário para você e seu pet.</p>
+          </div>
+          <div class="beneficios">
+            <article class="beneficio"><span aria-hidden="true">▦</span><div><h3>Agendamento rápido e fácil</h3><p>Escolha o melhor horário.</p></div></article>
+            <article class="beneficio"><span aria-hidden="true">♙</span><div><h3>Atendimento seguro e confiável</h3><p>Seu pet em boas mãos.</p></div></article>
+            <article class="beneficio"><span aria-hidden="true">♥</span><div><h3>Equipe especializada e apaixonada</h3><p>Todo carinho que seu pet merece.</p></div></article>
+          </div>
+        </div>
+
+        <form id="form-agendamento" class="cartao agendamento-form" novalidate>
+          <p class="agendamento-form__titulo">🐾 Faça seu agendamento</p>
+          <div id="mensagem-agendamento" class="mensagem-erro" role="alert" aria-live="polite" hidden></div>
+          <div class="campo">
+            <label class="campo__rotulo" for="ag-servico">* Selecione o serviço que deseja:</label>
+            <select class="campo__entrada" id="ag-servico" required><option value="">Escolha um serviço</option><option value="Banho">Banho</option><option value="Tosa">Tosa</option><option value="Hidratação">Hidratação</option><option value="Corte de Unhas">Corte de Unhas</option></select>
+            <p class="campo__erro" id="erro-ag-servico" hidden></p>
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="ag-data">Selecione a data:</label>
+            <input class="campo__entrada" id="ag-data" type="date" required>
+            <p class="campo__erro" id="erro-ag-data" hidden></p>
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="ag-horario">Horário preferido:</label>
+            <select class="campo__entrada" id="ag-horario" required aria-describedby="erro-ag-horario"><option value="">Selecione um horário</option><optgroup label="Manhã"><option value="08:00">08h</option><option value="09:00">09h</option><option value="10:00">10h</option><option value="11:00">11h</option></optgroup><optgroup label="Tarde"><option value="13:00">13h</option><option value="14:00">14h</option><option value="15:00">15h</option><option value="16:00">16h</option><option value="17:00">17h</option></optgroup></select>
+            <p class="campo__erro" id="erro-ag-horario" hidden></p>
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="ag-nome">Nome do Tutor:</label>
+            <input class="campo__entrada" id="ag-nome" type="text" autocomplete="name" placeholder="Digite seu nome" required>
+            <p class="campo__erro" id="erro-ag-nome" hidden></p>
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="ag-telefone">Telefone/WhatsApp:</label>
+            <input class="campo__entrada" id="ag-telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 98765-4321" required>
+            <p class="campo__erro" id="erro-ag-telefone" hidden></p>
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="ag-pet">Seu Pet:</label>
+            <select class="campo__entrada" id="ag-pet" aria-describedby="erro-ag-pet" disabled><option value="">Entre para escolher seu pet</option></select>
+            <p class="campo__erro" id="erro-ag-pet" hidden></p>
+          </div>
+          <button class="btn btn--laranja agendamento-form__botao" type="submit">Quero Agendar Agora <span aria-hidden="true">→</span></button>
+          <p class="agendamento-form__nota">O pedido fica salvo para você concluir na sua área.</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="sobre" class="secao sobre">
+      <div class="container sobre__grade">
+        <figure class="sobre__foto foto-placeholder"><img src="img/fachada.jpg" alt="Fachada do PratiCão" width="720" height="480" loading="lazy" onload="this.parentNode.classList.add('tem-imagem')" onerror="this.hidden=true"><span aria-hidden="true">🐾</span></figure>
+        <div class="sobre__texto">
+          <p class="secao-kicker">Conheça o PratiCão</p>
+          <h2>Mais que um pet shop, <span>somos uma família que cuida de pets!</span></h2>
+          <p>Aqui, seu pet encontra um ambiente acolhedor, profissionais capacitados e todo o cuidado que ele merece. Porque ele também faz parte da nossa família!</p>
+          <div class="selos"><article><span aria-hidden="true">♧</span><b>Banho e Tosa</b><small>com qualidade</small></article><article><span aria-hidden="true">▧</span><b>Produtos Pet</b><small>das melhores marcas</small></article><article><span aria-hidden="true">♡</span><b>Equipe apaixonada</b><small>por animais</small></article></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao dicas secao--azul" aria-labelledby="titulo-dicas">
+      <div class="container">
+        <div class="titulo-secao"><div><p class="secao-kicker">🐾 Conteúdo para cuidar melhor</p><h2 id="titulo-dicas">Dicas e Novidades do <span>PratiCão</span></h2><p>Tudo o que você precisa saber para cuidar ainda melhor do seu pet.</p></div><a class="link-mais" href="#dicas" data-em-breve>Ver mais <span aria-hidden="true">→</span></a></div>
+        <div id="dicas" class="dicas-grade">
+          <article class="dica-card"><figure class="dica-card__foto foto-placeholder"><img src="img/dica-1.jpg" alt="Cachorro golden tomando banho" width="1600" height="618" loading="lazy" onload="this.parentNode.classList.add('tem-imagem')" onerror="this.hidden=true"><span aria-hidden="true">🐕</span></figure><div class="dica-card__conteudo"><p class="dica-card__categoria">BEM-ESTAR</p><h3>Como manter seu cão feliz e saudável</h3><p>Cuidados essenciais para o bem-estar do seu pet.</p><a href="#dicas" data-em-breve>Leia mais <span aria-hidden="true">→</span></a></div></article>
+          <article class="dica-card"><figure class="dica-card__foto foto-placeholder"><img src="img/dica-2.jpg" alt="Cachorro passeando ao ar livre" width="1600" height="899" loading="lazy" onload="this.parentNode.classList.add('tem-imagem')" onerror="this.hidden=true"><span aria-hidden="true">🐕</span></figure><div class="dica-card__conteudo"><p class="dica-card__categoria">DICAS PET</p><h3>Dicas para um passeio seguro com seu pet</h3><p>Aprenda a tornar os passeios mais seguros e divertidos.</p><a href="#dicas" data-em-breve>Leia mais <span aria-hidden="true">→</span></a></div></article>
+          <article class="dica-card"><figure class="dica-card__foto foto-placeholder"><img src="img/dica-3.jpg" alt="Gatos descansando juntos" width="1600" height="900" loading="lazy" onload="this.parentNode.classList.add('tem-imagem')" onerror="this.hidden=true"><span aria-hidden="true">🐈</span></figure><div class="dica-card__conteudo"><p class="dica-card__categoria">CUIDADOS</p><h3>Como cuidar da saúde do seu gato</h3><p>Dicas práticas para uma vida longa e feliz.</p><a href="#dicas" data-em-breve>Leia mais <span aria-hidden="true">→</span></a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao depoimentos" aria-labelledby="titulo-depoimentos">
+      <div class="container">
+        <div class="titulo-central"><p class="secao-kicker">⭐ Clientes felizes</p><h2 id="titulo-depoimentos">O que dizem os <span>nossos clientes</span></h2><p>A confiança e o carinho de quem já viveu a experiência PratiCão.</p></div>
+        <div class="depoimentos-grade">
+          <article class="depoimento"><p class="estrelas" aria-label="5 de 5 estrelas">★★★★★</p><blockquote>“Excelente atendimento! O banho e tosa deixaram meu pet cheiroso por dias e super tranquilo. Recomendo muito!”</blockquote><div class="depoimento__pessoa"><span class="avatar"><img src="img/cliente-mariana.png" alt="Foto fictícia de Mariana Souza"></span><p><b>Mariana Souza</b><small>Tutora do Bob (Golden)</small></p></div></article>
+          <article class="depoimento"><p class="estrelas" aria-label="5 de 5 estrelas">★★★★★</p><blockquote>“Amo meu pet desde pequeno e só tenho elogios. A equipe é sempre atenciosa e o ambiente transmite muita segurança.”</blockquote><div class="depoimento__pessoa"><span class="avatar"><img src="img/cliente-carlos.png" alt="Foto fictícia de Carlos Eduardo"></span><p><b>Carlos Eduardo</b><small>Tutor do Thor (Poodle)</small></p></div></article>
+          <article class="depoimento"><p class="estrelas" aria-label="5 de 5 estrelas">★★★★★</p><blockquote>“Profissionais incríveis! Meu doguinho costuma ficar assustado, mas aqui ele se sente em casa. Nota 10!”</blockquote><div class="depoimento__pessoa"><span class="avatar"><img src="img/cliente-rafael.png" alt="Imagem ilustrativa gerada do The Rock"></span><p><b>Rafael Lima</b><small>Tutor da Mel (Poodle)</small></p></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contato" class="rodape">
+    <div class="container rodape__grade">
+      <section class="rodape__marca" aria-label="Sobre o PratiCão">
+        <a href="#inicio" class="rodape__logo"><img src="img/logo.png" alt="PratiCão" width="76" height="76"></a>
+        <p>Líder no cuidado com seu pet, com amor, carinho e profissionalismo. Porque eles merecem o melhor!</p>
+        <div class="redes" aria-label="Redes sociais e contato">
+          <a href="#" aria-label="Instagram (em breve)" data-em-breve><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="icone-ponto" cx="17.6" cy="6.8" r="1"/></svg></a>
+          <a href="https://wa.me/5511987654321" target="_blank" rel="noopener noreferrer" aria-label="Conversar pelo WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3.5 20l1.1-4.4a8.2 8.2 0 1 1 15.6-3.9Z"/><path d="M9 8.3c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.6.7c-.2.2-.2.4 0 .6.5.9 1.3 1.6 2.2 2.1.2.1.4.1.6-.1l.8-.9c.2-.2.4-.2.7-.1l1.5.7c.3.1.4.3.4.5 0 .4-.2 1-.6 1.3-.4.4-1.1.6-1.8.5-1.1-.2-2.5-.9-3.8-2.1-1.2-1.1-2-2.4-2.2-3.4-.2-.8 0-1.5.4-2Z"/></svg></a>
+          <a href="#" aria-label="Facebook (em breve)" data-em-breve><svg viewBox="0 0 24 24" aria-hidden="true"><path class="icone-cheio" d="M13.7 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5H17V3.6c-.3 0-1.2-.1-2.3-.1-2.4 0-4.1 1.5-4.1 4.2v2.3H8v3.1h2.6v8h3.1Z"/></svg></a>
+          <a href="mailto:contato@praticao.com.br" aria-label="Enviar e-mail para o PratiCão"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+        </div>
+      </section>
+      <nav class="rodape__links" aria-label="Links rápidos"><h2>Links Rápidos</h2><a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#agendamento">Agendamento</a><a href="#sobre">Sobre Nós</a><a href="#contato">Contato</a><a href="tutor.html" data-area="tutor">Área do Tutor</a><a href="painel.html" data-area="funcionario">Área do Funcionário</a></nav>
+      <section class="rodape__contato"><h2>Fale Conosco</h2><p>⌖ Rua das Flores, 123 - Centro<br>São Paulo - SP - CEP: 01010-987</p><a href="tel:+5511987654321">☎ (11) 98765-4321</a><a href="mailto:contato@praticao.com.br">✉ contato@praticao.com.br</a><p>◷ Segunda à Sexta: 8h às 19h<br>Sábados: 8h às 15h<br>Domingos: 9h às 13h</p></section>
+      <section class="rodape__seguranca"><h2>Segurança e Conformidade</h2><p><b>Ambiente Seguro.</b><br>Seus dados protegidos.</p><p class="rodape__pagamentos-titulo">Formas de pagamento:</p><div class="pagamentos" aria-label="Bandeiras e formas de pagamento"><span class="pagamento-badge pagamento-badge--visa" role="img" aria-label="Visa">VISA</span><span class="pagamento-badge pagamento-badge--mastercard" role="img" aria-label="Mastercard"><span class="mastercard-simbolo" aria-hidden="true"><i></i><i></i></span><b>mastercard</b></span><span class="pagamento-badge pagamento-badge--elo" role="img" aria-label="Elo"><b>elo</b></span><span class="pagamento-badge pagamento-badge--pix" role="img" aria-label="Pix"><svg class="pix-logo" viewBox="0 0 226 98" aria-hidden="true"><g fill="#35b9aa"><rect x="22" y="25" width="28" height="28" rx="7" transform="rotate(45 36 39)"/><rect x="42" y="5" width="28" height="28" rx="7" transform="rotate(45 56 19)"/><rect x="62" y="25" width="28" height="28" rx="7" transform="rotate(45 76 39)"/><rect x="42" y="45" width="28" height="28" rx="7" transform="rotate(45 56 59)"/></g><text x="99" y="58" fill="#e7eef8" font-family="Arial, sans-serif" font-size="57" font-weight="300" letter-spacing="-3">pix</text><circle cx="176" cy="12" r="3.5" fill="#35b9aa"/><text x="101" y="76" fill="#c4d3e8" font-family="Arial, sans-serif" font-size="7.5" letter-spacing=".15">powered by Banco Central</text></svg></span></div></section>
+    </div>
+    <div class="rodape__final"><div class="container">© <span id="ano-atual">2026</span> PratiCão. Todos os direitos reservados.</div></div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/index.js?v=6"></script>
 </body>
 </html>

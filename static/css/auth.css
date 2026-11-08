@@ -1,0 +1,116 @@
+/* auth.css — login e cadastro (mobile first: celular, depois tablet e PC) */
+
+.auth {
+  background: var(--azul-claro);
+  padding: 24px 0 24px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  min-height: 60vh;
+}
+.auth__grade { display: grid; gap: 20px; min-width: 0; }
+.auth__hero, .auth__lado { min-width: 0; }
+
+.auth__eyebrow { margin: 0 0 4px; color: var(--azul); font-weight: 800; font-size: 0.95rem; }
+.auth h1 { font-size: clamp(1.75rem, 8vw, 2.25rem); color: var(--azul-escuro); }
+.auth__laranja { color: var(--laranja); }
+.auth__subtitulo { color: var(--azul-escuro); font-weight: 700; font-size: 0.95rem; }
+
+/* Foto: se o arquivo não existir, aparece um fundo azul com patinha */
+.auth__foto {
+  margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 16 / 9; max-height: none;
+  background: #cfe0ff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23ffffff' fill-opacity='.7'%3E%3Cellipse cx='50' cy='62' rx='18' ry='15'/%3E%3Cellipse cx='26' cy='44' rx='8' ry='11'/%3E%3Cellipse cx='42' cy='28' rx='8' ry='11'/%3E%3Cellipse cx='60' cy='28' rx='8' ry='11'/%3E%3Cellipse cx='76' cy='44' rx='8' ry='11'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
+.auth__foto.tem-imagem { background: none; }
+.auth__foto img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+@media (max-height: 500px) { .auth__foto { display: none; } }
+
+/* Cartão e abas */
+.auth__cartao { padding: 0; overflow: hidden; }
+.abas { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--azul-borda); }
+.aba {
+  min-height: 52px; background: none; border: 0; border-bottom: 3px solid transparent;
+  color: var(--texto-suave); font-weight: 800; font-size: 1.05rem;
+}
+.aba[aria-selected='true'] { color: var(--azul); border-bottom-color: var(--azul); }
+.painel { padding: 20px 16px 24px; }
+.painel h2 { font-size: 1.6rem; margin-bottom: 16px; }
+
+.auth__botao { width: 100%; min-height: 52px; font-size: 1.1rem; }
+.auth__links { text-align: center; margin: 14px 0 0; color: var(--texto-suave); }
+.auth__links a, .link-botao {
+  display: inline-flex; align-items: center; min-height: 44px;
+  background: none; border: 0; padding: 0 4px; color: var(--azul);
+  font-weight: 700; text-decoration: underline;
+}
+.auth__nota { margin: 10px 0 0; font-size: 0.85rem; color: var(--texto-suave); }
+
+/* Campo com ícone dentro (e-mail, senha) */
+.campo__caixa { position: relative; }
+.campo__icone {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--azul); pointer-events: none;
+}
+.campo__entrada--icone { padding-left: 44px; }
+.campo__olho {
+  position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+  width: 44px; height: 44px; background: none; border: 0; color: var(--azul);
+}
+.campo__caixa .campo__entrada { padding-right: 52px; }
+
+/* Cadastro: grupos de campos */
+.grupo { border: 0; padding: 0; margin: 0 0 8px; min-width: 0; }
+.grupo legend { padding: 0; margin-bottom: 8px; font-weight: 800; color: var(--azul); }
+.grupo--recolhivel { margin-bottom: 16px; }
+.grupo--recolhivel summary { min-height: 44px; display: flex; align-items: center; font-weight: 800; color: var(--azul); cursor: pointer; }
+.campo-dupla { display: grid; gap: 0 12px; grid-template-columns: 1fr; }
+@media (min-width: 700px) { .campo-dupla { grid-template-columns: 1fr 1fr; } }
+
+/* Indicador de força da senha (3 barras) */
+.forca { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
+.forca span { height: 6px; border-radius: 3px; background: #d1d5db; }
+.forca[data-nivel='1'] span:nth-child(1) { background: var(--erro); }
+.forca[data-nivel='2'] span:nth-child(-n+2) { background: #f59e0b; }
+.forca[data-nivel='3'] span { background: #16a34a; }
+.forca__texto { margin: 4px 0 0; text-align: center; font-size: 0.9rem; color: var(--texto-suave); }
+
+/* Aceite dos termos */
+.campo--aceite { display: grid; grid-template-columns: 24px 1fr; gap: 8px; align-items: start; }
+.campo--aceite input { width: 24px; height: 24px; margin: 2px 0 0; }
+.campo--aceite .campo__erro { grid-column: 1 / -1; }
+
+/* Mensagem informativa acima do cartão (?msg=agendar) */
+.mensagem-info {
+  margin-bottom: 12px; padding: 12px 16px; border-radius: 12px;
+  background: #dbeafe; color: var(--azul-escuro); font-weight: 700;
+}
+
+/* ---------- Tablet (768 a 1023 px): texto à esquerda, foto 4:5 à direita ---------- */
+@media (min-width: 768px) {
+  .auth { padding-block: 32px; }
+  .auth__hero {
+    display: grid; grid-template-columns: 1fr minmax(0, 40%); column-gap: 24px; align-items: start;
+  }
+  .auth__hero > :not(.auth__foto) { grid-column: 1; }
+  .auth__foto { grid-column: 2; grid-row: 1 / span 3; aspect-ratio: 16 / 9; max-height: none; }
+  .auth__lado { width: min(100%, 640px); margin-inline: auto; }
+  .painel { padding: 24px 28px 28px; }
+}
+
+/* ---------- Tablet largo e PC (1024 px ou mais): duas colunas ---------- */
+@media (min-width: 1024px) {
+  .auth { padding-block: 48px; }
+  .auth__grade { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+  .auth__hero { display: block; }
+  .auth__foto { aspect-ratio: 16 / 9; max-height: 360px; margin-top: 16px; }
+  .auth h1 { font-size: clamp(2.25rem, 4vw, 3.25rem); }
+  .auth__lado { width: 100%; max-width: 480px; margin-inline: 0; justify-self: end; }
+}
+
+/* Margens menores em telas muito estreitas */
+@media (max-width: 359px) {
+  .auth .container { padding-inline: 12px; }
+}
+
+/* Ajustes depois de ver a tela */
+.auth h1 .auth__laranja { display: block; }
+.auth__links { margin: 0; }
