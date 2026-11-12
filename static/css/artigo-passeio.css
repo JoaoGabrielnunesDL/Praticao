@@ -1,0 +1,50 @@
+/* Artigo "Dicas para um passeio seguro com seu pet".
+   A estrutura editorial (trilha, tópicos, coluna lateral, faixa final) vem de artigo.css;
+   aqui ficam só os ajustes desta página: o hero e o enquadramento das fotos. */
+
+/* =========================================================
+   Hero: foto ancorada à esquerda (o beagle fica do lado direito)
+   e lado esquerdo clareado para o texto
+   ========================================================= */
+.artigo-hero--passeio { min-height: clamp(340px, 28vw, 390px); background: linear-gradient(180deg, #f3f8ff 0%, #e9f2ff 100%); }
+.artigo-hero--passeio .artigo-hero__foto { object-position: 0% 50%; }
+.artigo-hero--passeio::before { background: linear-gradient(90deg, rgba(243,248,255,.97) 0%, rgba(243,248,255,.92) 34%, rgba(243,248,255,.55) 45%, rgba(243,248,255,0) 54%); }
+/* Forma orgânica azul no canto inferior esquerdo, como na referência. */
+.artigo-hero--passeio::after { position: absolute; bottom: -2px; left: 0; z-index: -1; width: min(17vw, 230px); height: 72%; background: no-repeat left bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 260' preserveAspectRatio='none'%3E%3Cpath d='M0 20C58 6 96 50 104 104c8 54 34 94 96 156H0Z' fill='%23aecbf7'/%3E%3Cpath d='M0 92c44-6 70 26 76 66 6 40 24 70 64 102H0Z' fill='%237aa7ec' fill-opacity='.55'/%3E%3C/svg%3E"); content: ''; pointer-events: none; }
+.artigo-hero--passeio .artigo-hero__conteudo > * { max-width: 490px; }
+.artigo-hero--passeio .artigo-hero__conteudo > h1 { max-width: 560px; }
+.artigo-hero--passeio .artigo-hero__pata--1 { top: 22%; left: 2.5%; }
+.artigo-hero--passeio .artigo-hero__pata--2 { top: 14%; right: 4%; opacity: .55; }
+
+/* =========================================================
+   Fotos dos tópicos: um pouco maiores que no padrão e enquadradas no assunto
+   ========================================================= */
+.artigo-pagina--passeio .artigo-topico { grid-template-columns: 64px minmax(0, 1fr) minmax(220px, 268px); }
+.artigo-pagina--passeio .artigo-topico__foto { aspect-ratio: 16 / 8.6; }
+.passeio-foto--guia { object-position: 50% 32%; }
+.passeio-foto--por-do-sol { object-position: 62% 38%; }
+.passeio-foto--agua { object-position: 55% 64%; }
+.passeio-foto--ambiente { object-position: 52% 42%; }
+.outra-dica .passeio-foto--cao-feliz { object-position: 67% 35%; }
+.artigo-pagina--passeio .artigo-cta__foto img { object-position: 56% 30%; }
+
+/* =========================================================
+   Responsividade
+   ========================================================= */
+@media (max-width: 1100px) {
+  .artigo-hero--passeio .artigo-hero__foto { object-position: 0% 50%; }
+  .artigo-hero--passeio::before { background: linear-gradient(90deg, rgba(243,248,255,.97) 0%, rgba(243,248,255,.9) 40%, rgba(243,248,255,0) 58%); }
+  .artigo-hero--passeio .artigo-hero__conteudo > *, .artigo-hero--passeio .artigo-hero__conteudo > h1 { max-width: 440px; }
+  .artigo-pagina--passeio .artigo-topico { grid-template-columns: 56px minmax(0, 1fr) 190px; }
+  .artigo-pagina--passeio .artigo-topico__foto { aspect-ratio: 4 / 3; }
+}
+@media (max-width: 860px) {
+  .artigo-pagina--passeio .artigo-topico { grid-template-columns: 56px minmax(0, 1fr) minmax(180px, 220px); }
+}
+@media (max-width: 640px) {
+  .artigo-hero--passeio::after { display: none; }
+  .artigo-hero--passeio::before { display: none; }
+  .artigo-hero--passeio .artigo-hero__foto { aspect-ratio: 16 / 10; object-position: 52% 50%; }
+  .artigo-pagina--passeio .artigo-topico { grid-template-columns: 52px minmax(0, 1fr); }
+  .artigo-pagina--passeio .artigo-topico__foto { aspect-ratio: 16 / 9; }
+}

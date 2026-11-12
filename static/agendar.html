@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Agende banho, tosa e outros cuidados para o seu pet no PratiCão.">
+  <title>Novo agendamento | PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css?v=4">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <link rel="stylesheet" href="css/agendar.css?v=3">
+</head>
+<body>
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <div id="aviso-cabecalho" class="aviso-cabecalho" role="status" aria-live="polite" hidden></div>
+  <header class="cabecalho">
+    <div class="container cabecalho__conteudo">
+      <a class="logo" href="index.html" aria-label="PratiCão, página inicial"><img src="img/logo.png" alt="PratiCão" width="80" height="80"></a>
+      <nav class="menu-principal" aria-label="Menu do Tutor">
+        <a href="tutor.html">Painel</a>
+        <a href="animais.html">Meus animais</a>
+        <a href="agendar.html" aria-current="page">Novo agendamento</a>
+        <a href="index.html#servicos">Serviços</a>
+        <a href="perfil.html">Perfil</a>
+      </nav>
+      <div class="cabecalho__acoes">
+        <div data-auth-slot></div>
+        <button id="botao-menu" class="btn-hamburguer" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu">☰</button>
+      </div>
+    </div>
+    <nav id="menu-mobile" class="menu-mobile" aria-label="Menu do Tutor (celular)" hidden>
+      <a href="tutor.html">Painel</a>
+      <a href="animais.html">Meus animais</a>
+      <a href="agendar.html" aria-current="page">Novo agendamento</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="perfil.html">Perfil</a>
+    </nav>
+  </header>
+
+  <!--
+    FUNDO DECORATIVO DAS LATERAIS (somente visual, mesmo padrão de "Meus Animais").
+    Camada fixa atrás de todo o conteúdo (z-index negativo): não recebe cliques e não cobre nada.
+  -->
+  <div class="agendar-fundo" aria-hidden="true">
+    <span class="agendar-fundo__onda-topo"></span>
+    <span class="agendar-fundo__pata agendar-fundo__pata--1"></span>
+    <span class="agendar-fundo__pata agendar-fundo__pata--2"></span>
+    <span class="agendar-fundo__pata agendar-fundo__pata--3"></span>
+    <span class="agendar-fundo__pata agendar-fundo__pata--4"></span>
+    <span class="agendar-fundo__pata agendar-fundo__pata--5"></span>
+    <span class="agendar-fundo__osso agendar-fundo__osso--1"></span>
+    <span class="agendar-fundo__osso agendar-fundo__osso--2"></span>
+    <div class="agendar-fundo__ilustracao"><img src="img/C%C3%A3o%20e%20Gato%20com%20Acess%C3%B3rios%20Pet.png" alt="" width="1287" height="1222" loading="lazy" decoding="async"></div>
+    <span class="agendar-fundo__onda agendar-fundo__onda--tras"></span>
+    <span class="agendar-fundo__onda agendar-fundo__onda--frente"></span>
+    <span class="agendar-fundo__onda-laranja"></span>
+  </div>
+
+  <main id="conteudo" class="container agendar-pagina" data-page-content>
+    <header class="agendar-intro">
+      <!-- Camada decorativa do topo (área azul ondulada e faixa laranja). Fica atrás do conteúdo e não recebe cliques. -->
+      <div class="agendar-intro__decoracao" aria-hidden="true">
+        <span class="agendar-intro__area"></span>
+        <span class="agendar-intro__onda"></span>
+      </div>
+
+      <div class="agendar-intro__texto">
+        <p class="agendar-kicker">Banho, tosa e cuidados</p>
+        <h1>Novo Agendamento</h1>
+        <p>Escolha o serviço, o pet, a data e o horário. Nós confirmamos a disponibilidade na hora.</p>
+      </div>
+
+      <div class="agendar-intro__arte" aria-hidden="true">
+        <!--
+          IMAGEM DECORATIVA PRINCIPAL (mesmo espaço reservado de "Meus Animais").
+          Para colocar a imagem definitiva, insira um <img src="img/NOME-DA-IMAGEM.png" alt=""> dentro do div abaixo.
+          Enquanto o div estiver vazio, aparece um calendário com pata (somente CSS), que some sozinho com o <img>.
+        -->
+        <div class="agendar__imagem-decorativa"></div>
+      </div>
+    </header>
+
+    <!-- Carregamento, erros e estados vazios são desenhados aqui pelo agendar.js -->
+    <div id="agendar-estado" aria-live="polite"></div>
+
+    <div id="agendar-conteudo" class="agendar-layout" hidden>
+      <section class="cartao agendar-card" aria-labelledby="agendar-form-titulo">
+        <div class="agendar-card__cabecalho">
+          <span class="agendar-icone" aria-hidden="true">📅</span>
+          <div>
+            <h2 id="agendar-form-titulo">Dados do agendamento</h2>
+            <p>Os campos com <span class="agendar-obrigatorio">*</span> são obrigatórios.</p>
+          </div>
+        </div>
+
+        <form id="form-agendar" novalidate>
+          <div id="agendar-erro" class="agendar-alerta" role="alert" hidden></div>
+
+          <fieldset class="agendar-etapa">
+            <legend><span class="agendar-etapa__numero" aria-hidden="true">1</span> Serviço e pet</legend>
+            <div class="agendar-grade">
+              <div class="campo">
+                <label class="campo__rotulo" for="ag-servico">Serviço <span class="agendar-obrigatorio">*</span></label>
+                <select class="campo__entrada" id="ag-servico" name="servico_id" required aria-describedby="erro-ag-servico"></select>
+                <p class="campo__erro" id="erro-ag-servico" hidden></p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="ag-pet">Pet <span class="agendar-obrigatorio">*</span></label>
+                <select class="campo__entrada" id="ag-pet" name="animal_id" required aria-describedby="erro-ag-pet"></select>
+                <p class="campo__erro" id="erro-ag-pet" hidden></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="agendar-etapa">
+            <legend><span class="agendar-etapa__numero" aria-hidden="true">2</span> Data e horário</legend>
+            <div class="agendar-grade">
+              <div class="campo">
+                <label class="campo__rotulo" for="ag-data">Data <span class="agendar-obrigatorio">*</span></label>
+                <input class="campo__entrada" id="ag-data" name="data" type="date" required aria-describedby="erro-ag-data">
+                <p class="campo__erro" id="erro-ag-data" hidden></p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="ag-horario">Horário <span class="agendar-obrigatorio">*</span></label>
+                <select class="campo__entrada" id="ag-horario" name="horario" required aria-describedby="ag-horario-dica erro-ag-horario">
+                  <option value="">Selecione um horário</option>
+                  <optgroup label="Manhã"><option value="08:00">08:00</option><option value="09:00">09:00</option><option value="10:00">10:00</option><option value="11:00">11:00</option></optgroup>
+                  <optgroup label="Tarde"><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option></optgroup>
+                </select>
+                <p id="ag-horario-dica" class="agendar-dica">A disponibilidade é confirmada ao enviar.</p>
+                <p class="campo__erro" id="erro-ag-horario" hidden></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="agendar-etapa">
+            <legend><span class="agendar-etapa__numero" aria-hidden="true">3</span> Observações <span class="agendar-opcional">(opcional)</span></legend>
+            <div class="campo">
+              <label class="somente-leitor" for="ag-observacao">Observações</label>
+              <textarea class="campo__entrada agendar-textarea" id="ag-observacao" name="observacao" rows="3" maxlength="300" placeholder="Ex.: meu pet fica ansioso com secador." aria-describedby="ag-observacao-contador erro-ag-observacao"></textarea>
+              <p id="ag-observacao-contador" class="agendar-dica agendar-contador">0/300</p>
+              <p class="campo__erro" id="erro-ag-observacao" hidden></p>
+            </div>
+          </fieldset>
+
+          <div class="agendar-acoes">
+            <a class="btn btn--contorno agendar-botao" href="tutor.html">Cancelar</a>
+            <button id="ag-confirmar" class="btn btn--laranja agendar-botao" type="submit">Confirmar Agendamento</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="agendar-lateral" aria-labelledby="resumo-titulo">
+        <div class="cartao agendar-resumo">
+          <figure class="agendar-resumo__foto">
+            <img src="img/hero-pets.jpg" alt="" width="1600" height="900" loading="lazy" onerror="this.parentNode.hidden=true">
+          </figure>
+          <div class="agendar-resumo__corpo">
+            <h2 id="resumo-titulo">Resumo</h2>
+            <dl class="agendar-resumo__lista">
+              <div><dt>Serviço</dt><dd id="resumo-servico">Não selecionado</dd></div>
+              <div><dt>Pet</dt><dd id="resumo-pet">Não selecionado</dd></div>
+              <div><dt>Data e horário</dt><dd id="resumo-data">Não selecionado</dd></div>
+              <div><dt>Duração</dt><dd id="resumo-duracao">—</dd></div>
+            </dl>
+            <div class="agendar-resumo__total"><span>Valor</span><strong id="resumo-preco">—</strong></div>
+          </div>
+        </div>
+        <ul class="agendar-garantias">
+          <li><span aria-hidden="true">✓</span> Conflito de horário verificado na hora</li>
+          <li><span aria-hidden="true">✓</span> Cancelamento com até 2 horas de antecedência</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section id="agendar-sucesso" class="cartao agendar-sucesso" aria-labelledby="sucesso-titulo" tabindex="-1" hidden>
+      <span class="agendar-sucesso__icone" aria-hidden="true">✓</span>
+      <h2 id="sucesso-titulo">Agendamento realizado com sucesso!</h2>
+      <p>Seu pedido foi registrado. Confira os detalhes:</p>
+      <dl class="agendar-sucesso__detalhes">
+        <div><dt>Serviço</dt><dd id="sucesso-servico"></dd></div>
+        <div><dt>Pet</dt><dd id="sucesso-pet"></dd></div>
+        <div><dt>Data e horário</dt><dd id="sucesso-data"></dd></div>
+        <div><dt>Status</dt><dd><span id="sucesso-status" class="agendar-status"></span></dd></div>
+      </dl>
+      <div class="agendar-sucesso__acoes">
+        <a class="btn btn--laranja agendar-botao" href="tutor.html">Voltar ao Painel do Tutor</a>
+        <button id="agendar-outro" class="btn btn--contorno agendar-botao" type="button">Fazer outro agendamento</button>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contato" class="rodape">
+    <div class="container rodape__grade">
+      <section class="rodape__marca" aria-label="Sobre o PratiCão">
+        <a href="index.html" class="rodape__logo"><img src="img/logo.png" alt="PratiCão" width="76" height="76"></a>
+        <p>Líder no cuidado com seu pet, com amor, carinho e profissionalismo. Porque eles merecem o melhor!</p>
+        <div class="redes" aria-label="Redes sociais e contato">
+          <a href="#" aria-label="Instagram (em breve)" data-em-breve><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="icone-ponto" cx="17.6" cy="6.8" r="1"/></svg></a>
+          <a href="https://wa.me/5511987654321" target="_blank" rel="noopener noreferrer" aria-label="Conversar pelo WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3.5 20l1.1-4.4a8.2 8.2 0 1 1 15.6-3.9Z"/><path d="M9 8.3c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.6.7c-.2.2-.2.4 0 .6.5.9 1.3 1.6 2.2 2.1.2.1.4.1.6-.1l.8-.9c.2-.2.4-.2.7-.1l1.5.7c.3.1.4.3.4.5 0 .4-.2 1-.6 1.3-.4.4-1.1.6-1.8.5-1.1-.2-2.5-.9-3.8-2.1-1.2-1.1-2-2.4-2.2-3.4-.2-.8 0-1.5.4-2Z"/></svg></a>
+          <a href="#" aria-label="Facebook (em breve)" data-em-breve><svg viewBox="0 0 24 24" aria-hidden="true"><path class="icone-cheio" d="M13.7 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5H17V3.6c-.3 0-1.2-.1-2.3-.1-2.4 0-4.1 1.5-4.1 4.2v2.3H8v3.1h2.6v8h3.1Z"/></svg></a>
+          <a href="mailto:contato@praticao.com.br" aria-label="Enviar e-mail para o PratiCão"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+        </div>
+      </section>
+      <nav class="rodape__links" aria-label="Links rápidos"><h2>Links Rápidos</h2><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a><a href="tutor.html" data-area="tutor">Área do Tutor</a><a href="painel.html" data-area="funcionario">Área do Funcionário</a></nav>
+      <section class="rodape__contato"><h2>Fale Conosco</h2><p><span class="rodape__icone rodape__icone--local" aria-hidden="true"></span>Rua das Flores, 123 - Centro<br>São Paulo - SP - CEP: 01010-987</p><a href="tel:+5511987654321"><span class="rodape__icone rodape__icone--telefone" aria-hidden="true"></span>(11) 98765-4321</a><a href="mailto:contato@praticao.com.br"><span class="rodape__icone rodape__icone--email" aria-hidden="true"></span>contato@praticao.com.br</a><p><span class="rodape__icone rodape__icone--horario" aria-hidden="true"></span>Segunda à Sexta: 8h às 19h<br>Sábados: 8h às 15h<br>Domingos: 9h às 13h</p></section>
+      <section class="rodape__seguranca"><h2>Segurança e Conformidade</h2><p><b>Ambiente Seguro.</b><br>Seus dados protegidos.</p><p class="rodape__pagamentos-titulo">Formas de pagamento:</p><div class="pagamentos" aria-label="Bandeiras e formas de pagamento"><span class="pagamento-badge pagamento-badge--visa" role="img" aria-label="Visa">VISA</span><span class="pagamento-badge pagamento-badge--mastercard" role="img" aria-label="Mastercard"><span class="mastercard-simbolo" aria-hidden="true"><i></i><i></i></span><b>mastercard</b></span><span class="pagamento-badge pagamento-badge--elo" role="img" aria-label="Elo"><b>elo</b></span><span class="pagamento-badge pagamento-badge--pix" role="img" aria-label="Pix"><svg class="pix-logo" viewBox="0 0 226 98" aria-hidden="true"><g fill="#35b9aa"><rect x="22" y="25" width="28" height="28" rx="7" transform="rotate(45 36 39)"/><rect x="42" y="5" width="28" height="28" rx="7" transform="rotate(45 56 19)"/><rect x="62" y="25" width="28" height="28" rx="7" transform="rotate(45 76 39)"/><rect x="42" y="45" width="28" height="28" rx="7" transform="rotate(45 56 59)"/></g><text x="99" y="58" fill="#e7eef8" font-family="Arial, sans-serif" font-size="57" font-weight="300" letter-spacing="-3">pix</text><circle cx="176" cy="12" r="3.5" fill="#35b9aa"/><text x="101" y="76" fill="#c4d3e8" font-family="Arial, sans-serif" font-size="7.5" letter-spacing=".15">powered by Banco Central</text></svg></span></div></section>
+    </div>
+    <div class="rodape__final"><div class="container">© 2026 PratiCão. Todos os direitos reservados.</div></div>
+  </footer>
+
+  <script src="js/ui.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/header.js?v=2"></script>
+  <script src="js/agendar.js?v=2"></script>
+</body>
+</html>

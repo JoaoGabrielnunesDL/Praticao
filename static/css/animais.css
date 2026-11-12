@@ -1,0 +1,307 @@
+/* Tela "Meus Animais" — este arquivo só é carregado em animais.html. */
+body { background: #f4f7fc; }
+/* Página mais larga que o padrão (1200px); o header desta página acompanha para manter o alinhamento. */
+.animais-pagina.container, .cabecalho .container { max-width: 1360px; }
+.animais-pagina { padding-block: 34px 88px; }
+@media (min-width: 1100px) { .animais-pagina.container, .cabecalho .container { padding-inline: clamp(32px, 4.2vw, 72px); } }
+/* Cabeçalho desta página integrado ao fundo e item ativo destacado em laranja. */
+.cabecalho { background: rgba(255, 255, 255, .78); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.cabecalho .menu-principal a[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--laranja); }
+
+/* =========================================================
+   Abertura (hero) com espaço para a ilustração principal
+   ========================================================= */
+.animais-intro {
+  --intro-pad-y: clamp(36px, 4vw, 52px);
+  position: relative; display: grid;
+  grid-template-areas: "texto arte" "acao arte";
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 400px);
+  grid-template-rows: auto 1fr;
+  gap: 26px 40px; min-height: 340px; margin: 18px 0 30px;
+  padding: var(--intro-pad-y) clamp(24px, 4.5vw, 64px);
+  border: 1px solid #e1eaf6; border-radius: 32px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 24px 48px -30px rgba(20, 58, 158, .4);
+}
+.animais-intro__texto { grid-area: texto; position: relative; z-index: 2; min-width: 0; max-width: 620px; align-self: end; }
+.animais-intro__acao { grid-area: acao; position: relative; z-index: 2; align-self: start; }
+.animais-kicker { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; padding: 6px 14px; border-radius: 999px; background: #fff; color: var(--laranja-escuro); font-size: .76rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; box-shadow: 0 1px 2px rgba(15, 23, 42, .06); }
+.animais-intro h1 { margin-bottom: 14px; font-size: clamp(2.4rem, 4.6vw, 3.6rem); letter-spacing: -.02em; line-height: 1.04; }
+.animais-intro__texto > p:last-child { max-width: 30em; margin: 0; color: var(--texto-suave); font-size: clamp(1.02rem, 1.4vw, 1.18rem); line-height: 1.6; }
+.animais-botao { min-height: 46px; padding-inline: 20px; }
+.animais-botao span[aria-hidden] { font-size: 1.25rem; line-height: 1; }
+.animais-botao--novo { min-height: 56px; padding-inline: 30px; font-size: 1.05rem; box-shadow: 0 14px 28px -12px rgba(234, 108, 0, .6); }
+.animais-botao:disabled { cursor: wait; opacity: .6; }
+
+/* Traços laranja ao lado do título (somente decoração). */
+.animais-intro h1 { position: relative; width: fit-content; max-width: 100%; }
+.animais-intro h1::after { position: absolute; top: -18px; right: -54px; width: 44px; height: 40px; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40' fill='none' stroke='%23ff8a0a' stroke-width='4.5' stroke-linecap='round'%3E%3Cpath d='M7 21 11 6M15 27l12-11M17 36l16-2'/%3E%3C/svg%3E"); content: ''; pointer-events: none; }
+
+/* Camada decorativa: recortada pelos cantos arredondados do painel. */
+.animais-intro__decoracao { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.animais-intro__area { position: absolute; top: 0; right: 0; bottom: 0; width: 58%; background: no-repeat right top / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23eef5ff'/%3E%3Cstop offset='1' stop-color='%23cfe1fb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M700 0v400H40c90-30 120-120 190-170S380 190 430 120 560 10 700 0Z'/%3E%3C/svg%3E"); }
+.animais-intro__onda { position: absolute; right: 0; bottom: 0; width: 72%; height: 34%; background: no-repeat right bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 140' preserveAspectRatio='none'%3E%3Cpath fill='%2392b8f5' fill-opacity='.55' d='M0 140c120-70 230-90 360-60s260 50 440-60v120Z'/%3E%3Cpath fill='%235f93f2' fill-opacity='.55' d='M220 140c90-50 180-60 280-40s200 20 300-40v80Z'/%3E%3Cpath fill='none' stroke='%23ffa53a' stroke-width='7' d='M380 136c110-20 230-10 300-40s90-40 120-70'/%3E%3C/svg%3E"); }
+
+/* Área da ilustração principal */
+.animais-intro__arte { grid-area: arte; position: relative; z-index: 1; min-height: 240px; }
+.animais__imagem-decorativa { position: absolute; right: 0; bottom: calc(-1 * var(--intro-pad-y)); left: 0; display: flex; align-items: center; justify-content: center; aspect-ratio: 1; pointer-events: none; }
+.animais__imagem-decorativa img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 18px 22px rgba(20, 58, 158, .2)); }
+/* Marcador provisório enquanto o container estiver vazio (comentários não contam): pata grande vazada.
+   Some quando o <img> é inserido. */
+.animais__imagem-decorativa:empty::before { width: 58%; aspect-ratio: 1; margin-bottom: 8%; transform: rotate(14deg); background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='.28' stroke='%23ffffff' stroke-width='.9'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); filter: drop-shadow(0 6px 10px rgba(20, 58, 158, .12)); content: ''; }
+
+/* =========================================================
+   Avisos
+   ========================================================= */
+.animais-info { display: inline-flex; align-items: center; gap: 8px; margin: 0; color: var(--texto-suave); font-size: .9rem; }
+.animais-info span { display: grid; flex: 0 0 20px; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: var(--azul-claro); color: var(--azul); font-size: .74rem; font-style: italic; font-weight: 900; }
+
+.animais-feedback { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 24px; padding: 14px 14px 14px 16px; border: 1px solid; border-left-width: 6px; border-radius: 14px; }
+.animais-feedback__icone { display: grid; flex: 0 0 32px; width: 32px; height: 32px; place-items: center; border-radius: 50%; color: #fff; font-weight: 900; }
+.animais-feedback__texto { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.animais-feedback__texto strong { display: block; margin-bottom: 2px; font-size: 1.02rem; }
+.animais-feedback__texto p { margin: 0; }
+.animais-feedback__fechar { flex: 0 0 36px; min-height: 36px; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.animais-feedback__fechar:hover { background: rgba(0, 0, 0, .06); }
+.animais-feedback--sucesso { border-color: #86efac; border-left-color: #15803d; background: #f0fdf4; color: #14532d; }
+.animais-feedback--sucesso .animais-feedback__icone { background: #15803d; }
+.animais-feedback--sucesso .animais-feedback__icone::before { content: '✓'; }
+.animais-feedback--bloqueio { border-color: #fdba74; border-left-color: #c2410c; background: #fff7ed; color: #7c2d12; }
+.animais-feedback--bloqueio .animais-feedback__icone { background: #c2410c; }
+.animais-feedback--bloqueio .animais-feedback__icone::before { content: '!'; }
+
+/* =========================================================
+   Corpo: lista + coluna lateral (resumo e CTA)
+   ========================================================= */
+.animais-corpo { display: grid; grid-template-areas: "resumo" "lista" "mais"; grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: start; }
+.animais-resumo { grid-area: resumo; }
+.animais-lista-secao { grid-area: lista; min-width: 0; }
+.animais-mais { grid-area: mais; }
+
+/* Resumo */
+.animais-resumo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; overflow: hidden; border: 1px solid #e1eaf6; border-radius: 24px; background: #fff; box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 12px 30px -22px rgba(20, 58, 158, .35); }
+.animais-resumo__item { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 22px 24px; }
+.animais-resumo__item + .animais-resumo__item { border-left: 1px solid #edf2f9; }
+.animais-resumo__icone { display: grid; flex: 0 0 52px; width: 52px; height: 52px; place-items: center; border-radius: 16px; background: linear-gradient(145deg, #eef5ff, #dcebff); color: var(--azul); }
+.animais-resumo__icone svg { width: 24px; height: 24px; fill: currentColor; }
+.animais-resumo__icone--laranja { background: linear-gradient(145deg, #fff6ec, #ffe9d2); color: var(--laranja-escuro); }
+.animais-resumo__icone--laranja svg { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+.animais-resumo__item strong { display: block; color: var(--azul-escuro); font-size: 2rem; line-height: 1.05; letter-spacing: -.01em; }
+.animais-resumo__item span:not(.animais-resumo__icone) { color: var(--texto-suave); font-size: .9rem; font-weight: 600; }
+
+/* Seus companheiros */
+.animais-lista-cabecalho { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 24px; margin-bottom: 20px; }
+.animais-lista-cabecalho h2 { margin: 0 0 4px; font-size: clamp(1.45rem, 2.2vw, 1.75rem); letter-spacing: -.01em; }
+.animais-contagem { min-height: 1.4em; margin: 0; color: var(--texto-suave); font-size: .98rem; }
+.animais-lista { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+
+/* =========================================================
+   Card do animal
+   ========================================================= */
+.animal-card { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; grid-template-areas: "midia corpo acoes"; align-items: center; gap: 0 24px; min-width: 0; padding: 7px 14px 7px 7px; border: 1px solid #e1eaf6; border-radius: 18px; background: #fff; box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 10px 24px -18px rgba(20, 58, 158, .35); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.animal-card:hover { border-color: #cfdff3; box-shadow: 0 2px 4px rgba(15, 23, 42, .05), 0 16px 32px -18px rgba(20, 58, 158, .45); transform: translateY(-1px); }
+.animal-card__midia { grid-area: midia; position: relative; width: 76px; height: 76px; overflow: hidden; border-radius: 14px; background: linear-gradient(150deg, #eaf3ff, #f6f9ff 60%, #fff4e8); }
+.animal-card__foto { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.animal-card:hover .animal-card__foto { transform: scale(1.05); }
+.animal-card__ilustracao { display: grid; width: 100%; height: 100%; place-items: center; color: #b9cce8; }
+.animal-card__ilustracao svg { width: 52%; fill: currentColor; }
+/* Selo "Imagem ilustrativa": pequeno, no canto inferior esquerdo da foto. */
+.animal-card__selo { position: absolute; z-index: 1; bottom: 3px; left: 3px; max-width: calc(100% - 6px); padding: 1px 3px; border-radius: 999px; background: rgba(15, 23, 42, .62); color: #fff; font-size: .45rem; font-weight: 600; line-height: 1.3; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none; }
+/* Nome, espécie e raça lado a lado, alinhados ao centro da linha. */
+.animal-card__corpo { grid-area: corpo; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; min-width: 0; }
+.animal-card__nome { margin: 0; color: var(--azul-escuro); font-size: 1.12rem; line-height: 1.2; letter-spacing: -.01em; overflow-wrap: anywhere; }
+.animal-card__especie { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; margin: 0; padding: 3px 10px; border-radius: 999px; background: var(--azul-claro); color: var(--azul-escuro); font-size: .82rem; font-weight: 700; overflow-wrap: anywhere; }
+.animal-card__raca { margin: 0; color: var(--texto-suave); font-size: .92rem; overflow-wrap: anywhere; }
+.animal-card__raca--vazia { font-style: italic; }
+.animal-card__acoes { grid-area: acoes; display: grid; grid-template-columns: auto auto; gap: 8px; }
+.animal-card__botao { display: inline-flex; min-height: 38px; align-items: center; justify-content: center; gap: 6px; padding: 6px 14px; border: 1.5px solid; border-radius: 11px; background: #fff; font: inherit; font-size: .92rem; font-weight: 700; cursor: pointer; transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
+.animal-card__botao svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.animal-card__botao--editar { border-color: #c9daf2; color: var(--azul); }
+.animal-card__botao--editar:hover { border-color: var(--azul); background: var(--azul); color: #fff; }
+.animal-card__botao--excluir { border-color: #f1d3d3; color: #b42318; }
+.animal-card__botao--excluir:hover { border-color: #d92d20; background: #fef3f2; }
+.animal-card__botao:disabled { cursor: wait; opacity: .6; }
+
+/* =========================================================
+   Estado vazio
+   ========================================================= */
+.animais-vazio { position: relative; display: grid; justify-items: center; gap: 10px; overflow: hidden; padding: clamp(44px, 7vw, 72px) 24px; border: 1.5px dashed #c9daf2; border-radius: 26px; background: radial-gradient(circle at 50% 0%, #f3f8ff 0%, #ffffff 60%); text-align: center; }
+.animais-vazio__icone { display: grid; width: 92px; height: 92px; margin-bottom: 8px; place-items: center; border-radius: 46% 54% 50% 50% / 55% 45% 55% 45%; background: linear-gradient(145deg, #eef5ff, #dcebff); color: var(--azul); box-shadow: 0 18px 30px -20px rgba(20, 58, 158, .5); }
+.animais-vazio__icone svg { width: 42px; height: 42px; fill: currentColor; }
+.animais-vazio h3 { margin: 0; color: var(--azul-escuro); font-size: 1.4rem; }
+.animais-vazio p { max-width: 40ch; margin: 0 0 14px; color: var(--texto-suave); }
+
+/* =========================================================
+   CTA "Tem outro companheiro?"
+   ========================================================= */
+.animais-mais, .animais-mais[hidden] { display: none !important; }
+.animais-mais { position: relative; flex-wrap: wrap; align-items: center; gap: 18px 24px; overflow: hidden; padding: 26px 28px; border-radius: 24px; background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul) 100%); color: #fff; box-shadow: 0 22px 40px -26px rgba(20, 58, 158, .8); isolation: isolate; }
+.animais-mais::before { position: absolute; z-index: -1; right: -40px; bottom: -60px; width: 190px; aspect-ratio: 1; border-radius: 50%; background: rgba(255, 255, 255, .07); content: ''; }
+.animais-mais__icone { display: grid; flex: 0 0 52px; width: 52px; height: 52px; place-items: center; border-radius: 16px; background: rgba(255, 255, 255, .14) no-repeat center / 26px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); }
+.animais-mais > div { flex: 1 1 220px; min-width: 0; }
+.animais-mais h2 { margin: 0 0 4px; color: #fff; font-size: 1.2rem; }
+.animais-mais p { margin: 0; color: rgba(255, 255, 255, .82); }
+.animais-mais .btn--contorno { border-color: #fff; background: #fff; color: var(--azul-escuro); }
+.animais-mais .btn--contorno:hover { background: #eef5ff; }
+
+/* =========================================================
+   Modal de cadastro e edição (sem mudança de comportamento)
+   ========================================================= */
+.animais-modal { width: min(560px, calc(100vw - 24px)); max-width: none; max-height: calc(100dvh - 24px); padding: 0; border: 0; border-radius: 22px; color: var(--texto); box-shadow: 0 24px 64px rgba(15, 23, 42, .3); overflow: hidden; }
+.animais-modal[open] { display: flex; flex-direction: column; }
+.animais-modal::backdrop { background: rgba(15, 23, 42, .6); }
+.animais-modal__form { display: flex; flex-direction: column; min-height: 0; max-height: calc(100dvh - 24px); margin: 0; }
+.animais-modal__cabecalho { display: flex; align-items: center; gap: 13px; padding: 20px 20px 16px 24px; border-bottom: 1px solid var(--azul-borda); }
+.animais-modal__cabecalho > div { flex: 1; min-width: 0; }
+.animais-modal__cabecalho h2 { margin: 0 0 4px; color: var(--azul-escuro); font-size: 1.35rem; }
+.animais-modal__cabecalho p { margin: 0; color: var(--texto-suave); font-size: .92rem; }
+.animais-icone { display: grid; flex: 0 0 46px; width: 46px; height: 46px; place-items: center; border-radius: 14px; background: #fff2e5; color: var(--laranja-escuro); font-size: 1.4rem; font-weight: 800; }
+.animais-modal__fechar { flex: 0 0 42px; align-self: flex-start; width: 42px; height: 42px; border: 0; border-radius: 10px; background: transparent; color: var(--texto-suave); font-size: 1.8rem; line-height: 1; cursor: pointer; }
+.animais-modal__fechar:hover { background: var(--azul-claro); color: var(--azul-escuro); }
+.animais-modal__fechar:disabled { cursor: wait; opacity: .5; }
+.animais-modal__corpo { flex: 1 1 auto; min-height: 0; padding: 20px 24px 4px; overflow-y: auto; overscroll-behavior: contain; }
+.animais-modal__corpo .campo__entrada { width: 100%; }
+.animais-modal__corpo .campo__entrada:disabled { background: #f3f4f6; cursor: wait; }
+.animais-modal__corpo .campo__entrada[aria-invalid='true'] { border-width: 2px; background: #fffafa; }
+.animais-modal__corpo .campo__erro { margin: 5px 0 0; font-weight: 600; }
+.animais-modal__corpo .campo__erro::before { content: '⚠ '; }
+.animais-modal__acoes { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; padding: 16px 24px 20px; border-top: 1px solid var(--azul-borda); background: #fafcff; }
+.animais-obrigatorio { color: var(--erro); }
+.animais-opcional { color: var(--texto-suave); font-size: .9em; font-weight: 600; }
+.animais-alerta { margin-bottom: 16px; padding: 12px 14px; border: 1px solid #fecaca; border-radius: 10px; background: #fef2f2; color: var(--erro); font-weight: 600; }
+
+.animais-pagina button:focus-visible, .animais-modal button:focus-visible, .animais-feedback button:focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
+.animais-mais button:focus-visible { outline-color: #fff; }
+.animais-pagina .btn--laranja:hover, .animais-modal .btn--laranja:hover { filter: brightness(.95); }
+
+/* =========================================================
+   Responsividade
+   ========================================================= */
+/* Desktop: lista à esquerda, resumo e CTA numa coluna lateral. */
+@media (min-width: 1100px) {
+  .animais-corpo { grid-template-areas: "lista resumo" "lista mais"; grid-template-columns: minmax(0, 1fr) 330px; grid-template-rows: auto 1fr; gap: 28px 32px; }
+  .animais-resumo { grid-template-columns: minmax(0, 1fr); margin-top: 58px; }
+  .animais-resumo__item + .animais-resumo__item { border-top: 1px solid #edf2f9; border-left: 0; }
+  .animais-mais { flex-direction: column; align-items: stretch; padding: 28px; }
+  .animais-mais > div { flex: none; }
+  .animais-mais .animais-botao { width: 100%; }
+}
+/* Tablet */
+@media (max-width: 900px) {
+  .animais-intro { grid-template-columns: minmax(0, 1fr) clamp(220px, 34vw, 300px); gap: 22px 28px; min-height: 300px; }
+  .animais-intro__area { width: 62%; }
+}
+/* Celular: a ilustração passa para o topo do painel e o conteúdo fica centralizado abaixo. */
+@media (max-width: 600px) {
+  .animais-pagina { padding-block: 18px 56px; }
+  .animais-intro { --intro-pad-y: 26px; grid-template-areas: "arte" "texto" "acao"; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; gap: 18px; min-height: 0; margin: 8px 0 22px; padding: 26px 20px 24px; border-radius: 26px; text-align: center; }
+  .animais-intro__texto { align-self: auto; justify-self: center; }
+  .animais-intro__texto > p:last-child { margin-inline: auto; }
+  .animais-intro h1 { margin-inline: auto; }
+  .animais-intro h1 { font-size: 2.3rem; }
+  .animais-intro__arte { min-height: 0; height: 150px; }
+  .animais__imagem-decorativa { top: 0; bottom: auto; left: 50%; right: auto; width: 150px; transform: translateX(-50%); }
+  .animais__imagem-decorativa:empty::before { width: 72%; margin-bottom: 0; }
+  .animais-intro__area { top: 0; bottom: auto; left: 0; width: 100%; height: 200px; transform: scaleX(-1); }
+  .animais-intro__onda { width: 100%; height: 60px; top: 140px; bottom: auto; }
+  .animais-intro h1::after { right: -40px; width: 34px; height: 30px; top: -12px; }
+  .animais-botao--novo { width: 100%; }
+  .animais-corpo { gap: 22px; }
+  .animais-resumo__item { flex-direction: column; align-items: flex-start; gap: 10px; padding: 18px; }
+  .animais-resumo__icone { flex-basis: auto; width: 44px; height: 44px; }
+  .animais-resumo__item strong { font-size: 1.7rem; }
+  .animais-lista { gap: 10px; }
+  .animal-card { grid-template-columns: 70px minmax(0, 1fr); grid-template-areas: "midia corpo" "acoes acoes"; gap: 10px 16px; padding: 10px; }
+  .animal-card__midia { width: 70px; height: 70px; border-radius: 12px; }
+  .animal-card__selo { bottom: 2px; left: 2px; max-width: calc(100% - 4px); padding: 1px 2px; font-size: .42rem; letter-spacing: -.03em; }
+  .animal-card__corpo { gap: 4px 10px; }
+  .animal-card__nome { flex-basis: 100%; font-size: 1.05rem; }
+  .animal-card__acoes { grid-template-columns: 1fr 1fr; }
+  .animal-card__botao { width: 100%; }
+  .animais-mais { padding: 22px; text-align: left; }
+  .animais-mais .animais-botao { width: 100%; }
+  .animais-modal { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); border-radius: 16px; }
+  .animais-modal__form { max-height: calc(100dvh - 16px); }
+  .animais-modal__cabecalho { padding: 16px 14px 12px 16px; }
+  .animais-modal__corpo { padding: 16px 16px 4px; }
+  .animais-modal__acoes { display: grid; grid-template-columns: 1fr 1fr; padding: 12px 16px 16px; }
+  .animais-modal__acoes .animais-botao { width: 100%; padding-inline: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animais-pagina * { scroll-behavior: auto !important; }
+  .animal-card, .animal-card__foto { transition: none; }
+  .animal-card:hover, .animal-card:hover .animal-card__foto { transform: none; }
+}
+
+/* =========================================================
+   Fundo decorativo das laterais (somente visual)
+   Camada fixa atrás de todo o conteúdo: z-index negativo, sem cliques, recortada na tela
+   (não gera rolagem). Os elementos ficam presos às bordas da janela, ou seja, nas laterais.
+   ========================================================= */
+.animais-fundo { --lateral: calc((100vw - 1360px) / 2 + clamp(32px, 4.2vw, 72px)); position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: linear-gradient(180deg, #f3f7fd 0%, #eef4fc 100%); }
+.animais-fundo > * { position: absolute; display: block; }
+
+/* Onda azul no canto superior esquerdo (aparece por trás do cabeçalho translúcido) */
+.animais-fundo__onda-topo { left: 0; top: 0; width: clamp(300px, 30vw, 560px); height: clamp(170px, 24vh, 300px); background: no-repeat left top / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 560 300' preserveAspectRatio='none'%3E%3Cpath fill='%23cfe1fb' d='M0 0h560c-60 40-120 30-190 70S250 200 160 230 40 280 0 300Z'/%3E%3Cpath fill='%23a9c8f7' fill-opacity='.7' d='M0 0h300c-40 30-70 60-130 80S50 160 0 200Z'/%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='5' stroke-opacity='.9' d='M0 150c60-20 100-60 150-100S260 10 320 0'/%3E%3C/svg%3E"); }
+
+/* Patinhas azuis sólidas */
+.animais-fundo__pata { width: 40px; aspect-ratio: 1; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235f93f2'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); opacity: .8; filter: drop-shadow(0 6px 8px rgba(37, 99, 235, .15)); }
+.animais-fundo__pata--1 { left: 10px; top: 22vh; transform: rotate(-14deg); }
+.animais-fundo__pata--2 { left: 12px; top: 40vh; width: 30px; transform: rotate(16deg); opacity: .65; }
+.animais-fundo__pata--3 { right: 10px; top: 20vh; transform: rotate(12deg); }
+.animais-fundo__pata--4 { right: 14px; top: 36vh; width: 30px; transform: rotate(-12deg); opacity: .65; }
+.animais-fundo__pata--5 { right: 12px; top: 66vh; width: 38px; transform: rotate(8deg); }
+
+/* Ossos com contorno */
+.animais-fundo__osso { width: 74px; height: 32px; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 28'%3E%3Cpath fill='%23ffffff' stroke='%235f93f2' stroke-width='2.4' d='M14 9.5h36a7 7 0 1 1 6 9.5 7 7 0 1 1-6 0H14a7 7 0 1 1-6-9.5 7 7 0 1 1 6 0Z'/%3E%3C/svg%3E"); filter: drop-shadow(0 6px 10px rgba(20, 58, 158, .12)); }
+.animais-fundo__osso--1 { right: 6px; top: 48vh; transform: rotate(-28deg); }
+.animais-fundo__osso--2 { left: 4px; top: 80vh; width: 58px; transform: rotate(24deg); opacity: .9; }
+
+/* Ilustração de cão e gato na lateral esquerda (só onde há espaço fora do conteúdo).
+   Provisória: foto já existente no projeto; some quando um <img> for inserido no container. */
+.animais-fundo__ilustracao { display: none; }
+.animais-fundo__ilustracao img { width: 100%; height: 100%; object-fit: contain; object-position: center bottom; position: relative; z-index: 1; display: block; filter: drop-shadow(0 18px 22px rgba(20, 58, 158, .22)); }
+/* Sombra suave no "chão" para integrar a ilustração ao fundo. */
+.animais-fundo__ilustracao::after { position: absolute; left: 12%; right: 8%; bottom: -4%; height: 16%; border-radius: 50%; background: radial-gradient(closest-side, rgba(20, 58, 158, .2), transparent); content: ''; }
+.animais-fundo__ilustracao:empty::before { position: absolute; inset: 0; border: 6px solid #fff; border-radius: 48% 52% 46% 54% / 38% 40% 60% 62%; background: #dcebff url("../img/Retrato Encantador de Cão e Gato.png") center 30% / cover no-repeat; box-shadow: 0 30px 50px -26px rgba(20, 58, 158, .55); content: ''; }
+
+/* Ondas azuis na parte inferior */
+.animais-fundo__onda { left: 0; right: 0; bottom: 0; background-repeat: no-repeat; background-size: 100% 100%; }
+.animais-fundo__onda--tras { height: 150px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 170' preserveAspectRatio='none'%3E%3Cpath fill='%23dcebff' fill-opacity='.85' d='M0 70c180-60 360-60 540 0s360 70 540 10 270-60 360-40v130H0Z'/%3E%3C/svg%3E"); }
+.animais-fundo__onda--frente { height: 96px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath fill='%23c3d9fa' fill-opacity='.85' d='M0 60c240 50 420 50 660 0s480-50 780 10v50H0Z'/%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='4' stroke-opacity='.8' d='M0 52c240 50 420 50 660 0s480-50 780 10'/%3E%3C/svg%3E"); }
+
+/* Grande onda laranja no canto inferior direito, com pata vazada */
+.animais-fundo__onda-laranja { right: 0; bottom: 0; width: clamp(240px, 28vw, 520px); height: clamp(150px, 26vh, 300px); background: no-repeat right bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 300' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='l' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffb257'/%3E%3Cstop offset='1' stop-color='%23f07a00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23l)' d='M520 0v300H0c80-10 150-50 210-110S340 40 520 0Z'/%3E%3Cpath fill='none' stroke='%23ffd9ad' stroke-width='5' d='M40 300c70-20 130-60 190-120S360 60 520 30'/%3E%3C/svg%3E"); }
+.animais-fundo__onda-laranja::after { position: absolute; right: 7%; bottom: 14%; width: 26%; aspect-ratio: 1; transform: rotate(10deg); background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='.12' stroke='%23ffffff' stroke-width='1.1'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); content: ''; }
+
+/* Telas largas: a faixa lateral livre cresce; patinhas e ossos maiores e centralizados nela. */
+@media (min-width: 1500px) {
+  .animais-fundo__pata { width: 58px; }
+  .animais-fundo__pata--1 { left: calc(var(--lateral) * .3); top: 15vh; }
+  .animais-fundo__pata--2 { left: calc(var(--lateral) * .12); top: 31vh; width: 42px; }
+  .animais-fundo__pata--3 { right: calc(var(--lateral) * .3); top: 15vh; }
+  .animais-fundo__pata--4 { right: calc(var(--lateral) * .16); top: 30vh; width: 42px; }
+  .animais-fundo__pata--5 { right: calc(var(--lateral) * .3); top: 64vh; width: 54px; }
+  .animais-fundo__osso--1 { right: calc(var(--lateral) * .2); top: 44vh; width: 96px; height: 42px; }
+  .animais-fundo__osso--2 { display: none; }
+  /* Ilustração de cão e gato ancorada no canto inferior esquerdo. O PNG tem ~7% de margem transparente à direita:
+     a parte visível termina sempre ao menos 12px antes do conteúdo. */
+  .animais-fundo__ilustracao { position: absolute; display: block; left: -32px; bottom: 5vh; width: min(400px, calc((var(--lateral) + 20px) * 1.07)); aspect-ratio: 1287 / 1222; }
+}
+/* Tablet: menos elementos, só nas bordas. */
+@media (max-width: 1100px) {
+  .animais-fundo__pata--2, .animais-fundo__pata--4, .animais-fundo__osso--2 { display: none; }
+  .animais-fundo__pata { width: 30px; opacity: .55; }
+  .animais-fundo__osso--1 { width: 56px; height: 24px; }
+  .animais-fundo__onda--tras { height: 110px; }
+  .animais-fundo__onda--frente { height: 70px; }
+}
+/* Até 900px não há lateral livre: a onda laranja ficaria atrás de textos ao rolar a página. */
+@media (max-width: 900px) { .animais-fundo__onda-laranja { display: none; } }
+/* Celular: só as ondas azuis menores; nada nas bordas estreitas. */
+@media (max-width: 600px) {
+  .animais-fundo__pata, .animais-fundo__osso { display: none; }
+  .animais-fundo__onda-topo { width: 260px; height: 150px; }
+  .animais-fundo__onda--tras { height: 80px; }
+  .animais-fundo__onda--frente { height: 50px; }
+}

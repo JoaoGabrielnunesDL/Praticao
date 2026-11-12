@@ -6,8 +6,9 @@
   <title>Entrar ou cadastrar-se | PratiCão</title>
   <meta name="description" content="Acesse sua conta PratiCão para cadastrar seus pets e agendar banho e tosa.">
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/componentes.css?v=2">
+  <link rel="stylesheet" href="css/componentes.css?v=4">
   <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/ui.css">
   <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
@@ -21,10 +22,6 @@
         <a class="barra-superior__email" href="mailto:contato@praticao.com.br">contato@praticao.com.br</a>
       </div>
       <div class="barra-superior__direita">
-        <span class="barra-superior__areas">
-          <a href="tutor.html" data-area="tutor">Área do Tutor</a>
-          <a href="painel.html" data-area="funcionario">Área do Funcionário</a>
-        </span>
         <span class="fonte-botoes">
           <span class="barra-superior__email">Acessibilidade:</span>
           <button type="button" data-fonte="menor" aria-label="Diminuir o tamanho da letra">A</button>
@@ -80,8 +77,10 @@
       <!-- Cartão de acesso -->
       <section class="auth__lado" aria-label="Acesso à conta">
         <div id="mensagem-pagina" class="mensagem-info" role="status" hidden></div>
+        <div id="contexto-area" class="mensagem-info" role="status" aria-live="polite" hidden><strong id="contexto-area-titulo"></strong><p id="contexto-area-mensagem"></p></div>
+        <section id="acesso-negado-login" class="mensagem-erro" role="alert" aria-live="assertive" hidden><p id="acesso-negado-mensagem"></p><button class="link-botao" id="acesso-negado-voltar" type="button">Ir para minha página inicial</button></section>
 
-        <div class="cartao auth__cartao">
+        <div class="cartao auth__cartao" id="cartao-autenticacao">
           <div class="abas" role="tablist" aria-label="Escolha entre entrar e cadastrar-se">
             <button class="aba" id="aba-entrar" role="tab" type="button" aria-selected="true" aria-controls="painel-entrar">Entrar</button>
             <button class="aba" id="aba-cadastro" role="tab" type="button" aria-selected="false" aria-controls="painel-cadastro" tabindex="-1">Cadastrar-se</button>
@@ -134,38 +133,11 @@
                   <p class="campo__erro" id="erro-cad-nome" hidden></p>
                 </div>
                 <div class="campo">
-                  <label class="campo__rotulo" for="cad-cpf">CPF (opcional)</label>
-                  <input class="campo__entrada" id="cad-cpf" name="cpf" type="text" inputmode="numeric" placeholder="000.000.000-00">
-                  <p class="campo__erro" id="erro-cad-cpf" hidden></p>
-                </div>
-                <div class="campo">
                 <label class="campo__rotulo" for="cad-telefone">Telefone / WhatsApp (opcional)</label>
                 <input class="campo__entrada" id="cad-telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000">
                   <p class="campo__erro" id="erro-cad-telefone" hidden></p>
                 </div>
-                <div class="campo">
-                  <label class="campo__rotulo" for="cad-nascimento">Data de nascimento (opcional)</label>
-                  <input class="campo__entrada" id="cad-nascimento" name="nascimento" type="date" autocomplete="bday">
-                </div>
               </fieldset>
-
-              <details class="grupo grupo--recolhivel">
-                <summary>Endereço (opcional)</summary>
-                <div class="campo">
-                  <label class="campo__rotulo" for="cad-cep">CEP</label>
-                  <input class="campo__entrada" id="cad-cep" name="cep" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000">
-                </div>
-                <div class="campo"><label class="campo__rotulo" for="cad-rua">Rua</label><input class="campo__entrada" id="cad-rua" name="rua" type="text" autocomplete="address-line1"></div>
-                <div class="campo-dupla">
-                  <div class="campo"><label class="campo__rotulo" for="cad-numero">Número</label><input class="campo__entrada" id="cad-numero" name="numero" type="text" inputmode="numeric"></div>
-                  <div class="campo"><label class="campo__rotulo" for="cad-complemento">Complemento</label><input class="campo__entrada" id="cad-complemento" name="complemento" type="text"></div>
-                </div>
-                <div class="campo"><label class="campo__rotulo" for="cad-bairro">Bairro</label><input class="campo__entrada" id="cad-bairro" name="bairro" type="text"></div>
-                <div class="campo-dupla">
-                  <div class="campo"><label class="campo__rotulo" for="cad-cidade">Cidade</label><input class="campo__entrada" id="cad-cidade" name="cidade" type="text" autocomplete="address-level2"></div>
-                  <div class="campo"><label class="campo__rotulo" for="cad-uf">UF</label><input class="campo__entrada" id="cad-uf" name="uf" type="text" maxlength="2" autocapitalize="characters" autocomplete="address-level1"></div>
-                </div>
-              </details>
 
               <fieldset class="grupo">
                 <legend>Acesso</legend>
@@ -223,15 +195,16 @@
         </div>
       </section>
       <nav class="rodape__links" aria-label="Links rápidos"><h2>Links Rápidos</h2><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a><a href="tutor.html" data-area="tutor">Área do Tutor</a><a href="painel.html" data-area="funcionario">Área do Funcionário</a></nav>
-      <section class="rodape__contato"><h2>Fale Conosco</h2><p>⌖ Rua das Flores, 123 - Centro<br>São Paulo - SP - CEP: 01010-987</p><a href="tel:+5511987654321">☎ (11) 98765-4321</a><a href="mailto:contato@praticao.com.br">✉ contato@praticao.com.br</a><p>◷ Segunda à Sexta: 8h às 19h<br>Sábados: 8h às 15h<br>Domingos: 9h às 13h</p></section>
+      <section class="rodape__contato"><h2>Fale Conosco</h2><p><span class="rodape__icone rodape__icone--local" aria-hidden="true"></span>Rua das Flores, 123 - Centro<br>São Paulo - SP - CEP: 01010-987</p><a href="tel:+5511987654321"><span class="rodape__icone rodape__icone--telefone" aria-hidden="true"></span>(11) 98765-4321</a><a href="mailto:contato@praticao.com.br"><span class="rodape__icone rodape__icone--email" aria-hidden="true"></span>contato@praticao.com.br</a><p><span class="rodape__icone rodape__icone--horario" aria-hidden="true"></span>Segunda à Sexta: 8h às 19h<br>Sábados: 8h às 15h<br>Domingos: 9h às 13h</p></section>
       <section class="rodape__seguranca"><h2>Segurança e Conformidade</h2><p><b>Ambiente Seguro.</b><br>Seus dados protegidos.</p><p class="rodape__pagamentos-titulo">Formas de pagamento:</p><div class="pagamentos" aria-label="Bandeiras e formas de pagamento"><span class="pagamento-badge pagamento-badge--visa" role="img" aria-label="Visa">VISA</span><span class="pagamento-badge pagamento-badge--mastercard" role="img" aria-label="Mastercard"><span class="mastercard-simbolo" aria-hidden="true"><i></i><i></i></span><b>mastercard</b></span><span class="pagamento-badge pagamento-badge--elo" role="img" aria-label="Elo"><b>elo</b></span><span class="pagamento-badge pagamento-badge--pix" role="img" aria-label="Pix"><svg class="pix-logo" viewBox="0 0 226 98" aria-hidden="true"><g fill="#35b9aa"><rect x="22" y="25" width="28" height="28" rx="7" transform="rotate(45 36 39)"/><rect x="42" y="5" width="28" height="28" rx="7" transform="rotate(45 56 19)"/><rect x="62" y="25" width="28" height="28" rx="7" transform="rotate(45 76 39)"/><rect x="42" y="45" width="28" height="28" rx="7" transform="rotate(45 56 59)"/></g><text x="99" y="58" fill="#e7eef8" font-family="Arial, sans-serif" font-size="57" font-weight="300" letter-spacing="-3">pix</text><circle cx="176" cy="12" r="3.5" fill="#35b9aa"/><text x="101" y="76" fill="#c4d3e8" font-family="Arial, sans-serif" font-size="7.5" letter-spacing=".15">powered by Banco Central</text></svg></span></div></section>
     </div>
     <div class="rodape__final"><div class="container">© 2026 PratiCão. Todos os direitos reservados.</div></div>
   </footer>
 
+  <script src="js/ui.js"></script>
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
-  <script src="js/header.js"></script>
+  <script src="js/header.js?v=2"></script>
   <script src="js/validacao.js"></script>
   <script src="js/login.js"></script>
 </body>

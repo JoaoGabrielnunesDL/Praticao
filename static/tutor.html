@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Resumo da área do tutor do PratiCão.">
+  <title>Painel do Tutor | PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css?v=4">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <link rel="stylesheet" href="css/tutor.css?v=2">
+</head>
+<body>
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <div id="aviso-cabecalho" class="aviso-cabecalho" role="status" aria-live="polite" hidden></div>
+
+  <header class="cabecalho">
+    <div class="container cabecalho__conteudo">
+      <a class="logo" href="index.html" aria-label="PratiCão, página inicial"><img src="img/logo.png" alt="PratiCão" width="80" height="80"></a>
+      <nav class="menu-principal" aria-label="Menu do Tutor">
+        <a href="tutor.html" aria-current="page">Painel</a>
+        <a href="animais.html">Meus animais</a>
+        <a href="agendar.html">Novo agendamento</a>
+        <a href="agendamentos.html">Meus agendamentos</a>
+        <a href="servicos.html">Serviços</a>
+        <a href="perfil.html">Perfil</a>
+      </nav>
+      <div class="cabecalho__acoes">
+        <div data-auth-slot></div>
+        <button id="botao-menu" class="btn-hamburguer" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu">☰</button>
+      </div>
+    </div>
+    <nav id="menu-mobile" class="menu-mobile" aria-label="Menu do Tutor (celular)" hidden>
+      <a href="tutor.html" aria-current="page">Painel</a>
+      <a href="animais.html">Meus animais</a>
+      <a href="agendar.html">Novo agendamento</a>
+      <a href="agendamentos.html">Meus agendamentos</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="perfil.html">Perfil</a>
+    </nav>
+  </header>
+
+  <!--
+    FUNDO DECORATIVO DAS LATERAIS (somente visual, mesmo padrão de "Meus Animais").
+    Camada fixa atrás de todo o conteúdo (z-index negativo): não recebe cliques e não cobre nada.
+    Nesta tela a ilustração de cão e gato fica no painel de abertura, por isso não se repete aqui.
+  -->
+  <div class="tutor-fundo" aria-hidden="true">
+    <span class="tutor-fundo__onda-topo"></span>
+    <span class="tutor-fundo__pata tutor-fundo__pata--1"></span>
+    <span class="tutor-fundo__pata tutor-fundo__pata--2"></span>
+    <span class="tutor-fundo__pata tutor-fundo__pata--3"></span>
+    <span class="tutor-fundo__pata tutor-fundo__pata--4"></span>
+    <span class="tutor-fundo__pata tutor-fundo__pata--5"></span>
+    <span class="tutor-fundo__osso tutor-fundo__osso--1"></span>
+    <span class="tutor-fundo__osso tutor-fundo__osso--2"></span>
+    <span class="tutor-fundo__onda tutor-fundo__onda--tras"></span>
+    <span class="tutor-fundo__onda tutor-fundo__onda--frente"></span>
+    <span class="tutor-fundo__onda-laranja"></span>
+  </div>
+
+  <main id="conteudo" class="container tutor-painel" data-page-content>
+    <section class="tutor-boas-vindas" aria-labelledby="titulo-painel">
+      <!-- Camada decorativa do topo (área azul ondulada e faixa laranja). Fica atrás do conteúdo e não recebe cliques. -->
+      <div class="tutor-boas-vindas__decoracao" aria-hidden="true">
+        <span class="tutor-boas-vindas__area"></span>
+        <span class="tutor-boas-vindas__onda"></span>
+      </div>
+      <div class="tutor-boas-vindas__texto">
+        <p class="tutor-kicker">Área do tutor</p>
+        <h1 id="titulo-painel">Painel do Tutor</h1>
+        <div id="saudacao" role="status" aria-live="polite"><span class="somente-leitor">Carregando...</span></div>
+        <p>Acompanhe seus animais e o próximo atendimento.</p>
+      </div>
+      <!-- Ilustração principal do projeto (somente decorativa). -->
+      <div class="tutor-boas-vindas__arte" aria-hidden="true">
+        <img src="img/C%C3%A3o%20e%20Gato%20com%20Acess%C3%B3rios%20Pet.png" alt="" width="1287" height="1222" decoding="async">
+      </div>
+    </section>
+
+    <section class="tutor-resumos" aria-label="Resumo da sua conta">
+      <article class="cartao tutor-card" aria-labelledby="titulo-animais">
+        <div class="tutor-card__cabecalho"><span class="tutor-card__icone" aria-hidden="true">🐾</span><h2 id="titulo-animais">Meus animais</h2></div>
+        <div id="resumo-animais" aria-live="polite"><span class="somente-leitor">Carregando...</span></div>
+      </article>
+
+      <article class="cartao tutor-card tutor-card--agendamento" aria-labelledby="titulo-proximo">
+        <div class="tutor-card__cabecalho"><span class="tutor-card__icone" aria-hidden="true">📅</span><h2 id="titulo-proximo">Próximo agendamento</h2></div>
+        <div id="resumo-agendamento" aria-live="polite"><span class="somente-leitor">Carregando...</span></div>
+      </article>
+    </section>
+
+    <section class="tutor-atalhos" aria-labelledby="titulo-atalhos">
+      <div class="tutor-secao__cabecalho"><div><p class="secao-kicker">Tudo à mão</p><h2 id="titulo-atalhos">Ações rápidas</h2></div></div>
+      <div class="tutor-atalhos__grade">
+        <a class="cartao tutor-atalho" href="agendar.html"><span class="tutor-atalho__icone" aria-hidden="true">＋</span><span><strong>Novo agendamento</strong><small>Escolha um serviço e horário</small></span><span class="tutor-atalho__seta" aria-hidden="true">→</span></a>
+        <a class="cartao tutor-atalho" href="animais.html"><span class="tutor-atalho__icone" aria-hidden="true">🐶</span><span><strong>Cadastrar animal</strong><small>Adicione um pet à sua conta</small></span><span class="tutor-atalho__seta" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contato" class="rodape">
+    <div class="container rodape__grade">
+      <section class="rodape__marca" aria-label="Sobre o PratiCão">
+        <a href="index.html" class="rodape__logo"><img src="img/logo.png" alt="PratiCão" width="76" height="76"></a>
+        <p>Líder no cuidado com seu pet, com amor, carinho e profissionalismo. Porque eles merecem o melhor!</p>
+        <div class="redes" aria-label="Redes sociais e contato">
+          <a href="#" aria-label="Instagram (em breve)" data-em-breve><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="icone-ponto" cx="17.6" cy="6.8" r="1"/></svg></a>
+          <a href="https://wa.me/5511987654321" target="_blank" rel="noopener noreferrer" aria-label="Conversar pelo WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3.5 20l1.1-4.4a8.2 8.2 0 1 1 15.6-3.9Z"/><path d="M9 8.3c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.6.7c-.2.2-.2.4 0 .6.5.9 1.3 1.6 2.2 2.1.2.1.4.1.6-.1l.8-.9c.2-.2.4-.2.7-.1l1.5.7c.3.1.4.3.4.5 0 .4-.2 1-.6 1.3-.4.4-1.1.6-1.8.5-1.1-.2-2.5-.9-3.8-2.1-1.2-1.1-2-2.4-2.2-3.4-.2-.8 0-1.5.4-2Z"/></svg></a>
+          <a href="#" aria-label="Facebook (em breve)" data-em-breve><svg viewBox="0 0 24 24" aria-hidden="true"><path class="icone-cheio" d="M13.7 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5H17V3.6c-.3 0-1.2-.1-2.3-.1-2.4 0-4.1 1.5-4.1 4.2v2.3H8v3.1h2.6v8h3.1Z"/></svg></a>
+          <a href="mailto:contato@praticao.com.br" aria-label="Enviar e-mail para o PratiCão"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+        </div>
+      </section>
+      <nav class="rodape__links" aria-label="Links rápidos"><h2>Links Rápidos</h2><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a><a href="tutor.html" data-area="tutor">Área do Tutor</a><a href="painel.html" data-area="funcionario">Área do Funcionário</a></nav>
+      <section class="rodape__contato"><h2>Fale Conosco</h2><p><span class="rodape__icone rodape__icone--local" aria-hidden="true"></span>Rua das Flores, 123 - Centro<br>São Paulo - SP - CEP: 01010-987</p><a href="tel:+5511987654321"><span class="rodape__icone rodape__icone--telefone" aria-hidden="true"></span>(11) 98765-4321</a><a href="mailto:contato@praticao.com.br"><span class="rodape__icone rodape__icone--email" aria-hidden="true"></span>contato@praticao.com.br</a><p><span class="rodape__icone rodape__icone--horario" aria-hidden="true"></span>Segunda à Sexta: 8h às 19h<br>Sábados: 8h às 15h<br>Domingos: 9h às 13h</p></section>
+      <section class="rodape__seguranca"><h2>Segurança e Conformidade</h2><p><b>Ambiente Seguro.</b><br>Seus dados protegidos.</p><p class="rodape__pagamentos-titulo">Formas de pagamento:</p><div class="pagamentos" aria-label="Bandeiras e formas de pagamento"><span class="pagamento-badge pagamento-badge--visa" role="img" aria-label="Visa">VISA</span><span class="pagamento-badge pagamento-badge--mastercard" role="img" aria-label="Mastercard"><span class="mastercard-simbolo" aria-hidden="true"><i></i><i></i></span><b>mastercard</b></span><span class="pagamento-badge pagamento-badge--elo" role="img" aria-label="Elo"><b>elo</b></span><span class="pagamento-badge pagamento-badge--pix" role="img" aria-label="Pix"><svg class="pix-logo" viewBox="0 0 226 98" aria-hidden="true"><g fill="#35b9aa"><rect x="22" y="25" width="28" height="28" rx="7" transform="rotate(45 36 39)"/><rect x="42" y="5" width="28" height="28" rx="7" transform="rotate(45 56 19)"/><rect x="62" y="25" width="28" height="28" rx="7" transform="rotate(45 76 39)"/><rect x="42" y="45" width="28" height="28" rx="7" transform="rotate(45 56 59)"/></g><text x="99" y="58" fill="#e7eef8" font-family="Arial, sans-serif" font-size="57" font-weight="300" letter-spacing="-3">pix</text><circle cx="176" cy="12" r="3.5" fill="#35b9aa"/><text x="101" y="76" fill="#c4d3e8" font-family="Arial, sans-serif" font-size="7.5" letter-spacing=".15">powered by Banco Central</text></svg></span></div></section>
+    </div>
+    <div class="rodape__final"><div class="container">© 2026 PratiCão. Todos os direitos reservados.</div></div>
+  </footer>
+
+  <script src="js/ui.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/header.js?v=2"></script>
+  <script src="js/tutor.js"></script>
+</body>
+</html>

@@ -13,6 +13,8 @@ USUARIOS = [
 SERVICOS = [
     ('Banho', 'Banho completo com secagem', 50, 60),
     ('Tosa', 'Tosa higiênica ou completa', 70, 90),
+    ('Hidratação', 'Hidratação dos pelos com produtos específicos', 60, 60),
+    ('Corte de Unhas', 'Corte e lixamento das unhas', 30, 30),
 ]
 
 criados = 0

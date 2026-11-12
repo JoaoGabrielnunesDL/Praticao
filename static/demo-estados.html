@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demonstração de estados | PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <style>
+    body { background: #f4f8fd; }
+    .demo { max-width: 1000px; padding-block: 32px 60px; }
+    .demo__cabecalho { margin-bottom: 28px; }
+    .demo__grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .demo__bloco { min-width: 0; padding: 20px; }
+    .demo__bloco h2 { font-size: 1.15rem; }
+    .demo__botoes { display: flex; flex-wrap: wrap; gap: 10px; }
+    .demo__alvo { min-height: 120px; display: grid; align-items: center; }
+    .demo__form { display: grid; gap: 10px; }
+    .demo__form input { width: 100%; min-height: 46px; padding: 8px 12px; border: 1px solid var(--azul-borda); border-radius: 10px; }
+    @media (max-width: 640px) { .demo__grade { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="container demo">
+    <header class="demo__cabecalho">
+      <a href="index.html">← Página inicial</a>
+      <h1>Demonstração dos estados</h1>
+      <p>Use os controles para conferir mensagens, estados e interações acessíveis.</p>
+    </header>
+    <div class="demo__grade">
+      <section class="cartao demo__bloco"><h2>Notificações</h2><div class="demo__botoes">
+        <button class="ui-botao ui-botao--primario" data-toast="sucesso">Sucesso</button><button class="ui-botao ui-botao--perigo" data-toast="erro">Erro</button><button class="ui-botao ui-botao--secundario" data-toast="aviso">Aviso</button><button class="ui-botao ui-botao--secundario" data-toast="informacao">Informação</button>
+      </div></section>
+      <section class="cartao demo__bloco"><h2>Carregamento</h2><div id="demo-carregando" class="demo__alvo"></div><button class="ui-botao ui-botao--secundario" data-estado="carregando">Mostrar carregamento</button></section>
+      <section class="cartao demo__bloco"><h2>Estado vazio</h2><div id="demo-vazio" class="demo__alvo"></div><button class="ui-botao ui-botao--secundario" data-estado="vazio">Mostrar estado vazio</button></section>
+      <section class="cartao demo__bloco"><h2>Erro de conexão</h2><div id="demo-conexao" class="demo__alvo"></div><button class="ui-botao ui-botao--secundario" data-estado="conexao">Mostrar erro e testar retry</button></section>
+      <section class="cartao demo__bloco"><h2>Autenticação e autorização</h2><p>401 mostra aviso e permite testar o redirecionamento completo. 403 apresenta a mensagem padrão de acesso restrito.</p><div class="demo__botoes"><button class="ui-botao ui-botao--secundario" id="demo-401">Simular 401 sem sair</button><button class="ui-botao ui-botao--secundario" id="demo-401-redir">Testar redirecionamento 401</button><button class="ui-botao ui-botao--secundario" id="demo-403">Simular 403</button><button class="ui-botao ui-botao--secundario" id="demo-500">Simular 500</button></div></section>
+      <section class="cartao demo__bloco"><h2>404</h2><p>Abra a página amigável de endereço não encontrado.</p><a class="ui-botao ui-botao--primario" href="404.html">Abrir 404</a></section>
+      <section class="cartao demo__bloco"><h2>Confirmação</h2><p>O modal fecha com Escape e devolve o foco ao controle que o abriu.</p><button class="ui-botao ui-botao--perigo" id="demo-modal">Testar confirmação</button><p id="demo-modal-resultado" aria-live="polite"></p></section>
+      <section class="cartao demo__bloco"><h2>Estados de formulário</h2><form class="demo__form" id="demo-form" novalidate><p>* indica campo obrigatório.</p><label for="demo-email">E-mail de demonstração *</label><input id="demo-email" type="email" aria-describedby="demo-form-mensagem" required><p id="demo-form-mensagem" aria-live="polite"></p><div class="demo__botoes"><button class="ui-botao ui-botao--primario" type="submit">Validar</button><button class="ui-botao ui-botao--secundario" type="button" id="demo-form-sucesso">Mostrar sucesso</button></div></form></section>
+      <section class="cartao demo__bloco"><h2>Botões</h2><div class="demo__botoes"><button class="ui-botao ui-botao--primario">Primário</button><button class="ui-botao ui-botao--secundario">Secundário</button><button class="ui-botao ui-botao--perigo">Destrutivo</button><button class="ui-botao ui-botao--secundario" disabled>Desabilitado</button></div></section>
+    </div>
+  </main>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    document.querySelectorAll('[data-toast]').forEach(function (b) { b.addEventListener('click', function () {
+      var tipo = b.dataset.toast, textos = { sucesso: 'Alterações salvas com sucesso.', erro: 'Não foi possível concluir a ação.', aviso: 'Confira as informações antes de continuar.', informacao: 'Esta é uma mensagem informativa.' };
+      window.ui['mostrar' + tipo.charAt(0).toUpperCase() + tipo.slice(1)](textos[tipo]);
+    }); });
+    document.querySelector('[data-estado="carregando"]').addEventListener('click', function () { window.ui.mostrarCarregando('#demo-carregando'); });
+    document.querySelector('[data-estado="vazio"]').addEventListener('click', function () { window.ui.mostrarVazio('#demo-vazio', 'Você ainda não cadastrou nenhum animal.', { texto: 'Cadastrar animal', aoClicar: function () { window.ui.mostrarInformacao('Ação de demonstração.'); } }); });
+    document.querySelector('[data-estado="conexao"]').addEventListener('click', function () { window.ui.mostrarErroConexao('#demo-conexao', function () { window.ui.mostrarSucesso('Nova tentativa solicitada.'); }); });
+    document.getElementById('demo-401').addEventListener('click', function () { window.ui.mostrarSessaoExpirada(false); });
+    document.getElementById('demo-401-redir').addEventListener('click', function () { window.api.tratarStatus(new Response('', { status: 401 }), true, '/me'); });
+    document.getElementById('demo-403').addEventListener('click', function () { window.api.tratarStatus(new Response('', { status: 403 }), true, '/admin/usuarios'); });
+    document.getElementById('demo-500').addEventListener('click', function () { window.api.tratarStatus(new Response('', { status: 500 }), true, '/demo'); });
+    document.getElementById('demo-modal').addEventListener('click', async function () {
+      var ok = await window.ui.confirmarExclusao('Esta ação de demonstração não altera nenhum dado.', 'Confirmar ação de exemplo');
+      document.getElementById('demo-modal-resultado').textContent = ok ? 'Confirmação aceita.' : 'Ação cancelada.';
+    });
+    document.getElementById('demo-form').addEventListener('submit', function (e) {
+      e.preventDefault(); var campo = document.getElementById('demo-email'), mensagem = document.getElementById('demo-form-mensagem');
+      if (!campo.validity.valid) { campo.setAttribute('aria-invalid', 'true'); mensagem.className = 'ui-formulario__erro'; mensagem.textContent = 'Informe um e-mail válido.'; campo.focus(); return; }
+      campo.setAttribute('aria-invalid', 'false'); mensagem.className = 'ui-formulario__sucesso'; mensagem.textContent = 'Campo válido.';
+    });
+    document.getElementById('demo-form-sucesso').addEventListener('click', function () { var p = document.getElementById('demo-form-mensagem'); p.className = 'ui-formulario__sucesso'; p.textContent = 'Ação concluída com sucesso.'; });
+  </script>
+</body>
+</html>

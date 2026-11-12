@@ -1,0 +1,220 @@
+/* Tela "Novo Agendamento" — mesma identidade visual de "Meus Animais". Só é carregado em agendar.html. */
+body { background: #f4f7fc; }
+/* Página mais larga que o padrão (1200px); o header desta página acompanha para manter o alinhamento. */
+.agendar-pagina.container, .cabecalho .container { max-width: 1360px; }
+.agendar-pagina { padding-block: 34px 88px; }
+@media (min-width: 1100px) { .agendar-pagina.container, .cabecalho .container { padding-inline: clamp(32px, 4.2vw, 72px); } }
+/* Cabeçalho integrado ao fundo e item ativo destacado em laranja. */
+.cabecalho { background: rgba(255, 255, 255, .78); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.cabecalho .menu-principal a[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--laranja); }
+
+/* =========================================================
+   Abertura (hero) com espaço para a ilustração
+   ========================================================= */
+.agendar-intro {
+  --intro-pad-y: clamp(32px, 3.6vw, 48px);
+  position: relative; display: grid;
+  grid-template-areas: "texto arte";
+  grid-template-columns: minmax(0, 1fr) clamp(240px, 26vw, 340px);
+  gap: 26px 40px; min-height: 280px; margin: 18px 0 30px;
+  padding: var(--intro-pad-y) clamp(24px, 4.5vw, 64px);
+  border: 1px solid #e1eaf6; border-radius: 32px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 24px 48px -30px rgba(20, 58, 158, .4);
+}
+.agendar-intro__texto { grid-area: texto; position: relative; z-index: 2; min-width: 0; max-width: 640px; align-self: center; }
+.agendar-kicker { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; padding: 6px 14px; border-radius: 999px; background: #fff; color: var(--laranja-escuro); font-size: .76rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; box-shadow: 0 1px 2px rgba(15, 23, 42, .06); }
+.agendar-intro h1 { position: relative; width: fit-content; max-width: 100%; margin-bottom: 14px; font-size: clamp(2.3rem, 4.4vw, 3.4rem); letter-spacing: -.02em; line-height: 1.04; }
+/* Traços laranja ao lado do título (somente decoração). */
+.agendar-intro h1::after { position: absolute; top: -18px; right: -54px; width: 44px; height: 40px; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40' fill='none' stroke='%23ff8a0a' stroke-width='4.5' stroke-linecap='round'%3E%3Cpath d='M7 21 11 6M15 27l12-11M17 36l16-2'/%3E%3C/svg%3E"); content: ''; pointer-events: none; }
+.agendar-intro__texto > p:last-child { max-width: 32em; margin: 0; color: var(--texto-suave); font-size: clamp(1.02rem, 1.4vw, 1.18rem); line-height: 1.6; }
+
+/* Camada decorativa: recortada pelos cantos arredondados do painel. */
+.agendar-intro__decoracao { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.agendar-intro__area { position: absolute; top: 0; right: 0; bottom: 0; width: 52%; background: no-repeat right top / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23eef5ff'/%3E%3Cstop offset='1' stop-color='%23cfe1fb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M700 0v400H40c90-30 120-120 190-170S380 190 430 120 560 10 700 0Z'/%3E%3C/svg%3E"); }
+.agendar-intro__onda { position: absolute; right: 0; bottom: 0; width: 72%; height: 34%; background: no-repeat right bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 140' preserveAspectRatio='none'%3E%3Cpath fill='%2392b8f5' fill-opacity='.55' d='M0 140c120-70 230-90 360-60s260 50 440-60v120Z'/%3E%3Cpath fill='%235f93f2' fill-opacity='.55' d='M220 140c90-50 180-60 280-40s200 20 300-40v80Z'/%3E%3Cpath fill='none' stroke='%23ffa53a' stroke-width='7' d='M380 136c110-20 230-10 300-40s90-40 120-70'/%3E%3C/svg%3E"); }
+
+/* Área da ilustração */
+.agendar-intro__arte { grid-area: arte; position: relative; z-index: 1; min-height: 200px; }
+.agendar__imagem-decorativa { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.agendar__imagem-decorativa img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 18px 22px rgba(20, 58, 158, .2)); }
+/* Marcador provisório enquanto o container estiver vazio: calendário com pata, vazado. Some quando o <img> é inserido. */
+.agendar__imagem-decorativa:empty::before { width: min(62%, 190px); aspect-ratio: 1; transform: rotate(-8deg); background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='.9' stroke-linecap='round'%3E%3Crect x='2.5' y='4.5' width='19' height='17' rx='3.2' fill='%23ffffff' fill-opacity='.28'/%3E%3Cpath d='M2.5 9.5h19M7.5 2.8v3.4M16.5 2.8v3.4'/%3E%3Cg fill='%23ffffff' fill-opacity='.55' stroke='none'%3E%3Cellipse cx='8.6' cy='14' rx='1' ry='1.3'/%3E%3Cellipse cx='10.8' cy='12.3' rx='1' ry='1.3'/%3E%3Cellipse cx='13.2' cy='12.3' rx='1' ry='1.3'/%3E%3Cellipse cx='15.4' cy='14' rx='1' ry='1.3'/%3E%3Cpath d='M12 14.6c-1.7 0-3.1 1.8-3.1 3.2 0 1 .9 1.6 1.8 1.4.5-.1.8-.3 1.3-.3s.8.2 1.3.3c.9.2 1.8-.4 1.8-1.4 0-1.4-1.4-3.2-3.1-3.2Z'/%3E%3C/g%3E%3C/svg%3E"); filter: drop-shadow(0 8px 14px rgba(20, 58, 158, .18)); content: ''; }
+
+/* =========================================================
+   Layout principal: formulário + coluna lateral
+   ========================================================= */
+.agendar-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+/* Cards no padrão de "Meus Animais": borda azul suave, cantos amplos e sombra difusa. */
+.agendar-pagina .cartao { border: 1px solid #e1eaf6; background: #fff; box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 14px 32px -20px rgba(20, 58, 158, .35); }
+.agendar-card { min-width: 0; padding: clamp(20px, 3vw, 34px); border-radius: 28px; }
+.agendar-card__cabecalho { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #edf2f9; }
+.agendar-card__cabecalho h2 { margin: 0 0 4px; font-size: clamp(1.35rem, 2vw, 1.6rem); letter-spacing: -.01em; }
+.agendar-card__cabecalho p { margin: 0; color: var(--texto-suave); font-size: .92rem; }
+.agendar-icone { display: grid; flex: 0 0 52px; width: 52px; height: 52px; place-items: center; border-radius: 16px; background: linear-gradient(145deg, #fff6ec, #ffe9d2); font-size: 1.45rem; }
+.agendar-obrigatorio { color: var(--erro); }
+.agendar-opcional { color: var(--texto-suave); font-size: .85em; font-weight: 600; }
+
+/* Etapas do formulário */
+.agendar-etapa { min-width: 0; margin: 0 0 20px; padding: 20px 20px 6px; border: 1px solid #e1eaf6; border-radius: 20px; background: linear-gradient(180deg, #f8fbff 0%, #ffffff 70%); }
+.agendar-etapa legend { display: flex; align-items: center; gap: 10px; padding: 0 8px; color: var(--azul-escuro); font-size: 1.05rem; font-weight: 800; }
+.agendar-etapa__numero { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 10px; background: linear-gradient(145deg, var(--azul), var(--azul-escuro)); color: #fff; font-size: .86rem; font-weight: 900; box-shadow: 0 8px 14px -8px rgba(20, 58, 158, .7); }
+.agendar-grade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 18px; }
+.agendar-card .campo { position: relative; margin-bottom: 14px; }
+.agendar-card .campo__entrada { width: 100%; border-color: #d3e1f3; border-radius: 12px; background-color: #fff; transition: border-color .15s ease, box-shadow .15s ease; }
+.agendar-card .campo__entrada:hover:not(:disabled) { border-color: #b7cdeb; }
+.agendar-card .campo__entrada:focus { border-color: var(--azul); box-shadow: 0 0 0 4px rgba(11, 77, 187, .12); outline: none; }
+.agendar-card .campo__entrada:disabled { background: #f3f4f6; cursor: wait; }
+.agendar-card .campo__entrada[aria-invalid='true'] { border-width: 2px; background-color: #fffafa; }
+.agendar-card .campo__entrada[aria-invalid='true']:focus { box-shadow: 0 0 0 4px rgba(185, 28, 28, .12); }
+.agendar-card .campo--valido .campo__entrada { border-color: #86c79b; }
+.agendar-card .campo__erro { margin: 5px 0 0; font-weight: 600; }
+.agendar-card .campo__erro::before { content: '⚠ '; }
+.agendar-textarea { min-height: 96px; padding-block: 12px; resize: vertical; line-height: 1.45; }
+.agendar-dica { margin: 5px 0 0; color: var(--texto-suave); font-size: .82rem; }
+.agendar-contador { text-align: right; }
+.agendar-alerta { margin-bottom: 18px; padding: 12px 14px; border: 1px solid #fecaca; border-left: 6px solid var(--erro); border-radius: 14px; background: #fef2f2; color: var(--erro); font-weight: 600; }
+
+.agendar-acoes { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; margin-top: 8px; padding-top: 20px; border-top: 1px solid #edf2f9; }
+.agendar-botao { min-height: 50px; padding-inline: 24px; border-radius: 14px; }
+.agendar-pagina .btn--laranja.agendar-botao { min-height: 54px; padding-inline: 30px; font-size: 1.02rem; box-shadow: 0 14px 28px -12px rgba(234, 108, 0, .6); }
+.agendar-pagina .btn--laranja:hover { filter: brightness(.95); }
+.agendar-botao:disabled { cursor: wait; opacity: .7; }
+
+/* Lateral: resumo */
+.agendar-lateral { display: grid; gap: 18px; min-width: 0; }
+.agendar-resumo { overflow: hidden; padding: 0; border-radius: 28px; }
+.agendar-resumo__foto { position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden; background: linear-gradient(150deg, #eaf3ff, #f6f9ff 60%, #fff4e8); }
+.agendar-resumo__foto::after { position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(to top, rgba(15, 23, 42, .22), transparent); content: ''; pointer-events: none; }
+.agendar-resumo__foto img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
+.agendar-resumo__corpo { padding: 22px 24px 24px; }
+.agendar-resumo__corpo h2 { margin-bottom: 14px; font-size: 1.35rem; letter-spacing: -.01em; }
+.agendar-resumo__lista { display: grid; gap: 12px; margin: 0; }
+.agendar-resumo__lista > div { display: grid; gap: 2px; padding-bottom: 12px; border-bottom: 1px dashed #dbe6f4; }
+.agendar-resumo__lista dt { color: var(--texto-suave); font-size: .76rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.agendar-resumo__lista dd { margin: 0; color: var(--azul-escuro); font-weight: 700; overflow-wrap: anywhere; }
+.agendar-resumo__total { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; padding: 14px 16px; border-radius: 16px; background: linear-gradient(145deg, #fff6ec, #ffe9d2); }
+.agendar-resumo__total span { color: var(--laranja-escuro); font-weight: 800; }
+.agendar-resumo__total strong { color: var(--laranja-escuro); font-size: 1.5rem; letter-spacing: -.01em; }
+.agendar-garantias { display: grid; gap: 0; margin: 0; padding: 0; overflow: hidden; border: 1px solid #e1eaf6; border-radius: 24px; background: #fff; list-style: none; color: var(--azul-escuro); font-size: .92rem; font-weight: 600; box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 12px 30px -22px rgba(20, 58, 158, .35); }
+.agendar-garantias li { display: flex; align-items: center; gap: 12px; padding: 16px 18px; }
+.agendar-garantias li + li { border-top: 1px solid #edf2f9; }
+.agendar-garantias span { display: grid; flex: 0 0 34px; width: 34px; height: 34px; place-items: center; border-radius: 12px; background: linear-gradient(145deg, #eef5ff, #dcebff); color: var(--azul); font-size: .9rem; font-weight: 900; }
+
+/* =========================================================
+   Estados vazios e de erro (desenhados pelo agendar.js)
+   ========================================================= */
+.agendar-vazios { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 22px; }
+.agendar-pagina .agendar-vazio { position: relative; display: grid; justify-items: center; gap: 10px; overflow: hidden; padding: clamp(40px, 6vw, 64px) 24px; border: 1.5px dashed #c9daf2; border-radius: 26px; background: radial-gradient(circle at 50% 0%, #f3f8ff 0%, #ffffff 60%); text-align: center; box-shadow: none; }
+.agendar-vazio__icone { display: grid; width: 88px; height: 88px; margin-bottom: 8px; place-items: center; border-radius: 46% 54% 50% 50% / 55% 45% 55% 45%; background: linear-gradient(145deg, #eef5ff, #dcebff); font-size: 2.1rem; box-shadow: 0 18px 30px -20px rgba(20, 58, 158, .5); }
+.agendar-vazio h2 { margin: 0; color: var(--azul-escuro); font-size: 1.4rem; }
+.agendar-vazio p { max-width: 42ch; margin: 0; color: var(--texto-suave); }
+.agendar-vazio__acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 14px; }
+
+/* =========================================================
+   Sucesso
+   ========================================================= */
+.agendar-sucesso { position: relative; max-width: 680px; margin-inline: auto; overflow: hidden; padding: clamp(28px, 5vw, 48px); border-radius: 32px; text-align: center; }
+.agendar-sucesso::before { position: absolute; inset: 0 0 auto; height: 120px; background: no-repeat center top / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 120' preserveAspectRatio='none'%3E%3Cpath fill='%23eef5ff' d='M0 0h700v70c-120 40-230 40-350 10S110 40 0 80Z'/%3E%3C/svg%3E"); content: ''; pointer-events: none; }
+.agendar-sucesso > * { position: relative; }
+.agendar-sucesso:focus { outline: none; }
+.agendar-sucesso__icone { display: inline-grid; width: 80px; height: 80px; margin-bottom: 16px; place-items: center; border-radius: 50%; background: #15803d; color: #fff; font-size: 2.4rem; font-weight: 900; box-shadow: 0 0 0 10px #dcfce7, 0 20px 30px -14px rgba(21, 128, 61, .6); }
+.agendar-sucesso h2 { margin-bottom: 6px; color: #14532d; font-size: clamp(1.4rem, 3.5vw, 1.9rem); }
+.agendar-sucesso > p { color: var(--texto-suave); }
+.agendar-sucesso__detalhes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; margin: 20px 0 26px; text-align: left; }
+.agendar-sucesso__detalhes > div { padding: 14px 16px; border: 1px solid #e1eaf6; border-radius: 16px; background: #f8fbff; }
+.agendar-sucesso__detalhes dt { color: var(--texto-suave); font-size: .76rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.agendar-sucesso__detalhes dd { margin: 2px 0 0; color: var(--azul-escuro); font-weight: 700; overflow-wrap: anywhere; }
+.agendar-status { display: inline-block; padding: 3px 12px; border-radius: 999px; background: #fff2e5; color: var(--laranja-escuro); font-size: .9rem; font-weight: 800; }
+.agendar-sucesso__acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+.agendar-pagina :is(button, a.btn):focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
+
+/* =========================================================
+   Responsividade
+   ========================================================= */
+@media (min-width: 640px) {
+  .agendar-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .agendar-layout { grid-template-columns: minmax(0, 1.65fr) minmax(320px, 1fr); gap: 32px; }
+  .agendar-lateral { position: sticky; top: calc(110px + env(safe-area-inset-top, 0px)); }
+}
+@media (max-width: 900px) {
+  .agendar-intro { grid-template-columns: minmax(0, 1fr) clamp(170px, 28vw, 240px); gap: 22px 24px; min-height: 250px; }
+  .agendar-intro__area { width: 60%; }
+}
+/* Celular: ilustração no topo do painel e conteúdo centralizado abaixo (como em "Meus Animais"). */
+@media (max-width: 600px) {
+  .agendar-pagina { padding-block: 18px 56px; }
+  .agendar-intro { --intro-pad-y: 24px; grid-template-areas: "arte" "texto"; grid-template-columns: minmax(0, 1fr); gap: 16px; min-height: 0; margin: 8px 0 22px; padding: 24px 20px; border-radius: 26px; text-align: center; }
+  .agendar-intro__texto { justify-self: center; }
+  .agendar-intro__texto > p:last-child { margin-inline: auto; }
+  .agendar-intro h1 { margin-inline: auto; font-size: clamp(1.7rem, 7.4vw, 2.1rem); }
+  .agendar-intro h1::after { right: -26px; width: 24px; height: 22px; top: -12px; }
+  .agendar-intro__arte { min-height: 0; height: 120px; }
+  .agendar__imagem-decorativa:empty::before { width: 120px; }
+  .agendar-intro__area { top: 0; bottom: auto; left: 0; width: 100%; height: 170px; transform: scaleX(-1); }
+  .agendar-intro__onda { width: 100%; height: 54px; top: 116px; bottom: auto; }
+  .agendar-card { border-radius: 22px; }
+  .agendar-card__cabecalho { gap: 12px; }
+  .agendar-icone { flex-basis: 46px; width: 46px; height: 46px; }
+  .agendar-etapa { padding: 16px 12px 4px; border-radius: 16px; }
+  .agendar-resumo { border-radius: 22px; }
+  .agendar-acoes, .agendar-sucesso__acoes, .agendar-vazio__acoes { display: grid; grid-template-columns: 1fr; }
+  .agendar-acoes .btn--laranja { order: -1; }
+  .agendar-botao { width: 100%; }
+  .agendar-sucesso { border-radius: 24px; }
+}
+
+/* =========================================================
+   Fundo decorativo das laterais (somente visual, igual a "Meus Animais")
+   Camada fixa atrás de todo o conteúdo: z-index negativo, sem cliques, recortada na tela.
+   ========================================================= */
+.agendar-fundo { --lateral: calc((100vw - 1360px) / 2 + clamp(32px, 4.2vw, 72px)); position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: linear-gradient(180deg, #f3f7fd 0%, #eef4fc 100%); }
+.agendar-fundo > * { position: absolute; display: block; }
+.agendar-fundo__onda-topo { left: 0; top: 0; width: clamp(300px, 30vw, 560px); height: clamp(170px, 24vh, 300px); background: no-repeat left top / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 560 300' preserveAspectRatio='none'%3E%3Cpath fill='%23cfe1fb' d='M0 0h560c-60 40-120 30-190 70S250 200 160 230 40 280 0 300Z'/%3E%3Cpath fill='%23a9c8f7' fill-opacity='.7' d='M0 0h300c-40 30-70 60-130 80S50 160 0 200Z'/%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='5' stroke-opacity='.9' d='M0 150c60-20 100-60 150-100S260 10 320 0'/%3E%3C/svg%3E"); }
+.agendar-fundo__pata { width: 40px; aspect-ratio: 1; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235f93f2'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); opacity: .8; filter: drop-shadow(0 6px 8px rgba(37, 99, 235, .15)); }
+.agendar-fundo__pata--1 { left: 10px; top: 22vh; transform: rotate(-14deg); }
+.agendar-fundo__pata--2 { left: 12px; top: 40vh; width: 30px; transform: rotate(16deg); opacity: .65; }
+.agendar-fundo__pata--3 { right: 10px; top: 20vh; transform: rotate(12deg); }
+.agendar-fundo__pata--4 { right: 14px; top: 36vh; width: 30px; transform: rotate(-12deg); opacity: .65; }
+.agendar-fundo__pata--5 { right: 12px; top: 66vh; width: 38px; transform: rotate(8deg); }
+.agendar-fundo__osso { width: 74px; height: 32px; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 28'%3E%3Cpath fill='%23ffffff' stroke='%235f93f2' stroke-width='2.4' d='M14 9.5h36a7 7 0 1 1 6 9.5 7 7 0 1 1-6 0H14a7 7 0 1 1-6-9.5 7 7 0 1 1 6 0Z'/%3E%3C/svg%3E"); filter: drop-shadow(0 6px 10px rgba(20, 58, 158, .12)); }
+.agendar-fundo__osso--1 { right: 6px; top: 48vh; transform: rotate(-28deg); }
+.agendar-fundo__osso--2 { left: 4px; top: 80vh; width: 58px; transform: rotate(24deg); opacity: .9; }
+/* Ilustração de cão e gato na lateral esquerda: só aparece onde há faixa livre fora do conteúdo. */
+.agendar-fundo__ilustracao { display: none; }
+.agendar-fundo__ilustracao img { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 18px 22px rgba(20, 58, 158, .22)); }
+.agendar-fundo__ilustracao::after { position: absolute; left: 12%; right: 8%; bottom: -4%; height: 16%; border-radius: 50%; background: radial-gradient(closest-side, rgba(20, 58, 158, .2), transparent); content: ''; }
+.agendar-fundo__onda { left: 0; right: 0; bottom: 0; background-repeat: no-repeat; background-size: 100% 100%; }
+.agendar-fundo__onda--tras { height: 150px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 170' preserveAspectRatio='none'%3E%3Cpath fill='%23dcebff' fill-opacity='.85' d='M0 70c180-60 360-60 540 0s360 70 540 10 270-60 360-40v130H0Z'/%3E%3C/svg%3E"); }
+.agendar-fundo__onda--frente { height: 96px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath fill='%23c3d9fa' fill-opacity='.85' d='M0 60c240 50 420 50 660 0s480-50 780 10v50H0Z'/%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='4' stroke-opacity='.8' d='M0 52c240 50 420 50 660 0s480-50 780 10'/%3E%3C/svg%3E"); }
+.agendar-fundo__onda-laranja { right: 0; bottom: 0; width: clamp(240px, 28vw, 520px); height: clamp(150px, 26vh, 300px); background: no-repeat right bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 300' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='l' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffb257'/%3E%3Cstop offset='1' stop-color='%23f07a00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23l)' d='M520 0v300H0c80-10 150-50 210-110S340 40 520 0Z'/%3E%3Cpath fill='none' stroke='%23ffd9ad' stroke-width='5' d='M40 300c70-20 130-60 190-120S360 60 520 30'/%3E%3C/svg%3E"); }
+.agendar-fundo__onda-laranja::after { position: absolute; right: 7%; bottom: 14%; width: 26%; aspect-ratio: 1; transform: rotate(10deg); background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='.12' stroke='%23ffffff' stroke-width='1.1'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); content: ''; }
+
+@media (min-width: 1500px) {
+  .agendar-fundo__pata { width: 58px; }
+  .agendar-fundo__pata--1 { left: calc(var(--lateral) * .3); top: 15vh; }
+  .agendar-fundo__pata--2 { left: calc(var(--lateral) * .12); top: 31vh; width: 42px; }
+  .agendar-fundo__pata--3 { right: calc(var(--lateral) * .3); top: 15vh; }
+  .agendar-fundo__pata--4 { right: calc(var(--lateral) * .16); top: 30vh; width: 42px; }
+  .agendar-fundo__pata--5 { right: calc(var(--lateral) * .3); top: 64vh; width: 54px; }
+  .agendar-fundo__osso--1 { right: calc(var(--lateral) * .2); top: 44vh; width: 96px; height: 42px; }
+  .agendar-fundo__osso--2 { display: none; }
+  .agendar-fundo__ilustracao { position: absolute; display: block; left: -32px; bottom: 5vh; width: min(400px, calc((var(--lateral) + 20px) * 1.07)); aspect-ratio: 1287 / 1222; }
+}
+@media (max-width: 1100px) {
+  .agendar-fundo__pata--2, .agendar-fundo__pata--4, .agendar-fundo__osso--2 { display: none; }
+  .agendar-fundo__pata { width: 30px; opacity: .55; }
+  .agendar-fundo__osso--1 { width: 56px; height: 24px; }
+  .agendar-fundo__onda--tras { height: 110px; }
+  .agendar-fundo__onda--frente { height: 70px; }
+}
+@media (max-width: 900px) { .agendar-fundo__onda-laranja { display: none; } }
+@media (max-width: 600px) {
+  .agendar-fundo__pata, .agendar-fundo__osso { display: none; }
+  .agendar-fundo__onda-topo { width: 260px; height: 150px; }
+  .agendar-fundo__onda--tras { height: 80px; }
+  .agendar-fundo__onda--frente { height: 50px; }
+}

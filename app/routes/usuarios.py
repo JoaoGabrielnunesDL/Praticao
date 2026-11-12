@@ -47,6 +47,18 @@ def atualizar_perfil(dados: schemas.UsuarioAtualizar, db: Session = Depends(get_
     return usuario
 
 
+@router.post('/me/alterar-senha')
+def alterar_senha(dados: schemas.UsuarioAlterarSenha, db: Session = Depends(get_db), usuario=Depends(auth.usuario_atual)):
+    if not auth.verificar_senha(dados.senha_atual, usuario.senha_hash):
+        raise HTTPException(status_code=400, detail='A senha atual está incorreta.')
+    if auth.verificar_senha(dados.nova_senha, usuario.senha_hash):
+        raise HTTPException(status_code=400, detail='A nova senha deve ser diferente da senha atual.')
+
+    usuario.senha_hash = auth.gerar_hash(dados.nova_senha)
+    db.commit()
+    return {'mensagem': 'Senha alterada com sucesso.'}
+
+
 @router.post('/logout')
 def logout(_=Depends(auth.usuario_atual)):
     # com JWT a sessão é encerrada quando o front-end descarta o token

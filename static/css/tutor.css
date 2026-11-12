@@ -1,0 +1,174 @@
+/* Painel do Tutor — mesma identidade visual de "Meus Animais" e "Novo Agendamento". Só é carregado em tutor.html. */
+body { background: #f4f7fc; }
+/* Página mais larga que o padrão (1200px); o header desta página acompanha para manter o alinhamento. */
+.tutor-painel.container, .cabecalho .container { max-width: 1360px; }
+.tutor-painel { padding-block: 34px 88px; }
+@media (min-width: 1100px) { .tutor-painel.container, .cabecalho .container { padding-inline: clamp(32px, 4.2vw, 72px); } }
+.cabecalho { background: rgba(255, 255, 255, .78); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.cabecalho .menu-principal a[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--laranja); }
+
+/* =========================================================
+   Abertura (hero) com a ilustração principal
+   ========================================================= */
+.tutor-boas-vindas {
+  --intro-pad-y: clamp(32px, 3.6vw, 48px);
+  position: relative; display: grid;
+  grid-template-areas: "texto arte";
+  grid-template-columns: minmax(0, 1fr) clamp(250px, 25vw, 350px);
+  gap: 24px 40px; min-height: 320px; margin: 18px 0 32px;
+  padding: var(--intro-pad-y) clamp(24px, 4.5vw, 64px);
+  border: 1px solid #e1eaf6; border-radius: 32px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 24px 48px -30px rgba(20, 58, 158, .4);
+}
+.tutor-boas-vindas__texto { grid-area: texto; position: relative; z-index: 2; min-width: 0; max-width: 640px; align-self: center; }
+.tutor-kicker { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #fff; color: var(--laranja-escuro); font-size: .76rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; box-shadow: 0 1px 2px rgba(15, 23, 42, .06); }
+.tutor-boas-vindas h1 { position: relative; width: fit-content; max-width: 100%; margin-bottom: 12px; font-size: clamp(2.3rem, 4.4vw, 3.4rem); letter-spacing: -.02em; line-height: 1.04; }
+/* Traços laranja ao lado do título (somente decoração). */
+.tutor-boas-vindas h1::after { position: absolute; top: -18px; right: -54px; width: 44px; height: 40px; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40' fill='none' stroke='%23ff8a0a' stroke-width='4.5' stroke-linecap='round'%3E%3Cpath d='M7 21 11 6M15 27l12-11M17 36l16-2'/%3E%3C/svg%3E"); content: ''; pointer-events: none; }
+#saudacao { min-height: 1.6em; }
+.tutor-boas-vindas__saudacao { margin: 0 0 6px; color: var(--azul); font-size: clamp(1.15rem, 1.8vw, 1.4rem); font-weight: 800; }
+.tutor-boas-vindas__texto > p:last-child { max-width: 32em; margin: 0; color: var(--texto-suave); font-size: clamp(1.02rem, 1.4vw, 1.18rem); line-height: 1.6; }
+
+/* Camada decorativa: recortada pelos cantos arredondados do painel. */
+.tutor-boas-vindas__decoracao { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.tutor-boas-vindas__area { position: absolute; top: 0; right: 0; bottom: 0; width: 52%; background: no-repeat right top / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23eef5ff'/%3E%3Cstop offset='1' stop-color='%23cfe1fb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M700 0v400H40c90-30 120-120 190-170S380 190 430 120 560 10 700 0Z'/%3E%3C/svg%3E"); }
+.tutor-boas-vindas__onda { position: absolute; right: 0; bottom: 0; width: 72%; height: 34%; background: no-repeat right bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 140' preserveAspectRatio='none'%3E%3Cpath fill='%2392b8f5' fill-opacity='.55' d='M0 140c120-70 230-90 360-60s260 50 440-60v120Z'/%3E%3Cpath fill='%235f93f2' fill-opacity='.55' d='M220 140c90-50 180-60 280-40s200 20 300-40v80Z'/%3E%3Cpath fill='none' stroke='%23ffa53a' stroke-width='7' d='M380 136c110-20 230-10 300-40s90-40 120-70'/%3E%3C/svg%3E"); }
+
+/* Ilustração de cão e gato apoiada na base do painel, dentro dos limites do card. */
+.tutor-boas-vindas__arte { grid-area: arte; position: relative; z-index: 1; min-height: 220px; }
+.tutor-boas-vindas__arte img { position: absolute; right: 0; bottom: calc(-1 * var(--intro-pad-y) + 6px); left: 0; display: block; width: 100%; height: auto; max-height: calc(100% + var(--intro-pad-y) * 2 - 12px); object-fit: contain; object-position: center bottom; filter: drop-shadow(0 18px 22px rgba(20, 58, 158, .22)); }
+
+/* =========================================================
+   Cards de resumo
+   ========================================================= */
+.tutor-resumos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.tutor-painel .cartao { border: 1px solid #e1eaf6; background: #fff; box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 14px 32px -20px rgba(20, 58, 158, .35); }
+.tutor-card { position: relative; min-width: 0; overflow: hidden; padding: clamp(22px, 3vw, 32px); border-radius: 28px; isolation: isolate; }
+/* Pata grande vazada no canto (somente decoração). */
+.tutor-card::after { position: absolute; z-index: -1; right: -26px; bottom: -30px; width: 150px; aspect-ratio: 1; transform: rotate(-14deg); background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23eaf3ff'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); content: ''; pointer-events: none; }
+.tutor-card--agendamento::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff1e2'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); }
+.tutor-card__cabecalho { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid #edf2f9; }
+.tutor-card__cabecalho h2 { margin: 0; font-size: clamp(1.3rem, 2vw, 1.55rem); letter-spacing: -.01em; }
+.tutor-card__icone, .tutor-atalho__icone { display: grid; flex: 0 0 52px; width: 52px; height: 52px; place-items: center; border-radius: 16px; background: linear-gradient(145deg, #eef5ff, #dcebff); color: var(--azul); font-size: 1.45rem; }
+.tutor-card--agendamento .tutor-card__icone { background: linear-gradient(145deg, #fff6ec, #ffe9d2); }
+.tutor-card__contagem { margin: 0 0 20px; color: var(--texto-suave); font-weight: 600; }
+.tutor-card__contagem strong { display: block; margin-bottom: 2px; color: var(--azul-escuro); font-size: clamp(2rem, 4vw, 2.6rem); line-height: 1.1; letter-spacing: -.01em; }
+.tutor-card__acao { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 10px 22px; border-radius: 14px; background: var(--azul); color: #fff; font-weight: 800; text-decoration: none; box-shadow: 0 12px 24px -14px rgba(20, 58, 158, .8); transition: background-color .15s ease; }
+.tutor-card__acao:hover { background: var(--azul-escuro); }
+.tutor-agendamento { display: grid; gap: 8px; }
+.tutor-agendamento__animal { margin: 0; color: var(--azul-escuro); font-size: 1.45rem; font-weight: 900; letter-spacing: -.01em; }
+.tutor-agendamento__servico, .tutor-agendamento__data-hora { margin: 0; color: var(--texto-suave); font-weight: 600; }
+.tutor-status { display: inline-flex; width: fit-content; min-height: 30px; align-items: center; padding: 4px 12px; border: 0; border-radius: 999px; background: #fff2e5; color: var(--laranja-escuro); font-size: .85rem; font-weight: 800; }
+.tutor-status--confirmado { background: #f0fdf4; color: #166534; }
+
+/* Estados (vazio, erro) desenhados pelo ui.js dentro dos cards. */
+.tutor-painel .ui-estado { padding: 22px 18px; border: 1.5px dashed #c9daf2; border-radius: 20px; background: radial-gradient(circle at 50% 0%, #f3f8ff 0%, #ffffff 65%); }
+.tutor-painel .ui-estado--erro { border-color: #efcaca; background: #fffafa; }
+.tutor-painel .ui-estado__titulo { color: var(--azul-escuro); font-size: 1.05rem; }
+.tutor-painel .ui-botao { min-height: 46px; padding-inline: 20px; border-radius: 14px; }
+.tutor-painel .ui-botao--primario { background: var(--laranja); color: #fff; box-shadow: 0 12px 24px -12px rgba(234, 108, 0, .6); }
+.tutor-painel .ui-botao--primario:hover { filter: brightness(.95); }
+
+/* =========================================================
+   Ações rápidas
+   ========================================================= */
+.tutor-atalhos { margin-top: 40px; }
+.tutor-secao__cabecalho { margin-bottom: 18px; }
+.tutor-secao__cabecalho .secao-kicker { margin: 0 0 4px; color: var(--laranja-escuro); font-size: .76rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.tutor-secao__cabecalho h2 { margin: 0; font-size: clamp(1.45rem, 2.2vw, 1.75rem); letter-spacing: -.01em; }
+.tutor-atalhos__grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.tutor-atalho { position: relative; display: flex; min-width: 0; min-height: 104px; align-items: center; gap: 16px; overflow: hidden; padding: 22px 24px; border-radius: 24px; color: var(--texto); text-decoration: none; isolation: isolate; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.tutor-painel .tutor-atalho:hover { border-color: #cfdff3; box-shadow: 0 2px 4px rgba(15, 23, 42, .05), 0 24px 44px -20px rgba(20, 58, 158, .45); transform: translateY(-4px); }
+.tutor-atalho > span:nth-child(2) { display: grid; min-width: 0; gap: 3px; }
+.tutor-atalho strong { color: var(--azul-escuro); font-size: 1.08rem; }
+.tutor-atalho small { color: var(--texto-suave); font-size: .92rem; }
+.tutor-atalho__seta { display: grid; flex: 0 0 40px; width: 40px; height: 40px; margin-left: auto; place-items: center; border-radius: 50%; background: #fff2e5; color: var(--laranja-escuro); font-size: 1.15rem; font-weight: 900; transition: transform .2s ease; }
+.tutor-atalho:hover .tutor-atalho__seta { transform: translateX(3px); }
+/* Primeiro atalho em destaque, no mesmo azul do CTA de "Meus Animais". */
+.tutor-painel .tutor-atalho:first-child { border-color: transparent; background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul) 100%); box-shadow: 0 22px 40px -26px rgba(20, 58, 158, .8); }
+.tutor-atalho:first-child::before { position: absolute; z-index: -1; right: -40px; bottom: -70px; width: 190px; aspect-ratio: 1; border-radius: 50%; background: rgba(255, 255, 255, .08); content: ''; }
+.tutor-atalho:first-child .tutor-atalho__icone { background: rgba(255, 255, 255, .16); color: #fff; }
+.tutor-atalho:first-child strong { color: #fff; }
+.tutor-atalho:first-child small { color: rgba(255, 255, 255, .85); }
+.tutor-atalho:first-child .tutor-atalho__seta { background: var(--laranja); color: #fff; }
+.tutor-painel :is(a, button):focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
+
+/* =========================================================
+   Responsividade
+   ========================================================= */
+@media (max-width: 900px) {
+  .tutor-boas-vindas { grid-template-columns: minmax(0, 1fr) clamp(190px, 30vw, 250px); gap: 22px 24px; min-height: 270px; }
+  .tutor-boas-vindas__area { width: 60%; }
+}
+@media (max-width: 700px) {
+  .tutor-resumos, .tutor-atalhos__grade { grid-template-columns: 1fr; gap: 18px; }
+  .tutor-atalhos { margin-top: 30px; }
+  .tutor-atalho { min-height: 88px; padding: 18px; }
+}
+/* Celular: ilustração no topo do painel e conteúdo centralizado abaixo (como em "Meus Animais"). */
+@media (max-width: 600px) {
+  .tutor-painel { padding-block: 18px 56px; }
+  .tutor-boas-vindas { --intro-pad-y: 24px; grid-template-areas: "arte" "texto"; grid-template-columns: minmax(0, 1fr); gap: 14px; min-height: 0; margin: 8px 0 24px; padding: 20px 20px 24px; border-radius: 26px; text-align: center; }
+  .tutor-boas-vindas__texto { justify-self: center; }
+  .tutor-boas-vindas__texto > p:last-child { margin-inline: auto; }
+  .tutor-boas-vindas h1 { margin-inline: auto; font-size: clamp(1.8rem, 8vw, 2.2rem); }
+  .tutor-boas-vindas h1::after { right: -26px; width: 24px; height: 22px; top: -12px; }
+  .tutor-boas-vindas__arte { min-height: 0; height: 170px; }
+  .tutor-boas-vindas__arte img { top: 0; bottom: auto; left: 50%; right: auto; width: auto; height: 100%; max-height: none; transform: translateX(-50%); }
+  .tutor-boas-vindas__area { top: 0; bottom: auto; left: 0; width: 100%; height: 190px; transform: scaleX(-1); }
+  .tutor-boas-vindas__onda { width: 100%; height: 54px; top: 140px; bottom: auto; }
+  .tutor-card { border-radius: 22px; }
+  .tutor-card__acao { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tutor-atalho, .tutor-atalho__seta { transition: none; }
+  .tutor-painel .tutor-atalho:hover, .tutor-atalho:hover .tutor-atalho__seta { transform: none; }
+}
+
+/* =========================================================
+   Fundo decorativo das laterais (somente visual, igual a "Meus Animais" e "Novo Agendamento")
+   Camada fixa atrás de todo o conteúdo: z-index negativo, sem cliques, recortada na tela.
+   ========================================================= */
+.tutor-fundo { --lateral: calc((100vw - 1360px) / 2 + clamp(32px, 4.2vw, 72px)); position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: linear-gradient(180deg, #f3f7fd 0%, #eef4fc 100%); }
+.tutor-fundo > * { position: absolute; display: block; }
+.tutor-fundo__onda-topo { left: 0; top: 0; width: clamp(300px, 30vw, 560px); height: clamp(170px, 24vh, 300px); background: no-repeat left top / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 560 300' preserveAspectRatio='none'%3E%3Cpath fill='%23cfe1fb' d='M0 0h560c-60 40-120 30-190 70S250 200 160 230 40 280 0 300Z'/%3E%3Cpath fill='%23a9c8f7' fill-opacity='.7' d='M0 0h300c-40 30-70 60-130 80S50 160 0 200Z'/%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='5' stroke-opacity='.9' d='M0 150c60-20 100-60 150-100S260 10 320 0'/%3E%3C/svg%3E"); }
+.tutor-fundo__pata { width: 40px; aspect-ratio: 1; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235f93f2'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); opacity: .8; filter: drop-shadow(0 6px 8px rgba(37, 99, 235, .15)); }
+.tutor-fundo__pata--1 { left: 10px; top: 22vh; transform: rotate(-14deg); }
+.tutor-fundo__pata--2 { left: 12px; top: 40vh; width: 30px; transform: rotate(16deg); opacity: .65; }
+.tutor-fundo__pata--3 { right: 10px; top: 20vh; transform: rotate(12deg); }
+.tutor-fundo__pata--4 { right: 14px; top: 36vh; width: 30px; transform: rotate(-12deg); opacity: .65; }
+.tutor-fundo__pata--5 { right: 12px; top: 66vh; width: 38px; transform: rotate(8deg); }
+.tutor-fundo__osso { width: 74px; height: 32px; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 28'%3E%3Cpath fill='%23ffffff' stroke='%235f93f2' stroke-width='2.4' d='M14 9.5h36a7 7 0 1 1 6 9.5 7 7 0 1 1-6 0H14a7 7 0 1 1-6-9.5 7 7 0 1 1 6 0Z'/%3E%3C/svg%3E"); filter: drop-shadow(0 6px 10px rgba(20, 58, 158, .12)); }
+.tutor-fundo__osso--1 { right: 6px; top: 48vh; transform: rotate(-28deg); }
+.tutor-fundo__osso--2 { left: 4px; top: 80vh; width: 58px; transform: rotate(24deg); opacity: .9; }
+.tutor-fundo__onda { left: 0; right: 0; bottom: 0; background-repeat: no-repeat; background-size: 100% 100%; }
+.tutor-fundo__onda--tras { height: 150px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 170' preserveAspectRatio='none'%3E%3Cpath fill='%23dcebff' fill-opacity='.85' d='M0 70c180-60 360-60 540 0s360 70 540 10 270-60 360-40v130H0Z'/%3E%3C/svg%3E"); }
+.tutor-fundo__onda--frente { height: 96px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath fill='%23c3d9fa' fill-opacity='.85' d='M0 60c240 50 420 50 660 0s480-50 780 10v50H0Z'/%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='4' stroke-opacity='.8' d='M0 52c240 50 420 50 660 0s480-50 780 10'/%3E%3C/svg%3E"); }
+.tutor-fundo__onda-laranja { right: 0; bottom: 0; width: clamp(240px, 28vw, 520px); height: clamp(150px, 26vh, 300px); background: no-repeat right bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 300' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='l' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffb257'/%3E%3Cstop offset='1' stop-color='%23f07a00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23l)' d='M520 0v300H0c80-10 150-50 210-110S340 40 520 0Z'/%3E%3Cpath fill='none' stroke='%23ffd9ad' stroke-width='5' d='M40 300c70-20 130-60 190-120S360 60 520 30'/%3E%3C/svg%3E"); }
+.tutor-fundo__onda-laranja::after { position: absolute; right: 7%; bottom: 14%; width: 26%; aspect-ratio: 1; transform: rotate(10deg); background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='.12' stroke='%23ffffff' stroke-width='1.1'%3E%3Cellipse cx='5.5' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='9.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='5.6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11.5c-3.2 0-6 3.4-6 6.1 0 2 1.7 3 3.4 2.6 1-.3 1.7-.6 2.6-.6s1.6.3 2.6.6c1.7.4 3.4-.6 3.4-2.6 0-2.7-2.8-6.1-6-6.1Z'/%3E%3C/svg%3E"); content: ''; }
+
+@media (min-width: 1500px) {
+  .tutor-fundo__pata { width: 58px; }
+  .tutor-fundo__pata--1 { left: calc(var(--lateral) * .3); top: 15vh; }
+  .tutor-fundo__pata--2 { left: calc(var(--lateral) * .12); top: 31vh; width: 42px; }
+  .tutor-fundo__pata--3 { right: calc(var(--lateral) * .3); top: 15vh; }
+  .tutor-fundo__pata--4 { right: calc(var(--lateral) * .16); top: 30vh; width: 42px; }
+  .tutor-fundo__pata--5 { right: calc(var(--lateral) * .3); top: 64vh; width: 54px; }
+  .tutor-fundo__osso--1 { right: calc(var(--lateral) * .2); top: 44vh; width: 96px; height: 42px; }
+  .tutor-fundo__osso--2 { display: none; }
+}
+@media (max-width: 1100px) {
+  .tutor-fundo__pata--2, .tutor-fundo__pata--4, .tutor-fundo__osso--2 { display: none; }
+  .tutor-fundo__pata { width: 30px; opacity: .55; }
+  .tutor-fundo__osso--1 { width: 56px; height: 24px; }
+  .tutor-fundo__onda--tras { height: 110px; }
+  .tutor-fundo__onda--frente { height: 70px; }
+}
+@media (max-width: 900px) { .tutor-fundo__onda-laranja { display: none; } }
+@media (max-width: 600px) {
+  .tutor-fundo__pata, .tutor-fundo__osso { display: none; }
+  .tutor-fundo__onda-topo { width: 260px; height: 150px; }
+  .tutor-fundo__onda--tras { height: 80px; }
+  .tutor-fundo__onda--frente { height: 50px; }
+}

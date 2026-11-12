@@ -41,11 +41,15 @@
 #servicos { position: relative; isolation: isolate; overflow: hidden; }
 .servico-card { display: flex; flex-direction: column; align-items: stretch; gap: 0; min-width: 0; overflow: hidden; padding: 0; border: 1px solid var(--azul-borda); border-radius: 18px; background: var(--branco); box-shadow: 0 5px 16px rgba(20,58,158,.08); }
 .servico-card__icone { display: grid; flex: 0 0 46px; width: 46px; height: 46px; place-items: center; border-radius: 50%; background: var(--azul-claro); font-size: 1.5rem; }
-.servico-card__icone--foto { position: relative; flex: 0 0 auto; width: 100%; height: auto; aspect-ratio: 3 / 2; border-radius: 0; background-image: url('../img/servicos-realistas.png'); background-repeat: no-repeat; background-size: 200% auto; }
-.servico-card__icone--banho { background-position: left 12.5%; }
-.servico-card__icone--tosa { background-position: right 12.5%; }
-.servico-card__icone--hidratacao { background-position: left 87.5%; }
-.servico-card__icone--unhas { background-position: right 87.5%; }
+.servico-card__icone--foto { position: relative; flex: 0 0 auto; width: 100%; height: auto; aspect-ratio: 3 / 2; border-radius: 0; background-repeat: no-repeat; background-size: cover; background-position: center 30%; }
+.servico-card__icone--banho { background-image: url('../img/WhatsApp Image 2026-11-11 at 22.21.02.jpeg'); }
+.servico-card__icone--tosa { background-image: url('../img/WhatsApp Image 2026-11-11 at 22.00.19.jpeg'); }
+.servico-card__icone--hidratacao { background-image: url('../img/WhatsApp Image 2026-11-11 at 22.00.06.jpeg'); }
+.servico-card__icone--unhas { background-image: url('../img/WhatsApp Image 2026-11-11 at 22.18.46.jpeg'); }
+/* Tom quente, dourado e vivo nas fotos, como o banner (só a foto; o selo fica fora do filtro). */
+.servico-card__icone--foto::before { position: absolute; inset: 0; z-index: 0; background: inherit; filter: sepia(.2) saturate(1.45) contrast(1.1) brightness(1.06); content: ''; }
+.servico-card__icone--foto::after { position: absolute; inset: 0; z-index: 0; background: radial-gradient(120% 90% at 85% 0%, rgba(255, 200, 110, .45), rgba(255, 170, 70, .12) 55%, transparent 80%); mix-blend-mode: soft-light; pointer-events: none; content: ''; }
+.servico-card__badge { z-index: 1; }
 .servico-card__badge { position: absolute; bottom: 0; left: 18px; display: grid; width: 54px; height: 54px; place-items: center; transform: translateY(42%); border: 4px solid #fff; border-radius: 16px; background: #fff; color: var(--azul); box-shadow: 0 5px 14px rgba(20,58,158,.16); }
 .servico-card__badge svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .servico-card > div { display: flex; flex: 1; flex-direction: column; padding: 28px 16px 18px; }
@@ -73,13 +77,9 @@
 .beneficio > span { flex: 0 0 32px; color: var(--laranja); font-size: 1.55rem; text-align: center; }
 .beneficio h3 { margin: 0 0 2px; font-size: .94rem; }
 .beneficio p { margin: 0; color: var(--texto-suave); font-size: .82rem; }
-.agendamento-form { min-width: 0; padding: 20px; }
-.agendamento-form__titulo { margin: 0 0 16px; font-weight: 900; color: var(--azul-escuro); }
-.agendamento-form .campo { margin-bottom: 12px; }
-.agendamento-form .campo__rotulo { margin-bottom: 4px; font-size: .88rem; }
-.agendamento-form .campo__entrada { min-height: 46px; }
-.agendamento-form__botao { width: 100%; min-height: 50px; padding-inline: 14px; }
-.agendamento-form__nota { margin: 10px 0 0; color: var(--texto-suave); font-size: .77rem; text-align: center; }
+.agendamento__acao { grid-column: 1 / -1; margin-top: 6px; }
+.agendamento__acao .mensagem-erro { margin-bottom: 12px; }
+.agendamento__botao { width: 100%; min-height: 54px; padding-inline: 28px; font-size: 1.05rem; box-shadow: 0 8px 20px rgba(255,138,10,.28); }
 
 .sobre__grade { display: grid; gap: 24px; align-items: center; }
 .sobre__foto { position: relative; width: 100%; aspect-ratio: 3 / 2; margin: 0; border-radius: 20px; }
@@ -108,33 +108,16 @@
 .titulo-central { margin-bottom: 24px; text-align: center; }
 .titulo-central .secao-kicker { margin-bottom: 5px; }
 .depoimentos-grade { display: grid; grid-template-columns: 1fr; gap: 14px; }
-.depoimento { display: flex; min-width: 0; flex-direction: column; padding: 18px; border: 1px solid var(--azul-borda); border-radius: 18px; background: #fff; box-shadow: 0 5px 16px rgba(20,58,158,.07); }
-.estrelas { margin: 0 0 10px; color: #e5a800; letter-spacing: .12em; }
-.depoimento blockquote { flex: 1; margin: 0 0 16px; color: var(--texto); font-size: .9rem; }
-.depoimento__pessoa { display: flex; align-items: center; gap: 10px; }
-.avatar { display: block; flex: 0 0 42px; width: 42px; height: 42px; overflow: hidden; border-radius: 50%; background: linear-gradient(135deg,#c4dcf7,#e9f2ff); }
+.depoimento { display: flex; min-width: 0; flex-direction: column; padding: 24px 22px 22px; border: 1px solid var(--azul-borda); border-radius: 18px; background: #fff; box-shadow: 0 5px 16px rgba(20,58,158,.07); }
+.estrelas { margin: 0 0 12px; color: #e5a800; font-size: 1.15rem; line-height: 1; letter-spacing: .12em; }
+.depoimento blockquote { flex: 1; margin: 0 0 20px; color: var(--texto); font-size: .97rem; line-height: 1.6; }
+.depoimento__pessoa { display: flex; align-items: center; gap: 12px; }
+.avatar { display: block; flex: 0 0 52px; width: 52px; height: 52px; overflow: hidden; border-radius: 50%; background: linear-gradient(135deg,#c4dcf7,#e9f2ff); }
 .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.depoimento__pessoa p { display: grid; gap: 2px; margin: 0; font-size: .84rem; }
+.depoimento__pessoa p { display: grid; gap: 3px; margin: 0; font-size: .98rem; line-height: 1.25; }
 .depoimento__pessoa b { color: var(--azul-escuro); }
-.depoimento__pessoa small { color: var(--texto-suave); font-size: .75rem; }
+.depoimento__pessoa small { color: var(--texto-suave); font-size: .84rem; }
 
-.rodape { background: linear-gradient(120deg,#143a9e,#0b4dbb); color: #fff; }
-.rodape__grade { display: grid; grid-template-columns: 1fr; gap: 28px; padding-block: 34px; }
-.rodape h2 { margin-bottom: 12px; color: #fff; font-size: 1rem; }
-.rodape p, .rodape a { color: rgba(255,255,255,.92); font-size: .86rem; }
-.rodape__marca { max-width: 300px; }
-.rodape__logo { display: inline-flex; margin-bottom: 10px; padding: 5px; border-radius: 50%; background: #fff; }
-.rodape__logo img { display: block; width: 64px; height: 64px; object-fit: contain; }
-.rodape__marca p { margin-bottom: 14px; }
-.redes { display: flex; gap: 10px; }
-.redes a { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; color: #fff; font-weight: 900; text-decoration: none; }
-.rodape__links, .rodape__contato { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
-.rodape__links a, .rodape__contato a { text-decoration: none; }
-.rodape__links a:hover, .rodape__contato a:hover { text-decoration: underline; }
-.rodape__contato p { margin: 0 0 4px; }
-.rodape__seguranca p { margin-bottom: 12px; }
-.rodape__pagamentos-titulo { margin-top: 18px; font-weight: 800; }
-.rodape__final { border-top: 1px solid rgba(255,255,255,.25); padding: 13px 0; color: rgba(255,255,255,.9); font-size: .78rem; text-align: center; }
 
 @media (max-width: 359px) {
   .titulo-secao { align-items: flex-start; flex-direction: column; }
@@ -151,26 +134,22 @@
   .servico-card { flex-direction: column; align-items: flex-start; padding: 16px; }
   .servico-card__icone { margin-bottom: 4px; }
   .depoimentos-grade { grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .rodape__grade { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 @media (min-width: 768px) {
   .secao { padding-block: 56px; }
   .home-hero { min-height: clamp(380px, 29vw, 480px); }
-  .agendamento__grade { grid-template-columns: minmax(0,1fr) minmax(300px,.9fr); gap: 24px; }
-  .agendamento__ilustracao { grid-column: 1 / -1; }
-  .agendamento__apresentacao { grid-column: 1; }
-  .agendamento-form { grid-column: 2; }
+  .agendamento__grade { grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: 32px; align-items: center; }
+  .agendamento__ilustracao { grid-column: 1; aspect-ratio: 4 / 5; max-height: 520px; }
+  .agendamento__apresentacao { grid-column: 2; }
+  .agendamento__botao { width: auto; }
   .sobre__grade { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .rodape__grade { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 @media (min-width: 1024px) {
   .home-hero { min-height: clamp(380px, 29vw, 480px); }
-  .agendamento__grade { grid-template-columns: minmax(240px,.8fr) minmax(280px,1fr) minmax(360px,1.1fr); gap: 24px; }
-  .agendamento__ilustracao { grid-column: 1; grid-row: 1; aspect-ratio: 9 / 16; max-height: 580px; align-self: center; }
-  .agendamento__apresentacao { grid-column: 2; grid-row: 1; }
-  .agendamento-form { grid-column: 3; grid-row: 1; }
+  .agendamento__grade { grid-template-columns: minmax(280px,.8fr) minmax(0,1fr); gap: 48px; max-width: 1000px; margin-inline: auto; }
+  .agendamento__ilustracao { grid-column: 1; grid-row: 1; aspect-ratio: 4 / 5; max-height: 560px; align-self: center; }
+  .agendamento__apresentacao { grid-column: 2; grid-row: 1; gap: 18px; }
   .dicas-grade { grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .rodape__grade { grid-template-columns: 1.2fr .8fr 1fr 1fr; gap: 34px; }
 }
 @media (max-width: 767px) {
   .home-hero { min-height: auto; }
@@ -180,3 +159,6 @@
 /* Fotos em sangria total: ocupam toda a largura da borda interna do cartão. */
 .servico-card { align-items: stretch; gap: 0; padding: 0; }
 .servico-card .servico-card__icone--foto { flex: 0 0 auto; width: 100%; height: auto; aspect-ratio: 3 / 2; margin: 0; border-radius: 0; }
+/* Cards de serviço são links para servicos.html: mantém a mesma aparência de antes. */
+a.servico-card { color: inherit; text-decoration: none; cursor: pointer; }
+a.servico-card:focus-visible { outline: 3px solid var(--laranja); outline-offset: 3px; }

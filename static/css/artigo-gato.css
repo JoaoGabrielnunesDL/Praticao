@@ -1,0 +1,57 @@
+/* Artigo "Como cuidar da saúde do seu gato".
+   A estrutura editorial (trilha, tópicos, coluna lateral, faixa final) vem de artigo.css;
+   aqui ficam só os ajustes desta página: o hero e o enquadramento das fotos. */
+
+/* =========================================================
+   Hero: fundo claro à esquerda, foto do gato à direita esmaecendo no fundo
+   ========================================================= */
+.artigo-hero--gato { min-height: clamp(340px, 29vw, 400px); background: linear-gradient(180deg, #f3f8ff 0%, #e9f2ff 100%); }
+.artigo-hero--gato::before { display: none; }
+.artigo-hero--gato .artigo-hero__foto { left: auto; right: 0; width: 62%; object-position: 100% 30%; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 32%); mask-image: linear-gradient(90deg, transparent 0%, #000 32%); }
+.artigo-hero--gato .artigo-hero__conteudo > * { max-width: 490px; }
+.artigo-hero--gato .artigo-hero__conteudo > h1 { max-width: 540px; }
+.artigo-selo__emoji { font-size: 1.05rem; line-height: 1; }
+
+/* Forma orgânica azul no canto inferior esquerdo. */
+.artigo-hero--gato::after { position: absolute; bottom: -2px; left: 0; z-index: -1; width: min(17vw, 230px); height: 72%; background: no-repeat left bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 260' preserveAspectRatio='none'%3E%3Cpath d='M0 20C58 6 96 50 104 104c8 54 34 94 96 156H0Z' fill='%23aecbf7'/%3E%3Cpath d='M0 92c44-6 70 26 76 66 6 40 24 70 64 102H0Z' fill='%237aa7ec' fill-opacity='.55'/%3E%3C/svg%3E"); content: ''; pointer-events: none; }
+/* Onda azul e laranja no canto inferior direito (na página de passeio ela vem na própria foto). */
+.artigo-hero__onda { position: absolute; right: 0; bottom: -1px; z-index: -1; width: min(36vw, 480px); height: 46%; background: no-repeat right bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 170' preserveAspectRatio='none'%3E%3Cpath d='M480 0C400 4 350 40 300 90 250 140 200 160 130 170h350Z' fill='%23104fbf'/%3E%3Cpath d='M480 22c-70 4-112 36-160 86-42 44-92 58-190 62h350Z' fill='%23ff8a0a'/%3E%3Cpath d='M480 52c-62 6-100 34-142 72-34 30-80 42-160 46h302Z' fill='%23dbe8fb'/%3E%3C/svg%3E"); pointer-events: none; }
+.artigo-hero--gato .artigo-hero__pata--1 { top: 22%; left: 2.5%; }
+.artigo-hero--gato .artigo-hero__pata--2 { display: none; }
+.artigo-hero--gato .artigo-hero__brilho { top: 18%; left: 58%; }
+.artigo-hero--gato .artigo-hero__coracao { top: 10%; right: auto; left: 71%; }
+
+/* =========================================================
+   Fotos dos tópicos: mesmo destaque do artigo de passeio, enquadradas no assunto
+   ========================================================= */
+.artigo-pagina--gato .artigo-topico { grid-template-columns: 64px minmax(0, 1fr) minmax(220px, 268px); }
+.artigo-pagina--gato .artigo-topico__foto { aspect-ratio: 16 / 8.6; }
+.gato-foto--alimentacao { object-position: 45% 55%; }
+.gato-foto--ambiente { object-position: 55% 40%; }
+.gato-foto--higiene { object-position: 50% 35%; }
+.gato-foto--veterinario { object-position: 40% 45%; }
+.outra-dica .gato-foto--cao-feliz { object-position: 67% 35%; }
+.artigo-pagina--gato .artigo-cta__foto img { object-position: 80% 30%; }
+
+/* =========================================================
+   Responsividade
+   ========================================================= */
+@media (max-width: 1100px) {
+  .artigo-hero--gato .artigo-hero__foto { width: 60%; object-position: 100% 30%; }
+  .artigo-hero--gato .artigo-hero__conteudo > *, .artigo-hero--gato .artigo-hero__conteudo > h1 { max-width: 430px; }
+  .artigo-hero--gato .artigo-hero__brilho { left: 56%; }
+  .artigo-hero--gato .artigo-hero__coracao { left: 64%; width: 64px; height: 60px; }
+  .artigo-pagina--gato .artigo-topico { grid-template-columns: 56px minmax(0, 1fr) 190px; }
+  .artigo-pagina--gato .artigo-topico__foto { aspect-ratio: 4 / 3; }
+}
+@media (max-width: 860px) {
+  .artigo-pagina--gato .artigo-topico { grid-template-columns: 56px minmax(0, 1fr) minmax(180px, 220px); }
+}
+/* Celular: foto inteira no topo, texto abaixo. */
+@media (max-width: 640px) {
+  .artigo-hero--gato::after, .artigo-hero__onda { display: none; }
+  .artigo-hero--gato .artigo-hero__foto { width: 100%; aspect-ratio: 16 / 10; object-position: 72% 30%; -webkit-mask-image: none; mask-image: none; }
+  .artigo-hero--gato .artigo-hero__brilho { top: 18px; left: 18px; }
+  .artigo-pagina--gato .artigo-topico { grid-template-columns: 52px minmax(0, 1fr); }
+  .artigo-pagina--gato .artigo-topico__foto { aspect-ratio: 16 / 9; }
+}

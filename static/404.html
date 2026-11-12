@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Página não encontrada | PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <style>
+    .pagina-404 { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: var(--azul-claro); }
+    .pagina-404__cartao { width: min(100%, 620px); padding: clamp(24px, 6vw, 48px); text-align: center; }
+    .pagina-404__codigo { margin: 0; color: var(--laranja-escuro); font-size: clamp(4rem, 18vw, 8rem); font-weight: 900; line-height: 1; }
+    .pagina-404__cartao p { color: var(--texto-suave); }
+  </style>
+</head>
+<body>
+  <main class="pagina-404">
+    <section class="cartao pagina-404__cartao" aria-labelledby="titulo-404">
+      <p class="pagina-404__codigo" aria-hidden="true">404</p>
+      <h1 id="titulo-404">Página não encontrada</h1>
+      <p>Não encontramos o endereço que você tentou acessar.</p>
+      <a class="btn btn--laranja" href="index.html">Voltar para a página inicial</a>
+    </section>
+  </main>
+</body>
+</html>

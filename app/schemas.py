@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, EmailStr, Field, ConfigDict
+from pydantic import BaseModel, EmailStr, Field, ConfigDict, field_validator
 
 
 class UsuarioCriar(BaseModel):
@@ -14,11 +14,24 @@ class UsuarioAtualizar(BaseModel):
     telefone: str | None = None
 
 
+class UsuarioAlterarSenha(BaseModel):
+    senha_atual: str = Field(min_length=1)
+    nova_senha: str = Field(min_length=6)
+
+    @field_validator('nova_senha')
+    @classmethod
+    def validar_limite_bcrypt(cls, valor: str) -> str:
+        if len(valor.encode('utf-8')) > 72:
+            raise ValueError('A nova senha não pode exceder 72 bytes em UTF-8.')
+        return valor
+
+
 class UsuarioSaida(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
     nome: str
     email: EmailStr
+    telefone: str | None = None
     perfil: str
     ativo: bool
 

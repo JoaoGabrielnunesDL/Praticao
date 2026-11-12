@@ -1,0 +1,20 @@
+/* Estados e mensagens reutilizáveis do PratiCão. */
+.ui-toasts { position: fixed; z-index: 200; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); display: grid; gap: 10px; width: min(420px, calc(100vw - 24px)); }
+.ui-toast { display: flex; align-items: flex-start; gap: 12px; padding: 14px 14px 14px 16px; border: 1px solid #b9cce8; border-left: 5px solid var(--azul); border-radius: 12px; background: #fff; color: var(--texto); box-shadow: 0 8px 24px rgba(20,58,158,.18); }
+.ui-toast--sucesso { border-left-color: #15803d; } .ui-toast--erro { border-left-color: var(--erro); } .ui-toast--aviso { border-left-color: #b45309; } .ui-toast--informacao { border-left-color: var(--azul); }
+.ui-toast__texto { flex: 1; margin: 0; font-weight: 700; }
+.ui-toast__fechar { flex: 0 0 36px; min-height: 36px; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 1.5rem; line-height: 1; }
+.ui-toast__fechar:hover { background: #edf3fb; }
+.ui-estado { display: grid; justify-items: center; gap: 12px; width: 100%; padding: clamp(20px, 5vw, 36px); border: 1px solid var(--azul-borda); border-radius: var(--raio-cartao); background: #fff; text-align: center; }
+.ui-estado__titulo { margin: 0; font-size: 1.25rem; } .ui-estado__mensagem { max-width: 54ch; margin: 0; color: var(--texto-suave); }
+.ui-estado--erro { border-color: #efcaca; background: #fffafa; }
+.ui-spinner { width: 38px; height: 38px; border: 4px solid #dbe7f5; border-top-color: var(--azul); border-radius: 50%; animation: ui-girar .8s linear infinite; }
+@keyframes ui-girar { to { transform: rotate(360deg); } }
+.ui-botao { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 9px 16px; border: 1px solid transparent; border-radius: 10px; font-weight: 800; }
+.ui-botao--primario { background: var(--azul); color: #fff; } .ui-botao--secundario { border-color: var(--azul-borda); background: #fff; color: var(--azul-escuro); } .ui-botao--perigo { background: #b91c1c; color: #fff; }
+.ui-modal { width: min(480px, calc(100vw - 28px)); max-width: none; padding: 24px; border: 0; border-radius: 18px; color: var(--texto); box-shadow: 0 18px 60px rgba(15,23,42,.3); }
+.ui-modal::backdrop { background: rgba(15,23,42,.58); } .ui-modal h2 { margin: 0 0 10px; } .ui-modal p { color: var(--texto-suave); }
+.ui-modal__acoes { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+.ui-formulario__erro { margin: 6px 0 0; color: var(--erro); font-size: .9rem; } .ui-formulario__sucesso { margin: 6px 0 0; color: #166534; font-size: .9rem; }
+@media (prefers-reduced-motion: reduce) { .ui-spinner { animation-duration: 1.8s; } }
+@media (max-width: 480px) { .ui-toasts { right: 8px; left: 8px; width: auto; } .ui-modal { padding: 20px; } .ui-modal__acoes { display: grid; grid-template-columns: 1fr 1fr; } }

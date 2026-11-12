@@ -36,6 +36,22 @@ def test_atualizar_perfil(client, tutor):
     r = client.put('/me', json={'nome': 'Ana Maria', 'telefone': '34999990000'}, headers=tutor)
     assert r.status_code == 200
     assert r.json()['nome'] == 'Ana Maria'
+    assert r.json()['telefone'] == '34999990000'
+    assert client.get('/me', headers=tutor).json()['telefone'] == '34999990000'
+
+
+def test_me_retorna_telefone_do_cadastro(client):
+    client.post('/cadastro', json={'nome': 'Caio', 'email': 'caio@teste.com', 'senha': '123456',
+                                   'telefone': '34988887777'})
+    r = client.post('/login', data={'username': 'caio@teste.com', 'password': '123456'})
+    headers = {'Authorization': f"Bearer {r.json()['access_token']}"}
+    assert client.get('/me', headers=headers).json()['telefone'] == '34988887777'
+
+
+def test_me_sem_telefone_retorna_nulo(client, tutor):
+    r = client.get('/me', headers=tutor)
+    assert r.status_code == 200
+    assert r.json()['telefone'] is None
 
 
 def test_perfil_nome_curto(client, tutor):

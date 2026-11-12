@@ -1,20 +1,180 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Consulte os dados da sua conta PratiCão.">
+  <meta name="description" content="Consulte e atualize os dados da sua conta PratiCão.">
   <title>Meu perfil | PratiCão</title>
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/componentes.css?v=2">
+  <link rel="stylesheet" href="css/componentes.css?v=4">
   <link rel="stylesheet" href="css/header.css">
-  <style>.perfil { max-width: 720px; margin: 42px auto; padding: 28px; }.perfil dl { display: grid; grid-template-columns: 150px 1fr; gap: 14px; }.perfil dt { color: var(--azul-escuro); font-weight: 800; }.perfil dd { margin: 0; overflow-wrap: anywhere; }@media(max-width:480px){.perfil dl{grid-template-columns:1fr;gap:3px}.perfil dd{margin-bottom:12px}}</style>
+  <link rel="stylesheet" href="css/ui.css">
+  <link rel="stylesheet" href="css/perfil.css?v=21">
 </head>
 <body>
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
-  <div class="barra-superior"><div class="container barra-superior__conteudo"><div class="barra-superior__contato"><a href="tel:+5511987654321">(11) 98765-4321</a><a class="barra-superior__email" href="mailto:contato@praticao.com.br">contato@praticao.com.br</a></div><div class="barra-superior__direita"><span class="barra-superior__areas"><a href="tutor.html" data-area="tutor">Área do Tutor</a><a href="painel.html" data-area="funcionario">Área do Funcionário</a></span><span class="fonte-botoes"><span class="barra-superior__email">Acessibilidade:</span><button type="button" data-fonte="menor" aria-label="Diminuir o tamanho da letra">A</button><button type="button" data-fonte="normal" aria-label="Tamanho normal da letra">A</button><button type="button" data-fonte="maior" aria-label="Aumentar o tamanho da letra">A</button></span></div></div></div>
-  <header class="cabecalho"><div class="container cabecalho__conteudo"><a class="logo" href="index.html"><img src="img/logo.png" alt="PratiCão, página inicial" width="72" height="72"></a><nav class="menu-principal" aria-label="Menu principal"><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a></nav><div class="cabecalho__acoes"><div data-auth-slot></div><button id="botao-menu" class="btn-hamburguer" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu">☰</button></div></div><nav id="menu-mobile" class="menu-mobile" aria-label="Menu principal (celular)" hidden><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a></nav></header>
-  <main id="conteudo" class="container"><section class="cartao perfil"><h1>Meu perfil</h1><p>Dados da sua conta PratiCão.</p><div id="perfil-carregando" role="status">Carregando perfil...</div><dl id="perfil-dados" hidden><dt>Nome</dt><dd id="perfil-nome"></dd><dt>E-mail</dt><dd id="perfil-email"></dd><dt>Tipo de conta</dt><dd id="perfil-tipo"></dd></dl><div id="perfil-erro" class="mensagem-erro" role="alert" hidden></div></section></main>
-  <script src="js/api.js"></script><script src="js/auth.js"></script><script src="js/header.js"></script><script src="js/perfil.js"></script>
+  <div class="barra-superior">
+    <div class="container barra-superior__conteudo">
+      <div class="barra-superior__contato"><a href="tel:+5511987654321">(11) 98765-4321</a><a class="barra-superior__email" href="mailto:contato@praticao.com.br">contato@praticao.com.br</a></div>
+      <div class="barra-superior__direita">
+                <span class="fonte-botoes"><span class="barra-superior__email">Acessibilidade:</span><button type="button" data-fonte="menor" aria-label="Diminuir o tamanho da letra">A</button><button type="button" data-fonte="normal" aria-label="Tamanho normal da letra">A</button><button type="button" data-fonte="maior" aria-label="Aumentar o tamanho da letra">A</button></span>
+      </div>
+    </div>
+  </div>
+  <header class="cabecalho">
+    <div class="container cabecalho__conteudo">
+      <a class="logo" href="index.html" aria-label="PratiCão, página inicial"><img src="img/logo.png" alt="PratiCão" width="72" height="72"></a>
+      <nav class="menu-principal" aria-label="Menu principal"><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a></nav>
+      <div class="cabecalho__acoes"><div data-auth-slot></div><button id="botao-menu" class="btn-hamburguer" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu">☰</button></div>
+    </div>
+    <nav id="menu-mobile" class="menu-mobile" aria-label="Menu principal (celular)" hidden><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a></nav>
+  </header>
+
+  <!--
+    FUNDO DECORATIVO DAS LATERAIS (somente visual, mesmo padrão de "Meus Animais").
+    Camada fixa atrás de todo o conteúdo (z-index negativo): não recebe cliques e não cobre nada.
+  -->
+  <div class="perfil-fundo" aria-hidden="true">
+    <span class="perfil-fundo__onda-topo"></span>
+    <span class="perfil-fundo__pata perfil-fundo__pata--1"></span>
+    <span class="perfil-fundo__pata perfil-fundo__pata--2"></span>
+    <span class="perfil-fundo__pata perfil-fundo__pata--3"></span>
+    <span class="perfil-fundo__pata perfil-fundo__pata--4"></span>
+    <span class="perfil-fundo__pata perfil-fundo__pata--5"></span>
+    <span class="perfil-fundo__osso perfil-fundo__osso--1"></span>
+    <span class="perfil-fundo__osso perfil-fundo__osso--2"></span>
+    <div class="perfil-fundo__ilustracao"><img src="img/C%C3%A3o%20e%20Gato%20com%20Acess%C3%B3rios%20Pet.png" alt="" width="1287" height="1222" loading="lazy" decoding="async"></div>
+    <span class="perfil-fundo__onda perfil-fundo__onda--tras"></span>
+    <span class="perfil-fundo__onda perfil-fundo__onda--frente"></span>
+    <span class="perfil-fundo__onda-laranja"></span>
+  </div>
+
+  <main id="conteudo" class="container perfil-layout">
+    <header class="perfil-intro">
+      <!-- Camada decorativa do banner (onda laranja, linha clara e pata sutil). Fica atrás do conteúdo e não recebe cliques. -->
+      <div class="perfil-intro__decoracao" aria-hidden="true">
+        <span class="perfil-intro__area"></span>
+        <span class="perfil-intro__onda"></span>
+        <span class="perfil-intro__pata"></span>
+      </div>
+      <div class="perfil-intro__texto">
+        <p class="perfil-kicker">Minha conta</p>
+        <h1 id="perfil-titulo">Meu Perfil</h1>
+        <p>Consulte e atualize seus dados pessoais.</p>
+      </div>
+      <div class="perfil-intro__arte" aria-hidden="true">
+        <div class="perfil__imagem-decorativa"><img src="img/C%C3%A3o%20e%20Gato%20com%20Acess%C3%B3rios%20Pet.png" alt="" width="1287" height="1222" decoding="async"></div>
+      </div>
+    </header>
+    <aside id="perfil-menu-tutor" class="cartao perfil-menu" aria-label="Navegação do tutor" hidden>
+      <h2>Minha área</h2>
+      <nav class="perfil-menu__links" aria-label="Menu do tutor">
+        <a href="tutor.html">Painel</a>
+        <a href="animais.html">Meus Animais</a>
+        <a href="agendar.html">Novo Agendamento</a>
+        <button type="button" data-perfil-em-breve>Meus Agendamentos</button>
+        <a href="perfil.html" aria-current="page">Meu Perfil</a>
+      </nav>
+    </aside>
+    <section class="cartao perfil" aria-labelledby="perfil-titulo">
+      <div id="perfil-carregando" role="status" aria-live="polite">Carregando perfil...</div>
+      <div id="perfil-conteudo" hidden>
+        <p id="perfil-sucesso" class="perfil__feedback perfil__feedback--sucesso" role="status" aria-live="polite" hidden></p>
+        <div id="perfil-erro" class="perfil__feedback perfil__feedback--erro" role="alert" aria-live="assertive" hidden></div>
+        <div class="perfil__colunas">
+          <section class="perfil__secao" aria-labelledby="perfil-dados-titulo">
+            <div class="perfil__secao-topo">
+              <span class="perfil__secao-icone" aria-hidden="true"></span>
+              <div>
+                <h2 id="perfil-dados-titulo">Dados Pessoais</h2>
+                <p class="perfil__secao-sub">Suas informações de cadastro.</p>
+              </div>
+            </div>
+            <dl id="perfil-dados" class="perfil__dados">
+              <div class="perfil__linha perfil__linha--nome"><dt>Nome completo</dt><dd id="perfil-nome"></dd></div>
+              <div class="perfil__linha perfil__linha--email"><dt>E-mail</dt><dd id="perfil-email"></dd></div>
+              <div class="perfil__linha perfil__linha--telefone"><dt>Telefone / WhatsApp</dt><dd id="perfil-telefone-exibicao">Não informado</dd></div>
+              <div class="perfil__linha perfil__linha--tipo"><dt>Tipo de conta</dt><dd id="perfil-tipo"></dd></div>
+              <div class="perfil__linha perfil__linha--status"><dt>Status</dt><dd id="perfil-status"></dd></div>
+            </dl>
+            <div class="perfil__acoes">
+              <button id="perfil-editar" class="btn btn--laranja" type="button">Editar dados</button>
+              <button id="perfil-voltar" class="btn btn--contorno" type="button">Voltar</button>
+            </div>
+            <form id="perfil-formulario" class="perfil__form" novalidate hidden>
+              <div class="campo">
+                <label class="campo__rotulo" for="perfil-nome-edicao">Nome completo *</label>
+                <input class="campo__entrada" id="perfil-nome-edicao" name="nome" type="text" autocomplete="name" minlength="2" maxlength="100" required aria-describedby="erro-perfil-nome-edicao">
+                <p id="erro-perfil-nome-edicao" class="campo__erro" hidden></p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="perfil-email-edicao">E-mail</label>
+                <input class="campo__entrada" id="perfil-email-edicao" type="email" readonly aria-describedby="perfil-email-nota">
+                <p id="perfil-email-nota" class="perfil__nota">O e-mail é somente leitura nesta versão da API.</p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="perfil-telefone-edicao">Telefone / WhatsApp <span>(opcional)</span></label>
+                <input class="campo__entrada" id="perfil-telefone-edicao" name="telefone" type="tel" autocomplete="tel" maxlength="20" aria-describedby="perfil-telefone-nota erro-perfil-telefone-edicao">
+                <p id="perfil-telefone-nota" class="perfil__nota">A API aceita telefone na atualização, mas não o retorna ao carregar o perfil. Informe o telefone que deseja manter ou atualizar. Se deixar vazio, confirme a remoção quando solicitado.</p>
+                <p id="erro-perfil-telefone-edicao" class="campo__erro" hidden></p>
+              </div>
+              <div class="perfil__form-acoes">
+                <button id="perfil-salvar" class="btn btn--laranja" type="submit">Salvar alterações</button>
+                <button id="perfil-cancelar" class="btn btn--contorno" type="button">Cancelar</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="perfil__secao perfil__senha" aria-labelledby="perfil-senha-titulo">
+            <div class="perfil__secao-topo">
+              <span class="perfil__secao-icone perfil__secao-icone--senha" aria-hidden="true"></span>
+              <div>
+                <h2 id="perfil-senha-titulo">Alterar Senha</h2>
+                <p class="perfil__secao-sub">Atualize sua senha de acesso.</p>
+              </div>
+            </div>
+            <form id="perfil-senha-formulario" class="perfil__senha-form" novalidate>
+              <div class="campo">
+                <label class="campo__rotulo" for="perfil-senha-atual">Senha atual *</label>
+                <input class="campo__entrada" id="perfil-senha-atual" name="senha_atual" type="password" autocomplete="current-password" required aria-describedby="erro-perfil-senha-atual">
+                <p id="erro-perfil-senha-atual" class="campo__erro" role="alert" hidden></p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="perfil-senha-nova">Nova senha *</label>
+                <input class="campo__entrada" id="perfil-senha-nova" name="nova_senha" type="password" autocomplete="new-password" minlength="6" required aria-describedby="erro-perfil-senha-nova">
+                <p id="erro-perfil-senha-nova" class="campo__erro" role="alert" hidden></p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="perfil-senha-confirmar">Confirmar nova senha *</label>
+                <input class="campo__entrada" id="perfil-senha-confirmar" name="confirmar_senha" type="password" autocomplete="new-password" required aria-describedby="erro-perfil-senha-confirmar">
+                <p id="erro-perfil-senha-confirmar" class="campo__erro" role="alert" hidden></p>
+              </div>
+              <button id="perfil-senha-atualizar" class="btn btn--laranja" type="submit">Atualizar senha</button>
+            </form>
+          </section>
+        </div>
+        <a id="perfil-sair" class="perfil__sair" href="index.html">Sair da conta</a>
+      </div>
+      <div id="perfil-falha" class="perfil-falha" hidden></div>
+    </section>
+  </main>
+  <footer id="contato" class="rodape perfil-rodape">
+    <div class="container rodape__grade">
+      <section class="rodape__marca" aria-label="Sobre o PratiCão">
+        <a href="index.html#inicio" class="rodape__logo"><img src="img/logo.png" alt="PratiCão" width="76" height="76"></a>
+        <p>Líder no cuidado com seu pet, com amor, carinho e profissionalismo. Porque eles merecem o melhor!</p>
+      </section>
+      <nav class="rodape__links" aria-label="Links rápidos"><h2>Links Rápidos</h2><a href="index.html#inicio">Início</a><a href="index.html#servicos">Serviços</a><a href="index.html#agendamento">Agendamento</a><a href="index.html#sobre">Sobre Nós</a><a href="index.html#contato">Contato</a></nav>
+      <section class="rodape__contato"><h2>Fale Conosco</h2><p>Rua das Flores, 123 - Centro<br>São Paulo - SP - CEP: 01010-987</p><a href="tel:+5511987654321">(11) 98765-4321</a><a href="mailto:contato@praticao.com.br">contato@praticao.com.br</a></section>
+      <section class="rodape__seguranca"><h2>Segurança e Conformidade</h2><p><b>Ambiente Seguro.</b><br>Seus dados protegidos.</p><p class="rodape__pagamentos-titulo">Formas de pagamento:</p><div class="pagamentos" aria-label="Formas de pagamento"><span class="pagamento-badge pagamento-badge--visa" role="img" aria-label="Visa">VISA</span><span class="pagamento-badge pagamento-badge--mastercard" role="img" aria-label="Mastercard"><span class="mastercard-simbolo" aria-hidden="true"><i></i><i></i></span><b>mastercard</b></span><span class="pagamento-badge pagamento-badge--elo" role="img" aria-label="Elo"><b>elo</b></span><span class="pagamento-badge pagamento-badge--pix" role="img" aria-label="Pix"><b>pix</b></span></div></section>
+    </div>
+    <div class="rodape__final"><div class="container">© <span id="ano-atual">2026</span> PratiCão. Todos os direitos reservados.</div></div>
+  </footer>
+  <script src="js/ui.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/header.js?v=2"></script>
+  <script src="js/validacao.js"></script>
+  <script src="js/perfil.js?v=2"></script>
 </body>
 </html>
