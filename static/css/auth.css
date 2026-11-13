@@ -4,13 +4,13 @@
   background: var(--azul-claro);
   padding: 24px 0 24px;
   padding-bottom: calc(24px + env(safe-area-inset-bottom));
-  min-height: 60vh;
+  /* Sem altura mínima: em telas altas ela empurrava o rodapé e deixava um vazio abaixo do formulário. */
 }
 .auth__grade { display: grid; gap: 20px; min-width: 0; }
 .auth__hero, .auth__lado { min-width: 0; }
 
 .auth__eyebrow { margin: 0 0 4px; color: var(--azul); font-weight: 800; font-size: 0.95rem; }
-.auth h1 { color: var(--azul-escuro); }
+.auth h1 { margin-bottom: 16px; color: var(--azul-escuro); } /* respiro entre o título e o parágrafo */
 .auth__laranja { color: var(--laranja-forte); }
 .auth__subtitulo { color: var(--azul-escuro); font-weight: 700; font-size: 0.95rem; }
 
@@ -86,7 +86,7 @@
 
 /* ---------- Tablet (768 a 1023 px): texto à esquerda, foto 4:5 à direita ---------- */
 @media (min-width: 768px) {
-  .auth { padding-block: 32px; }
+  .auth { padding-block: 32px 28px; }
   .auth__hero {
     display: grid; grid-template-columns: 1fr minmax(0, 40%); column-gap: 24px; align-items: start;
   }
@@ -98,7 +98,7 @@
 
 /* ---------- Tablet largo e PC (1024 px ou mais): duas colunas ---------- */
 @media (min-width: 1024px) {
-  .auth { padding-block: 48px; }
+  .auth { padding-block: 48px 32px; }
   .auth__grade { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: start; }
   .auth__hero { display: block; }
   .auth__foto { aspect-ratio: 16 / 9; max-height: 360px; margin-top: 16px; }

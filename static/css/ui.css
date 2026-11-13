@@ -1,9 +1,12 @@
 /* Estados e mensagens reutilizáveis do PratiCão. */
-.ui-toasts { position: fixed; z-index: 200; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); display: grid; gap: 10px; width: min(420px, calc(100vw - 24px)); }
+/* Abaixo da barra superior (44px) e do cabeçalho (76px no celular, 88px a partir de 768px). */
+:root { --altura-topo: calc(44px + 76px); }
+@media (min-width: 768px) { :root { --altura-topo: calc(44px + 88px); } }
+.ui-toasts { position: fixed; z-index: 200; top: calc(var(--altura-topo) + 12px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right)); display: grid; gap: 10px; width: min(420px, calc(100vw - 24px)); }
 .ui-toast { display: flex; align-items: flex-start; gap: 12px; padding: 14px 14px 14px 16px; border: 1px solid var(--azul-borda-forte); border-left: 5px solid var(--azul); border-radius: 12px; background: #fff; color: var(--texto); box-shadow: 0 8px 24px rgba(20,58,158,.18); }
 .ui-toast--sucesso { border-left-color: #15803d; } .ui-toast--erro { border-left-color: var(--erro); } .ui-toast--aviso { border-left-color: var(--laranja-forte); } .ui-toast--informacao { border-left-color: var(--azul); }
 .ui-toast__texto { flex: 1; margin: 0; font-weight: 700; }
-.ui-toast__fechar { flex: 0 0 36px; min-height: 36px; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 1.5rem; line-height: 1; }
+.ui-toast__fechar { flex: 0 0 44px; min-height: 44px; margin: -10px -8px -10px 0; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 1.5rem; line-height: 1; }
 .ui-toast__fechar:hover { background: var(--azul-claro); }
 .ui-estado { display: grid; justify-items: center; gap: 12px; width: 100%; padding: clamp(20px, 5vw, 36px); border: 1px solid var(--azul-borda); border-radius: var(--raio-cartao); background: #fff; text-align: center; }
 .ui-estado__titulo { margin: 0; font-size: 1.25rem; } .ui-estado__mensagem { max-width: 54ch; margin: 0; color: var(--texto-suave); }
