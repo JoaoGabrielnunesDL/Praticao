@@ -6,7 +6,7 @@
    Hero: foto ancorada à esquerda (o beagle fica do lado direito)
    e lado esquerdo clareado para o texto
    ========================================================= */
-.artigo-hero--passeio { min-height: clamp(340px, 28vw, 390px); background: linear-gradient(180deg, #f3f8ff 0%, #e9f2ff 100%); }
+.artigo-hero--passeio { min-height: clamp(340px, 28vw, 390px); background: linear-gradient(180deg, var(--azul-nevoa) 0%, var(--azul-claro) 100%); }
 .artigo-hero--passeio .artigo-hero__foto { object-position: 0% 50%; }
 .artigo-hero--passeio::before { background: linear-gradient(90deg, rgba(243,248,255,.97) 0%, rgba(243,248,255,.92) 34%, rgba(243,248,255,.55) 45%, rgba(243,248,255,0) 54%); }
 /* Forma orgânica azul no canto inferior esquerdo, como na referência. */
