@@ -51,7 +51,7 @@ Projeto desenvolvido com a metodologia ágil Scrum.
 |---|---|
 | API (usuários, animais, serviços, agendamentos, administração e relatórios) | Concluída |
 | Banco de dados PostgreSQL | Configurado e validado |
-| Testes automatizados da API (60 testes) | Concluídos |
+| Testes automatizados da API (105 testes) | Concluídos |
 | Telas do sistema (front-end) | Em desenvolvimento. A pasta `static` tem hoje uma página provisória |
 
 ## Tecnologias
@@ -193,14 +193,16 @@ Todos os endpoints abaixo, exceto os marcados como públicos, exigem login.
 | | `GET /me`, `PUT /me`, `POST /logout` | usuário logado |
 | Animais | `GET /animais`, `POST /animais` | tutor |
 | | `GET /animais/{id}`, `PUT /animais/{id}`, `DELETE /animais/{id}` | tutor (somente os próprios animais) |
-| Serviços | `GET /servicos` | público |
-| | `POST /servicos`, `PUT /servicos/{id}`, `PATCH /servicos/{id}/desativar` | funcionário ou administrador |
-| Agendamentos | `POST /agendamentos`, `GET /agendamentos` | tutor (os próprios) ou funcionário (todos, com filtro `?data=AAAA-MM-DD`) |
+| Serviços | `GET /servicos` (só os ativos) | público |
+| | `GET /servicos?todos=true` (ativos e inativos) | funcionário ou administrador (para tutor e público, o parâmetro é ignorado e só os ativos voltam) |
+| | `POST /servicos`, `PUT /servicos/{id}`, `PATCH /servicos/{id}/desativar`, `PATCH /servicos/{id}/ativar` | funcionário ou administrador |
+| Agendamentos | `POST /agendamentos`, `GET /agendamentos` (a resposta traz também `animal_nome`, `tutor_id`, `tutor_nome`, `servico_nome`, `servico_preco` e `servico_duracao_min`; `observacao` aceita até 300 caracteres) | tutor (os próprios) ou funcionário (todos, com filtro `?data=AAAA-MM-DD`) |
 | | `POST /agendamentos/{id}/cancelar` | tutor (dono) ou funcionário |
 | | `PATCH /agendamentos/{id}/status` | funcionário ou administrador |
 | Administração | `GET /admin/usuarios`, `GET /admin/usuarios/{id}` | administrador |
 | | `PATCH /admin/usuarios/{id}/desativar`, `PATCH /admin/usuarios/{id}/ativar` | administrador |
-| Relatórios | `GET /relatorios/agendamentos` (filtros `inicio` e `fim`) | funcionário ou administrador |
+| Relatórios | `GET /relatorios/agendamentos` (filtros `inicio` e `fim`; devolve `total`, `por_status` e `por_servico`, lista de `{servico_id, nome, total}`) | funcionário ou administrador |
+| | `GET /relatorios/agendamentos/itens` (filtros `inicio` e `fim`; paginação com `pagina`, padrão 1, e `tamanho`, padrão 10, máximo 100; devolve `itens`, `pagina`, `tamanho`, `total` e `total_paginas`) | funcionário ou administrador |
 
 Os erros seguem o formato `{"detail": "mensagem"}`. O login é feito com `POST /login` enviando `username` (o e-mail) e `password`, e a resposta traz o `access_token`, que deve ser enviado no cabeçalho `Authorization: Bearer <token>`. Datas de agendamento são enviadas no formato `2026-12-10T14:00:00`, sem fuso horário.
 
@@ -212,7 +214,7 @@ Os erros seguem o formato `{"detail": "mensagem"}`. O login é feito com `POST /
 - Status dos agendamentos: `AGENDADO`, `CONFIRMADO`, `CANCELADO` e `CONCLUIDO`. As mudanças permitidas são:
   - `AGENDADO` para `CONFIRMADO` ou `CANCELADO`
   - `CONFIRMADO` para `CONCLUIDO` ou `CANCELADO`
-- Serviço desativado não aparece na lista e não pode ser agendado.
+- Serviço desativado não aparece na lista pública e não pode ser agendado. Funcionário e administrador o enxergam com `?todos=true` e podem reativá-lo.
 - Conta desativada não consegue fazer login, e seu histórico é mantido.
 - O administrador não pode desativar a própria conta.
 - Um tutor nunca acessa animais ou agendamentos de outro tutor.
@@ -224,7 +226,7 @@ Os erros seguem o formato `{"detail": "mensagem"}`. O login é feito com `POST /
 python -m pytest -v
 ```
 
-São 60 testes cobrindo usuários, animais, serviços, agendamentos, administração e relatórios, incluindo permissões e privacidade entre tutores. Os testes usam um banco em memória e não alteram os dados reais do PostgreSQL.
+São 105 testes cobrindo usuários, animais, serviços, agendamentos, administração e relatórios, incluindo permissões e privacidade entre tutores. Os testes usam um banco em memória e não alteram os dados reais do PostgreSQL.
 
 ## Estrutura do projeto
 

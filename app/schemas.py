@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, EmailStr, Field, ConfigDict, field_validator
+from pydantic import BaseModel, EmailStr, Field, ConfigDict, field_validator, model_validator
 
 
 class UsuarioCriar(BaseModel):
@@ -70,7 +70,7 @@ class AgendamentoCriar(BaseModel):
     animal_id: int
     servico_id: int
     data_hora: datetime
-    observacao: str | None = None
+    observacao: str | None = Field(default=None, max_length=300)
 
 
 class AgendamentoSaida(BaseModel):
@@ -81,7 +81,55 @@ class AgendamentoSaida(BaseModel):
     data_hora: datetime
     status: str
     observacao: str | None = None
+    # Campos de leitura, preenchidos pelos relacionamentos (animal, animal.tutor, servico).
+    animal_nome: str
+    tutor_id: int
+    tutor_nome: str
+    servico_nome: str
+    servico_preco: float
+    servico_duracao_min: int
+
+    @model_validator(mode='before')
+    @classmethod
+    def preencher_campos_de_leitura(cls, dados):
+        # Recebe o objeto do banco (Agendamento) e monta os campos extras a partir
+        # dos relacionamentos. Se já vier um dict (ex.: testes), não mexe.
+        if isinstance(dados, dict):
+            return dados
+        animal = dados.animal
+        servico = dados.servico
+        return {
+            'id': dados.id,
+            'animal_id': dados.animal_id,
+            'servico_id': dados.servico_id,
+            'data_hora': dados.data_hora,
+            'status': dados.status,
+            'observacao': dados.observacao,
+            'animal_nome': animal.nome,
+            'tutor_id': animal.tutor_id,
+            'tutor_nome': animal.tutor.nome,
+            'servico_nome': servico.nome,
+            'servico_preco': servico.preco,
+            'servico_duracao_min': servico.duracao_min,
+        }
 
 
 class StatusAtualizar(BaseModel):
     status: str
+
+
+class ItemRelatorioAgendamento(BaseModel):
+    id: int
+    data_hora: datetime
+    animal_nome: str
+    servico_nome: str
+    tutor_nome: str
+    status: str
+
+
+class ItensRelatorioAgendamentoSaida(BaseModel):
+    itens: list[ItemRelatorioAgendamento]
+    pagina: int
+    tamanho: int
+    total: int
+    total_paginas: int

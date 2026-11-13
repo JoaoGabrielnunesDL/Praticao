@@ -1,0 +1,709 @@
+diff -ruN a/README.md b/README.md
+--- a/README.md	2026-11-13 19:10:09.183991487 -0300
++++ b/README.md	2026-11-13 19:10:09.185376123 -0300
+@@ -51,7 +51,7 @@
+ |---|---|
+ | API (usuários, animais, serviços, agendamentos, administração e relatórios) | Concluída |
+ | Banco de dados PostgreSQL | Configurado e validado |
+-| Testes automatizados da API (60 testes) | Concluídos |
++| Testes automatizados da API (102 testes) | Concluídos |
+ | Telas do sistema (front-end) | Em desenvolvimento. A pasta `static` tem hoje uma página provisória |
+ 
+ ## Tecnologias
+@@ -193,14 +193,16 @@
+ | | `GET /me`, `PUT /me`, `POST /logout` | usuário logado |
+ | Animais | `GET /animais`, `POST /animais` | tutor |
+ | | `GET /animais/{id}`, `PUT /animais/{id}`, `DELETE /animais/{id}` | tutor (somente os próprios animais) |
+-| Serviços | `GET /servicos` | público |
+-| | `POST /servicos`, `PUT /servicos/{id}`, `PATCH /servicos/{id}/desativar` | funcionário ou administrador |
+-| Agendamentos | `POST /agendamentos`, `GET /agendamentos` | tutor (os próprios) ou funcionário (todos, com filtro `?data=AAAA-MM-DD`) |
++| Serviços | `GET /servicos` (só os ativos) | público |
++| | `GET /servicos?todos=true` (ativos e inativos) | funcionário ou administrador (para tutor e público, o parâmetro é ignorado e só os ativos voltam) |
++| | `POST /servicos`, `PUT /servicos/{id}`, `PATCH /servicos/{id}/desativar`, `PATCH /servicos/{id}/ativar` | funcionário ou administrador |
++| Agendamentos | `POST /agendamentos`, `GET /agendamentos` (a resposta traz também `animal_nome`, `tutor_id`, `tutor_nome`, `servico_nome`, `servico_preco` e `servico_duracao_min`; `observacao` aceita até 300 caracteres) | tutor (os próprios) ou funcionário (todos, com filtro `?data=AAAA-MM-DD`) |
+ | | `POST /agendamentos/{id}/cancelar` | tutor (dono) ou funcionário |
+ | | `PATCH /agendamentos/{id}/status` | funcionário ou administrador |
+ | Administração | `GET /admin/usuarios`, `GET /admin/usuarios/{id}` | administrador |
+ | | `PATCH /admin/usuarios/{id}/desativar`, `PATCH /admin/usuarios/{id}/ativar` | administrador |
+-| Relatórios | `GET /relatorios/agendamentos` (filtros `inicio` e `fim`) | funcionário ou administrador |
++| Relatórios | `GET /relatorios/agendamentos` (filtros `inicio` e `fim`; devolve `total`, `por_status` e `por_servico`, lista de `{servico_id, nome, total}`) | funcionário ou administrador |
++| | `GET /relatorios/agendamentos/itens` (filtros `inicio` e `fim`; paginação com `pagina`, padrão 1, e `tamanho`, padrão 10, máximo 100; devolve `itens`, `pagina`, `tamanho`, `total` e `total_paginas`) | funcionário ou administrador |
+ 
+ Os erros seguem o formato `{"detail": "mensagem"}`. O login é feito com `POST /login` enviando `username` (o e-mail) e `password`, e a resposta traz o `access_token`, que deve ser enviado no cabeçalho `Authorization: Bearer <token>`. Datas de agendamento são enviadas no formato `2026-12-10T14:00:00`, sem fuso horário.
+ 
+@@ -212,7 +214,7 @@
+ - Status dos agendamentos: `AGENDADO`, `CONFIRMADO`, `CANCELADO` e `CONCLUIDO`. As mudanças permitidas são:
+   - `AGENDADO` para `CONFIRMADO` ou `CANCELADO`
+   - `CONFIRMADO` para `CONCLUIDO` ou `CANCELADO`
+-- Serviço desativado não aparece na lista e não pode ser agendado.
++- Serviço desativado não aparece na lista pública e não pode ser agendado. Funcionário e administrador o enxergam com `?todos=true` e podem reativá-lo.
+ - Conta desativada não consegue fazer login, e seu histórico é mantido.
+ - O administrador não pode desativar a própria conta.
+ - Um tutor nunca acessa animais ou agendamentos de outro tutor.
+@@ -224,7 +226,7 @@
+ python -m pytest -v
+ ```
+ 
+-São 60 testes cobrindo usuários, animais, serviços, agendamentos, administração e relatórios, incluindo permissões e privacidade entre tutores. Os testes usam um banco em memória e não alteram os dados reais do PostgreSQL.
++São 102 testes cobrindo usuários, animais, serviços, agendamentos, administração e relatórios, incluindo permissões e privacidade entre tutores. Os testes usam um banco em memória e não alteram os dados reais do PostgreSQL.
+ 
+ ## Estrutura do projeto
+ 
+diff -ruN a/app/routes/agendamentos.py b/app/routes/agendamentos.py
+--- a/app/routes/agendamentos.py	2026-11-13 19:10:09.183925941 -0300
++++ b/app/routes/agendamentos.py	2026-11-13 19:10:09.185157468 -0300
+@@ -1,6 +1,6 @@
+ from datetime import datetime, timedelta, date, time
+ from fastapi import APIRouter, Depends, HTTPException
+-from sqlalchemy.orm import Session
++from sqlalchemy.orm import Session, selectinload
+ from app.database import get_db
+ from app import models, schemas, auth
+ 
+@@ -52,7 +52,11 @@
+ 
+ @router.get('', response_model=list[schemas.AgendamentoSaida])
+ def listar(data: date | None = None, db: Session = Depends(get_db), usuario=Depends(auth.usuario_atual)):
+-    consulta = db.query(models.Agendamento)
++    # Carrega animal, tutor e serviço de uma vez (a saída agora usa esses nomes).
++    consulta = db.query(models.Agendamento).options(
++        selectinload(models.Agendamento.animal).selectinload(models.Animal.tutor),
++        selectinload(models.Agendamento.servico),
++    )
+     if usuario.perfil == 'tutor':
+         consulta = consulta.join(models.Animal).filter(models.Animal.tutor_id == usuario.id)
+     if data:
+diff -ruN a/app/routes/relatorios.py b/app/routes/relatorios.py
+--- a/app/routes/relatorios.py	2026-11-13 19:10:09.183959852 -0300
++++ b/app/routes/relatorios.py	2026-11-13 19:10:09.185180359 -0300
+@@ -1,21 +1,18 @@
+ from datetime import date, datetime, time, timedelta
+-from fastapi import APIRouter, Depends, HTTPException
+-from sqlalchemy.orm import Session
++from math import ceil
++from fastapi import APIRouter, Depends, HTTPException, Query
++from sqlalchemy.orm import Session, selectinload
+ from app.database import get_db
+-from app import models, auth
++from app import models, schemas, auth
+ 
+ router = APIRouter(prefix='/relatorios', tags=['Relatórios'])
+ 
+ STATUS = ['AGENDADO', 'CONFIRMADO', 'CANCELADO', 'CONCLUIDO']
++TAMANHO_PADRAO = 10
++TAMANHO_MAXIMO = 100
+ 
+ 
+-@router.get('/agendamentos')
+-def relatorio_agendamentos(
+-    inicio: date | None = None,
+-    fim: date | None = None,
+-    db: Session = Depends(get_db),
+-    _=Depends(auth.exigir_funcionario),
+-):
++def _consulta_do_periodo(db: Session, inicio: date | None, fim: date | None):
+     if inicio and fim and inicio > fim:
+         raise HTTPException(status_code=400, detail='A data inicial não pode ser maior que a final')
+ 
+@@ -24,13 +21,75 @@
+         consulta = consulta.filter(models.Agendamento.data_hora >= datetime.combine(inicio, time.min))
+     if fim:
+         consulta = consulta.filter(models.Agendamento.data_hora < datetime.combine(fim, time.min) + timedelta(days=1))
++    return consulta
++
++
++@router.get('/agendamentos')
++def relatorio_agendamentos(
++    inicio: date | None = None,
++    fim: date | None = None,
++    db: Session = Depends(get_db),
++    _=Depends(auth.exigir_funcionario),
++):
++    consulta = _consulta_do_periodo(db, inicio, fim).options(selectinload(models.Agendamento.servico))
+     agendamentos = consulta.all()
+ 
+     por_status = {s: 0 for s in STATUS}
++    por_servico = {}
+     for ag in agendamentos:
+         por_status[ag.status] += 1
+-
+-    resultado = {'total': len(agendamentos), 'por_status': por_status}
++        item = por_servico.setdefault(
++            ag.servico_id, {'servico_id': ag.servico_id, 'nome': ag.servico.nome, 'total': 0}
++        )
++        item['total'] += 1
++
++    resultado = {
++        'total': len(agendamentos),
++        'por_status': por_status,
++        # Todos os status entram na contagem; mais pedidos primeiro, desempate pelo nome.
++        'por_servico': sorted(por_servico.values(), key=lambda i: (-i['total'], i['nome'])),
++    }
+     if not agendamentos:
+         resultado['mensagem'] = 'Nenhum agendamento encontrado para o período'
+     return resultado
++
++
++@router.get('/agendamentos/itens', response_model=schemas.ItensRelatorioAgendamentoSaida)
++def itens_do_relatorio(
++    inicio: date | None = None,
++    fim: date | None = None,
++    pagina: int = Query(1, ge=1),
++    tamanho: int = Query(TAMANHO_PADRAO, ge=1, le=TAMANHO_MAXIMO),
++    db: Session = Depends(get_db),
++    _=Depends(auth.exigir_funcionario),
++):
++    consulta = _consulta_do_periodo(db, inicio, fim)
++    total = consulta.count()
++    agendamentos = (
++        consulta.options(
++            selectinload(models.Agendamento.animal).selectinload(models.Animal.tutor),
++            selectinload(models.Agendamento.servico),
++        )
++        .order_by(models.Agendamento.data_hora.desc(), models.Agendamento.id.desc())
++        .offset((pagina - 1) * tamanho)
++        .limit(tamanho)
++        .all()
++    )
++    itens = [
++        {
++            'id': ag.id,
++            'data_hora': ag.data_hora,
++            'animal_nome': ag.animal.nome,
++            'servico_nome': ag.servico.nome,
++            'tutor_nome': ag.animal.tutor.nome,
++            'status': ag.status,
++        }
++        for ag in agendamentos
++    ]
++    return {
++        'itens': itens,
++        'pagina': pagina,
++        'tamanho': tamanho,
++        'total': total,
++        'total_paginas': ceil(total / tamanho),
++    }
+diff -ruN a/app/routes/servicos.py b/app/routes/servicos.py
+--- a/app/routes/servicos.py	2026-11-13 19:10:09.183951626 -0300
++++ b/app/routes/servicos.py	2026-11-13 19:10:09.185172393 -0300
+@@ -1,14 +1,33 @@
+-from fastapi import APIRouter, Depends, HTTPException
++from fastapi import APIRouter, Depends, HTTPException, Request
+ from sqlalchemy.orm import Session
+ from app.database import get_db
+ from app import models, schemas, auth
+ 
+ router = APIRouter(prefix='/servicos', tags=['Serviços'])
+ 
++PERFIS_EQUIPE = ('funcionario', 'administrador')
++
++
++def _usuario_opcional(request: Request, db: Session = Depends(get_db)):
++    """Rota pública: sem token (ou com token inválido) o visitante é tratado como público."""
++    cabecalho = request.headers.get('Authorization', '')
++    esquema, _, token = cabecalho.partition(' ')
++    if esquema.lower() != 'bearer' or not token:
++        return None
++    try:
++        # Reaproveita a validação do token que o resto da API já usa.
++        return auth.usuario_atual(token=token, db=db)
++    except HTTPException:
++        return None
++
+ 
+ @router.get('', response_model=list[schemas.ServicoSaida])
+-def listar(db: Session = Depends(get_db)):
+-    return db.query(models.Servico).filter_by(ativo=True).all()
++def listar(todos: bool = False, db: Session = Depends(get_db), usuario=Depends(_usuario_opcional)):
++    consulta = db.query(models.Servico)
++    # `todos=true` só vale para funcionário ou administrador; para os demais é ignorado.
++    if not (todos and usuario is not None and usuario.perfil in PERFIS_EQUIPE):
++        consulta = consulta.filter_by(ativo=True)
++    return consulta.order_by(models.Servico.id).all()
+ 
+ 
+ @router.post('', response_model=schemas.ServicoSaida, status_code=201)
+@@ -41,3 +60,14 @@
+     db.commit()
+     db.refresh(servico)
+     return servico
++
++
++@router.patch('/{servico_id}/ativar', response_model=schemas.ServicoSaida)
++def ativar(servico_id: int, db: Session = Depends(get_db), _=Depends(auth.exigir_funcionario)):
++    servico = db.get(models.Servico, servico_id)
++    if not servico:
++        raise HTTPException(status_code=404, detail='Serviço não encontrado')
++    servico.ativo = True
++    db.commit()
++    db.refresh(servico)
++    return servico
+diff -ruN a/app/schemas.py b/app/schemas.py
+--- a/app/schemas.py	2026-11-13 19:10:09.183967788 -0300
++++ b/app/schemas.py	2026-11-13 19:10:09.185136245 -0300
+@@ -1,5 +1,5 @@
+ from datetime import datetime
+-from pydantic import BaseModel, EmailStr, Field, ConfigDict, field_validator
++from pydantic import BaseModel, EmailStr, Field, ConfigDict, field_validator, model_validator
+ 
+ 
+ class UsuarioCriar(BaseModel):
+@@ -70,7 +70,7 @@
+     animal_id: int
+     servico_id: int
+     data_hora: datetime
+-    observacao: str | None = None
++    observacao: str | None = Field(default=None, max_length=300)
+ 
+ 
+ class AgendamentoSaida(BaseModel):
+@@ -81,7 +81,55 @@
+     data_hora: datetime
+     status: str
+     observacao: str | None = None
++    # Campos de leitura, preenchidos pelos relacionamentos (animal, animal.tutor, servico).
++    animal_nome: str
++    tutor_id: int
++    tutor_nome: str
++    servico_nome: str
++    servico_preco: float
++    servico_duracao_min: int
++
++    @model_validator(mode='before')
++    @classmethod
++    def preencher_campos_de_leitura(cls, dados):
++        # Recebe o objeto do banco (Agendamento) e monta os campos extras a partir
++        # dos relacionamentos. Se já vier um dict (ex.: testes), não mexe.
++        if isinstance(dados, dict):
++            return dados
++        animal = dados.animal
++        servico = dados.servico
++        return {
++            'id': dados.id,
++            'animal_id': dados.animal_id,
++            'servico_id': dados.servico_id,
++            'data_hora': dados.data_hora,
++            'status': dados.status,
++            'observacao': dados.observacao,
++            'animal_nome': animal.nome,
++            'tutor_id': animal.tutor_id,
++            'tutor_nome': animal.tutor.nome,
++            'servico_nome': servico.nome,
++            'servico_preco': servico.preco,
++            'servico_duracao_min': servico.duracao_min,
++        }
+ 
+ 
+ class StatusAtualizar(BaseModel):
+     status: str
++
++
++class ItemRelatorioAgendamento(BaseModel):
++    id: int
++    data_hora: datetime
++    animal_nome: str
++    servico_nome: str
++    tutor_nome: str
++    status: str
++
++
++class ItensRelatorioAgendamentoSaida(BaseModel):
++    itens: list[ItemRelatorioAgendamento]
++    pagina: int
++    tamanho: int
++    total: int
++    total_paginas: int
+diff -ruN a/tests/test_agendamentos_campos.py b/tests/test_agendamentos_campos.py
+--- a/tests/test_agendamentos_campos.py	1969-12-31 21:00:00.000000000 -0300
++++ b/tests/test_agendamentos_campos.py	2026-11-13 19:10:09.185310938 -0300
+@@ -0,0 +1,99 @@
++from datetime import datetime, timedelta
++
++
++def futuro(dias=3, hora=10):
++    """Data futura sem fuso, no formato que a API usa (ex.: 2026-12-10T14:00:00)."""
++    d = datetime.now() + timedelta(days=dias)
++    return d.replace(hour=hora, minute=0, second=0, microsecond=0).isoformat()
++
++
++def agendar(client, tutor, animal, servico, dias=3, hora=10, **extra):
++    corpo = {'animal_id': animal['id'], 'servico_id': servico['id'], 'data_hora': futuro(dias, hora), **extra}
++    return client.post('/agendamentos', json=corpo, headers=tutor)
++
++
++CAMPOS_NOVOS = {'animal_nome', 'tutor_id', 'tutor_nome', 'servico_nome', 'servico_preco', 'servico_duracao_min'}
++CAMPOS_ANTIGOS = {'id', 'animal_id', 'servico_id', 'data_hora', 'status', 'observacao'}
++
++
++def test_criar_agendamento_devolve_campos_de_leitura(client, tutor, animal, servico):
++    r = agendar(client, tutor, animal, servico)
++    assert r.status_code == 201
++    corpo = r.json()
++    assert corpo['animal_nome'] == 'Rex'
++    assert corpo['tutor_id'] == animal['tutor_id']
++    assert corpo['tutor_nome'] == 'Ana'
++    assert corpo['servico_nome'] == 'Banho'
++    assert corpo['servico_preco'] == 50
++    assert corpo['servico_duracao_min'] == 60
++
++
++def test_campos_antigos_continuam_na_resposta(client, tutor, animal, servico):
++    corpo = agendar(client, tutor, animal, servico).json()
++    assert CAMPOS_ANTIGOS | CAMPOS_NOVOS <= set(corpo)
++    assert corpo['status'] == 'AGENDADO'
++    assert corpo['animal_id'] == animal['id']
++    assert corpo['servico_id'] == servico['id']
++
++
++def test_listagem_do_tutor_traz_campos_de_leitura(client, tutor, animal, servico):
++    agendar(client, tutor, animal, servico)
++    r = client.get('/agendamentos', headers=tutor)
++    assert r.status_code == 200
++    item = r.json()[0]
++    assert CAMPOS_NOVOS <= set(item)
++    assert item['animal_nome'] == 'Rex'
++    assert item['servico_nome'] == 'Banho'
++
++
++def test_funcionario_ve_nome_do_tutor_na_agenda(client, tutor, animal, servico, funcionario):
++    agendar(client, tutor, animal, servico)
++    r = client.get('/agendamentos', headers=funcionario)
++    assert r.status_code == 200
++    assert [i['tutor_nome'] for i in r.json()] == ['Ana']
++
++
++def test_tutor_continua_sem_ver_agendamento_de_outro(client, tutor, animal, servico, outro_tutor):
++    agendar(client, tutor, animal, servico)
++    assert client.get('/agendamentos', headers=outro_tutor).json() == []
++
++
++def test_filtro_por_data_continua_funcionando(client, tutor, animal, servico, funcionario):
++    agendar(client, tutor, animal, servico, dias=3)
++    dia = (datetime.now() + timedelta(days=3)).date().isoformat()
++    outro_dia = (datetime.now() + timedelta(days=5)).date().isoformat()
++    assert len(client.get('/agendamentos?data=' + dia, headers=funcionario).json()) == 1
++    assert client.get('/agendamentos?data=' + outro_dia, headers=funcionario).json() == []
++
++
++def test_cancelar_devolve_campos_de_leitura(client, tutor, animal, servico):
++    ag = agendar(client, tutor, animal, servico).json()
++    r = client.post('/agendamentos/' + str(ag['id']) + '/cancelar', headers=tutor)
++    assert r.status_code == 200
++    assert r.json()['status'] == 'CANCELADO'
++    assert r.json()['tutor_nome'] == 'Ana'
++
++
++def test_alterar_status_devolve_campos_de_leitura(client, tutor, animal, servico, funcionario):
++    ag = agendar(client, tutor, animal, servico).json()
++    r = client.patch('/agendamentos/' + str(ag['id']) + '/status', json={'status': 'CONFIRMADO'}, headers=funcionario)
++    assert r.status_code == 200
++    assert r.json()['status'] == 'CONFIRMADO'
++    assert r.json()['servico_preco'] == 50
++
++
++def test_observacao_com_300_caracteres_e_aceita(client, tutor, animal, servico):
++    r = agendar(client, tutor, animal, servico, observacao='a' * 300)
++    assert r.status_code == 201
++    assert len(r.json()['observacao']) == 300
++
++
++def test_observacao_com_301_caracteres_e_rejeitada(client, tutor, animal, servico):
++    r = agendar(client, tutor, animal, servico, observacao='a' * 301)
++    assert r.status_code == 422
++
++
++def test_observacao_continua_opcional(client, tutor, animal, servico):
++    r = agendar(client, tutor, animal, servico)
++    assert r.status_code == 201
++    assert r.json()['observacao'] is None
+diff -ruN a/tests/test_relatorios_itens.py b/tests/test_relatorios_itens.py
+--- a/tests/test_relatorios_itens.py	1969-12-31 21:00:00.000000000 -0300
++++ b/tests/test_relatorios_itens.py	2026-11-13 19:10:09.185319406 -0300
+@@ -0,0 +1,163 @@
++from datetime import datetime, timedelta
++
++
++def agendar(client, tutor, animal, servico, dias, hora=10):
++    d = (datetime.now() + timedelta(days=dias)).replace(hour=hora, minute=0, second=0, microsecond=0)
++    r = client.post('/agendamentos', json={'animal_id': animal['id'], 'servico_id': servico['id'],
++                                           'data_hora': d.isoformat()}, headers=tutor)
++    assert r.status_code == 201
++    return r.json()
++
++
++def dia(dias):
++    return (datetime.now() + timedelta(days=dias)).date().isoformat()
++
++
++def criar_servico(client, funcionario, nome):
++    return client.post('/servicos', json={'nome': nome, 'descricao': 'Descrição do serviço',
++                                          'preco': 30, 'duracao_min': 30}, headers=funcionario).json()
++
++
++# ---- por_servico em GET /relatorios/agendamentos ----
++
++def test_por_servico_vazio_quando_nao_ha_agendamentos(client, funcionario):
++    r = client.get('/relatorios/agendamentos', headers=funcionario)
++    assert r.status_code == 200
++    assert r.json()['por_servico'] == []
++    assert r.json()['total'] == 0
++
++
++def test_por_servico_conta_por_servico(client, funcionario, tutor, animal, servico):
++    tosa = criar_servico(client, funcionario, 'Tosa')
++    agendar(client, tutor, animal, servico, 1)
++    agendar(client, tutor, animal, servico, 2)
++    agendar(client, tutor, animal, tosa, 3)
++    corpo = client.get('/relatorios/agendamentos', headers=funcionario).json()
++    assert corpo['total'] == 3
++    assert corpo['por_servico'] == [
++        {'servico_id': servico['id'], 'nome': 'Banho', 'total': 2},
++        {'servico_id': tosa['id'], 'nome': 'Tosa', 'total': 1},
++    ]
++
++
++def test_por_servico_inclui_agendamentos_cancelados(client, funcionario, tutor, animal, servico):
++    ag = agendar(client, tutor, animal, servico, 3)
++    client.post('/agendamentos/' + str(ag['id']) + '/cancelar', headers=tutor)
++    corpo = client.get('/relatorios/agendamentos', headers=funcionario).json()
++    assert corpo['por_servico'] == [{'servico_id': servico['id'], 'nome': 'Banho', 'total': 1}]
++    assert corpo['por_status']['CANCELADO'] == 1
++
++
++def test_por_servico_respeita_o_periodo(client, funcionario, tutor, animal, servico):
++    agendar(client, tutor, animal, servico, 1)
++    agendar(client, tutor, animal, servico, 5)
++    url = '/relatorios/agendamentos?inicio=' + dia(4) + '&fim=' + dia(6)
++    corpo = client.get(url, headers=funcionario).json()
++    assert corpo['total'] == 1
++    assert corpo['por_servico'][0]['total'] == 1
++
++
++def test_campos_antigos_do_relatorio_continuam(client, funcionario, tutor, animal, servico):
++    agendar(client, tutor, animal, servico, 1)
++    corpo = client.get('/relatorios/agendamentos', headers=funcionario).json()
++    assert corpo['total'] == 1
++    assert corpo['por_status'] == {'AGENDADO': 1, 'CONFIRMADO': 0, 'CANCELADO': 0, 'CONCLUIDO': 0}
++
++
++# ---- GET /relatorios/agendamentos/itens ----
++
++def test_itens_devolve_os_campos_pedidos(client, funcionario, tutor, animal, servico):
++    ag = agendar(client, tutor, animal, servico, 3)
++    r = client.get('/relatorios/agendamentos/itens', headers=funcionario)
++    assert r.status_code == 200
++    corpo = r.json()
++    assert corpo['total'] == 1
++    assert corpo['total_paginas'] == 1
++    assert corpo['pagina'] == 1
++    assert corpo['tamanho'] == 10
++    item = corpo['itens'][0]
++    assert item['id'] == ag['id']
++    assert item['data_hora'] == ag['data_hora']
++    assert item['animal_nome'] == 'Rex'
++    assert item['servico_nome'] == 'Banho'
++    assert item['tutor_nome'] == 'Ana'
++    assert item['status'] == 'AGENDADO'
++
++
++def test_itens_paginacao_padrao_de_10(client, funcionario, tutor, animal, servico):
++    for d in range(1, 13):
++        agendar(client, tutor, animal, servico, d)
++    pagina1 = client.get('/relatorios/agendamentos/itens', headers=funcionario).json()
++    assert len(pagina1['itens']) == 10
++    assert pagina1['total'] == 12
++    assert pagina1['total_paginas'] == 2
++    pagina2 = client.get('/relatorios/agendamentos/itens?pagina=2', headers=funcionario).json()
++    assert len(pagina2['itens']) == 2
++    ids1 = {i['id'] for i in pagina1['itens']}
++    ids2 = {i['id'] for i in pagina2['itens']}
++    assert not ids1 & ids2
++
++
++def test_itens_mais_recentes_primeiro(client, funcionario, tutor, animal, servico):
++    for d in (2, 1, 3):
++        agendar(client, tutor, animal, servico, d)
++    itens = client.get('/relatorios/agendamentos/itens', headers=funcionario).json()['itens']
++    datas = [i['data_hora'] for i in itens]
++    assert datas == sorted(datas, reverse=True)
++
++
++def test_itens_tamanho_personalizado(client, funcionario, tutor, animal, servico):
++    for d in range(1, 8):
++        agendar(client, tutor, animal, servico, d)
++    corpo = client.get('/relatorios/agendamentos/itens?tamanho=3', headers=funcionario).json()
++    assert len(corpo['itens']) == 3
++    assert corpo['tamanho'] == 3
++    assert corpo['total'] == 7
++    assert corpo['total_paginas'] == 3
++
++
++def test_itens_pagina_alem_do_fim_volta_lista_vazia(client, funcionario, tutor, animal, servico):
++    agendar(client, tutor, animal, servico, 1)
++    corpo = client.get('/relatorios/agendamentos/itens?pagina=5', headers=funcionario).json()
++    assert corpo['itens'] == []
++    assert corpo['total'] == 1
++    assert corpo['total_paginas'] == 1
++
++
++def test_itens_sem_agendamentos(client, funcionario):
++    corpo = client.get('/relatorios/agendamentos/itens', headers=funcionario).json()
++    assert corpo['itens'] == []
++    assert corpo['total'] == 0
++    assert corpo['total_paginas'] == 0
++
++
++def test_itens_respeita_o_periodo(client, funcionario, tutor, animal, servico):
++    agendar(client, tutor, animal, servico, 1)
++    agendar(client, tutor, animal, servico, 5)
++    url = '/relatorios/agendamentos/itens?inicio=' + dia(4) + '&fim=' + dia(6)
++    corpo = client.get(url, headers=funcionario).json()
++    assert corpo['total'] == 1
++    assert len(corpo['itens']) == 1
++
++
++def test_itens_periodo_invertido_da_400(client, funcionario):
++    url = '/relatorios/agendamentos/itens?inicio=' + dia(6) + '&fim=' + dia(4)
++    assert client.get(url, headers=funcionario).status_code == 400
++
++
++def test_itens_parametros_invalidos_dao_422(client, funcionario):
++    assert client.get('/relatorios/agendamentos/itens?pagina=0', headers=funcionario).status_code == 422
++    assert client.get('/relatorios/agendamentos/itens?tamanho=0', headers=funcionario).status_code == 422
++    assert client.get('/relatorios/agendamentos/itens?tamanho=101', headers=funcionario).status_code == 422
++
++
++def test_administrador_acessa_os_itens(client, admin):
++    assert client.get('/relatorios/agendamentos/itens', headers=admin).status_code == 200
++
++
++def test_tutor_nao_acessa_os_itens(client, tutor):
++    assert client.get('/relatorios/agendamentos/itens', headers=tutor).status_code == 403
++
++
++def test_itens_sem_login_da_401(client):
++    assert client.get('/relatorios/agendamentos/itens').status_code == 401
+diff -ruN a/tests/test_servicos_todos.py b/tests/test_servicos_todos.py
+--- a/tests/test_servicos_todos.py	1969-12-31 21:00:00.000000000 -0300
++++ b/tests/test_servicos_todos.py	2026-11-13 19:10:09.185299865 -0300
+@@ -0,0 +1,120 @@
++from datetime import datetime, timedelta
++
++
++def criar_servico(client, funcionario, nome):
++    r = client.post('/servicos', json={'nome': nome, 'descricao': 'Descrição do serviço',
++                                       'preco': 30, 'duracao_min': 30}, headers=funcionario)
++    return r.json()
++
++
++def nomes(resposta):
++    return [s['nome'] for s in resposta.json()]
++
++
++def desativar(client, funcionario, servico):
++    r = client.patch('/servicos/' + str(servico['id']) + '/desativar', headers=funcionario)
++    assert r.status_code == 200
++
++
++# ---- GET /servicos?todos=true ----
++
++def test_publico_ve_so_ativos(client, funcionario, servico):
++    tosa = criar_servico(client, funcionario, 'Tosa')
++    desativar(client, funcionario, tosa)
++    assert nomes(client.get('/servicos')) == ['Banho']
++
++
++def test_publico_com_todos_true_continua_vendo_so_ativos(client, funcionario, servico):
++    tosa = criar_servico(client, funcionario, 'Tosa')
++    desativar(client, funcionario, tosa)
++    r = client.get('/servicos?todos=true')
++    assert r.status_code == 200
++    assert nomes(r) == ['Banho']
++
++
++def test_tutor_com_todos_true_continua_vendo_so_ativos(client, funcionario, servico, tutor):
++    tosa = criar_servico(client, funcionario, 'Tosa')
++    desativar(client, funcionario, tosa)
++    r = client.get('/servicos?todos=true', headers=tutor)
++    assert r.status_code == 200
++    assert nomes(r) == ['Banho']
++
++
++def test_token_invalido_em_rota_publica_nao_derruba_a_lista(client, funcionario, servico):
++    tosa = criar_servico(client, funcionario, 'Tosa')
++    desativar(client, funcionario, tosa)
++    r = client.get('/servicos?todos=true', headers={'Authorization': 'Bearer token-invalido'})
++    assert r.status_code == 200
++    assert nomes(r) == ['Banho']
++
++
++def test_funcionario_com_todos_true_ve_ativos_e_inativos(client, funcionario, servico):
++    tosa = criar_servico(client, funcionario, 'Tosa')
++    desativar(client, funcionario, tosa)
++    r = client.get('/servicos?todos=true', headers=funcionario)
++    assert r.status_code == 200
++    assert nomes(r) == ['Banho', 'Tosa']
++    assert [s['ativo'] for s in r.json()] == [True, False]
++
++
++def test_administrador_com_todos_true_ve_ativos_e_inativos(client, funcionario, servico, admin):
++    tosa = criar_servico(client, funcionario, 'Tosa')
++    desativar(client, funcionario, tosa)
++    assert nomes(client.get('/servicos?todos=true', headers=admin)) == ['Banho', 'Tosa']
++
++
++def test_funcionario_sem_todos_ve_so_ativos(client, funcionario, servico):
++    tosa = criar_servico(client, funcionario, 'Tosa')
++    desativar(client, funcionario, tosa)
++    assert nomes(client.get('/servicos', headers=funcionario)) == ['Banho']
++
++
++# ---- PATCH /servicos/{id}/ativar ----
++
++def test_funcionario_reativa_servico(client, funcionario, servico):
++    desativar(client, funcionario, servico)
++    assert client.get('/servicos').json() == []
++    r = client.patch('/servicos/' + str(servico['id']) + '/ativar', headers=funcionario)
++    assert r.status_code == 200
++    assert r.json()['ativo'] is True
++    assert nomes(client.get('/servicos')) == ['Banho']
++
++
++def test_administrador_reativa_servico(client, funcionario, servico, admin):
++    desativar(client, funcionario, servico)
++    r = client.patch('/servicos/' + str(servico['id']) + '/ativar', headers=admin)
++    assert r.status_code == 200
++    assert r.json()['ativo'] is True
++
++
++def test_ativar_servico_ja_ativo_e_inofensivo(client, funcionario, servico):
++    r = client.patch('/servicos/' + str(servico['id']) + '/ativar', headers=funcionario)
++    assert r.status_code == 200
++    assert r.json()['ativo'] is True
++
++
++def test_ativar_servico_inexistente_da_404(client, funcionario):
++    r = client.patch('/servicos/9999/ativar', headers=funcionario)
++    assert r.status_code == 404
++    assert r.json() == {'detail': 'Serviço não encontrado'}
++
++
++def test_tutor_nao_ativa_servico(client, funcionario, servico, tutor):
++    desativar(client, funcionario, servico)
++    r = client.patch('/servicos/' + str(servico['id']) + '/ativar', headers=tutor)
++    assert r.status_code == 403
++    assert client.get('/servicos').json() == []
++
++
++def test_ativar_sem_login_da_401(client, funcionario, servico):
++    r = client.patch('/servicos/' + str(servico['id']) + '/ativar')
++    assert r.status_code == 401
++
++
++def test_servico_reativado_pode_ser_agendado(client, funcionario, servico, tutor, animal):
++    desativar(client, funcionario, servico)
++    client.patch('/servicos/' + str(servico['id']) + '/ativar', headers=funcionario)
++    futuro = (datetime.now() + timedelta(days=3)).replace(hour=10, minute=0, second=0, microsecond=0)
++    r = client.post('/agendamentos', json={'animal_id': animal['id'], 'servico_id': servico['id'],
++                                           'data_hora': futuro.isoformat()}, headers=tutor)
++    assert r.status_code == 201
