@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, date, time
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, selectinload
 from app.database import get_db
 from app import models, schemas, auth
 
@@ -52,7 +52,11 @@ def criar(dados: schemas.AgendamentoCriar, db: Session = Depends(get_db), usuari
 
 @router.get('', response_model=list[schemas.AgendamentoSaida])
 def listar(data: date | None = None, db: Session = Depends(get_db), usuario=Depends(auth.usuario_atual)):
-    consulta = db.query(models.Agendamento)
+    # Carrega animal, tutor e serviço de uma vez (a saída agora usa esses nomes).
+    consulta = db.query(models.Agendamento).options(
+        selectinload(models.Agendamento.animal).selectinload(models.Animal.tutor),
+        selectinload(models.Agendamento.servico),
+    )
     if usuario.perfil == 'tutor':
         consulta = consulta.join(models.Animal).filter(models.Animal.tutor_id == usuario.id)
     if data:
