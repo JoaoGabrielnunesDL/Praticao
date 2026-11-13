@@ -31,7 +31,8 @@ body { background: var(--azul-nevoa); }
 .perfil-kicker { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 16px; padding: 7px 16px 7px 13px; border-radius: 999px; background: linear-gradient(135deg, var(--laranja-forte), var(--laranja-escuro)); color: #fff; font-size: .8rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; box-shadow: 0 10px 20px -12px rgba(0, 0, 0, .55); }
 .perfil-kicker::before { width: 16px; height: 16px; flex: none; background: currentColor; content: ''; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c1-4.2 4-6.5 8-6.5s7 2.3 8 6.5'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c1-4.2 4-6.5 8-6.5s7 2.3 8 6.5'/%3E%3C/svg%3E") center / contain no-repeat; }
 .perfil-intro h1 { margin: 0 0 14px; color: #fff; text-shadow: 0 6px 18px rgba(4, 22, 70, .25); }
-.perfil-intro__texto > p:last-child { max-width: 32em; margin: 0; padding-left: 14px; border-left: 3px solid var(--laranja); color: rgba(255, 255, 255, .94); font-size: clamp(1.05rem, 1.45vw, 1.22rem); line-height: 1.5; }
+/* Parágrafo do banner: fundo branco translúcido com borda fina (antes, barra lateral laranja). */
+.perfil-intro__texto > p:last-child { max-width: 32em; margin: 0; padding: 12px 16px; border: 1px solid rgba(255, 255, 255, .24); border-radius: 14px; background: rgba(255, 255, 255, .1); color: rgba(255, 255, 255, .94); font-size: clamp(1.05rem, 1.45vw, 1.22rem); line-height: 1.5; }
 .perfil-intro__decoracao { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
 /* Onda laranja no canto inferior direito, atrás da foto. */
 .perfil-intro__area { position: absolute; right: 0; bottom: 0; width: 64%; height: 52%; background: no-repeat right bottom / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 200' preserveAspectRatio='none'%3E%3Cpath fill='%23ff8a0a' d='M640 18C520 30 470 110 360 150 260 186 140 186 0 200h640Z'/%3E%3Cpath fill='%23f07400' d='M640 70c-90 14-150 70-240 100-60 20-120 26-190 30h430Z'/%3E%3C/svg%3E"); }
@@ -109,8 +110,6 @@ body { background: var(--azul-nevoa); }
 .perfil .btn { min-height: 52px; gap: 10px; padding-inline: 26px; border-radius: 15px; font-size: 1.02rem; }
 .perfil .btn--laranja { background: var(--laranja-forte); box-shadow: 0 14px 28px -12px rgba(234, 108, 0, .7); }
 .perfil .btn--laranja:hover { filter: brightness(.96); }
-.perfil .btn--contorno { border-color: var(--azul); background: #fff; color: var(--azul); }
-.perfil .btn--contorno:hover { background: var(--azul-claro); }
 /* Ícones dos botões em CSS: o JS troca o texto de alguns botões durante o envio. */
 #perfil-editar::before, #perfil-voltar::before, #perfil-senha-atualizar::before, #perfil-salvar::before, .perfil__sair::before { width: 20px; height: 20px; flex: none; background: currentColor; content: ''; -webkit-mask: var(--icone) center / contain no-repeat; mask: var(--icone) center / contain no-repeat; }
 #perfil-editar { --icone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20l1-4.5L15.5 5a2.1 2.1 0 0 1 3 3L8 18.5z'/%3E%3Cpath d='m13.5 7 3 3'/%3E%3C/svg%3E"); }
@@ -164,7 +163,7 @@ body { background: var(--azul-nevoa); }
 @media (max-width: 600px) {
   .perfil-intro { --intro-pad-y: 22px; grid-template-areas: "arte" "texto"; grid-template-columns: minmax(0, 1fr); gap: 10px; min-height: 0; margin: 0; padding: 18px 20px 26px; border-radius: 26px; text-align: center; }
   .perfil-intro__texto { justify-self: center; }
-  .perfil-intro__texto > p:last-child { margin-inline: auto; padding-left: 0; border-left: 0; }
+  .perfil-intro__texto > p:last-child { margin-inline: auto; }
   .perfil-intro__arte { min-height: 0; height: 170px; }
   .perfil__imagem-decorativa { top: 0; bottom: 0; }
   .perfil-intro__area, .perfil-intro__onda { display: none; }

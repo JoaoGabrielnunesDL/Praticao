@@ -11,12 +11,13 @@ html { scroll-behavior: smooth; }
 .barra-superior a, .barra-superior button {
   display: inline-flex; align-items: center; min-height: 44px;
   color: inherit; text-decoration: none; background: none; border: 0; padding: 0 4px;
+  white-space: nowrap; /* o telefone nunca quebra em várias linhas */
 }
 .barra-superior__contato, .barra-superior__direita { display: flex; align-items: center; gap: 12px; }
 /* No celular só ficam o telefone e o A A A */
-.barra-superior__email, .barra-superior__areas { display: none; }
+.barra-superior .barra-superior__email, .barra-superior .barra-superior__areas { display: none; } /* precisa vencer ".barra-superior a" */
 @media (min-width: 768px) {
-  .barra-superior__email, .barra-superior__areas { display: inline-flex; gap: 12px; }
+  .barra-superior .barra-superior__email, .barra-superior .barra-superior__areas { display: inline-flex; gap: 12px; }
 }
 
 .fonte-botoes { display: flex; align-items: center; }
@@ -77,12 +78,17 @@ html { scroll-behavior: smooth; }
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 52px; padding: 0 28px; border: 2px solid transparent;
   border-radius: 999px; font-weight: 800; text-decoration: none; text-align: center;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .12s ease, filter .18s ease;
 }
 .btn--laranja { background: var(--laranja-forte); color: var(--branco); }
 .btn--contorno { background: var(--branco); color: var(--azul); border-color: var(--azul); }
+/* Contorno: no hover e no foco o fundo tinge de azul e borda e texto escurecem. */
+/* .btn.btn--contorno: mais específico que as variações das páginas, para o hover valer em todas. */
+.btn.btn--contorno:hover, .btn.btn--contorno:focus-visible { background: var(--azul-claro); border-color: var(--azul-escuro); color: var(--azul-escuro); }
+.btn.btn--contorno:active { transform: translateY(1px); }
 .btn--laranja:hover { filter: brightness(0.95); }
 .btn--laranja:active { transform: translateY(1px); }
-.btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+.btn[disabled] { opacity: 0.6; cursor: not-allowed; transform: none; }
 
 /* Botão de sessão do cabeçalho: "Entrar / Cadastrar" ou "Nome / Sair" */
 .btn-sessao {
@@ -169,11 +175,11 @@ html { scroll-behavior: smooth; }
 .pagamento-badge { display: flex; position: relative; min-width: 72px; height: 44px; align-items: center; justify-content: center; overflow: hidden; padding: 0 10px; border: 0; border-radius: 10px; background: #fff; box-shadow: 0 6px 14px -8px rgba(0,0,0,.45); }
 .pagamento-badge--visa { color: #1a1f71; font-size: 1.22rem; font-style: italic; font-weight: 1000; letter-spacing: -.06em; }
 .pagamento-badge--visa::after { position: absolute; right: 18px; bottom: 9px; left: 18px; height: 2px; background: linear-gradient(90deg,#f8b327,#f8b327 48%,transparent 48%); content: ''; }
-.pagamento-badge--mastercard { min-width: 84px; flex-direction: column; gap: 0; color: #231f20; }
+.pagamento-badge--mastercard { min-width: 100px; flex-direction: column; gap: 0; color: #231f20; }
 .mastercard-simbolo { display: flex; height: 24px; align-items: center; justify-content: center; }
 .mastercard-simbolo i { display: block; width: 20px; height: 20px; border-radius: 50%; background: #eb001b; }
 .mastercard-simbolo i + i { margin-left: -8px; background: #f79e1b; mix-blend-mode: multiply; }
-.pagamento-badge--mastercard b { margin-top: -1px; color: #231f20; font-size: .55rem; line-height: 1; letter-spacing: .01em; }
+.pagamento-badge--mastercard b { margin-top: -1px; color: #231f20; font-size: .75rem; line-height: 1; letter-spacing: 0; }
 .pagamento-badge--elo { min-width: 64px; }
 .pagamento-badge--elo b { color: #111; font-size: 1.25rem; font-weight: 1000; font-style: italic; letter-spacing: -.06em; }
 .pagamento-badge--pix { min-width: 96px; }

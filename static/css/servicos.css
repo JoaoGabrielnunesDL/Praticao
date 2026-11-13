@@ -39,7 +39,7 @@ body { background: var(--azul-nevoa); overflow-x: hidden; }
 .servicos-lista-cabecalho h2 { margin: 0 0 4px; font-size: clamp(1.45rem, 2.2vw, 1.75rem); letter-spacing: -.01em; }
 .servicos-contagem { min-height: 1.4em; margin: 0; color: var(--texto-suave); font-size: .98rem; }
 .servicos-info { display: inline-flex; align-items: center; gap: 8px; margin: 0; color: var(--texto-suave); font-size: .9rem; }
-.servicos-info span { display: grid; flex: 0 0 20px; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: var(--azul-claro); color: var(--azul); font-size: .74rem; font-style: italic; font-weight: 900; }
+.servicos-info span { display: grid; flex: 0 0 20px; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: var(--azul-claro); color: var(--azul); font-size: .75rem; font-style: italic; font-weight: 900; }
 .servicos-aviso { margin: 0 0 20px; padding: 12px 16px; border: 1px solid color-mix(in srgb, var(--laranja) 50%, #fff); border-left: 6px solid var(--laranja-forte); border-radius: 14px; background: var(--laranja-claro); color: var(--laranja-escuro); font-weight: 600; }
 
 /* auto-fit: com poucos serviços os cards ocupam a largura toda, sem sobrar espaço vazio. */

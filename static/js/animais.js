@@ -95,9 +95,21 @@
 
   // Imagens ilustrativas já existentes no projeto, escolhidas pela espécie informada.
   // Nunca representam a foto real do animal: o card exibe a etiqueta "Imagem ilustrativa".
+  // Cada espécie tem uma pequena lista (recortes das fotos do projeto, em img/animais/);
+  // o card escolhe uma pelo id do animal, então o mesmo animal sempre recebe a mesma imagem.
   var IMAGENS_ESPECIE = {
-    cao: { src: 'img/dica-2.jpg', posicao: '64% 30%' },
-    gato: { src: 'img/dica-3.jpg', posicao: '70% 42%' }
+    cao: [
+      { src: 'img/animais/cao-1.jpg', posicao: 'center' },
+      { src: 'img/animais/cao-2.jpg', posicao: 'center' },
+      { src: 'img/animais/cao-3.jpg', posicao: 'center' },
+      { src: 'img/animais/cao-4.jpg', posicao: 'center' }
+    ],
+    gato: [
+      { src: 'img/animais/gato-1.jpg', posicao: 'center' },
+      { src: 'img/animais/gato-2.jpg', posicao: 'center' },
+      { src: 'img/animais/gato-3.jpg', posicao: 'center' },
+      { src: 'img/animais/gato-4.jpg', posicao: 'center' }
+    ]
   };
   var ICONES_ESPECIE = { cao: '🐶', gato: '🐱', ave: '🐦', coelho: '🐰', roedor: '🐹', outro: '🐾' };
   var SVG_EDITAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></svg>';
@@ -121,11 +133,24 @@
     return ilustracao;
   }
 
+  // Escolhe a imagem da espécie de forma estável: o mesmo animal sempre recebe a mesma.
+  function escolherImagem(tipo, animal) {
+    var lista = IMAGENS_ESPECIE[tipo];
+    if (!lista || !lista.length) return null;
+    var indice = Number(animal.id);
+    if (!isFinite(indice)) {
+      indice = 0;
+      var nome = String(animal.nome || '');
+      for (var i = 0; i < nome.length; i += 1) indice += nome.charCodeAt(i);
+    }
+    return lista[Math.abs(Math.trunc(indice)) % lista.length];
+  }
+
   function criarMidia(animal) {
     var tipo = tipoEspecie(animal.especie);
     var midia = document.createElement('div');
     midia.className = 'animal-card__midia';
-    var imagem = IMAGENS_ESPECIE[tipo];
+    var imagem = escolherImagem(tipo, animal);
     if (!imagem) { midia.appendChild(criarIlustracao()); return midia; }
     var foto = document.createElement('img');
     foto.className = 'animal-card__foto';

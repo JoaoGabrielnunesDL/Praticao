@@ -54,14 +54,14 @@ body { background: var(--azul-nevoa); }
    Avisos
    ========================================================= */
 .animais-info { display: inline-flex; align-items: center; gap: 8px; margin: 0; color: var(--texto-suave); font-size: .9rem; }
-.animais-info span { display: grid; flex: 0 0 20px; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: var(--azul-claro); color: var(--azul); font-size: .74rem; font-style: italic; font-weight: 900; }
+.animais-info span { display: grid; flex: 0 0 20px; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: var(--azul-claro); color: var(--azul); font-size: .75rem; font-style: italic; font-weight: 900; }
 
 .animais-feedback { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 24px; padding: 14px 14px 14px 16px; border: 1px solid; border-left-width: 6px; border-radius: 14px; }
 .animais-feedback__icone { display: grid; flex: 0 0 32px; width: 32px; height: 32px; place-items: center; border-radius: 50%; color: #fff; font-weight: 900; }
 .animais-feedback__texto { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .animais-feedback__texto strong { display: block; margin-bottom: 2px; font-size: 1.02rem; }
 .animais-feedback__texto p { margin: 0; }
-.animais-feedback__fechar { flex: 0 0 36px; min-height: 36px; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.animais-feedback__fechar { flex: 0 0 44px; min-height: 44px; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 1.5rem; line-height: 1; cursor: pointer; }
 .animais-feedback__fechar:hover { background: rgba(0, 0, 0, .06); }
 .animais-feedback--sucesso { border-color: #86efac; border-left-color: #15803d; background: #f0fdf4; color: #14532d; }
 .animais-feedback--sucesso .animais-feedback__icone { background: #15803d; }
@@ -106,7 +106,8 @@ body { background: var(--azul-nevoa); }
 .animal-card__ilustracao { display: grid; width: 100%; height: 100%; place-items: center; color: var(--azul-borda-forte); }
 .animal-card__ilustracao svg { width: 52%; fill: currentColor; }
 /* Selo "Imagem ilustrativa": pequeno, no canto inferior esquerdo da foto. */
-.animal-card__selo { position: absolute; z-index: 1; bottom: 3px; left: 3px; max-width: calc(100% - 6px); padding: 1px 3px; border-radius: 999px; background: rgba(15, 23, 42, .62); color: #fff; font-size: .45rem; font-weight: 600; line-height: 1.3; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none; }
+/* Selo em faixa na base da foto, em duas linhas: assim cabe com 12px (antes tinha 7px). */
+.animal-card__selo { position: absolute; z-index: 1; right: 0; bottom: 0; left: 0; padding: 2px 2px 3px; background: rgba(15, 23, 42, .7); color: #fff; font-size: .75rem; font-weight: 700; line-height: 1.05; letter-spacing: -.02em; text-align: center; white-space: normal; overflow: hidden; pointer-events: none; }
 /* Nome, espécie e raça lado a lado, alinhados ao centro da linha. */
 .animal-card__corpo { grid-area: corpo; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; min-width: 0; }
 .animal-card__nome { margin: 0; color: var(--azul-escuro); font-size: 1.12rem; line-height: 1.2; letter-spacing: -.01em; overflow-wrap: anywhere; }
@@ -114,7 +115,7 @@ body { background: var(--azul-nevoa); }
 .animal-card__raca { margin: 0; color: var(--texto-suave); font-size: .92rem; overflow-wrap: anywhere; }
 .animal-card__raca--vazia { font-style: italic; }
 .animal-card__acoes { grid-area: acoes; display: grid; grid-template-columns: auto auto; gap: 8px; }
-.animal-card__botao { display: inline-flex; min-height: 38px; align-items: center; justify-content: center; gap: 6px; padding: 6px 14px; border: 1.5px solid; border-radius: 11px; background: #fff; font: inherit; font-size: .92rem; font-weight: 700; cursor: pointer; transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
+.animal-card__botao { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 6px; padding: 6px 14px; border: 1.5px solid; border-radius: 11px; background: #fff; font: inherit; font-size: .92rem; font-weight: 700; cursor: pointer; transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
 .animal-card__botao svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .animal-card__botao--editar { border-color: var(--azul-borda-forte); color: var(--azul); }
 .animal-card__botao--editar:hover { border-color: var(--azul); background: var(--azul); color: #fff; }
@@ -142,7 +143,6 @@ body { background: var(--azul-nevoa); }
 .animais-mais h2 { margin: 0 0 4px; color: #fff; font-size: 1.2rem; }
 .animais-mais p { margin: 0; color: rgba(255, 255, 255, .82); }
 .animais-mais .btn--contorno { border-color: #fff; background: #fff; color: var(--azul-escuro); }
-.animais-mais .btn--contorno:hover { background: var(--azul-claro); }
 
 /* =========================================================
    Modal de cadastro e edição (sem mudança de comportamento)
@@ -212,7 +212,6 @@ body { background: var(--azul-nevoa); }
   .animais-lista { gap: 10px; }
   .animal-card { grid-template-columns: 70px minmax(0, 1fr); grid-template-areas: "midia corpo" "acoes acoes"; gap: 10px 16px; padding: 10px; }
   .animal-card__midia { width: 70px; height: 70px; border-radius: 12px; }
-  .animal-card__selo { bottom: 2px; left: 2px; max-width: calc(100% - 4px); padding: 1px 2px; font-size: .42rem; letter-spacing: -.03em; }
   .animal-card__corpo { gap: 4px 10px; }
   .animal-card__nome { flex-basis: 100%; font-size: 1.05rem; }
   .animal-card__acoes { grid-template-columns: 1fr 1fr; }
