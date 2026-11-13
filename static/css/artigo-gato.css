@@ -5,7 +5,7 @@
 /* =========================================================
    Hero: fundo claro à esquerda, foto do gato à direita esmaecendo no fundo
    ========================================================= */
-.artigo-hero--gato { min-height: clamp(340px, 29vw, 400px); background: linear-gradient(180deg, #f3f8ff 0%, #e9f2ff 100%); }
+.artigo-hero--gato { min-height: clamp(340px, 29vw, 400px); background: linear-gradient(180deg, var(--azul-nevoa) 0%, var(--azul-claro) 100%); }
 .artigo-hero--gato::before { display: none; }
 .artigo-hero--gato .artigo-hero__foto { left: auto; right: 0; width: 62%; object-position: 100% 30%; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 32%); mask-image: linear-gradient(90deg, transparent 0%, #000 32%); }
 .artigo-hero--gato .artigo-hero__conteudo > * { max-width: 490px; }

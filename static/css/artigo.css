@@ -4,7 +4,7 @@
 /* =========================================================
    Abertura (hero): foto à direita, texto em HTML à esquerda
    ========================================================= */
-.artigo-hero { position: relative; isolation: isolate; display: flex; min-height: clamp(380px, 33vw, 470px); align-items: center; overflow: hidden; background: #eef5ff; }
+.artigo-hero { position: relative; isolation: isolate; display: flex; min-height: clamp(380px, 33vw, 470px); align-items: center; overflow: hidden; background: var(--azul-claro); }
 .artigo-hero__foto { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 78% 40%; }
 /* Clareia o lado esquerdo (céu e forma azul da foto) para o texto ficar legível. */
 .artigo-hero::before { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(240,246,255,.82) 0%, rgba(240,246,255,.74) 30%, rgba(240,246,255,0) 54%); content: ''; }
@@ -21,11 +21,11 @@
 .artigo-trilha svg { width: 16px; height: 16px; fill: currentColor; }
 .artigo-trilha li[aria-current] { font-weight: 600; }
 
-.artigo-selo { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #ffe9d2; color: #8a3b07; font-size: .85rem; font-weight: 800; box-shadow: 0 6px 14px -10px rgba(234,108,0,.8); }
+.artigo-selo { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: var(--laranja-suave); color: var(--laranja-escuro); font-size: .85rem; font-weight: 800; box-shadow: 0 6px 14px -10px rgba(234,108,0,.8); }
 .icone-pata { width: 1em; height: 1em; flex: none; fill: var(--laranja); }
 .artigo-selo .icone-pata { width: 18px; height: 18px; }
 .artigo-cta h2 .icone-pata { display: inline-block; width: .9em; height: .9em; margin-left: 4px; vertical-align: -.05em; }
-.artigo-hero h1 { margin: 0 0 14px; color: var(--azul-escuro); font-size: clamp(2.1rem, 3.6vw, 3.2rem); font-weight: 900; line-height: 1.06; letter-spacing: -.02em; }
+.artigo-hero h1 { margin: 0 0 14px; color: var(--azul-escuro); }
 .artigo-hero__resumo { max-width: 470px; margin: 0 0 18px; color: #1f2d4d; font-size: clamp(1rem, 1.25vw, 1.12rem); line-height: 1.55; }
 .artigo-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin: 0; padding: 0; list-style: none; color: #2b3a5c; font-size: .86rem; font-weight: 600; }
 .artigo-meta li { display: inline-flex; align-items: center; gap: 7px; }
@@ -48,8 +48,8 @@
 
 .artigo-topico { display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(200px, 248px); grid-template-areas: "icone texto foto"; gap: 16px 22px; align-items: center; }
 .artigo-topico + .artigo-topico { margin-top: 26px; }
-.artigo-topico__icone { grid-area: icone; display: grid; width: 64px; height: 64px; place-items: center; align-self: start; margin-top: 4px; border-radius: 18px; background: linear-gradient(145deg, #fff8f0, #ffecd8); box-shadow: 0 10px 22px -14px rgba(234,108,0,.7); }
-.artigo-topico__icone svg { width: 32px; height: 32px; fill: none; stroke: #f07c00; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.artigo-topico__icone { grid-area: icone; display: grid; width: 64px; height: 64px; place-items: center; align-self: start; margin-top: 4px; border-radius: 18px; background: linear-gradient(145deg, var(--laranja-claro), var(--laranja-suave)); box-shadow: 0 10px 22px -14px rgba(234,108,0,.7); }
+.artigo-topico__icone svg { width: 32px; height: 32px; fill: none; stroke: var(--laranja-forte); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .artigo-topico__texto { grid-area: texto; min-width: 0; }
 .artigo-topico h2 { margin: 0 0 8px; color: var(--azul-escuro); font-size: 1.24rem; font-weight: 900; line-height: 1.2; letter-spacing: -.01em; }
 .artigo-topico p { margin: 0; color: #2b3a5c; font-size: .96rem; line-height: 1.6; }
@@ -57,19 +57,19 @@
 
 /* Coluna lateral */
 .artigo-lateral { display: grid; gap: 24px; }
-.outras-dicas { padding: 22px 20px; border: 1px solid #e1eaf6; border-radius: 22px; background: linear-gradient(180deg, #f4f8ff, #eef4fd); box-shadow: 0 16px 32px -26px rgba(20,58,158,.55); }
+.outras-dicas { padding: 22px 20px; border: 1px solid var(--azul-borda); border-radius: 22px; background: linear-gradient(180deg, var(--azul-nevoa), var(--azul-nevoa)); box-shadow: 0 16px 32px -26px rgba(20,58,158,.55); }
 .outras-dicas h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: var(--azul-escuro); font-size: 1.24rem; font-weight: 900; }
-.outras-dicas h2 svg { width: 26px; height: 26px; flex: none; fill: none; stroke: #f07c00; stroke-width: 2; stroke-linejoin: round; }
+.outras-dicas h2 svg { width: 26px; height: 26px; flex: none; fill: none; stroke: var(--laranja-forte); stroke-width: 2; stroke-linejoin: round; }
 .outras-dicas ul { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; }
 .outra-dica { display: grid; grid-template-columns: 124px minmax(0, 1fr); gap: 14px; align-items: center; }
 .outra-dica img { display: block; width: 124px; height: 92px; object-fit: cover; border-radius: 12px; box-shadow: 0 10px 20px -14px rgba(20,58,158,.6); }
 .outra-dica h3 { margin: 0 0 8px; color: var(--azul-escuro); font-size: .95rem; font-weight: 800; line-height: 1.3; }
 .outra-dica a { color: var(--laranja-escuro); font-size: .88rem; font-weight: 800; text-underline-offset: 3px; }
-.outra-dica a:hover { color: #8a3b07; }
+.outra-dica a:hover { color: color-mix(in srgb, var(--laranja-escuro) 78%, #000); }
 
-.artigo-cta-lateral { padding: 24px 22px; border: 1px solid #ffe0bf; border-radius: 22px; background: linear-gradient(150deg, #fff8f0, #ffead4); box-shadow: 0 16px 32px -26px rgba(234,108,0,.6); }
+.artigo-cta-lateral { padding: 24px 22px; border: 1px solid var(--laranja-suave); border-radius: 22px; background: linear-gradient(150deg, var(--laranja-claro), var(--laranja-suave)); box-shadow: 0 16px 32px -26px rgba(234,108,0,.6); }
 .artigo-cta-lateral__topo { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
-.artigo-cta-lateral__icone svg { width: 34px; height: 34px; fill: none; stroke: #f07c00; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.artigo-cta-lateral__icone svg { width: 34px; height: 34px; fill: none; stroke: var(--laranja-forte); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .artigo-cta-lateral h2 { margin: 0; color: var(--azul-escuro); font-size: 1.28rem; font-weight: 900; line-height: 1.2; }
 .artigo-cta-lateral p { margin: 0 0 18px; color: #2b3a5c; font-size: .95rem; line-height: 1.55; }
 
@@ -80,13 +80,13 @@
 /* =========================================================
    Faixa final de chamada
    ========================================================= */
-.artigo-cta { display: grid; grid-template-columns: 250px minmax(0, 1fr) auto; gap: 30px; align-items: center; margin-bottom: 56px; overflow: hidden; padding-right: 36px; border: 1px solid #dde8f7; border-radius: 26px; background: linear-gradient(100deg, #f1f6ff, #e6efff); box-shadow: 0 18px 36px -30px rgba(20,58,158,.6); }
+.artigo-cta { display: grid; grid-template-columns: 250px minmax(0, 1fr) auto; gap: 30px; align-items: center; margin-bottom: 56px; overflow: hidden; padding-right: 36px; border: 1px solid var(--azul-borda); border-radius: 26px; background: linear-gradient(100deg, var(--azul-nevoa), var(--azul-claro)); box-shadow: 0 18px 36px -30px rgba(20,58,158,.6); }
 .artigo-cta__foto { position: relative; align-self: stretch; min-height: 130px; }
 .artigo-cta__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 68% 30%; }
 .artigo-cta__foto::after { position: absolute; top: 10px; left: 12px; width: 40px; height: 36px; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40' fill='none' stroke='%23ff8a0a' stroke-width='4.5' stroke-linecap='round'%3E%3Cpath d='M7 21 11 6M15 27l12-11M17 36l16-2'/%3E%3C/svg%3E"); transform: scaleX(-1); content: ''; }
 .artigo-cta__texto { padding: 22px 0 22px 24px; border-left: 4px solid var(--laranja); }
 .artigo-cta h2 { margin: 0 0 8px; color: var(--azul-escuro); font-size: clamp(1.35rem, 2vw, 1.65rem); font-weight: 900; line-height: 1.2; }
-.artigo-cta h2 span { color: var(--laranja); }
+.artigo-cta h2 span { color: var(--laranja-forte); }
 .artigo-cta p { margin: 0; color: #2b3a5c; font-size: .98rem; line-height: 1.55; }
 
 /* =========================================================
@@ -102,7 +102,6 @@
   .artigo-hero__foto { object-position: 100% 40%; }
   .artigo-hero::before { background: linear-gradient(90deg, rgba(240,246,255,.9) 0%, rgba(240,246,255,.8) 34%, rgba(240,246,255,0) 58%); }
   .artigo-hero__conteudo > * { max-width: 430px; }
-  .artigo-hero h1 { font-size: clamp(2rem, 3.6vw, 2.5rem); }
   .artigo-hero__pata--1 { display: none; }
   .artigo-hero__brilho { left: 50%; }
 }
@@ -116,13 +115,12 @@
 }
 /* Celular: foto em cima, texto abaixo; tudo em uma coluna. */
 @media (max-width: 640px) {
-  .artigo-hero { display: block; min-height: 0; background: linear-gradient(180deg, #eef5ff, #f6f9ff); }
+  .artigo-hero { display: block; min-height: 0; background: linear-gradient(180deg, var(--azul-claro), var(--azul-nevoa)); }
   .artigo-hero::before { display: none; }
   .artigo-hero__foto { position: static; z-index: auto; display: block; height: auto; aspect-ratio: 16 / 10; object-position: 74% 40%; }
   .artigo-hero__pata, .artigo-hero__coracao { display: none; }
   .artigo-hero__brilho { top: 18px; left: 18px; width: 44px; height: 40px; z-index: 1; }
   .artigo-hero__conteudo { padding-block: 18px 26px; }
-  .artigo-hero h1 { font-size: clamp(1.9rem, 8vw, 2.3rem); }
   .artigo-corpo { padding-block: 26px 40px; }
   .artigo-intro { padding-left: 16px; font-size: 1rem; }
   .artigo-topico { grid-template-columns: 52px minmax(0, 1fr); grid-template-areas: "icone texto" "foto foto"; gap: 14px; }

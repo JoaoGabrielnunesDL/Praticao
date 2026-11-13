@@ -10,8 +10,8 @@
 .auth__hero, .auth__lado { min-width: 0; }
 
 .auth__eyebrow { margin: 0 0 4px; color: var(--azul); font-weight: 800; font-size: 0.95rem; }
-.auth h1 { font-size: clamp(1.75rem, 8vw, 2.25rem); color: var(--azul-escuro); }
-.auth__laranja { color: var(--laranja); }
+.auth h1 { color: var(--azul-escuro); }
+.auth__laranja { color: var(--laranja-forte); }
 .auth__subtitulo { color: var(--azul-escuro); font-weight: 700; font-size: 0.95rem; }
 
 /* Foto: se o arquivo não existir, aparece um fundo azul com patinha */
@@ -69,7 +69,7 @@
 .forca { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
 .forca span { height: 6px; border-radius: 3px; background: #d1d5db; }
 .forca[data-nivel='1'] span:nth-child(1) { background: var(--erro); }
-.forca[data-nivel='2'] span:nth-child(-n+2) { background: #f59e0b; }
+.forca[data-nivel='2'] span:nth-child(-n+2) { background: var(--laranja); }
 .forca[data-nivel='3'] span { background: #16a34a; }
 .forca__texto { margin: 4px 0 0; text-align: center; font-size: 0.9rem; color: var(--texto-suave); }
 
@@ -81,7 +81,7 @@
 /* Mensagem informativa acima do cartão (?msg=agendar) */
 .mensagem-info {
   margin-bottom: 12px; padding: 12px 16px; border-radius: 12px;
-  background: #dbeafe; color: var(--azul-escuro); font-weight: 700;
+  background: var(--azul-tinta); color: var(--azul-escuro); font-weight: 700;
 }
 
 /* ---------- Tablet (768 a 1023 px): texto à esquerda, foto 4:5 à direita ---------- */
@@ -102,7 +102,6 @@
   .auth__grade { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: start; }
   .auth__hero { display: block; }
   .auth__foto { aspect-ratio: 16 / 9; max-height: 360px; margin-top: 16px; }
-  .auth h1 { font-size: clamp(2.25rem, 4vw, 3.25rem); }
   .auth__lado { width: 100%; max-width: 480px; margin-inline: 0; justify-self: end; }
 }
 

@@ -1,13 +1,26 @@
 /* base.css — variáveis, reset, tipografia e utilitários (carregado em todas as páginas) */
 
+/* Fonte Nunito (variável, 400 a 1000). Precisa ser a primeira regra do arquivo. */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400..1000;1,700..1000&display=swap');
+
 :root {
-  /* Cores (aproximadas das imagens de referência; ajuste com o conta-gotas se precisar) */
+  /* ---------- Azuis ---------- */
   --azul: #0b4dbb;          /* barra superior, links, botões azuis */
   --azul-escuro: #143a9e;   /* títulos e rodapé */
-  --azul-claro: #eaf3ff;    /* fundo das seções */
-  --azul-borda: #dbe7f5;    /* bordas de campos e cartões */
-  --laranja: #ff8a0a;       /* botões e destaques grandes */
-  --laranja-escuro: #b45309;/* texto laranja pequeno (contraste 4,5:1) */
+  /* Azuis claros: só estes quatro (do mais claro ao mais forte) */
+  --azul-nevoa: #f4f8fe;    /* fundo das páginas e preenchimentos bem leves */
+  --azul-claro: #eaf3ff;    /* fundo de seções, hover, selos */
+  --azul-tinta: #dcebff;    /* pastilhas de ícone, fim de degradês */
+  --azul-borda: #e1eaf6;    /* bordas de cartões e divisórias */
+  --azul-borda-forte: #c9daf2; /* contorno em hover, tracejado de estado vazio */
+
+  /* ---------- Laranjas ---------- */
+  --laranja: #ff8a0a;        /* só decoração: traços, ondas, sublinhados, ícones sobre fundo escuro */
+  --laranja-forte: #c45200;  /* fundo de botão com texto branco (4,6:1) e títulos grandes em laranja */
+  --laranja-escuro: #a84a00; /* texto laranja pequeno, inclusive sobre os fundos pêssego (≥4,8:1) */
+  --laranja-suave: #ffe9d2;  /* fundos pêssego, fim de degradês, bordas quentes */
+  --laranja-claro: #fff4e8;  /* fundos pêssego bem leves (selos, avisos) */
+
   --texto: #1f2a44;
   --texto-suave: #4b5563;
   --branco: #ffffff;
@@ -38,7 +51,8 @@ body {
   margin: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  font-family: 'Nunito', 'Poppins', system-ui, sans-serif;
+  /* Reserva arredondada (ui-rounded no Apple) e depois a fonte do sistema */
+  font-family: 'Nunito', ui-rounded, 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   color: var(--texto);
@@ -48,7 +62,14 @@ body {
 img, svg { max-width: 100%; height: auto; }
 
 h1, h2, h3 { margin: 0 0 0.5rem; line-height: 1.15; color: var(--azul-escuro); }
-h1 { font-size: clamp(1.75rem, 8vw, 3rem); }
+/* Título principal: regra única para todas as telas (as páginas só mudam cor e margem). */
+h1 {
+  font-size: clamp(2rem, 1.35rem + 2.8vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
 h2 { font-size: clamp(1.4rem, 5vw, 2rem); }
 p { margin: 0 0 1rem; }
 a { color: var(--azul); }
@@ -61,7 +82,7 @@ button { cursor: pointer; }
 
 /* Foco visível para quem navega pelo teclado */
 :focus-visible {
-  outline: 3px solid var(--laranja);
+  outline: 3px solid var(--laranja-forte); /* 4,6:1 sobre branco; o laranja vivo não chega a 3:1 */
   outline-offset: 2px;
 }
 
