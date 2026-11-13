@@ -1,3 +1,8 @@
+import os
+
+# Chave fictícia só para os testes; precisa existir antes de importar app.auth.
+os.environ.setdefault('SECRET_KEY', 'chave-ficticia-somente-para-testes')
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

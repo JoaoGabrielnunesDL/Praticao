@@ -91,3 +91,14 @@ def test_admin_nao_desativa_a_si_mesmo(client, admin):
     meu_id = client.get('/me', headers=admin).json()['id']
     r = client.patch('/admin/usuarios/' + str(meu_id) + '/desativar', headers=admin)
     assert r.status_code == 400
+
+
+def test_token_assinado_com_outra_chave_e_recusado(client, tutor):
+    from datetime import datetime, timedelta, timezone
+    from jose import jwt
+    meu_id = client.get('/me', headers=tutor).json()['id']
+    expira = datetime.now(timezone.utc) + timedelta(hours=1)
+    falso = jwt.encode({'sub': str(meu_id), 'exp': expira}, 'outra-chave-qualquer', algorithm='HS256')
+    r = client.get('/me', headers={'Authorization': 'Bearer ' + falso})
+    assert r.status_code == 401
+    assert r.json() == {'detail': 'Não autenticado'}

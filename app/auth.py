@@ -1,13 +1,18 @@
+import os
 import bcrypt
 from datetime import datetime, timedelta, timezone
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
-from app.database import get_db
+from app.database import get_db  # também carrega o .env (load_dotenv)
 from app import models
 
-SECRET_KEY = 'troque-esta-chave-antes-da-entrega'
+# Chave que assina os tokens JWT: vem da variável de ambiente SECRET_KEY (.env ou docker compose).
+# Sem valor padrão de propósito: uma chave fixa no código ficaria exposta no Git.
+SECRET_KEY = os.getenv('SECRET_KEY')
+if not SECRET_KEY:
+    raise RuntimeError('Defina a variável de ambiente SECRET_KEY (veja o .env.example).')
 ALGORITHM = 'HS256'
 oauth2 = OAuth2PasswordBearer(tokenUrl='/login')
 

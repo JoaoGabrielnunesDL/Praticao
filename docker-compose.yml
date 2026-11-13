@@ -26,6 +26,7 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-praticao123}@db:5432/${POSTGRES_DB:-praticao}
+      SECRET_KEY: ${SECRET_KEY:?defina SECRET_KEY no arquivo .env (veja o .env.example)}
     ports:
       - "8000:8000"
     volumes:
