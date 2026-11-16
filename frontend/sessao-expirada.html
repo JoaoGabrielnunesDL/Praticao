@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sessão expirada - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/estados.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="estado-pagina">
+    <section class="estado-cartao" aria-labelledby="t-estado">
+      <div class="icone" aria-hidden="true">⏰</div>
+      <h1 id="t-estado">Sua sessão expirou.</h1>
+      <p>Entre novamente para continuar usando o sistema.</p>
+      <a class="btn btn-laranja" id="btn-principal" href="login.html">➜ Ir para o login</a>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>Auth.limpar(); // a sessão não vale mais: apaga o token antes de montar o cabeçalho</script>
+  <script src="js/header.js"></script>
+  <script src="js/paginas-estado.js"></script>
+</body>
+</html>

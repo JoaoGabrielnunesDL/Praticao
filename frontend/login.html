@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="login-pagina">
+    <div class="container">
+      <!-- Lado esquerdo: boas-vindas -->
+      <section class="boas-vindas">
+        <div class="img-ph" role="img" aria-label="Cachorro">🐕</div>
+        <h1>Bem-vindo ao <strong>Prati<em>Cão</em>!</strong></h1>
+        <p>Cuidado, carinho e bem-estar para o seu pet!</p>
+        <div class="aviso">Faça login para acessar sua conta e acompanhar seus pets. Funcionários e administradores também entram por aqui e são levados ao seu painel.</div>
+      </section>
+
+      <!-- Lado direito: cartão de login / cadastro -->
+      <section class="cartao">
+        <div class="avatar" aria-hidden="true">👤</div>
+        <h2 id="titulo-cartao">Entrar no PratiCão</h2>
+        <p class="sub" id="subtitulo-cartao">Acesse sua conta para continuar</p>
+
+        <!-- LOGIN -->
+        <form id="form-login" novalidate>
+          <div class="erro" role="alert" hidden></div>
+          <div class="campo">
+            <label for="login-email">E-mail</label>
+            <input id="login-email" name="email" type="email" autocomplete="username" maxlength="150" required>
+          </div>
+          <div class="campo">
+            <label for="login-senha">Senha</label>
+            <div class="entrada">
+              <input id="login-senha" name="senha" type="password" class="com-botao" autocomplete="current-password" maxlength="72" required>
+              <button type="button" class="mostrar" data-alvo="login-senha">Mostrar</button>
+            </div>
+          </div>
+          <div class="linha">
+            <label><input type="checkbox" name="lembrar"> Lembrar meu acesso</label>
+            <a class="link" href="redefinir-senha.html">Esqueci minha senha?</a>
+          </div>
+          <button class="btn btn-laranja" type="submit" data-texto="Entrar">Entrar</button>
+          <p class="troca">Ainda não tem conta? <button type="button" class="link" data-mostrar="cadastro">Cadastre-se</button></p>
+        </form>
+
+        <!-- CADASTRO (tutor) -->
+        <form id="form-cadastro" novalidate hidden>
+          <div class="erro" role="alert" hidden></div>
+          <div class="campo">
+            <label for="cad-nome">Nome completo</label>
+            <input id="cad-nome" name="nome" type="text" autocomplete="name" minlength="2" maxlength="100" required>
+          </div>
+          <div class="campo">
+            <label for="cad-email">E-mail</label>
+            <input id="cad-email" name="email" type="email" autocomplete="email" maxlength="150" required>
+          </div>
+          <div class="campo">
+            <label for="cad-tel">Telefone (opcional)</label>
+            <input id="cad-tel" name="telefone" type="tel" autocomplete="tel" maxlength="20">
+          </div>
+          <div class="campo">
+            <label for="cad-senha">Senha (mínimo 6 caracteres)</label>
+            <div class="entrada">
+              <input id="cad-senha" name="senha" type="password" class="com-botao" autocomplete="new-password" minlength="6" maxlength="72" required>
+              <button type="button" class="mostrar" data-alvo="cad-senha">Mostrar</button>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="cad-confirmar">Confirmar senha</label>
+            <input id="cad-confirmar" name="confirmar" type="password" autocomplete="new-password" maxlength="72" required>
+          </div>
+          <button class="btn btn-laranja" type="submit" data-texto="Criar conta">Criar conta</button>
+          <p class="troca">Já tem conta? <button type="button" class="link" data-mostrar="login">Entrar</button></p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

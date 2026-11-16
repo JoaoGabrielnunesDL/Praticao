@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recuperar senha - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/recuperar.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="login-pagina">
+    <div class="container">
+      <section class="boas-vindas">
+        <div class="img-ph" role="img" aria-label="Cachorro e gato">🐶🐱</div>
+        <h1>Recupere o acesso ao <strong>Prati<em>Cão</em></strong></h1>
+        <p>Em poucos passos você cria uma nova senha.</p>
+        <div class="aviso">🔒 Ambiente seguro. Seus dados protegidos.</div>
+      </section>
+
+      <section class="cartao">
+        <p class="passo" id="rotulo-passo">Passo 1 de 3 – Pedir o link</p>
+
+        <!-- PASSO 1: e-mail -->
+        <form id="passo-1" novalidate>
+          <div class="avatar" aria-hidden="true">🔒</div>
+          <h2>Recupere sua senha</h2>
+          <p class="sub">Informe o e-mail da sua conta.</p>
+          <div class="erro" role="alert" hidden></div>
+          <div class="campo">
+            <label for="rec-email">E-mail *</label>
+            <input id="rec-email" name="email" type="email" autocomplete="username" maxlength="150" placeholder="seuemail@exemplo.com" required>
+          </div>
+          <button class="btn btn-laranja" type="submit" data-texto="Enviar link de recuperação">Enviar link de recuperação</button>
+          <p class="troca"><a class="link" href="login.html">← Voltar para o login</a></p>
+        </form>
+
+        <!-- PASSO 2: nova senha -->
+        <form id="passo-2" novalidate hidden>
+          <div class="avatar" aria-hidden="true">🔑</div>
+          <h2>Crie uma nova senha</h2>
+          <p class="sub">Escolha uma senha com pelo menos 6 caracteres.</p>
+          <div class="erro" role="alert" hidden></div>
+          <div class="campo">
+            <label for="rec-nova">Nova senha *</label>
+            <div class="entrada">
+              <input id="rec-nova" name="nova" type="password" class="com-botao" autocomplete="new-password" minlength="6" maxlength="72" required>
+              <button type="button" class="mostrar" data-alvo="rec-nova">Mostrar</button>
+            </div>
+            <div class="forca" aria-hidden="true"><i></i><i></i><i></i></div>
+            <small id="forca-texto">Força da senha: —</small>
+          </div>
+          <div class="campo">
+            <label for="rec-conf">Confirmar nova senha *</label>
+            <div class="entrada">
+              <input id="rec-conf" name="confirmar" type="password" class="com-botao" autocomplete="new-password" maxlength="72" required>
+              <button type="button" class="mostrar" data-alvo="rec-conf">Mostrar</button>
+            </div>
+          </div>
+          <button class="btn btn-laranja" type="submit" data-texto="Salvar nova senha">Salvar nova senha</button>
+        </form>
+
+        <!-- PASSO 3: concluído -->
+        <div id="passo-3" class="concluido" hidden>
+          <div class="check" aria-hidden="true">✅</div>
+          <h2>Senha alterada com sucesso!</h2>
+          <p class="sub">Sua senha foi atualizada. Agora você já pode entrar com a nova senha.</p>
+          <a class="btn btn-laranja" href="login.html">Ir para o login</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/redefinir-senha.js"></script>
+</body>
+</html>

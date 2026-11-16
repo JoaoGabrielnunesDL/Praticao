@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meus Animais - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/meus-animais.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <div class="an-topo">
+        <div>
+          <p class="selo-op">Área do tutor</p>
+          <h1>Meus Animais</h1>
+          <p class="sub">Cuide de cada companheiro e acompanhe as informações dos seus pets organizadas.</p>
+        </div>
+        <button type="button" class="btn btn-laranja" data-novo>+ Cadastrar Animal</button>
+      </div>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <div id="erro-tela" class="vazio" hidden>
+        <span>⚠️</span><p id="erro-texto"></p>
+        <button type="button" class="btn btn-laranja btn-pequeno" id="tentar">Tentar novamente</button>
+      </div>
+
+      <div id="conteudo">
+        <!-- Indicadores (calculados com os dados da API) -->
+        <div class="an-indicadores">
+          <button type="button" class="an-ind" data-lista="animais" aria-haspopup="dialog"><span class="pn-ic">🐾</span><div><strong id="ind-animais">–</strong>Animais cadastrados<small>Clique para ver</small></div></button>
+          <button type="button" class="an-ind" data-lista="especies" aria-haspopup="dialog"><span class="pn-ic laranja">🧬</span><div><strong id="ind-especies">–</strong>Espécies diferentes<small>Clique para ver</small></div></button>
+          <a class="an-ind" href="meus-agendamentos.html"><span class="pn-ic verde">📅</span><div><strong id="ind-ativos">–</strong>Agendamentos ativos</div></a>
+          <a class="an-ind" href="meus-agendamentos.html?status=CONCLUIDO"><span class="pn-ic roxo">✅</span><div><strong id="ind-concluidos">–</strong>Serviços concluídos</div></a>
+        </div>
+
+        <h2 class="an-titulo">Seus companheiros</h2>
+        <p class="sub" id="sub-lista"></p>
+
+        <div class="an-lista" id="lista" aria-live="polite"><p class="carregando">Carregando animais...</p></div>
+
+        <!-- Atalhos e banner -->
+        <div class="an-atalhos">
+          <a class="an-atalho" id="atalho-agendar" href="agendamento.html"><span>📅</span>Agendar Serviço</a>
+          <a class="an-atalho" href="meus-agendamentos.html?status=CONCLUIDO"><span>❤️</span>Histórico de Serviços</a>
+          <a class="an-atalho" href="servicos.html"><span>✂️</span>Ver Serviços</a>
+        </div>
+
+        <section class="an-banner">
+          <div>
+            <h2>Mantenha a saúde do seu pet em dia!</h2>
+            <ul><li>Vacinas e vermífugos</li><li>Banho e tosa</li><li>Consultas e muito mais!</li></ul>
+          </div>
+          <a class="btn btn-laranja" href="agendamento.html" data-agendar>Agendar agora →</a>
+        </section>
+
+        <div class="an-rodape">
+          <div><strong>Tem outro companheiro?</strong><br><span class="sub">Cadastre outro animal para manter tudo organizado.</span></div>
+          <button type="button" class="btn btn-contorno" data-novo>+ Cadastrar Animal</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Janela que se sobrepõe à tela: lista dos animais (pelos indicadores) -->
+  <dialog id="dlg-lista" class="dlg-lista" aria-labelledby="lista-titulo">
+    <div class="lista-cab"><h2 id="lista-titulo"></h2><button type="button" class="lista-x" id="lista-fechar" aria-label="Fechar">×</button></div>
+    <div id="lista-corpo"></div>
+  </dialog>
+
+  <!-- Formulário único: cadastrar e editar -->
+  <dialog id="dlg-animal" aria-labelledby="an-form-titulo">
+    <form id="form-animal" novalidate>
+      <h2 id="an-form-titulo">Cadastrar Animal</h2>
+      <div class="erro" id="an-erro" role="alert" hidden></div>
+      <div class="campo"><label for="a-nome">Nome</label><input id="a-nome" type="text" maxlength="100" required></div>
+      <div class="campo"><label for="a-especie">Espécie</label>
+        <select id="a-especie" required>
+          <option value="">Selecione...</option>
+          <option>Cão</option><option>Gato</option><option>Outro</option>
+        </select>
+      </div>
+      <div class="campo"><label for="a-raca">Raça</label><input id="a-raca" type="text" maxlength="80" placeholder="Deixe em branco se for sem raça definida"><small>Opcional.</small></div>
+      <div class="rodape-dlg">
+        <button type="button" class="btn btn-contorno" id="an-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-laranja" id="an-salvar">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/meus-animais.js"></script>
+</body>
+</html>

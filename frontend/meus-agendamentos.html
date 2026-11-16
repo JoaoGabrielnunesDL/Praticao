@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meus Agendamentos - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/meus-agendamentos.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <div class="ma-topo">
+        <div>
+          <p class="selo-op">Minha rotina</p>
+          <h1>Meus Agendamentos</h1>
+          <p class="sub">Acompanhe, gerencie e consulte todos os seus agendamentos.</p>
+        </div>
+        <button type="button" class="btn btn-contorno btn-pequeno" id="atualizar">↻ Atualizar</button>
+      </div>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <div id="erro-tela" class="vazio" hidden>
+        <span>⚠️</span><p id="erro-texto"></p>
+        <button type="button" class="btn btn-laranja btn-pequeno" id="tentar">Tentar novamente</button>
+      </div>
+
+      <div id="conteudo">
+        <!-- Indicadores: também funcionam como filtro rápido -->
+        <div class="ma-indicadores" id="indicadores" role="group" aria-label="Filtrar por situação">
+          <button type="button" class="ma-ind" data-status="TODOS"><span class="pn-ic">📅</span><div><strong id="n-TODOS">–</strong>Agendamentos</div></button>
+          <button type="button" class="ma-ind" data-status="AGENDADO"><span class="pn-ic laranja">⏳</span><div><strong id="n-AGENDADO">–</strong>Pendente</div></button>
+          <button type="button" class="ma-ind" data-status="CONFIRMADO"><span class="pn-ic azul">👍</span><div><strong id="n-CONFIRMADO">–</strong>Confirmado</div></button>
+          <button type="button" class="ma-ind" data-status="CONCLUIDO"><span class="pn-ic verde">✅</span><div><strong id="n-CONCLUIDO">–</strong>Concluído</div></button>
+          <button type="button" class="ma-ind" data-status="CANCELADO"><span class="pn-ic roxo">❌</span><div><strong id="n-CANCELADO">–</strong>Cancelado</div></button>
+        </div>
+
+        <section class="bloco">
+          <div class="ma-ferramentas">
+            <div class="ma-busca">
+              <label for="busca" class="so-leitor">Buscar agendamento</label>
+              <input id="busca" type="search" placeholder="Buscar por animal, serviço, data ou número..." autocomplete="off">
+              <button type="button" id="limpar-busca" class="ma-x" aria-label="Limpar pesquisa" hidden>×</button>
+            </div>
+            <div>
+              <label for="filtro" class="so-leitor">Filtrar por status</label>
+              <select id="filtro">
+                <option value="TODOS">Todos os status</option>
+                <option value="AGENDADO">Pendente</option>
+                <option value="CONFIRMADO">Confirmado</option>
+                <option value="CONCLUIDO">Concluído</option>
+                <option value="CANCELADO">Cancelado</option>
+              </select>
+            </div>
+          </div>
+          <div id="lista" class="ma-lista" aria-live="polite"></div>
+        </section>
+
+        <section class="ma-banner">
+          <div class="ma-banner-titulo"><span aria-hidden="true">📅</span><h2>Organize a rotina<br><strong>do seu pet com a gente!</strong></h2></div>
+          <ul>
+            <li>Seus agendamentos em um só lugar</li>
+            <li>Acompanhe o status</li>
+            <li>Agende novamente com praticidade</li>
+          </ul>
+          <a class="btn btn-laranja" href="agendamento.html">+ Novo Agendamento</a>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Detalhes do agendamento -->
+  <dialog id="dlg-detalhes" aria-labelledby="det-titulo">
+    <h2 id="det-titulo">Detalhes do agendamento</h2>
+    <dl class="dados" id="det-dados"></dl>
+    <p class="ma-aviso" id="det-aviso" hidden></p>
+    <div class="rodape-dlg">
+      <button type="button" class="btn btn-contorno" id="det-fechar">Voltar</button>
+      <button type="button" class="btn btn-cancelar" id="det-cancelar" hidden>Cancelar agendamento</button>
+      <a class="btn btn-laranja" id="det-novamente" href="agendamento.html" hidden>Agendar novamente</a>
+    </div>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/meus-agendamentos.js"></script>
+</body>
+</html>

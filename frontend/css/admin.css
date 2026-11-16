@@ -1,0 +1,54 @@
+.adm-grade{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0 18px}
+.cab-bloco{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.numeros{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.num{display:block;text-align:center;padding:10px 4px;border-radius:12px;border:1.5px solid transparent;color:var(--cinza);font-size:.8rem;line-height:1.25}
+.num:hover{background:#f1f6ff;border-color:var(--borda)}
+.num strong{display:block;font-size:1.7rem;color:var(--azul)}
+.num.cor-pendente strong{color:#d97500}
+.num.cor-concluido strong{color:#2e9e4f}
+.num.cor-cancelado strong{color:#d93025}
+.nota{font-size:.78rem;color:var(--cinza);margin-top:8px}
+.erro-bloco{background:#fdecea;color:#b3261e;border-radius:8px;padding:8px 12px;font-size:.85rem;margin-top:10px}
+
+/* Gráfico de rosca (CSS puro: conic-gradient) */
+.grafico{display:flex;align-items:center;gap:26px;flex-wrap:wrap;justify-content:center}
+.rosca{width:170px;height:170px;border-radius:50%;background:#e3eaf6;display:flex;align-items:center;justify-content:center;flex:none}
+.rosca .miolo{width:104px;height:104px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cinza);font-size:.8rem}
+.rosca .miolo strong{font-size:1.9rem;color:var(--azul);line-height:1}
+.legenda{list-style:none;display:grid;gap:6px;min-width:200px}
+.legenda a{display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:8px}
+.legenda a:hover{background:#f1f6ff}
+.legenda i{width:12px;height:12px;border-radius:50%;flex:none}
+.legenda .pct{margin-left:auto;font-weight:700;color:var(--azul)}
+
+/* Prévia da agenda */
+.previa .cab-prev,.previa .linha-ag{display:grid;grid-template-columns:62px 1.2fr .9fr 1.2fr 110px;gap:8px;align-items:center;padding:9px 10px;text-align:left}
+.previa .cab-prev{background:#eaf1fd;color:var(--azul);font-weight:700;font-size:.82rem;border-radius:8px}
+.previa .linha-ag{width:100%;background:none;border:0;border-top:1px solid var(--borda);font:inherit;font-size:.9rem;color:inherit;cursor:pointer}
+.previa .linha-ag:hover{background:#f6f9ff}
+.previa .status{font-size:.78rem;padding:3px 10px;text-align:center}
+.ver-mais{font-size:.9rem}
+
+/* Acesso rápido */
+.acesso h2{margin-bottom:12px}
+.atalhos{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.atalhos a{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:16px 10px;border:1.5px solid var(--borda);border-radius:14px;background:#f8fbff;transition:transform .2s}
+.atalhos a:hover{transform:translateY(-3px);border-color:var(--laranja)}
+.atalhos span{font-size:1.8rem}
+.atalhos strong{color:var(--azul)}
+.atalhos small{color:var(--cinza)}
+
+@media(max-width:900px){
+  .adm-grade{grid-template-columns:1fr}
+  .atalhos{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .numeros{grid-template-columns:repeat(3,1fr)}
+  .previa .cab-prev{display:none}
+  .previa .linha-ag{grid-template-columns:auto 1fr auto;grid-template-areas:"h pet st" "h serv tutor"}
+  .previa .linha-ag>:nth-child(1){grid-area:h}
+  .previa .linha-ag>:nth-child(2){grid-area:serv}
+  .previa .linha-ag>:nth-child(3){grid-area:pet;font-weight:700}
+  .previa .linha-ag>:nth-child(4){grid-area:tutor;color:var(--cinza);font-size:.82rem}
+  .previa .linha-ag>:nth-child(5){grid-area:st}
+}

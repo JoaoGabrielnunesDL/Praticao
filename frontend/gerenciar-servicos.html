@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciar serviços - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/tabelas.css">
+  <link rel="stylesheet" href="css/gerenciar-servicos.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <div class="topo-pagina">
+        <div>
+          <p class="selo-op">Serviços</p>
+          <h1>Gerenciar Serviços</h1>
+          <p class="sub">Cadastre, edite e gerencie os serviços da loja.</p>
+        </div>
+        <button type="button" class="btn btn-laranja" id="btn-novo">+ Novo serviço</button>
+      </div>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <form id="filtros" class="filtro" role="search">
+        <input type="search" id="busca" placeholder="Buscar pelo nome do serviço" aria-label="Buscar pelo nome do serviço" maxlength="100">
+        <select id="f-status" aria-label="Filtrar por situação">
+          <option value="">Todos os serviços</option>
+          <option value="ativos">Somente ativos</option>
+          <option value="inativos">Somente inativos</option>
+        </select>
+        <button type="button" class="btn btn-contorno" id="btn-limpar">Limpar filtros</button>
+      </form>
+      <p class="sub" id="contagem" aria-live="polite"></p>
+
+      <div class="area" id="area">
+        <section class="bloco-lista" aria-label="Serviços cadastrados">
+          <div id="lista" class="tabela t-servicos"></div>
+        </section>
+
+        <!-- Painel de cadastro/edição: só aparece ao clicar em "Novo serviço" ou "Editar" -->
+        <aside id="painel" class="painel-form" aria-labelledby="serv-titulo" hidden>
+          <form id="form-servico" novalidate>
+            <div class="painel-topo">
+              <button type="button" class="voltar" id="serv-voltar" aria-label="Voltar para a lista">← Voltar</button>
+              <h2 id="serv-titulo">Cadastrar serviço</h2>
+            </div>
+            <div class="erro" id="serv-erro" role="alert" hidden></div>
+
+            <div class="campo">
+              <label for="s-nome">Nome <span class="obrig" aria-hidden="true">*</span></label>
+              <input id="s-nome" name="nome" type="text" maxlength="100" placeholder="Digite o nome do serviço" autocomplete="off" aria-describedby="e-nome" required>
+              <small class="erro-campo" id="e-nome" role="alert"></small>
+            </div>
+            <div class="campo">
+              <label for="s-desc">Descrição</label>
+              <textarea id="s-desc" name="descricao" rows="3" maxlength="300" placeholder="Descreva o serviço" aria-describedby="e-desc"></textarea>
+              <small id="e-desc" class="contador"><span id="desc-cont">0</span>/300</small>
+            </div>
+            <div class="linha-campos">
+              <div class="campo">
+                <label for="s-preco">Preço (R$) <span class="obrig" aria-hidden="true">*</span></label>
+                <input id="s-preco" name="preco" type="text" inputmode="decimal" placeholder="Ex.: 60,00" autocomplete="off" aria-describedby="e-preco" required>
+                <small class="erro-campo" id="e-preco" role="alert"></small>
+              </div>
+              <div class="campo">
+                <label for="s-duracao">Duração (min) <span class="obrig" aria-hidden="true">*</span></label>
+                <input id="s-duracao" name="duracao" type="text" inputmode="numeric" placeholder="Ex.: 60" autocomplete="off" aria-describedby="e-duracao" required>
+                <small class="erro-campo" id="e-duracao" role="alert"></small>
+              </div>
+            </div>
+            <p class="sub nota-obrig"><span class="obrig">*</span> Campo obrigatório</p>
+
+            <div class="rodape-dlg">
+              <button type="button" class="btn btn-contorno" id="serv-cancelar">Cancelar</button>
+              <button type="submit" class="btn btn-laranja" id="serv-salvar">Salvar serviço</button>
+            </div>
+          </form>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Confirmação de exclusão permanente -->
+  <dialog id="dlg-excluir" class="dlg-confirma" aria-labelledby="exc-titulo">
+    <form method="dialog">
+      <div class="icone-alerta perigo" aria-hidden="true">!</div>
+      <h2 id="exc-titulo">Excluir serviço permanentemente?</h2>
+      <p class="des-nome" id="exc-nome"></p>
+      <p class="sub">Esta ação não pode ser desfeita: o serviço será apagado do sistema. Se ele já tiver agendamentos, não poderá ser excluído (use Desativar).</p>
+      <div class="rodape-dlg centro">
+        <button type="submit" class="btn btn-contorno" value="voltar">Cancelar</button>
+        <button type="submit" class="btn btn-perigo" value="ok">Excluir</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Confirmação de desativação -->
+  <dialog id="dlg-desativar" class="dlg-confirma" aria-labelledby="des-titulo">
+    <form method="dialog">
+      <div class="icone-alerta" aria-hidden="true">!</div>
+      <h2 id="des-titulo">Desativar serviço?</h2>
+      <p class="des-nome" id="des-nome"></p>
+      <p class="sub">O serviço deixará de aparecer para novos agendamentos. Os agendamentos existentes serão preservados.</p>
+      <div class="rodape-dlg centro">
+        <button type="submit" class="btn btn-contorno" value="voltar">Cancelar</button>
+        <button type="submit" class="btn btn-perigo" value="ok">Desativar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/servicos-admin.js"></script>
+</body>
+</html>

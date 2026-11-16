@@ -1,0 +1,19 @@
+.agenda h1{font-size:2.2rem;color:var(--azul);line-height:1.1}
+.filtro .btn.ativo{background:var(--azul);color:#fff}
+#info-periodo{margin:-6px 0 12px;font-size:.9rem}
+.indicadores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.ind{background:#fff;border:1.5px solid var(--borda);border-radius:12px;padding:10px;text-align:center;cursor:pointer;font:inherit;color:var(--cinza)}
+.ind strong{display:block;font-size:1.5rem;color:var(--azul)}
+.ind.ativo{border-color:var(--laranja);box-shadow:0 0 0 2px rgba(242,138,12,.25)}
+.lista{background:#fff;border-radius:16px;box-shadow:0 6px 20px rgba(11,58,158,.1);overflow:hidden}
+.lista.ocupada{opacity:.6;pointer-events:none}
+.cab-lista,.item{display:grid;grid-template-columns:70px 1.3fr 1fr 1.2fr 120px 250px;gap:10px;align-items:center;padding:12px 18px}
+.cab-lista{background:#eaf1fd;color:var(--azul);font-weight:700;font-size:.9rem}
+.item{border-top:1px solid var(--borda);cursor:pointer}
+.item:hover{background:#f6f9ff}
+@media(max-width:800px){
+  .indicadores{grid-template-columns:repeat(3,1fr)}
+  .cab-lista{display:none}
+  .item{grid-template-columns:auto 1fr auto;grid-template-areas:"hora tutor tutor" "animal servico status" "acoes acoes acoes";gap:6px 10px}
+  .c-hora{grid-area:hora}.c-tutor{grid-area:tutor}.c-animal{grid-area:animal}.c-servico{grid-area:servico}.c-status{grid-area:status}.acoes{grid-area:acoes}
+}

@@ -1,0 +1,94 @@
+/* Relatórios do Sistema. Complementa base.css e tabelas.css. */
+
+/* Filtro de período */
+.filtro-rel{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;margin:20px 0 6px}
+.campo-data{background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(11,58,158,.08);padding:8px 14px;min-width:190px}
+.campo-data label{display:block;font-size:.75rem;font-weight:700;color:var(--azul)}
+.campo-data input{border:0;font:inherit;font-weight:600;color:var(--texto);background:none;width:100%;padding:2px 0}
+.campo-data input:focus-visible{outline-offset:4px}
+.obrig{color:#d93025}
+.atalhos-periodo{display:flex;gap:8px;flex-wrap:wrap}
+.atalhos-periodo .ativo{background:var(--azul);color:#fff}
+.info-periodo{font-size:.85rem;margin:2px 0 14px}
+
+/* Cartões de indicadores (clicáveis) */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
+.kpi{display:flex;align-items:center;gap:12px;background:#fff;border:2px solid transparent;border-radius:14px;box-shadow:0 4px 14px rgba(11,58,158,.08);padding:12px 14px;text-align:left;font:inherit;color:var(--cinza);cursor:pointer;transition:transform .15s}
+.kpi:hover{transform:translateY(-2px)}
+.kpi[aria-pressed=true]{border-color:var(--laranja);background:#fffaf2}
+.kpi-icone{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex:none;font-weight:800;background:#e6eefc;color:var(--azul)}
+.kpi.AGENDADO .kpi-icone{background:#ffe9cc;color:#d97500}
+.kpi.CONFIRMADO .kpi-icone{background:#d6e6ff;color:var(--azul)}
+.kpi.CONCLUIDO .kpi-icone{background:#d4f2d0;color:#1d7a34}
+.kpi.CANCELADO .kpi-icone{background:#fcd5d3;color:#d93025}
+.kpi-texto{font-size:.85rem;line-height:1.2}
+.kpi-texto strong{display:block;font-size:1.7rem;color:var(--azul)}
+
+/* Gráficos */
+.graficos{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;margin-bottom:18px}
+.dica{font-size:.8rem;color:var(--cinza);margin:2px 0 12px}
+.barras-v{display:flex;align-items:flex-end;gap:10px;min-height:230px;padding-top:6px;border-bottom:2px solid var(--borda)}
+.bv{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;background:none;border:2px solid transparent;border-radius:10px 10px 0 0;font:inherit;cursor:pointer;padding:4px 2px 0}
+.bv:hover{background:#f1f6ff}
+.bv[aria-pressed=true]{border-color:var(--laranja);background:#fffaf2}
+.bv .valor{font-weight:800;color:var(--azul)}
+.bv .coluna{display:block;width:100%;max-width:64px;border-radius:8px 8px 0 0}
+.bv .nome{font-size:.78rem;color:var(--texto);text-align:center;word-break:break-word;line-height:1.15;padding-bottom:4px}
+.vazio-grafico{padding:40px 10px;text-align:center;color:var(--cinza);font-weight:600}
+.rosca-area{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.rosca{width:170px;height:170px;border-radius:50%;background:#e3eaf6;display:flex;align-items:center;justify-content:center;flex:none}
+.rosca .miolo{width:106px;height:106px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cinza);font-size:.8rem}
+.rosca .miolo strong{font-size:1.9rem;color:var(--azul);line-height:1}
+.legenda{list-style:none;display:grid;gap:4px;min-width:200px}
+.legenda button{display:flex;align-items:center;gap:8px;width:100%;padding:5px 8px;border-radius:8px;border:2px solid transparent;background:none;font:inherit;color:var(--texto);cursor:pointer;text-align:left}
+.legenda button:hover{background:#f1f6ff}
+.legenda button[aria-pressed=true]{border-color:var(--laranja);background:#fffaf2}
+.legenda i{width:12px;height:12px;border-radius:50%;flex:none}
+.legenda .pct{margin-left:auto;font-weight:700;color:var(--azul)}
+
+/* Tabela de detalhamento */
+.detalhamento .tabela{box-shadow:none;border:1px solid var(--borda);margin-top:6px}
+.cab-detalhe{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.chips{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 2px}
+.chips:empty{display:none}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#eaf1fd;color:var(--azul);border-radius:999px;padding:4px 6px 4px 12px;font-weight:600;font-size:.85rem}
+.chip button{background:none;border:0;cursor:pointer;font-size:1.1rem;line-height:1;color:inherit}
+.rodape-tabela{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:.85rem}
+.paginacao{display:flex;gap:6px}
+.paginacao button{min-width:34px;height:34px;border-radius:8px;border:1.5px solid var(--borda);background:#fff;color:var(--azul);font:inherit;font-weight:700;cursor:pointer}
+.paginacao button.atual{background:var(--azul);border-color:var(--azul);color:#fff}
+.paginacao button:disabled{opacity:.45;cursor:not-allowed}
+.vazio .btn{margin-top:12px}
+.vazio .sub{font-weight:400;margin-top:4px}
+
+@media(max-width:900px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpi.TOTAL{grid-column:1/-1}
+  .graficos{grid-template-columns:1fr}
+}
+@media(max-width:800px){
+  .campo-data{flex:1 1 100%}
+  .filtro-rel>.btn-laranja{flex:1 1 100%;text-align:center}
+  .atalhos-periodo{flex:1 1 100%}
+  .rodape-tabela{justify-content:center}
+}
+
+/* Validação do período e avisos */
+.campo-data.invalido{box-shadow:0 0 0 2px #d93025}
+.erro-periodo{display:flex;align-items:center;gap:8px;background:#fff6dd;color:#8a5a00;border:1px solid #f2d27a;border-radius:12px;padding:10px 14px;font-weight:600;margin:8px 0 6px}
+.erro-periodo::before{content:"⚠️"}
+.aviso{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:12px 16px;margin:10px 0 16px;font-weight:600}
+.aviso.info{background:#e8f1ff;color:var(--azul);border:1px solid #b9d3fb}
+.aviso.info::before{content:"ℹ️"}
+.aviso small{display:block;font-weight:400;color:var(--cinza)}
+.cab-detalhe .acoes{gap:8px}
+
+/* Imprimir / salvar como PDF: só o relatório, sem menus e botões */
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  header,footer,.rodape,.filtro-rel,.erro-periodo,#mensagem,.cab-detalhe .acoes,.paginacao,.dica,dialog{display:none!important}
+  .pagina{background:#fff;padding:0}
+  .bloco,.kpi{box-shadow:none;border:1px solid var(--borda)}
+  .graficos{grid-template-columns:1fr 1fr}
+  .kpis{grid-template-columns:repeat(5,1fr)}
+}

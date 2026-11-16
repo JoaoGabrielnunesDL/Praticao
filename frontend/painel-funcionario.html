@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda do Dia - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/agenda.css">
+  <link rel="stylesheet" href="css/estados.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina agenda">
+    <div class="container">
+      <p class="selo-op" id="selo-pagina">Operação</p>
+      <h1 id="titulo-pagina">Agenda do Dia</h1>
+      <p class="sub" id="sub-pagina">Acompanhe e atualize os atendimentos.</p>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <form id="filtro-data" class="filtro">
+        <label for="data">Data:</label>
+        <input type="date" id="data" required>
+        <button class="btn btn-laranja" type="submit">Filtrar</button>
+        <button class="btn btn-contorno" type="button" id="btn-hoje">Hoje</button>
+        <button class="btn btn-contorno" type="button" data-atalho="7dias" aria-pressed="false">Últimos 7 dias</button>
+        <button class="btn btn-contorno" type="button" data-atalho="mes" aria-pressed="false">Último mês</button>
+      </form>
+      <p class="sub" id="info-periodo" aria-live="polite" hidden></p>
+
+      <!-- Clique em um indicador para filtrar a lista por status -->
+      <div class="indicadores">
+        <button type="button" class="ind ativo" data-filtro="TODOS"><strong>0</strong>Total</button>
+        <button type="button" class="ind" data-filtro="AGENDADO"><strong>0</strong>Pendentes</button>
+        <button type="button" class="ind" data-filtro="CONFIRMADO"><strong>0</strong>Confirmados</button>
+        <button type="button" class="ind" data-filtro="CONCLUIDO"><strong>0</strong>Concluídos</button>
+        <button type="button" class="ind" data-filtro="CANCELADO"><strong>0</strong>Cancelados</button>
+      </div>
+
+      <div id="lista" class="lista"></div>
+    </div>
+  </main>
+
+  <!-- Painel de detalhes (abre ao clicar em um agendamento) -->
+  <dialog id="dlg-detalhes" class="painel" aria-labelledby="det-titulo">
+    <h2 id="det-titulo">Detalhes do agendamento</h2>
+    <div id="det-conteudo"></div>
+    <div class="rodape-dlg">
+      <span id="det-acoes" class="acoes"></span>
+      <form method="dialog"><button class="btn btn-contorno">Fechar</button></form>
+    </div>
+  </dialog>
+
+  <!-- Confirmação (cancelar e concluir) -->
+  <dialog id="dlg-confirmar" aria-labelledby="conf-titulo">
+    <form method="dialog">
+      <h2 id="conf-titulo"></h2>
+      <p id="conf-texto" class="sub"></p>
+      <dl class="dados" id="conf-dados"></dl>
+      <div class="rodape-dlg">
+        <button class="btn btn-contorno" value="voltar">Voltar</button>
+        <button class="btn btn-laranja" value="ok" id="conf-ok"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/estados.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/agenda.js"></script>
+</body>
+</html>

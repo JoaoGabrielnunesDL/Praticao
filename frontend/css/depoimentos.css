@@ -1,0 +1,6 @@
+.depo{text-align:center}
+.depo .grade-3{margin-top:24px;text-align:left}
+.depo blockquote{background:#fff;border:1px solid var(--borda);border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(11,58,158,.08)}
+.estrelas{color:var(--laranja);letter-spacing:2px}
+.depo blockquote p{margin:8px 0 12px;font-size:.92rem;color:var(--cinza)}
+.depo cite{font-style:normal;font-weight:700;color:var(--azul);font-size:.9rem}

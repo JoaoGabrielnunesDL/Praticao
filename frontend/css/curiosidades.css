@@ -1,0 +1,3 @@
+.curiosidades{background:var(--fundo)}
+.tag{font-size:.75rem;font-weight:700;color:var(--azul)}
+.card .ler{display:inline-block;margin-top:8px;color:var(--laranja);font-weight:700;font-size:.88rem}

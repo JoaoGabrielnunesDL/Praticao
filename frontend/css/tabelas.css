@@ -1,0 +1,24 @@
+/* Listas em formato de tabela (usuários, serviços, relatórios). Em telas pequenas viram cartões. */
+.tabela{background:#fff;border-radius:16px;box-shadow:0 6px 20px rgba(11,58,158,.1);overflow:hidden;margin-top:8px}
+.tabela.ocupada{opacity:.6;pointer-events:none}
+.tabela .cab,.tabela .reg{display:grid;gap:10px;align-items:center;padding:12px 18px}
+.tabela .cab{background:#eaf1fd;color:var(--azul);font-weight:700;font-size:.9rem}
+.tabela .reg{border-top:1px solid var(--borda)}
+.tabela .reg:hover{background:#f6f9ff}
+.tabela .peq{font-size:.85rem;color:var(--cinza);word-break:break-word}
+.tabela .rot{display:none}
+
+/* colunas de cada tela */
+.t-usuarios .cab,.t-usuarios .reg{grid-template-columns:1.2fr 1.5fr 1fr 130px 110px 120px}
+.t-servicos .cab,.t-servicos .reg{grid-template-columns:1fr 1.4fr 90px 90px 100px 270px}
+.t-itens .cab,.t-itens .reg{grid-template-columns:100px 70px 1fr 1.1fr 1.2fr 130px}
+.reg.clicavel{cursor:pointer}
+.reg.clicavel:focus-visible{outline-offset:-3px}
+
+@media(max-width:800px){
+  .tabela .cab{display:none}
+  .tabela .reg{grid-template-columns:1fr 1fr;gap:6px 12px}
+  .tabela .reg>:first-child{grid-column:1/-1;font-size:1.05rem}
+  .tabela .reg>.acoes{grid-column:1/-1}
+  .tabela .rot{display:inline;color:var(--cinza);font-weight:600;font-size:.78rem;margin-right:4px}
+}

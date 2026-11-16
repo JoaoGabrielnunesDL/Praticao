@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciar usuários - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/tabelas.css">
+  <link rel="stylesheet" href="css/admin-usuarios.css">
+  <link rel="stylesheet" href="css/estados.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <p class="selo-op">Usuários</p>
+      <h1>Gerenciar usuários</h1>
+      <p class="sub">Visualize, pesquise e gerencie as contas do sistema.</p>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <form id="filtros" class="filtro">
+        <input type="search" id="busca" placeholder="Buscar por nome ou e-mail..." aria-label="Buscar por nome ou e-mail" maxlength="100" autocomplete="off">
+        <select id="f-perfil" aria-label="Filtrar por perfil">
+          <option value="">Todos os perfis</option>
+          <option value="tutor">Tutor</option>
+          <option value="funcionario">Funcionário</option>
+          <option value="administrador">Administrador</option>
+        </select>
+        <select id="f-situacao" aria-label="Filtrar por situação">
+          <option value="">Todas as situações</option>
+          <option value="ativas">Ativos</option>
+          <option value="inativas">Inativos</option>
+        </select>
+        <button type="button" class="btn btn-laranja btn-pequeno" id="btn-atualizar">↻ Atualizar</button>
+      </form>
+
+      <div id="lista" class="tabela t-usuarios" aria-live="polite"></div>
+
+      <nav id="paginacao" class="paginacao" aria-label="Paginação" hidden>
+        <div class="paginas" id="paginas"></div>
+        <p class="sub" id="contagem"></p>
+      </nav>
+    </div>
+  </main>
+
+  <!-- Painel lateral: detalhes do usuário -->
+  <dialog id="dlg-detalhes" class="painel" aria-labelledby="det-titulo">
+    <h2 id="det-titulo">Detalhes do usuário</h2>
+    <div id="det-corpo"></div>
+    <div class="rodape-dlg"><button type="button" class="btn btn-contorno" id="det-fechar">✕ Fechar</button></div>
+  </dialog>
+
+  <!-- Confirmação de exclusão permanente -->
+  <dialog id="dlg-excluir" class="dlg-confirma" aria-labelledby="exc-titulo">
+    <form method="dialog">
+      <div class="icone-alerta perigo" aria-hidden="true">!</div>
+      <h2 id="exc-titulo">Excluir usuário permanentemente?</h2>
+      <p class="des-nome" id="exc-nome"></p>
+      <p class="sub" id="exc-aviso-admin" hidden><strong>Administrador:</strong> use isto na troca de gerente. Sua conta continua como administrador, então o sistema nunca fica sem um.</p>
+      <p class="sub">Esta ação não pode ser desfeita: a conta será apagada do sistema. Se o usuário tiver animais cadastrados, não poderá ser excluído (use Desativar).</p>
+      <div class="rodape-dlg centro">
+        <button type="submit" class="btn btn-contorno" value="voltar">Cancelar</button>
+        <button type="submit" class="btn btn-perigo" value="ok">Excluir</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/estados.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/admin-usuarios.js"></script>
+</body>
+</html>

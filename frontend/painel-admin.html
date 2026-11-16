@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel do Administrador - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <p class="selo-op">Visão geral</p>
+      <h1>🛡️ Painel do Administrador</h1>
+      <p class="sub">Acompanhe os principais dados do sistema.</p>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <div class="adm-grade">
+        <!-- USUÁRIOS: cada número leva à lista já filtrada -->
+        <section class="bloco" aria-labelledby="t-usuarios">
+          <div class="cab-bloco"><h2 id="t-usuarios">👥 Usuários</h2></div>
+          <div class="numeros">
+            <a class="num" href="admin-usuarios.html"><strong id="u-total">–</strong>Total</a>
+            <a class="num" href="admin-usuarios.html?perfil=tutor"><strong id="u-tutor">–</strong>Tutores</a>
+            <a class="num" href="admin-usuarios.html?perfil=funcionario"><strong id="u-funcionario">–</strong>Funcionários</a>
+            <a class="num" href="admin-usuarios.html?perfil=administrador"><strong id="u-administrador">–</strong>Administradores</a>
+            <a class="num" href="admin-usuarios.html?situacao=inativas"><strong id="u-inativas">–</strong>Contas desativadas</a>
+          </div>
+          <p class="nota">O total inclui as contas desativadas.</p>
+          <p class="erro-bloco" id="erro-usuarios" hidden></p>
+        </section>
+
+        <!-- AGENDAMENTOS DE HOJE -->
+        <section class="bloco" aria-labelledby="t-agendamentos">
+          <div class="cab-bloco">
+            <h2 id="t-agendamentos">📅 Agendamentos de hoje</h2>
+            <button type="button" class="btn btn-contorno btn-pequeno" id="btn-atualizar">↻ Atualizar</button>
+          </div>
+          <div class="numeros">
+            <a class="num" data-status="TODOS" href="#"><strong id="a-total">–</strong>Total</a>
+            <a class="num cor-pendente" data-status="AGENDADO" href="#"><strong id="a-AGENDADO">–</strong>Pendentes</a>
+            <a class="num cor-confirmado" data-status="CONFIRMADO" href="#"><strong id="a-CONFIRMADO">–</strong>Confirmados</a>
+            <a class="num cor-concluido" data-status="CONCLUIDO" href="#"><strong id="a-CONCLUIDO">–</strong>Concluídos</a>
+            <a class="num cor-cancelado" data-status="CANCELADO" href="#"><strong id="a-CANCELADO">–</strong>Cancelados</a>
+          </div>
+          <p class="nota" id="ultima">Última atualização: --:--</p>
+          <p class="erro-bloco" id="erro-agenda" hidden></p>
+        </section>
+
+        <!-- GRÁFICO: usa os mesmos números dos cartões -->
+        <section class="bloco" aria-labelledby="t-status">
+          <div class="cab-bloco"><h2 id="t-status">📊 Status dos agendamentos</h2></div>
+          <div class="grafico">
+            <div class="rosca" id="rosca" role="img" aria-label="Gráfico de status dos agendamentos de hoje">
+              <div class="miolo"><strong id="g-total">0</strong>Total</div>
+            </div>
+            <ul class="legenda" id="legenda"></ul>
+          </div>
+        </section>
+
+        <!-- PRÉVIA DA AGENDA -->
+        <section class="bloco" aria-labelledby="t-agenda">
+          <div class="cab-bloco">
+            <h2 id="t-agenda">🗓️ Agenda de hoje</h2>
+            <a class="ver-mais" id="ver-agenda" href="painel-funcionario.html">Ver agenda completa →</a>
+          </div>
+          <div id="previa" class="previa"></div>
+        </section>
+      </div>
+
+      <!-- ACESSO RÁPIDO -->
+      <section class="bloco acesso" aria-labelledby="t-acesso">
+        <h2 id="t-acesso">⚡ Acesso rápido</h2>
+        <div class="atalhos">
+          <a href="admin-usuarios.html"><span>👥</span><strong>Gerenciar Usuários</strong><small>Acesse os cadastros</small></a>
+          <a href="painel-funcionario.html"><span>📅</span><strong>Visualizar Agenda</strong><small>Confira os agendamentos</small></a>
+          <a href="gerenciar-servicos.html"><span>✂️</span><strong>Gerenciar Serviços</strong><small>Edite os serviços</small></a>
+          <a href="relatorios.html"><span>📈</span><strong>Ver Relatórios</strong><small>Acompanhe os dados</small></a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Detalhes do agendamento (abre ao clicar em uma linha da agenda) -->
+  <dialog id="dlg-detalhes" class="painel" aria-labelledby="det-titulo">
+    <h2 id="det-titulo">Detalhes do agendamento</h2>
+    <div id="det-conteudo"></div>
+    <div class="rodape-dlg">
+      <a class="btn btn-laranja" id="det-agenda" href="painel-funcionario.html">Abrir na agenda</a>
+      <form method="dialog"><button class="btn btn-contorno">Fechar</button></form>
+    </div>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

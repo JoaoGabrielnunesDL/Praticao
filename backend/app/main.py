@@ -1,0 +1,37 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
+from app.database import Base, engine
+from app import models
+from app.routes import usuarios, animais, servicos, agendamentos, admin, relatorios
+
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title='PratiCão API')
+
+# Para quando um front-end (ex.: Live Server do VS Code, porta 5500) rodar em outra origem.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['http://127.0.0.1:5500', 'http://localhost:5500'],
+    allow_credentials=False,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
+
+app.include_router(usuarios.router)
+app.include_router(animais.router)
+app.include_router(servicos.router)
+app.include_router(agendamentos.router)
+app.include_router(admin.router)
+app.include_router(relatorios.router)
+
+
+@app.get('/ola')
+def ola():
+    return {'mensagem': 'PratiCão funcionando'}
+
+
+@app.get('/', include_in_schema=False)
+def raiz():
+    # Sem front-end: a raiz leva à documentação interativa.
+    return RedirectResponse('/docs')

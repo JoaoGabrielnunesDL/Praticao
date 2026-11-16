@@ -1,0 +1,26 @@
+.topbar{background:var(--azul);color:#fff;font-size:.78rem}
+.topbar .container{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:6px;padding-bottom:6px;flex-wrap:wrap}
+.topbar .contatos{display:flex;gap:18px}
+.topbar .acess{display:flex;align-items:center;gap:6px}
+.topbar .acess button{background:none;border:0;color:#fff;font-weight:700;cursor:pointer;padding:0 4px}
+#cabecalho{position:sticky;top:0;z-index:50}
+.navbar{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:70px;flex-wrap:wrap}
+.logo{font-size:1.5rem;font-weight:800;color:var(--azul)}
+.logo span{color:var(--laranja)}
+.menu{display:flex;gap:18px;flex-wrap:wrap}
+.menu a{color:var(--azul);font-weight:600;font-size:.92rem}
+.menu a:hover{color:var(--laranja)}
+.conta{display:flex;align-items:center;gap:12px}
+.conta .sair{background:none;border:0;color:var(--azul);font-weight:600;cursor:pointer;text-decoration:underline}
+.menu a[aria-current]{color:var(--laranja);border-bottom:3px solid var(--laranja)}
+
+.rodape{background:var(--azul);color:#fff;padding:44px 0 18px;font-size:.88rem}
+.rodape .colunas{display:grid;grid-template-columns:1.3fr 1fr 1.3fr 1fr;gap:26px}
+.rodape h4{margin-bottom:10px}
+.rodape ul{list-style:none;display:grid;gap:6px}
+.rodape a:hover{text-decoration:underline}
+.rodape .copy{margin-top:28px;padding-top:14px;border-top:1px solid rgba(255,255,255,.25);text-align:center;font-size:.78rem}
+@media(max-width:800px){.rodape .colunas{grid-template-columns:1fr 1fr}}
+.rodape h4 span{color:var(--laranja)}
+@media(max-width:800px){#cabecalho{position:static}}

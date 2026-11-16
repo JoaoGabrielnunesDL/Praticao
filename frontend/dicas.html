@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mais dicas - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/dicas.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <a class="dica-voltar" href="curiosidades.html">← Voltar para Dicas e Curiosidades</a>
+      <p class="selo-op">Dicas e Curiosidades</p>
+      <h1 id="titulo-lista">Todas as dicas</h1>
+      <p class="sub" id="sub-lista"></p>
+
+      <nav class="dica-abas" id="abas" aria-label="Categorias"></nav>
+
+      <form class="filtro" id="form-busca" role="search">
+        <label class="sr" for="busca">Buscar dicas</label>
+        <input id="busca" type="search" maxlength="60" placeholder="Buscar nesta lista (ex.: ração, vacina)" autocomplete="off">
+        <button type="button" class="btn btn-contorno btn-pequeno" id="limpar-busca" hidden>Limpar</button>
+      </form>
+      <p class="sub" id="contagem" aria-live="polite"></p>
+
+      <div id="lista"></div>
+      <p class="dica-aviso">🩺 As dicas são informativas e não substituem a consulta com um médico-veterinário.</p>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/artigos-dados.js"></script>
+  <script src="js/dicas-comum.js"></script>
+  <script src="js/dicas.js"></script>
+</body>
+</html>

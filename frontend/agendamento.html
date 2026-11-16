@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Novo Agendamento - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/novo-agendamento.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <p class="selo-op">Banho, tosa e cuidados</p>
+      <h1>Novo Agendamento</h1>
+      <p class="sub">Escolha o serviço, o pet, a data e o horário. Confirmamos a disponibilidade na hora.</p>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <div id="erro-tela" class="vazio" hidden>
+        <span>⚠️</span><p id="erro-texto"></p>
+        <button type="button" class="btn btn-laranja btn-pequeno" id="tentar">Tentar novamente</button>
+      </div>
+
+      <!-- Tutor sem animais: o animal é obrigatório -->
+      <div id="sem-animal" class="vazio" hidden>
+        <span>🐾</span>Você ainda não possui animais cadastrados.
+        <p class="sub">Cadastre um pet para poder agendar um serviço.</p>
+        <a class="btn btn-laranja btn-pequeno" href="meus-animais.html?novo=1">+ Cadastrar animal</a>
+      </div>
+
+      <div class="ag-layout" id="conteudo">
+        <form class="bloco ag-form" id="form" novalidate>
+          <h2>📅 Dados do agendamento</h2>
+          <p class="sub">Os campos com <span class="obrig">*</span> são obrigatórios.</p>
+
+          <fieldset>
+            <legend><span class="num">1</span>Serviço e pet</legend>
+            <div class="ag-par">
+              <div class="campo"><label for="servico">Serviço <span class="obrig">*</span></label>
+                <select id="servico" required><option value="">Carregando...</option></select>
+                <small class="ag-erro" id="e-servico" hidden></small></div>
+              <div class="campo"><label for="animal">Pet <span class="obrig">*</span></label>
+                <select id="animal" required><option value="">Carregando...</option></select>
+                <small class="ag-erro" id="e-animal" hidden></small></div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span class="num">2</span>Data e horário</legend>
+            <div class="ag-par">
+              <div class="campo"><label for="data">Data <span class="obrig">*</span></label>
+                <input id="data" type="date" required>
+                <small class="ag-erro" id="e-data" hidden></small></div>
+              <div class="campo"><label for="horario">Horário <span class="obrig">*</span></label>
+                <select id="horario" required><option value="">Selecione serviço e data</option></select>
+                <small id="dica-horario">A disponibilidade é confirmada na hora.</small>
+                <small class="ag-erro" id="e-horario" hidden></small></div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span class="num">3</span>Observações <span class="opc">(opcional)</span></legend>
+            <div class="campo">
+              <label for="obs" class="so-leitor">Observações</label>
+              <textarea id="obs" rows="3" maxlength="300" placeholder="Ex.: meu pet fica ansioso com secador."></textarea>
+              <small class="ag-contador" id="contador">0/300</small>
+            </div>
+          </fieldset>
+
+          <div class="rodape-dlg">
+            <button type="button" class="btn btn-contorno" id="cancelar">✕ Cancelar</button>
+            <button type="submit" class="btn btn-laranja" id="confirmar" disabled>📅 Confirmar Agendamento</button>
+          </div>
+        </form>
+
+        <!-- Resumo: atualiza sozinho a cada mudança -->
+        <aside class="bloco ag-resumo" aria-live="polite">
+          <h2>📋 Resumo</h2>
+          <dl>
+            <dt>Serviço</dt><dd id="r-servico">Não selecionado</dd>
+            <dt>Pet</dt><dd id="r-animal">Não selecionado</dd>
+            <dt>Data e horário</dt><dd id="r-data">Não selecionado</dd>
+            <dt>Duração</dt><dd id="r-duracao">—</dd>
+          </dl>
+          <p class="ag-valor"><span>Valor</span><strong id="r-valor">—</strong></p>
+          <ul class="ag-regras">
+            <li>Confirmação do horário em tempo real.</li>
+            <li>Cancelamento com até 2 horas de antecedência.</li>
+            <li>A solicitação fica <strong>Pendente</strong> até o funcionário confirmar.</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Sucesso -->
+  <dialog id="dlg-sucesso" aria-labelledby="suc-titulo">
+    <h2 id="suc-titulo">✅ Agendamento realizado!</h2>
+    <p class="sub">Seu agendamento foi registrado com sucesso.</p>
+    <dl class="dados" id="suc-dados"></dl>
+    <div class="rodape-dlg">
+      <button type="button" class="btn btn-contorno" id="suc-novo">Novo agendamento</button>
+      <a class="btn btn-laranja" href="meus-agendamentos.html">Ver meus agendamentos</a>
+    </div>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/agendamento.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatórios do Sistema - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/tabelas.css">
+  <link rel="stylesheet" href="css/relatorios.css">
+  <link rel="stylesheet" href="css/estados.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <p class="selo-op">Indicadores</p>
+      <h1>Relatórios do Sistema</h1>
+      <p class="sub">Acompanhe os dados, analise os resultados e tome as melhores decisões.</p>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <!-- Filtro de período: escolha as datas (ou um atalho) e clique em "Gerar relatório" -->
+      <form id="filtro-periodo" class="filtro-rel" novalidate>
+        <div class="campo-data">
+          <label for="inicio">Período (início) <span class="obrig" aria-hidden="true">*</span></label>
+          <input type="date" id="inicio" required>
+        </div>
+        <div class="campo-data">
+          <label for="fim">Período (fim) <span class="obrig" aria-hidden="true">*</span></label>
+          <input type="date" id="fim" required>
+        </div>
+        <button class="btn btn-laranja" type="submit" id="btn-gerar">Gerar relatório</button>
+        <div class="atalhos-periodo" role="group" aria-label="Períodos rápidos">
+          <button type="button" class="btn btn-contorno btn-pequeno" data-atalho="hoje" aria-pressed="false">Hoje</button>
+          <button type="button" class="btn btn-contorno btn-pequeno" data-atalho="7dias" aria-pressed="false">Últimos 7 dias</button>
+          <button type="button" class="btn btn-contorno btn-pequeno" data-atalho="mes" aria-pressed="false">Este mês</button>
+          <button type="button" class="btn btn-contorno btn-pequeno" data-atalho="mesant" aria-pressed="false">Último mês</button>
+        </div>
+      </form>
+      <p class="erro-periodo" id="erro-periodo" role="alert" hidden></p>
+      <p class="sub info-periodo" id="info-periodo" aria-live="polite"></p>
+
+      <!-- Carregando / erro -->
+      <div id="estado"></div>
+
+      <div id="conteudo" hidden>
+        <!-- Cartões: clicar filtra a tabela por status -->
+        <div class="kpis" id="kpis"></div>
+
+        <div class="graficos">
+          <section class="bloco" aria-labelledby="t-servicos">
+            <h2 id="t-servicos">Serviços mais solicitados</h2>
+            <p class="dica">Clique em uma barra para filtrar a tabela.</p>
+            <div id="grafico-barras"></div>
+          </section>
+          <section class="bloco" aria-labelledby="t-status">
+            <h2 id="t-status">Status dos agendamentos</h2>
+            <p class="dica">Clique em um status para filtrar a tabela.</p>
+            <div class="rosca-area">
+              <div class="rosca" id="rosca" role="img" aria-label="Gráfico de status dos agendamentos">
+                <div class="miolo"><strong id="rosca-total">0</strong>Total</div>
+              </div>
+              <ul class="legenda" id="legenda"></ul>
+            </div>
+          </section>
+        </div>
+
+        <section class="bloco detalhamento" aria-labelledby="t-detalhe">
+          <div class="cab-detalhe">
+            <h2 id="t-detalhe">Detalhamento dos agendamentos</h2>
+            <span class="acoes">
+              <button type="button" class="btn btn-contorno btn-pequeno" id="btn-exportar">⬇ Exportar CSV</button>
+              <button type="button" class="btn btn-contorno btn-pequeno" id="btn-imprimir">🖨 Imprimir / PDF</button>
+            </span>
+          </div>
+          <div class="chips" id="chips" aria-live="polite"></div>
+          <div id="itens"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Detalhes do agendamento (abre ao clicar em uma linha da tabela) -->
+  <dialog id="dlg-detalhes" class="painel" aria-labelledby="det-titulo">
+    <h2 id="det-titulo">Detalhes do agendamento</h2>
+    <div id="det-conteudo"></div>
+    <div class="rodape-dlg">
+      <a class="btn btn-laranja" id="det-agenda" href="painel-funcionario.html">Abrir agendamento completo</a>
+      <form method="dialog"><button class="btn btn-contorno">Fechar</button></form>
+    </div>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/estados.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/relatorios.js"></script>
+</body>
+</html>

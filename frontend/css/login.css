@@ -1,0 +1,19 @@
+[hidden]{display:none!important}
+.login-pagina{background:linear-gradient(160deg,#eaf3ff,#f7fbff);padding:50px 0;min-height:75vh}
+.login-pagina .container{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.boas-vindas{text-align:center}
+.boas-vindas .img-ph{min-height:220px;font-size:5rem;margin-bottom:20px} /* foto do cachorro entra aqui */
+.boas-vindas h1{font-size:1.6rem;color:var(--azul)}
+.boas-vindas h1 strong{display:block;font-size:3.2rem;line-height:1.1}
+.boas-vindas h1 em{font-style:normal;color:var(--laranja)}
+.boas-vindas p{margin-top:10px;color:var(--azul)}
+.aviso{margin:20px auto 0;max-width:380px;background:#dbe8ff;border-radius:14px;padding:14px 18px;color:var(--azul);font-size:.92rem}
+.cartao{background:#fff;border-radius:22px;padding:32px 36px;box-shadow:0 10px 30px rgba(11,58,158,.14)}
+.cartao .avatar{width:64px;height:64px;border-radius:50%;background:var(--azul);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 10px}
+.cartao h2{text-align:center;color:var(--azul)}
+.cartao .sub{text-align:center;margin-bottom:18px}
+.linha{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:.85rem;margin-bottom:16px}
+.cartao .btn{width:100%}
+.cartao .btn:disabled{opacity:.6;cursor:wait}
+.troca{text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--borda);font-size:.9rem}
+@media(max-width:800px){.login-pagina .container{grid-template-columns:1fr}.cartao{padding:26px 20px}}

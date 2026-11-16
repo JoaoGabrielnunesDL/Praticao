@@ -1,0 +1,88 @@
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app import models, schemas, auth
+
+router = APIRouter(tags=['Usuários'])
+
+
+@router.post('/cadastro', response_model=schemas.UsuarioSaida, status_code=201)
+def cadastro(dados: schemas.UsuarioCriar, db: Session = Depends(get_db)):
+    if db.query(models.Usuario).filter_by(email=dados.email).first():
+        raise HTTPException(status_code=409, detail='E-mail já cadastrado')
+    usuario = models.Usuario(
+        nome=dados.nome,
+        email=dados.email,
+        senha_hash=auth.gerar_hash(dados.senha),
+        telefone=dados.telefone,
+    )
+    db.add(usuario)
+    db.commit()
+    db.refresh(usuario)
+    return usuario
+
+
+@router.post('/login', response_model=schemas.Token)
+def login(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    usuario = db.query(models.Usuario).filter_by(email=form.username).first()
+    if not usuario or not auth.verificar_senha(form.password, usuario.senha_hash):
+        raise HTTPException(status_code=401, detail='E-mail ou senha incorretos')
+    if not usuario.ativo:
+        raise HTTPException(status_code=403, detail='Conta desativada')
+    return schemas.Token(access_token=auth.criar_token(usuario.id))
+
+
+@router.post('/recuperar-senha', response_model=schemas.RecuperarSenhaSaida)
+def recuperar_senha(dados: schemas.RecuperarSenhaEntrada, db: Session = Depends(get_db)):
+    # A resposta é sempre a mesma, exista o e-mail ou não (não revela quem tem conta).
+    resposta = {'mensagem': 'Se o e-mail estiver cadastrado, enviamos um link. Ele vale por 30 minutos.'}
+    if auth.recuperacao_demo():
+        usuario = db.query(models.Usuario).filter_by(email=dados.email).first()
+        if usuario and usuario.ativo:
+            resposta['token'] = auth.criar_token_recuperacao(usuario)
+        else:
+            resposta['token'] = auth.criar_token_recuperacao_falso()
+    return resposta
+
+
+@router.post('/redefinir-senha')
+def redefinir_senha(dados: schemas.RedefinirSenhaEntrada, db: Session = Depends(get_db)):
+    usuario = auth.usuario_do_token_recuperacao(dados.token, db)
+    if auth.verificar_senha(dados.nova_senha, usuario.senha_hash):
+        raise HTTPException(status_code=400, detail='A nova senha deve ser diferente da senha atual.')
+    usuario.senha_hash = auth.gerar_hash(dados.nova_senha)
+    db.commit()
+    return {'mensagem': 'Senha alterada com sucesso.'}
+
+
+@router.get('/me', response_model=schemas.UsuarioSaida)
+def meus_dados(usuario=Depends(auth.usuario_atual)):
+    return usuario
+
+
+@router.put('/me', response_model=schemas.UsuarioSaida)
+def atualizar_perfil(dados: schemas.UsuarioAtualizar, db: Session = Depends(get_db), usuario=Depends(auth.usuario_atual)):
+    usuario.nome = dados.nome
+    usuario.telefone = dados.telefone
+    db.commit()
+    db.refresh(usuario)
+    return usuario
+
+
+@router.post('/me/alterar-senha')
+def alterar_senha(dados: schemas.UsuarioAlterarSenha, db: Session = Depends(get_db), usuario=Depends(auth.usuario_atual)):
+    if not auth.verificar_senha(dados.senha_atual, usuario.senha_hash):
+        raise HTTPException(status_code=400, detail='A senha atual está incorreta.')
+    if auth.verificar_senha(dados.nova_senha, usuario.senha_hash):
+        raise HTTPException(status_code=400, detail='A nova senha deve ser diferente da senha atual.')
+
+    usuario.senha_hash = auth.gerar_hash(dados.nova_senha)
+    db.commit()
+    return {'mensagem': 'Senha alterada com sucesso.'}
+
+
+@router.post('/logout')
+def logout(_=Depends(auth.usuario_atual)):
+    # com JWT a sessão é encerrada quando o front-end descarta o token
+    return {'mensagem': 'Sessão encerrada'}
