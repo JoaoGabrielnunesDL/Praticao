@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serviços - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/catalogo-servicos.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <p class="selo-op">Nossos serviços</p>
+      <h1>Serviços</h1>
+      <p class="sub">Conheça nossos serviços e agende o melhor cuidado para o seu pet.</p>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <div class="catalogo">
+        <!-- Menu lateral de categorias -->
+        <aside class="cat-menu" aria-label="Categorias de serviços">
+          <h2>Serviços</h2>
+          <nav id="cat-lista"></nav>
+        </aside>
+
+        <!-- Pesquisa, filtro e cartões -->
+        <section class="bloco cat-conteudo">
+          <div class="cat-ferramentas">
+            <div class="cat-busca">
+              <label for="busca" class="so-leitor">Buscar serviço</label>
+              <input id="busca" type="search" placeholder="Buscar serviço..." autocomplete="off">
+              <button type="button" id="limpar-busca" class="cat-x" aria-label="Limpar pesquisa" hidden>×</button>
+            </div>
+            <div class="cat-filtro">
+              <label for="filtro" class="so-leitor">Filtrar por categoria</label>
+              <select id="filtro"></select>
+            </div>
+          </div>
+
+          <div id="grade" class="cat-grade" aria-live="polite"></div>
+        </section>
+      </div>
+
+      <!-- Banner de chamada para o agendamento -->
+      <section class="cat-banner">
+        <div class="cat-banner-titulo">
+          <span aria-hidden="true">📅</span>
+          <h2>Agende agora o <strong>cuidado do seu pet!</strong></h2>
+        </div>
+        <ul>
+          <li>Atendimento de qualidade</li>
+          <li>Profissionais especializados</li>
+          <li>Cuidado e carinho em cada serviço</li>
+        </ul>
+        <a class="btn btn-laranja" href="agendamento.html">Fazer Agendamento →</a>
+      </section>
+    </div>
+  </main>
+
+  <!-- Detalhes do serviço -->
+  <dialog id="dlg-detalhes" aria-labelledby="det-titulo">
+    <div class="det-topo"><span id="det-icone" class="det-icone" aria-hidden="true"></span><div><h2 id="det-titulo"></h2><span id="det-categoria" class="etiqueta"></span></div></div>
+    <p id="det-descricao" class="sub"></p>
+    <dl class="dados">
+      <dt>Preço</dt><dd id="det-preco"></dd>
+      <dt>Duração</dt><dd id="det-duracao"></dd>
+    </dl>
+    <p class="cat-aviso">O valor mostrado é inicial e pode variar conforme o porte e as características do animal. O preço e a disponibilidade são confirmados no agendamento.</p>
+    <div class="rodape-dlg">
+      <button type="button" class="btn btn-contorno" id="det-fechar">Fechar</button>
+      <a class="btn btn-laranja" id="det-agendar" href="agendamento.html">Agendar este serviço</a>
+    </div>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/servicos.js"></script>
+</body>
+</html>

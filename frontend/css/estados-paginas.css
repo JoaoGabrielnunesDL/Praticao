@@ -1,0 +1,64 @@
+/* Páginas de estado: 404, acesso negado e sessão expirada.
+   Mesma identidade das telas redesenhadas (Relatórios, Painel do Administrador, Serviços e Usuários).
+   Carregado DEPOIS de estados.css. Tudo escopado em body.pg-estado; o botão #btn-principal continua controlado por paginas-estado.js. */
+
+/* ===== Fundo e decoração ===== */
+body.pg-estado .estado-pagina{position:relative;overflow-x:clip;align-items:center;min-height:72vh;padding:56px 20px 130px;background:radial-gradient(1200px 500px at 70% -10%,#dcebff 0%,transparent 60%),linear-gradient(180deg,#eaf3ff 0%,#f5f9ff 45%,#eef5ff 100%)}
+body.pg-estado .ep-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+body.pg-estado .pata-deco{position:absolute;fill:#c7dbfb;opacity:.55}
+body.pg-estado .pata-deco.p1{top:40px;left:5%;width:52px;height:52px;transform:rotate(-18deg)}
+body.pg-estado .pata-deco.p2{top:260px;left:9%;width:40px;height:40px;transform:rotate(12deg)}
+body.pg-estado .pata-deco.p3{top:36px;right:9%;width:72px;height:72px;transform:rotate(-12deg)}
+body.pg-estado .pata-deco.p4{top:300px;right:5%;width:44px;height:44px;transform:rotate(16deg)}
+body.pg-estado .onda{position:absolute;right:0;bottom:0;width:min(440px,62vw);height:150px}
+body.pg-estado .pata-onda{position:absolute;right:26px;bottom:20px;width:56px;height:56px;fill:#fff;opacity:.9;transform:rotate(-14deg)}
+
+/* ===== Cartão (acesso negado e sessão expirada) ===== */
+body.pg-estado .estado-cartao{position:relative;z-index:1;max-width:560px;padding:46px 42px 40px;border-radius:28px;border:1px solid #e3ebf7;box-shadow:0 16px 44px rgba(11,58,158,.12)}
+/* Ícone solto, sem caixa em volta (como na referência) */
+body.pg-estado .estado-cartao .icone{width:auto;height:auto;margin:0 auto 16px;display:flex;justify-content:center}
+body.pg-estado .estado-cartao .icone svg{width:84px;height:84px;filter:drop-shadow(0 8px 14px rgba(11,58,158,.22))}
+body.pg-estado .estado-cartao h1{font-size:1.8rem;font-weight:800;letter-spacing:-.01em;line-height:1.2;margin-bottom:10px}
+body.pg-estado .estado-cartao p{color:var(--cinza);font-size:1.05rem;margin-bottom:26px}
+body.pg-estado #btn-principal{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 30px;box-shadow:0 6px 16px rgba(242,138,12,.32)}
+/* Acesso negado: botão de contorno, como na referência */
+body.pg-acesso-negado #btn-principal{background:#fff;color:var(--azul);border:1.5px solid var(--azul);box-shadow:0 4px 12px rgba(11,58,158,.1)}
+body.pg-acesso-negado #btn-principal:hover{background:#eef4ff}
+
+/* ===== 404: banner largo com os pets ===== */
+body.pg-404 .estado-cartao.e404{max-width:1120px;width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,.85fr);align-items:center;gap:12px;padding:0 0 0 12px;overflow:hidden;background:linear-gradient(120deg,#e7f0ff 0%,#f4f8ff 45%,#eef5ff 100%)}
+body.pg-404 .e404-pets{position:relative;align-self:end;color:var(--laranja)}
+/* brightness: o fundo da foto (cinza bem claro) vira branco e, com multiply, some no fundo do cartão */
+body.pg-404 .e404-pets img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:50% 40%;filter:brightness(1.07);mix-blend-mode:multiply}
+body.pg-404 .e404-pets .faisca{position:absolute;top:22px;left:14px;width:40px;height:40px;transform:rotate(-20deg)}
+body.pg-404 .e404-texto{padding:40px 10px;position:relative;z-index:1}
+body.pg-404 .e404-texto h1{font-size:2.1rem;margin-bottom:10px}
+/* p.n404 dentro do cartão: precisa vencer a regra genérica ".estado-cartao p" acima */
+body.pg-404 .estado-cartao p.n404{position:relative;z-index:1;margin:0;font-size:clamp(5.5rem,11vw,9.5rem);font-weight:900;line-height:1;letter-spacing:2px;color:#c3d8fa;text-shadow:0 2px 0 #fff,0 10px 24px rgba(11,58,158,.12);align-self:center;padding-bottom:40px}
+body.pg-404 .pata-404{position:absolute;top:-6px;right:4%;width:56px;height:56px;fill:#a9c8f5;transform:rotate(14deg)}
+body.pg-404 .e404 .onda{z-index:0;width:min(360px,40%);height:130px}
+body.pg-404 .e404 .pata-onda{z-index:0;width:48px;height:48px}
+
+/* ===== Responsivo ===== */
+@media(max-width:900px){
+  body.pg-404 .estado-cartao.e404{grid-template-columns:minmax(0,1fr);padding:0;text-align:center}
+  body.pg-404 .e404-pets{order:0;width:min(300px,80%);margin:22px auto 0;align-self:center}
+  body.pg-404 .e404-pets img{border-radius:24px}
+  body.pg-404 .estado-cartao p.n404{order:1;padding:0;margin-top:-6px;font-size:clamp(4.5rem,20vw,6.5rem)}
+  body.pg-404 .pata-404{width:40px;height:40px;right:18%}
+  body.pg-404 .e404-texto{order:2;padding:6px 22px 120px}
+  body.pg-404 .e404 .onda{width:min(300px,70%);height:100px}
+}
+@media(max-width:600px){
+  body.pg-estado .estado-pagina{padding:28px 16px 110px;min-height:60vh}
+  body.pg-estado .pata-deco.p1,body.pg-estado .pata-deco.p2,body.pg-estado .pata-deco.p4{display:none}
+  body.pg-estado .pata-deco.p3{top:14px;right:4%;width:50px;height:50px}
+  body.pg-estado .onda{height:100px}
+  body.pg-estado .pata-onda{width:40px;height:40px}
+  body.pg-estado .estado-cartao{padding:34px 22px 28px;border-radius:24px}
+  body.pg-estado .estado-cartao .icone svg{width:70px;height:70px}
+  body.pg-estado .estado-cartao h1{font-size:1.45rem}
+  body.pg-estado #btn-principal{width:100%}
+  body.pg-404 .e404-texto h1{font-size:1.6rem}
+  body.pg-404 .e404-texto{padding:6px 20px 110px}
+}

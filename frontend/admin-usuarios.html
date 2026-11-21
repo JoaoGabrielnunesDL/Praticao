@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciar usuários - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/tabelas.css">
+  <link rel="stylesheet" href="css/admin-usuarios.css">
+  <link rel="stylesheet" href="css/estados.css">
+  <link rel="stylesheet" href="css/admin-usuarios-tela.css">
+  <link rel="stylesheet" href="css/praticao-ui.css">
+</head>
+<body class="pg-admin-usuarios">
+  <header id="cabecalho"></header>
+
+  <!-- Ícones só visuais, reaproveitados com <use>. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="ic-pata" viewBox="0 0 64 64">
+      <ellipse cx="13" cy="29" rx="6" ry="8" transform="rotate(-20 13 29)"/>
+      <ellipse cx="24" cy="15" rx="6.5" ry="8.5" transform="rotate(-8 24 15)"/>
+      <ellipse cx="40" cy="15" rx="6.5" ry="8.5" transform="rotate(8 40 15)"/>
+      <ellipse cx="51" cy="29" rx="6" ry="8" transform="rotate(20 51 29)"/>
+      <path d="M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z"/>
+    </symbol>
+    <symbol id="ic-usuarios" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.6"/><path d="M2.5 19.5c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6v.5h-13z"/><circle cx="17.2" cy="9" r="2.8"/><path d="M16.6 13.6c3 .1 5.1 2.2 5.1 5.4v1h-4.5c0-2.6-.2-4.6-.6-6.4z"/></symbol>
+  </svg>
+
+  <main class="pagina au-pagina">
+    <!-- Decoração de fundo (patinhas e onda laranja): não interfere na tela -->
+    <div class="au-deco" aria-hidden="true">
+      <svg class="pata-deco p1"><use href="#ic-pata"/></svg>
+      <svg class="pata-deco p2"><use href="#ic-pata"/></svg>
+      <svg class="pata-deco p3"><use href="#ic-pata"/></svg>
+      <svg class="pata-deco p4"><use href="#ic-pata"/></svg>
+      <svg class="onda" viewBox="0 0 400 160" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="grad-onda" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#f7931e"/>
+            <stop offset="1" stop-color="#ffb347"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 160C90 150 150 120 210 80S330 10 400 0V160Z" fill="url(#grad-onda)"/>
+      </svg>
+      <svg class="pata-onda"><use href="#ic-pata"/></svg>
+      <!-- Kit pet shop (praticao-ui.css): osso na margem direita -->
+      <span class="pc-d pc-f-osso au-d-osso"></span>
+    </div>
+
+    <div class="container au-container">
+      <div class="au-hero">
+        <div class="au-topo">
+          <p class="selo-op">Usuários</p>
+          <h1>Gerenciar <span class="sem-quebra">usuários</span></h1>
+          <p class="sub">Visualize, pesquise e gerencie as contas do sistema.</p>
+        </div>
+
+        <!-- Ilustração dos pets (somente decorativa) -->
+        <aside class="au-pets" aria-hidden="true">
+          <span class="au-selo-ic"><svg><use href="#ic-usuarios"/></svg></span>
+          <span class="pc-d pc-f-coracao au-d-coracao"></span>
+          <span class="pc-d pc-f-brilho au-d-brilho"></span>
+          <img src="img/dicas/WhatsApp%20Image%202026-11-17%20at%2011.01.31.jpeg" alt="" loading="lazy" decoding="async">
+        </aside>
+      </div>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <form id="filtros" class="filtro">
+        <input type="search" id="busca" placeholder="Buscar por nome ou e-mail..." aria-label="Buscar por nome ou e-mail" maxlength="100" autocomplete="off">
+        <select id="f-perfil" aria-label="Filtrar por perfil">
+          <option value="">Todos os perfis</option>
+          <option value="tutor">Tutor</option>
+          <option value="funcionario">Funcionário</option>
+          <option value="administrador">Administrador</option>
+        </select>
+        <select id="f-situacao" aria-label="Filtrar por situação">
+          <option value="">Todas as situações</option>
+          <option value="ativas">Ativos</option>
+          <option value="inativas">Inativos</option>
+        </select>
+        <button type="button" class="btn btn-laranja btn-pequeno" id="btn-atualizar">↻ Atualizar</button>
+      </form>
+
+      <div id="lista" class="tabela t-usuarios" aria-live="polite"></div>
+
+      <nav id="paginacao" class="paginacao" aria-label="Paginação" hidden>
+        <div class="paginas" id="paginas"></div>
+        <p class="sub" id="contagem"></p>
+      </nav>
+    </div>
+  </main>
+
+  <!-- Painel lateral: detalhes do usuário -->
+  <dialog id="dlg-detalhes" class="painel" aria-labelledby="det-titulo">
+    <h2 id="det-titulo">Detalhes do usuário</h2>
+    <div id="det-corpo"></div>
+    <div class="rodape-dlg"><button type="button" class="btn btn-contorno" id="det-fechar">✕ Fechar</button></div>
+  </dialog>
+
+  <!-- Confirmação de exclusão permanente -->
+  <dialog id="dlg-excluir" class="dlg-confirma" aria-labelledby="exc-titulo">
+    <form method="dialog">
+      <div class="icone-alerta perigo" aria-hidden="true">!</div>
+      <h2 id="exc-titulo">Excluir usuário permanentemente?</h2>
+      <p class="des-nome" id="exc-nome"></p>
+      <p class="sub" id="exc-aviso-admin" hidden><strong>Administrador:</strong> use isto na troca de gerente. Sua conta continua como administrador, então o sistema nunca fica sem um.</p>
+      <p class="sub">Esta ação não pode ser desfeita: a conta será apagada do sistema. Se o usuário tiver animais cadastrados, não poderá ser excluído (use Desativar).</p>
+      <div class="rodape-dlg centro">
+        <button type="submit" class="btn btn-contorno" value="voltar">Cancelar</button>
+        <button type="submit" class="btn btn-perigo" value="ok">Excluir</button>
+      </div>
+      <!-- depois dos botões: o foco inicial cai em "Cancelar"; o × fica no canto por CSS -->
+      <button type="submit" class="au-fechar" value="voltar" aria-label="Fechar">×</button>
+    </form>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/estados.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/admin-usuarios.js"></script>
+</body>
+</html>

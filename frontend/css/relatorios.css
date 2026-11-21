@@ -1,0 +1,260 @@
+/* Relatórios do Sistema. Complementa base.css e tabelas.css.
+   Tudo aqui vale só para esta tela (as classes .rel-* e os blocos de relatório só existem em relatorios.html). */
+
+/* ===== Página, fundo e decoração ===== */
+.rel-pagina{position:relative;overflow-x:clip;background:radial-gradient(1200px 500px at 70% -10%,#dcebff 0%,transparent 60%),linear-gradient(180deg,#eaf3ff 0%,#f5f9ff 45%,#eef5ff 100%);padding:30px 0 90px}
+.rel-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.pata-deco{position:absolute;fill:#c7dbfb;opacity:.55}
+.pata-deco.p1{top:34px;left:3%;width:52px;height:52px;transform:rotate(-18deg)}
+.pata-deco.p2{top:150px;left:10%;width:40px;height:40px;transform:rotate(12deg)}
+.pata-deco.p3{top:90px;right:36%;width:42px;height:42px;transform:rotate(10deg)}
+.pata-deco.p4{top:30px;right:12%;width:84px;height:84px;transform:rotate(-12deg)}
+.pata-deco.p5{top:150px;right:3%;width:44px;height:44px;transform:rotate(16deg)}
+.rel-deco .onda{position:absolute;right:0;bottom:0;width:min(440px,62vw);height:150px}
+.pata-onda{position:absolute;right:26px;bottom:20px;width:56px;height:56px;fill:#fff;opacity:.9;transform:rotate(-14deg)}
+/* Sem z-index: o conteúdo já fica acima da decoração pela ordem do HTML, e assim a foto dos pets
+   (multiply) se mistura direto com o fundo da página, sem painel atrás */
+.rel-container{position:relative}
+.rel-conteudo{position:relative;min-width:0}
+
+/* Ilustração dos pets: cachorro e gato direto sobre o fundo (sem painel, círculo ou moldura).
+   brightness: o fundo cinza-claro da foto vira branco e some no multiply. A proporção original é mantida. */
+.rel-pets{position:relative;color:var(--laranja)}
+.rel-pets img{display:block;width:100%;height:auto;mix-blend-mode:multiply;filter:brightness(1.07)}
+.rel-pets .faisca{position:absolute;top:-18px;left:8px;width:40px;height:40px;transform:rotate(-30deg)}
+/* sombra de chão bem leve sob as patas (::before é pintado antes da foto) */
+.rel-pets::before{content:"";position:absolute;left:10%;right:10%;bottom:-6px;height:18px;border-radius:50%;background:radial-gradient(closest-side,rgba(11,58,158,.16),rgba(11,58,158,0))}
+
+/* ===== Título ===== */
+.rel-topo .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#b25a00}
+.rel-topo h1{font-size:2.4rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
+.sem-quebra{white-space:nowrap}
+.faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:var(--laranja)}
+.rel-topo .sub{font-size:1.02rem}
+
+/* ===== Filtro de período ===== */
+.filtro-rel{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:22px 0 6px}
+.campo-data{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--borda);border-radius:16px;box-shadow:0 4px 14px rgba(11,58,158,.07);padding:7px 12px 7px 9px;flex:0 1 196px;min-width:178px;min-height:58px;transition:border-color .15s,box-shadow .15s}
+.campo-data:focus-within{border-color:#1f6fe5;box-shadow:0 0 0 3px rgba(31,111,229,.16)}
+.campo-ic{width:38px;height:38px;border-radius:11px;background:#eaf2ff;color:#1f5fd0;display:grid;place-items:center;flex:none}
+.campo-ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.campo-txt{display:flex;flex-direction:column;flex:1;min-width:0}
+.campo-data label{display:block;font-size:.74rem;font-weight:700;color:var(--azul)}
+.campo-data input{border:0;font:inherit;font-weight:600;color:var(--texto);background:none;width:100%;padding:0;min-height:26px}
+.campo-data input:focus-visible{outline:none}
+.obrig{color:#d93025}
+#btn-gerar{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 26px;box-shadow:0 6px 16px rgba(242,138,12,.32)}
+#btn-gerar:disabled{opacity:.6;cursor:not-allowed;box-shadow:none}
+.btn-ic{width:19px;height:19px;flex:none;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round}
+.atalhos-periodo{display:flex;gap:8px;flex-wrap:wrap}
+.atalhos-periodo .btn{min-height:46px;padding:8px 16px;font-size:.93rem;box-shadow:0 2px 8px rgba(11,58,158,.06)}
+.atalhos-periodo .ativo{background:var(--azul);color:#fff;border-color:var(--azul)}
+.info-periodo{font-size:.85rem;margin:6px 0 16px}
+
+/* ===== Cartões de indicadores (clicáveis) ===== */
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.kpi{display:flex;align-items:center;gap:14px;min-width:0;min-height:84px;background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.08);padding:14px 16px;text-align:left;font:inherit;color:var(--cinza);cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s}
+.kpi:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(11,58,158,.13)}
+.kpi[aria-pressed=true]{border-color:var(--laranja);background:#fffaf2}
+.kpi-icone{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;flex:none;background:#e6eefc;color:#1f5fd0}
+.kpi-icone .ic{width:27px;height:27px}
+.kpi.AGENDADO .kpi-icone{background:#fff0dc;color:#f28a0c}
+.kpi.CONFIRMADO .kpi-icone{background:#e2edff;color:#1f6fe5}
+.kpi.CONCLUIDO .kpi-icone{background:#dcf5e3;color:#2e9e4f}
+.kpi.CANCELADO .kpi-icone{background:#fde3e1;color:#e53935}
+.kpi-texto{font-size:.9rem;line-height:1.2;min-width:0}
+.kpi-texto strong{display:block;font-size:1.8rem;font-weight:800;color:var(--azul);line-height:1.1}
+
+/* ===== Cartões (gráficos e detalhamento) ===== */
+.rel-pagina .bloco{position:relative;border-radius:20px;box-shadow:0 8px 26px rgba(11,58,158,.08);padding:20px 22px}
+.rel-pagina .bloco h2{display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:800;color:var(--azul)}
+.cartao-grafico h2{padding-right:40px}
+.tit-ic{width:34px;height:34px;border-radius:11px;background:#eaf2ff;color:#1f6fe5;display:grid;place-items:center;flex:none}
+.tit-ic svg{width:19px;height:19px;fill:currentColor}
+.pata-canto{position:absolute;top:16px;right:18px;width:30px;height:30px;fill:#cfe0fb}
+.dica{font-size:.8rem;color:var(--cinza);margin:4px 0 14px}
+
+/* ===== Gráficos ===== */
+.graficos{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;margin-bottom:20px}
+
+/* Barras: a escala (linhas e números do eixo) usa a mesma altura das colunas (196px = 170 + espaço do valor) */
+.barras-graf{position:relative;padding-left:30px}
+.barras-grade{position:absolute;left:0;right:0;top:2px;height:196px;pointer-events:none}
+.barras-grade span{position:absolute;left:30px;right:0;height:0;border-top:1px solid #e3ebf7}
+.barras-grade span:first-child{border-top:2px solid #c9d8ef}
+.barras-grade b{position:absolute;left:-30px;width:22px;text-align:right;transform:translateY(-50%);font-size:.75rem;font-weight:600;color:var(--cinza)}
+.barras-v{position:relative;display:flex;align-items:flex-start;gap:12px;padding:0 4px}
+.bv{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:2px solid transparent;border-radius:12px;font:inherit;cursor:pointer;padding:0 2px 6px;transition:background .15s}
+.bv-plot{height:196px;width:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.bv:hover{background:rgba(234,242,255,.6)}
+.bv[aria-pressed=true]{border-color:var(--laranja);background:rgba(255,246,232,.75)}
+.bv .valor{font-weight:800;color:var(--azul);margin-bottom:4px;line-height:1.2}
+.bv .coluna{display:block;width:100%;max-width:76px;border-radius:10px 10px 3px 3px;background:var(--cor);background:linear-gradient(180deg,color-mix(in srgb,var(--cor) 78%,#fff),var(--cor));box-shadow:0 4px 10px rgba(11,58,158,.12)}
+.bv .nome{font-size:.82rem;font-weight:600;color:var(--texto);text-align:center;word-break:break-word;line-height:1.15;min-height:2.3em}
+.bv .nome{word-break:normal;overflow-wrap:normal}
+/* Card estreito (tablet, celular): as barras ficam horizontais, com o nome inteiro em cima de cada barra */
+.cartao-grafico{container-type:inline-size}
+@container (max-width:560px){
+  .barras-graf{padding-left:0}
+  .barras-grade{display:none}
+  .barras-v{flex-direction:column;align-items:stretch;gap:4px;padding:0}
+  .bv{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"nome valor" "barra barra";align-items:center;gap:4px 10px;padding:8px 10px;text-align:left}
+  .bv-plot{display:contents}
+  .bv .nome{grid-area:nome;text-align:left;min-height:0;font-size:.88rem;overflow-wrap:anywhere}
+  .bv .valor{grid-area:valor;margin:0}
+  .bv .coluna{grid-area:barra;height:14px!important;width:var(--pct);min-width:8px;max-width:none;border-radius:999px;background:var(--cor);background:linear-gradient(90deg,color-mix(in srgb,var(--cor) 78%,#fff),var(--cor))}
+}
+.vazio-grafico{padding:40px 10px;text-align:center;color:var(--cinza);font-weight:600}
+
+/* Rosca */
+.rosca-area{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;min-height:230px}
+.rosca{width:196px;height:196px;border-radius:50%;background:#e3eaf6;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 18px rgba(11,58,158,.12)}
+.rosca .miolo{width:116px;height:116px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--azul);font-weight:700;font-size:.92rem;box-shadow:inset 0 2px 8px rgba(11,58,158,.1)}
+.rosca .miolo strong{font-size:2.2rem;font-weight:800;color:var(--azul);line-height:1}
+.legenda{list-style:none;display:grid;gap:4px;flex:1 1 170px;min-width:0;max-width:290px}
+.legenda button{display:flex;align-items:center;gap:10px;width:100%;min-height:42px;padding:6px 10px;border-radius:10px;border:2px solid transparent;background:none;font:inherit;font-weight:600;color:var(--texto);cursor:pointer;text-align:left}
+.legenda button:hover{background:#f1f6ff}
+.legenda button[aria-pressed=true]{border-color:var(--laranja);background:#fffaf2}
+.legenda i{width:14px;height:14px;border-radius:50%;flex:none}
+.legenda .pct{margin-left:auto;font-weight:700;color:var(--azul)}
+
+/* ===== Tabela de detalhamento ===== */
+.cab-detalhe{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.cab-detalhe .acoes{gap:8px}
+.cab-detalhe .acoes .btn{min-height:42px}
+.detalhamento .tabela{box-shadow:none;border:1px solid #e3ebf7;border-radius:14px;margin-top:12px}
+.rel-pagina .t-itens .cab,.rel-pagina .t-itens .reg{grid-template-columns:105px 75px minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.2fr) 150px;padding:12px 18px}
+.rel-pagina .t-itens .cab{background:#eef4ff;font-weight:800;font-size:.88rem}
+.rel-pagina .t-itens .reg{border-top:1px solid #edf2fa;font-size:.93rem;transition:background .12s}
+.rel-pagina .t-itens .reg:hover{background:#f5f9ff}
+.rel-pagina .t-itens .reg strong{color:var(--texto);font-weight:600}
+.t-itens .status{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 6px;font-size:.8rem}
+.t-itens .status .ic{width:16px;height:16px;flex:none}
+.t-itens .status.pendente .ic{color:#f28a0c}
+.t-itens .status.confirmado .ic{color:#1f6fe5}
+.t-itens .status.concluido .ic{color:#2e9e4f}
+.t-itens .status.cancelado .ic{color:#e53935}
+.chips{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 2px}
+.chips:empty{display:none}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#eaf1fd;color:var(--azul);border-radius:999px;padding:4px 6px 4px 12px;font-weight:600;font-size:.85rem}
+.chip button{background:none;border:0;cursor:pointer;font-size:1.1rem;line-height:1;color:inherit;min-width:28px;min-height:28px}
+.rodape-tabela{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;font-size:.85rem}
+.paginacao{display:flex;gap:6px;flex-wrap:wrap}
+.paginacao button{min-width:38px;height:38px;border-radius:10px;border:1.5px solid var(--borda);background:#fff;color:var(--azul);font:inherit;font-weight:700;cursor:pointer}
+.paginacao button:hover:not(:disabled){background:#eef4ff}
+.paginacao button.atual{background:#1f6fe5;border-color:#1f6fe5;color:#fff;box-shadow:0 4px 10px rgba(31,111,229,.3)}
+.paginacao button:disabled{opacity:.45;cursor:not-allowed}
+.vazio .btn{margin-top:12px}
+.vazio .sub{font-weight:400;margin-top:4px}
+
+/* ===== Estados (carregando, erro, sem dados) ===== */
+#estado>.carregando,#estado>.vazio{background:#fff;border-radius:20px;box-shadow:0 8px 26px rgba(11,58,158,.08);margin:6px 0 20px}
+#itens>.carregando{padding:40px 20px}
+/* base.css aumenta todo "span" dentro de .vazio (feito para o ícone); aqui o texto volta ao tamanho normal */
+.rel-pagina .vazio .texto-estado{font-size:1rem;margin-top:4px}
+
+/* Validação do período e avisos */
+.campo-data.invalido{border-color:#d93025;box-shadow:0 0 0 2px rgba(217,48,37,.35)}
+.erro-periodo{display:flex;align-items:center;gap:8px;background:#fff6dd;color:#8a5a00;border:1px solid #f2d27a;border-radius:14px;padding:10px 14px;font-weight:600;margin:8px 0 6px}
+.erro-periodo::before{content:"⚠️"}
+.aviso{display:flex;gap:10px;align-items:flex-start;border-radius:16px;padding:14px 18px;margin:10px 0 18px;font-weight:600}
+.aviso.info{background:#fff;color:var(--azul);border:1px solid #b9d3fb;box-shadow:0 6px 18px rgba(11,58,158,.06)}
+.aviso.info::before{content:"ℹ️"}
+.aviso small{display:block;font-weight:400;color:var(--cinza)}
+
+/* Janela de detalhes */
+#dlg-detalhes .dados{gap:0 14px}
+#dlg-detalhes .dados dt,#dlg-detalhes .dados dd{padding:8px 0;border-bottom:1px solid #edf2fa}
+
+/* ===== Telas largas (≥ 1280px): pets em coluna lateral, como na referência ===== */
+/* Os pets começam na altura dos filtros (117px abaixo do título) e ficam ao lado de filtros, indicadores e gráficos.
+   Sem "sticky": ele isolaria o multiply e a foto voltaria a parecer um recorte. */
+@media(min-width:1280px){
+  .rel-container{max-width:1480px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
+  .rel-pets{margin-top:112px}
+}
+/* 1280–1439px: coluna mais estreita para os gráficos manterem a mesma largura de antes
+   (abaixo de 560px o cartão do gráfico muda para o modo compacto). Os pets avançam 14px
+   sobre a margem livre à esquerda para ganhar tamanho sem tirar espaço do conteúdo. */
+@media(min-width:1280px) and (max-width:1439px){
+  .rel-container{grid-template-columns:256px minmax(0,1fr);gap:24px}
+  .rel-pets{width:calc(100% + 14px);margin-left:-14px}
+}
+@media(min-width:1600px){
+  .rel-container{max-width:1580px;grid-template-columns:320px minmax(0,1fr);gap:36px}
+}
+/* Telas bem largas: há margem livre à esquerda, então os pets crescem para dentro dela (sem tocar no conteúdo) */
+@media(min-width:1800px){
+  .rel-pets{width:calc(100% + 70px);margin-left:-70px}
+}
+
+/* ===== Notebook e tablet (700–1279px): pets pequenos ao lado do título ===== */
+@media(max-width:1279px){
+  .rel-pets{position:absolute;top:-6px;right:20px;width:140px;pointer-events:none}
+  .rel-pets .faisca{width:30px;height:30px;left:-16px}
+  .rel-topo{padding-right:150px}
+}
+@media(max-width:1100px){
+  .kpi{gap:10px;padding:12px}
+  .kpi-icone{width:42px;height:42px;border-radius:13px}
+  .kpi-icone .ic{width:23px;height:23px}
+  .kpi-texto strong{font-size:1.55rem}
+  .graficos{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+@media(max-width:900px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpi.TOTAL{grid-column:1/-1}
+  .graficos{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:800px){
+  .campo-data{flex:1 1 calc(50% - 6px);min-width:0}
+  .filtro-rel>.btn-laranja{flex:1 1 100%}
+  .atalhos-periodo{flex:1 1 100%}
+  .atalhos-periodo .btn{flex:1 1 auto}
+  .rodape-tabela{justify-content:center}
+  /* tabelas.css transforma as linhas em cartões: aqui só o acabamento */
+  .detalhamento .tabela{border:0;background:none;overflow:visible}
+  .rel-pagina .t-itens .reg{grid-template-columns:1fr 1fr;border:1px solid #e3ebf7;border-radius:14px;background:#fff;margin-top:10px;padding:12px 14px}
+  .rel-pagina .t-itens .reg>:last-child{grid-column:1/-1}
+}
+
+/* ===== Celular ===== */
+@media(max-width:699px){
+  .rel-pets{display:none}
+  .rel-topo{padding-right:0}
+  .rel-topo h1{font-size:1.9rem}
+  .pata-deco.p1,.pata-deco.p2,.pata-deco.p3{display:none}
+  .pata-deco.p4{top:20px;right:4%;width:56px;height:56px}
+  .pata-deco.p5{top:110px}
+  .rel-deco .onda{height:110px}
+  .pata-onda{width:42px;height:42px}
+}
+@media(max-width:600px){
+  .rel-pagina{padding-top:22px}
+  .campo-data{flex:1 1 100%}
+  .kpis{grid-template-columns:minmax(0,1fr);gap:10px}
+  .kpi{min-height:70px}
+  .rel-pagina .bloco{padding:16px 14px;border-radius:18px}
+  .atalhos-periodo .btn{flex:1 1 calc(50% - 4px)}
+  .paginacao{gap:4px}
+  .paginacao button{min-width:34px}
+  .rosca{width:170px;height:170px}
+  .rosca .miolo{width:102px;height:102px}
+  .legenda{flex-basis:100%;max-width:none}
+  .cab-detalhe .acoes{width:100%}
+  .cab-detalhe .acoes .btn{flex:1 1 auto}
+}
+
+/* Imprimir / salvar como PDF: só o relatório, sem menus e botões */
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  header,footer,.rodape,.filtro-rel,.erro-periodo,#mensagem,.cab-detalhe .acoes,.paginacao,.dica,dialog{display:none!important}
+  .rel-deco,.rel-pets,.faisca-titulo,.pata-canto{display:none!important}
+  .pagina{background:#fff;padding:0}
+  .rel-container{display:block;max-width:none}
+  .rel-topo{padding-right:0}
+  .rel-pagina .bloco,.kpi{box-shadow:none;border:1px solid var(--borda)}
+  .graficos{grid-template-columns:1fr 1fr}
+  .kpis{grid-template-columns:repeat(5,1fr)}
+  .kpi.TOTAL{grid-column:auto}
+}

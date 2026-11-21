@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16
+    container_name: praticao-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-praticao123}
+      POSTGRES_DB: ${POSTGRES_DB:-praticao}
+    ports:
+      # Só o seu computador acessa (pgAdmin/DBeaver em localhost:5433).
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - praticao_dados:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-praticao}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    container_name: praticao-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-praticao123}@db:5432/${POSTGRES_DB:-praticao}
+      SECRET_KEY: ${SECRET_KEY:?defina SECRET_KEY no arquivo .env (veja o .env.example)}
+      RECUPERACAO_DEMO: ${RECUPERACAO_DEMO:-1}
+    ports:
+      - "8000:8000"
+
+volumes:
+  praticao_dados:

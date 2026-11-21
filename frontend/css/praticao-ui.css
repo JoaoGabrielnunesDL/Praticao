@@ -1,0 +1,166 @@
+/* =====================================================================
+   PratiCão UI: padrão visual reutilizável (prefixo .pc-*)
+   Carregado SOMENTE pelas telas redesenhadas a partir da Etapa 1, sempre DEPOIS do CSS da tela.
+   Não estiliza nada fora das classes .pc-*; as regras usam :where() (especificidade zero),
+   então o CSS de cada tela pode ajustar qualquer detalhe sem precisar de !important.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Componente: .pc-pets (ilustração de pets integrada ao fundo)
+
+   Para que serve: mostrar uma foto de pets com fundo branco/claro como parte da
+   composição, sem "caixa". O fundo da foto some no fundo da PRÓPRIA PÁGINA
+   (mix-blend-mode: multiply); um brilho leve e uma sombra de chão dão apoio aos animais.
+
+   Estrutura (tudo é decorativo: o contêiner leva aria-hidden="true"):
+     <aside class="pc-pets" aria-hidden="true">
+       <span class="pc-pets-circulo"></span>          (desativado: sem círculo atrás dos animais)
+       <svg class="pc-pets-trilha" focusable="false">  trilha de patinhas (opcional)
+       <img src="..." alt="">                          a foto (sempre a última)
+     </aside>
+
+   Ajustes por tela (variáveis):
+     --pc-pets-proporcao     recorte da foto (largura/altura). Padrão 5/6.
+     --pc-pets-foco          object-position da foto. Padrão 53% 50%.
+     --pc-pets-circulo       cor do círculo atrás dos animais.
+     --pc-pets-circulo-base  distância entre a base do componente e a base do círculo.
+
+   IMPORTANTE: entre a foto e o fundo da página não pode haver nada que crie um novo
+   contexto de empilhamento (z-index em elemento posicionado, isolation, opacity < 1,
+   transform, filter). Se houver, o multiply deixa de enxergar o fundo e o branco da
+   foto aparece como um retângulo.
+   Use: fotos com fundo branco ou cinza bem claro, sobre fundos claros.
+   Evite: fundo azul escuro ou colorido (o multiply escurece a foto); recortar os
+   animais (ajuste --pc-pets-foco/--pc-pets-proporcao); elementos clicáveis aqui dentro.
+   --------------------------------------------------------------------- */
+:where(.pc-pets){
+  --pc-pets-proporcao:5/6;
+  --pc-pets-foco:53% 50%;
+  --pc-pets-circulo:#d3e4ff;
+  --pc-pets-circulo-base:22%;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:0 8px 16px;
+  /* sem caixa: só um brilho elíptico perto do chão, que some antes das bordas */
+  background:radial-gradient(50% 30% at 50% 84%,rgba(206,225,255,.75),rgba(206,225,255,0));
+  pointer-events:none;
+}
+
+/* Sombra de chão (::before: é pintada antes da foto, fica por baixo dos animais) */
+:where(.pc-pets)::before{
+  content:"";
+  position:absolute;
+  left:12%;
+  right:12%;
+  bottom:12px;
+  height:22px;
+  border-radius:50%;
+  background:radial-gradient(closest-side,rgba(11,58,158,.16),rgba(11,58,158,0));
+}
+
+/* Círculo atrás dos animais: desativado. Os pets ficam direto sobre o fundo da página. */
+:where(.pc-pets-circulo){display:none}
+
+/* Trilha de patinhas: sobe em diagonal pela parte de cima do componente */
+:where(.pc-pets-trilha){
+  position:absolute;
+  fill:#c7dbfb;
+}
+
+/* Foto: o branco do fundo vira a cor do que está atrás; o enquadramento não distorce (object-fit) */
+:where(.pc-pets) > img{
+  position:relative;
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:var(--pc-pets-proporcao);
+  object-fit:cover;
+  object-position:var(--pc-pets-foco);
+  mix-blend-mode:multiply;
+}
+
+/* =====================================================================
+   KIT PET SHOP (piloto: Painel do Tutor)
+   Formas desenhadas UMA vez aqui e usadas como máscara CSS: herdam a cor de
+   "background-color" e não precisam de imagens nem de emojis.
+   - .pc-ic  + .pc-f-*  : ícone de interface (acompanha o tamanho do texto: 1em)
+   - .pc-d   + .pc-f-*  : enfeite de fundo, posicionado pela tela (dentro de .pc-cena)
+   - .pc-cena           : camada decorativa da página (aria-hidden, fora das áreas que o JS preenche)
+   - .pc-onda           : onda laranja de canto (identidade das telas redesenhadas)
+
+   Regras de uso (para não ficar infantil nem com cara de template):
+   - 6 a 8 enfeites por tela no desktop, 0 a 2 no celular; no máximo 1 enfeite grande.
+   - Enfeites em azul-claro (--pc-deco) com baixa opacidade; laranja só na onda e na faísca do título.
+   - Nunca atrás de texto, tabela, formulário ou botão: só nas margens, cantos e ondas.
+   - Cada tela usa os motivos básicos (pata, osso, coração, brilho) + UM grupo do seu contexto.
+   ===================================================================== */
+:root{
+  --pc-deco:#c7dbfb;
+  --pc-deco-forte:#b3cdf6;
+  --pc-ic-cor:#1f6fe5;
+  --pc-ic-fundo:#e4eeff;
+}
+
+/* ---------- Formas (preenchidas, cantos arredondados) ---------- */
+:where(.pc-f-pata){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/%3E%3Cellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/%3E%3Cellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/%3E%3Cellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/%3E%3Cpath d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/%3E%3C/svg%3E")}
+:where(.pc-f-osso){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='11' cy='24' r='8'/%3E%3Ccircle cx='11' cy='40' r='8'/%3E%3Ccircle cx='53' cy='24' r='8'/%3E%3Ccircle cx='53' cy='40' r='8'/%3E%3Crect x='10' y='25' width='44' height='14' rx='5'/%3E%3C/svg%3E")}
+:where(.pc-f-coracao){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 56C14 43 5 33 5 21.5 5 13.5 11 8 18.5 8c5.5 0 10 3 13.5 8 3.5-5 8-8 13.5-8C53 8 59 13.5 59 21.5 59 33 50 43 32 56z'/%3E%3C/svg%3E")}
+:where(.pc-f-brilho){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4c2.2 15 7 23.8 28 28-21 4.2-25.8 13-28 28-2.2-15-7-23.8-28-28 21-4.2 25.8-13 28-28z'/%3E%3C/svg%3E")}
+:where(.pc-f-casinha){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill-rule='evenodd' d='M32 5 2 30.5l4 4.5 4-3.4V56a3 3 0 0 0 3 3h38a3 3 0 0 0 3-3V31.6l4 3.4 4-4.5zM23 59V44a9 9 0 0 1 18 0v15z'/%3E%3C/svg%3E")}
+:where(.pc-f-pote){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='21' cy='27' r='6'/%3E%3Ccircle cx='32' cy='24' r='7'/%3E%3Ccircle cx='43' cy='27' r='6'/%3E%3Cpath d='M3 31h58c-.8 13.5-11 24-29 24S3.8 44.5 3 31z'/%3E%3C/svg%3E")}
+:where(.pc-f-bolinha){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill-rule='evenodd' d='M32 4a28 28 0 1 1 0 56 28 28 0 0 1 0-56zM14 12.5c9 10 9 29 0 39l3 2.7c10.5-11.5 10.5-32.9 0-44.4zm36 0c-9 10-9 29 0 39l-3 2.7c-10.5-11.5-10.5-32.9 0-44.4z'/%3E%3C/svg%3E")}
+:where(.pc-f-gato){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 40'%3E%3Cpath d='M2 40 7 6l15 15.5c3-1.3 6.5-2 10-2s7 .7 10 2L57 6l5 34z'/%3E%3C/svg%3E")}
+:where(.pc-f-calendario){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 2.5a1 1 0 0 1 1 1V5h8V3.5a1 1 0 1 1 2 0V5h.5A2.5 2.5 0 0 1 21 7.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-11A2.5 2.5 0 0 1 5.5 5H6V3.5a1 1 0 0 1 1-1zM5 10v8.5c0 .3.2.5.5.5h13c.3 0 .5-.2.5-.5V10zm2 2h2.5v2.5H7zm4.2 0h2.5v2.5h-2.5z'/%3E%3C/svg%3E")}
+:where(.pc-f-historico){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M6.5 2h8.2L20 7.3v12.2a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2zM8 11v2h8v-2zm0 4v2h5.5v-2zM14 3.5V8h4.5z'/%3E%3C/svg%3E")}
+:where(.pc-f-sino){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5a1.3 1.3 0 0 1 1.3 1.3v.6A6 6 0 0 1 18 10.3v3.9l1.8 2.6c.4.6 0 1.4-.8 1.4H5c-.8 0-1.2-.8-.8-1.4L6 14.2v-3.9a6 6 0 0 1 4.7-5.9v-.6A1.3 1.3 0 0 1 12 2.5zM9.5 19.5h5a2.5 2.5 0 0 1-5 0z'/%3E%3C/svg%3E")}
+:where(.pc-f-alerta){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M10.3 3.4a2 2 0 0 1 3.4 0l8 13.6A2 2 0 0 1 20 20H4a2 2 0 0 1-1.7-3zM11 9v5h2V9zm0 6.5v2h2v-2z'/%3E%3C/svg%3E")}
+:where(.pc-f-faisca){--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M8 26 18 22M12 10l10 9M27 6l-2 12' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E")}
+
+/* ---------- Ícone de interface ---------- */
+:where(.pc-ic){
+  display:inline-block;
+  flex:none;
+  width:1em;
+  height:1em;
+  background-color:currentColor;
+  -webkit-mask:var(--pc-forma) center/contain no-repeat;
+  mask:var(--pc-forma) center/contain no-repeat;
+}
+
+/* ---------- Camada decorativa e enfeites ---------- */
+:where(.pc-cena){
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+:where(.pc-d){
+  position:absolute;
+  display:block;
+  width:32px;
+  height:32px;
+  background-color:var(--pc-deco);
+  -webkit-mask:var(--pc-forma) center/contain no-repeat;
+  mask:var(--pc-forma) center/contain no-repeat;
+}
+:where(.pc-onda){
+  position:absolute;
+  right:0;
+  bottom:0;
+  width:min(440px,62vw);
+  height:150px;
+  background:linear-gradient(45deg,#f7931e,#ffb347);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160' preserveAspectRatio='none'%3E%3Cpath d='M0 160C90 150 150 120 210 80S330 10 400 0V160Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160' preserveAspectRatio='none'%3E%3Cpath d='M0 160C90 150 150 120 210 80S330 10 400 0V160Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;
+}
+
+/* Alto contraste e impressão: a decoração sai, o conteúdo fica */
+@media (forced-colors:active){
+  :where(.pc-cena,.pc-d,.pc-onda){display:none}
+  :where(.pc-ic){forced-color-adjust:none;background-color:CanvasText}
+}
+@media print{
+  :where(.pc-cena,.pc-d,.pc-onda){display:none}
+}

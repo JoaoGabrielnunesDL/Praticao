@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel do Tutor - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/painel-tutor.css">
+  <link rel="stylesheet" href="css/praticao-ui.css">
+</head>
+<body class="pg-painel-tutor">
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <!-- Decoração de fundo (kit pet shop): só visual, fora das áreas que o JS preenche -->
+    <div class="pc-cena pn-cena" aria-hidden="true">
+      <span class="pc-d pc-f-pata pn-d-trilha1"></span>
+      <span class="pc-d pc-f-pata pn-d-trilha2"></span>
+      <span class="pc-d pc-f-pata pn-d-trilha3"></span>
+      <span class="pc-d pc-f-pata pn-d-pata"></span>
+      <span class="pc-d pc-f-osso pn-d-osso"></span>
+      <span class="pc-d pc-f-pote pn-d-pote"></span>
+      <span class="pc-d pc-f-bolinha pn-d-bolinha"></span>
+      <span class="pc-onda"></span>
+      <span class="pc-d pc-f-pata pn-d-pata-onda"></span>
+    </div>
+
+    <div class="container">
+      <div class="pn-topo">
+        <div class="pn-topo-texto">
+          <p class="selo-op">Área do tutor</p>
+          <h1>Painel do <span class="pn-sem-quebra">Tutor</span></h1>
+          <p class="ola"><strong id="saudacao">Olá!</strong><br>Acompanhe seus animais e o próximo atendimento.</p>
+        </div>
+        <!-- Cachorro e gato direto sobre o fundo (somente decorativo) -->
+        <div class="pc-pets pn-pets" aria-hidden="true">
+          <span class="pc-d pc-f-coracao pn-d-coracao"></span>
+          <span class="pc-d pc-f-brilho pn-d-brilho"></span>
+          <img src="img/dicas/WhatsApp%20Image%202026-11-18%20at%2020.11.15.jpeg" alt="" decoding="async">
+        </div>
+      </div>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <div id="erro-painel" class="vazio" hidden>
+        <span class="pc-ic pc-f-alerta" aria-hidden="true"></span><p id="erro-texto"></p>
+        <button type="button" class="btn btn-laranja btn-pequeno" id="tentar">Tentar novamente</button>
+      </div>
+
+      <div id="painel" class="pn-cartoes" aria-live="polite">
+        <!-- Meus animais -->
+        <section class="bloco pn-card" aria-labelledby="t-animais">
+          <h2 id="t-animais"><span class="pn-icone" aria-hidden="true"><span class="pc-ic pc-f-pata"></span></span>Meus animais</h2>
+          <p class="pn-numero" id="qtd-animais"><span class="carregando">Carregando...</span></p>
+          <p class="sub" id="txt-animais"></p>
+          <a class="btn btn-azul" id="btn-animais" href="meus-animais.html">Ver meus animais →</a>
+        </section>
+
+        <!-- Próximo agendamento (dois estados: vazio e preenchido) -->
+        <section class="bloco pn-card" aria-labelledby="t-proximo">
+          <h2 id="t-proximo"><span class="pn-icone" aria-hidden="true"><span class="pc-ic pc-f-calendario"></span></span>Próximo agendamento</h2>
+          <div id="proximo"><span class="carregando">Carregando...</span></div>
+        </section>
+      </div>
+
+      <h2 class="pn-titulo"><small>Tudo à mão</small>Ações rápidas</h2>
+      <div class="pn-acoes">
+        <button type="button" class="pn-acao" data-acao="agendar"><span class="pn-icone azul" aria-hidden="true"><span class="pc-ic pc-f-calendario"></span></span><span><strong>Novo agendamento</strong><small>Escolha um serviço e horário</small></span><i aria-hidden="true">›</i></button>
+        <a class="pn-acao" href="meus-animais.html?novo=1"><span class="pn-icone laranja" aria-hidden="true"><span class="pc-ic pc-f-pata"></span></span><span><strong>Cadastrar animal</strong><small>Adicione um pet à sua conta</small></span><i aria-hidden="true">›</i></a>
+        <a class="pn-acao" href="meus-agendamentos.html?status=CONCLUIDO"><span class="pn-icone roxo" aria-hidden="true"><span class="pc-ic pc-f-historico"></span></span><span><strong>Histórico de serviços</strong><small>Veja atendimentos anteriores</small></span><i aria-hidden="true">›</i></a>
+        <button type="button" class="pn-acao" data-acao="lembretes"><span class="pn-icone verde" aria-hidden="true"><span class="pc-ic pc-f-sino"></span></span><span><strong>Lembretes</strong><small>Seus próximos atendimentos</small></span><i aria-hidden="true">›</i></button>
+      </div>
+
+      <!-- Banner informativo (sem botões: é só comunicação) -->
+      <section class="pn-banner">
+        <span class="pc-d pc-f-gato pn-gato" aria-hidden="true"></span>
+        <div class="pn-banner-titulo"><span aria-hidden="true"><span class="pc-ic pc-f-coracao"></span></span><h2>Mantenha o cuidado<br>do seu pet em dia!</h2></div>
+        <ul>
+          <li>Agende serviços</li>
+          <li>Acompanhe atendimentos</li>
+          <li>Receba lembretes importantes</li>
+        </ul>
+        <span class="pn-casinha" aria-hidden="true"><span class="pc-ic pc-f-casinha"></span></span>
+      </section>
+    </div>
+  </main>
+
+  <!-- Lembretes: os próximos agendamentos do tutor (dados reais da API, nada inventado) -->
+  <dialog id="dlg-lembretes" aria-labelledby="lem-titulo">
+    <h2 id="lem-titulo">Lembretes</h2>
+    <div id="lem-lista"></div>
+    <div class="rodape-dlg">
+      <button type="button" class="btn btn-contorno" id="lem-fechar">Fechar</button>
+      <a class="btn btn-laranja" href="meus-agendamentos.html">Meus agendamentos</a>
+    </div>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/painel-tutor.js"></script>
+</body>
+</html>

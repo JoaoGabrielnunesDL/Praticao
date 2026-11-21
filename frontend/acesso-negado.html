@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acesso negado - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/estados.css">
+  <link rel="stylesheet" href="css/estados-paginas.css">
+</head>
+<body class="pg-estado pg-acesso-negado">
+  <header id="cabecalho"></header>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="ic-pata" viewBox="0 0 64 64">
+      <ellipse cx="13" cy="29" rx="6" ry="8" transform="rotate(-20 13 29)"/>
+      <ellipse cx="24" cy="15" rx="6.5" ry="8.5" transform="rotate(-8 24 15)"/>
+      <ellipse cx="40" cy="15" rx="6.5" ry="8.5" transform="rotate(8 40 15)"/>
+      <ellipse cx="51" cy="29" rx="6" ry="8" transform="rotate(20 51 29)"/>
+      <path d="M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z"/>
+    </symbol>
+  </svg>
+
+  <main class="estado-pagina">
+    <div class="ep-deco" aria-hidden="true">
+      <svg class="pata-deco p1"><use href="#ic-pata"/></svg>
+      <svg class="pata-deco p2"><use href="#ic-pata"/></svg>
+      <svg class="pata-deco p3"><use href="#ic-pata"/></svg>
+      <svg class="pata-deco p4"><use href="#ic-pata"/></svg>
+      <svg class="onda" viewBox="0 0 400 160" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="grad-onda" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#f7931e"/>
+            <stop offset="1" stop-color="#ffb347"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 160C90 150 150 120 210 80S330 10 400 0V160Z" fill="url(#grad-onda)"/>
+      </svg>
+      <svg class="pata-onda"><use href="#ic-pata"/></svg>
+    </div>
+
+    <section class="estado-cartao" aria-labelledby="t-estado">
+      <div class="icone" aria-hidden="true">
+        <!-- Escudo com cadeado -->
+        <svg viewBox="0 0 64 64">
+          <defs>
+            <linearGradient id="grad-escudo" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#3d8bff"/>
+              <stop offset="1" stop-color="#0b3a9e"/>
+            </linearGradient>
+          </defs>
+          <path d="M32 3 56 12v17c0 16-10 27.5-24 33C18 56.5 8 45 8 29V12z" fill="url(#grad-escudo)"/>
+          <path d="M25 30v-4.5a7 7 0 0 1 14 0V30" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/>
+          <rect x="21" y="29" width="22" height="17" rx="4" fill="#fff"/>
+          <circle cx="32" cy="36.5" r="2.6" fill="#0b3a9e"/>
+          <path d="M32 38v3.5" stroke="#0b3a9e" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1 id="t-estado">Você não tem acesso a esta página.</h1>
+      <p>Entre em contato com o administrador do sistema, se necessário.</p>
+      <a class="btn btn-laranja" id="btn-principal" href="index.html">🏠 Ir para minha tela inicial</a>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script src="js/header.js"></script>
+  <script src="js/paginas-estado.js"></script>
+</body>
+</html>

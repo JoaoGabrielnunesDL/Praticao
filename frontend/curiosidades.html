@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dicas e Curiosidades - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/dicas.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main>
+    <section class="cur-hero">
+      <div class="container cur-hero-grade">
+        <div>
+          <h1>Dicas e <span>Curiosidades</span></h1>
+          <p>Cuidados, informações e muito amor para o bem-estar do seu pet!</p>
+          <form class="cur-busca" id="form-busca" role="search">
+            <label class="sr" for="busca">Buscar dicas</label>
+            <input id="busca" type="search" maxlength="60" placeholder="Buscar dicas (ex.: ração, vacina, passeio)" autocomplete="off">
+            <button type="button" class="btn btn-contorno btn-pequeno" id="limpar-busca" hidden>Limpar</button>
+          </form>
+        </div>
+        <img class="cur-banner" src="img/dicas/banner.jpg" alt="Um cachorro e um gato felizes">
+      </div>
+    </section>
+
+    <section class="cur-conteudo">
+      <div class="container" id="conteudo" aria-live="polite"></div>
+      <div class="container"><p class="dica-aviso">🩺 As dicas são informativas e não substituem a consulta com um médico-veterinário.</p></div>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/artigos-dados.js"></script>
+  <script src="js/dicas-comum.js"></script>
+  <script src="js/curiosidades.js"></script>
+</body>
+</html>

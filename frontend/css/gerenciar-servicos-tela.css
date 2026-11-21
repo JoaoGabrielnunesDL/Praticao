@@ -1,0 +1,212 @@
+/* Gerenciar Serviços: redesign visual (mesma identidade das telas de Relatórios e Painel do Administrador).
+   Carregado DEPOIS de gerenciar-servicos.css. Tudo escopado em body.pg-gerenciar-servicos.
+   O comportamento continua no servicos-admin.js (inclusive o painel em tela cheia até 800px). */
+
+body.pg-gerenciar-servicos{
+  --gs-ic-editar:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M4 20h4l10.5-10.5-4-4L4 16v4zM13.5 6.5l4 4 1.8-1.8a1.4 1.4 0 0 0 0-2L17.3 4.7a1.4 1.4 0 0 0-2 0z'/></svg>");
+  --gs-ic-desativar:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2.2a7.8 7.8 0 0 1 6.1 12.7L7.1 5.9A7.8 7.8 0 0 1 12 4.2zM5.9 7.1l11 11A7.8 7.8 0 0 1 5.9 7.1z'/></svg>");
+  --gs-ic-reativar:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.3 14.2-4.4-4.4 1.5-1.5 2.9 2.9 5.6-5.6 1.5 1.5z'/></svg>");
+  --gs-ic-lixeira:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M9 2.5h6l1 2h4.5v2.2h-17V4.5H8zM5.5 8.5h13l-1 11.6a2 2 0 0 1-2 1.9h-7a2 2 0 0 1-2-1.9zm4 2.5v8h1.7v-8zm3.3 0v8h1.7v-8z'/></svg>");
+  --gs-ic-tesoura:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9.6 7.5a3.6 3.6 0 1 0-1.3 2.8l2.4 1.7-2.4 1.7a3.6 3.6 0 1 0 1.3 2.8c0-.4 0-.8-.2-1.1L21 7.2 19.8 6l-7.6 5.2-2.8-2c.1-.4.2-.9.2-1.4zm-3.6 1.6a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm0 9a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm8.5-3.3 5.3 3.7L21 17.3l-5.1-3.6z'/></svg>");
+  --gs-ic-busca:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M10.5 3a7.5 7.5 0 0 1 6 12l4.3 4.3-1.5 1.5-4.3-4.3A7.5 7.5 0 1 1 10.5 3zm0 2.2a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6z'/></svg>");
+  --gs-ic-alerta:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2.5 1.5 21h21zm-1 6.5h2v6h-2zm0 7.6h2v2h-2z'/></svg>");
+}
+
+/* ===== Página, fundo e decoração ===== */
+body.pg-gerenciar-servicos .gs-pagina{position:relative;overflow-x:clip;background:radial-gradient(1200px 500px at 70% -10%,#dcebff 0%,transparent 60%),linear-gradient(180deg,#eaf3ff 0%,#f5f9ff 45%,#eef5ff 100%);padding:30px 0 100px}
+body.pg-gerenciar-servicos .gs-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+body.pg-gerenciar-servicos .pata-deco{position:absolute;fill:#c7dbfb;opacity:.55}
+body.pg-gerenciar-servicos .pata-deco.p1{top:150px;left:2%;width:46px;height:46px;transform:rotate(-18deg)}
+body.pg-gerenciar-servicos .pata-deco.p2{top:420px;left:3%;width:40px;height:40px;transform:rotate(12deg)}
+body.pg-gerenciar-servicos .pata-deco.p3{top:60px;left:44%;width:56px;height:56px;transform:rotate(-12deg)}
+body.pg-gerenciar-servicos .pata-deco.p4{top:300px;right:2%;width:44px;height:44px;transform:rotate(16deg)}
+body.pg-gerenciar-servicos .gs-deco .onda{position:absolute;right:0;bottom:0;width:min(440px,62vw);height:150px}
+body.pg-gerenciar-servicos .pata-onda{position:absolute;right:26px;bottom:20px;width:56px;height:56px;fill:#fff;opacity:.9;transform:rotate(-14deg)}
+/* Sem z-index aqui: criaria um contexto de empilhamento e o painel em tela cheia (z-index:60, celular) ficaria sob o cabeçalho.
+   A decoração (z-index:0) vem antes no HTML, então o conteúdo já fica por cima. */
+body.pg-gerenciar-servicos .gs-container{position:relative}
+@media(min-width:1280px){body.pg-gerenciar-servicos .gs-container{max-width:1240px}}
+
+/* ===== Título + pets ===== */
+body.pg-gerenciar-servicos .gs-hero{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:center}
+body.pg-gerenciar-servicos .topo-pagina{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:18px}
+body.pg-gerenciar-servicos .topo-pagina .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
+body.pg-gerenciar-servicos .topo-pagina h1{font-size:2.6rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
+body.pg-gerenciar-servicos .sem-quebra{white-space:nowrap}
+body.pg-gerenciar-servicos .faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:var(--laranja)}
+body.pg-gerenciar-servicos .topo-pagina .sub{font-size:1.02rem}
+body.pg-gerenciar-servicos #btn-novo{min-height:50px;padding:12px 28px;box-shadow:0 6px 16px rgba(242,138,12,.32)}
+/* Pets: cachorro e gato direto sobre o fundo da página (sem painel, círculo ou moldura).
+   O fundo branco da foto some no fundo (multiply); a foto aparece inteira, na proporção original (sem recorte).
+   Nada entre a foto e o fundo pode ter z-index/isolation/opacity/transform, senão o branco apareceria. */
+body.pg-gerenciar-servicos .gs-pets{position:relative;align-self:end;color:var(--laranja)}
+body.pg-gerenciar-servicos .gs-pets img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
+/* sombra de chão bem leve sob as patas (::before é pintado antes da foto) */
+body.pg-gerenciar-servicos .gs-pets::before{content:"";position:absolute;left:8%;right:8%;bottom:-4px;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(11,58,158,.15),rgba(11,58,158,0))}
+/* Tesoura: enfeite secundário, pequeno e claro, perto da orelha do gato */
+body.pg-gerenciar-servicos .gs-pets .tesoura{position:absolute;top:2px;right:2px;width:30px;height:30px;fill:#1f6fe5;opacity:.4;transform:rotate(-25deg)}
+/* Brilho do kit perto da cabeça do cachorro */
+body.pg-gerenciar-servicos .gs-d-brilho{top:-6px;left:18%;width:18px;height:18px;background-color:var(--pc-deco-forte)}
+/* Bolhas de banho (CSS desta tela): no espaço livre à esquerda dos pets */
+body.pg-gerenciar-servicos .gs-bolha{position:absolute;border-radius:50%;border:2px solid #bcd4f8;background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.95) 0 16%,rgba(199,219,251,.22) 18% 100%);opacity:.75;pointer-events:none}
+body.pg-gerenciar-servicos .gs-bolha.b1{left:-44px;bottom:56%;width:26px;height:26px}
+body.pg-gerenciar-servicos .gs-bolha.b2{left:-18px;bottom:74%;width:14px;height:14px}
+body.pg-gerenciar-servicos .gs-bolha.b3{left:-66px;bottom:38%;width:12px;height:12px}
+/* Patinhas laterais antigas: em % da tela elas encostavam no subtítulo, no botão e na tabela até 1366px.
+   Agora só aparecem quando existe margem livre e ficam posicionadas como fração dessa margem. */
+@media(max-width:1359px){
+  body.pg-gerenciar-servicos .pata-deco.p1,body.pg-gerenciar-servicos .pata-deco.p2,body.pg-gerenciar-servicos .pata-deco.p4{display:none}
+}
+@media(min-width:1360px){
+  body.pg-gerenciar-servicos .pata-deco.p1{left:calc((100% - 1240px) / 2 * .3)}
+  body.pg-gerenciar-servicos .pata-deco.p2{left:calc((100% - 1240px) / 2 * .45)}
+  body.pg-gerenciar-servicos .pata-deco.p4{right:calc((100% - 1240px) / 2 * .3)}
+}
+/* Enfeites de margem (kit): só aparecem quando há margem livre ao lado do conteúdo */
+body.pg-gerenciar-servicos .gs-d-osso,body.pg-gerenciar-servicos .gs-d-coracao{display:none}
+@media(min-width:1340px){
+  body.pg-gerenciar-servicos .gs-d-osso{display:block;top:58%;right:-14px;width:70px;height:70px;rotate:-28deg;opacity:.6}
+  body.pg-gerenciar-servicos .gs-d-coracao{display:block;top:62%;left:calc((100% - 1240px) / 4);width:18px;height:18px;background-color:var(--pc-deco-forte);opacity:.7;rotate:-12deg}
+}
+/* Telas largas: pets com 380px */
+@media(min-width:1280px){
+  body.pg-gerenciar-servicos .gs-hero{grid-template-columns:minmax(0,1fr) 380px}
+}
+
+/* ===== Mensagens de sucesso e erro ===== */
+body.pg-gerenciar-servicos .mensagem{border-radius:16px;padding:12px 14px 12px 16px;margin:16px 0 0;font-size:1rem;font-weight:700;box-shadow:0 6px 18px rgba(11,58,158,.06)}
+body.pg-gerenciar-servicos .mensagem::before{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;color:#fff;font-size:.95rem}
+body.pg-gerenciar-servicos .mensagem.sucesso::before{background:#2e9e4f}
+body.pg-gerenciar-servicos .mensagem.erro::before{content:"!";background:#d93025;font-weight:900}
+body.pg-gerenciar-servicos .mensagem button{width:38px;height:38px;border-radius:50%;flex:none}
+body.pg-gerenciar-servicos .mensagem button:hover{background:rgba(255,255,255,.6)}
+
+/* ===== Busca e filtro ===== */
+body.pg-gerenciar-servicos .gs-barra{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;margin:22px 0 4px}
+body.pg-gerenciar-servicos .gs-barra .filtro{margin:0;flex:1 1 auto;gap:10px}
+body.pg-gerenciar-servicos .filtro input[type=search],body.pg-gerenciar-servicos .filtro select{min-height:48px;border:1.5px solid var(--borda);box-shadow:0 4px 14px rgba(11,58,158,.06);font-weight:600;color:var(--texto)}
+body.pg-gerenciar-servicos .filtro input[type=search]{flex:0 1 380px;min-width:300px;padding-left:44px;background:#fff no-repeat 16px center/18px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%231f5fd0' fill-rule='evenodd' d='M10.5 3a7.5 7.5 0 0 1 6 12l4.3 4.3-1.5 1.5-4.3-4.3A7.5 7.5 0 1 1 10.5 3zm0 2.2a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6z'/></svg>")}
+body.pg-gerenciar-servicos .filtro input:focus,body.pg-gerenciar-servicos .filtro select:focus{border-color:#1f6fe5;box-shadow:0 0 0 3px rgba(31,111,229,.16);outline:none}
+body.pg-gerenciar-servicos #btn-limpar{min-height:48px;padding:10px 22px}
+body.pg-gerenciar-servicos #contagem{font-size:.88rem;font-weight:600}
+
+/* ===== Tabela ===== */
+body.pg-gerenciar-servicos .area{margin-top:12px;gap:22px}
+body.pg-gerenciar-servicos .t-servicos{border-radius:20px;box-shadow:0 8px 26px rgba(11,58,158,.08);margin-top:0}
+body.pg-gerenciar-servicos .t-servicos .cab{background:#eef4ff;font-weight:800;font-size:.9rem;padding:14px 20px}
+body.pg-gerenciar-servicos .t-servicos .reg{padding:14px 20px;border-top:1px solid #edf2fa;transition:background .12s}
+body.pg-gerenciar-servicos .t-servicos .reg:hover{background:#f6f9ff}
+body.pg-gerenciar-servicos .t-servicos .reg strong{color:var(--azul);font-weight:800}
+body.pg-gerenciar-servicos .t-servicos .reg.desativado{background:#fafbfd}
+body.pg-gerenciar-servicos .t-servicos .reg.desativado strong{color:var(--cinza)}
+body.pg-gerenciar-servicos .t-servicos .reg.selecionado{background:#fff7ea}
+body.pg-gerenciar-servicos .t-servicos .peq{color:var(--cinza);font-size:.88rem}
+body.pg-gerenciar-servicos .t-servicos .status{padding:5px 12px;font-size:.82rem}
+body.pg-gerenciar-servicos .t-servicos .status.ativa{background:#dcf5e3;color:#1d6b2a}
+body.pg-gerenciar-servicos .t-servicos .status.inativa{background:#e8edf5;color:#44526e}
+@media(min-width:801px){
+  body.pg-gerenciar-servicos .area:not(.com-painel) .t-servicos .cab,
+  body.pg-gerenciar-servicos .area:not(.com-painel) .t-servicos .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) 100px 88px 110px 316px;gap:12px}
+}
+
+/* Botões de ação (ícone desenhado só em CSS) */
+body.pg-gerenciar-servicos .acoes{gap:8px}
+body.pg-gerenciar-servicos .acao{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem;background:#fff;border-width:1.5px;transition:background .15s,box-shadow .15s}
+body.pg-gerenciar-servicos .acao::before{content:"";width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+body.pg-gerenciar-servicos .acao.confirmar{--ic:var(--gs-ic-editar);color:#1f5fd0;border-color:#9fc0f2}
+body.pg-gerenciar-servicos .acao.confirmar:hover{background:#eef4ff}
+body.pg-gerenciar-servicos .acao.cancelar{--ic:var(--gs-ic-desativar);color:#c62828;border-color:#f1a9a4}
+body.pg-gerenciar-servicos .acao.cancelar:hover{background:#fdecea}
+body.pg-gerenciar-servicos .acao.concluir{--ic:var(--gs-ic-reativar);color:#1d7a34;border-color:#9fd694}
+body.pg-gerenciar-servicos .acao.concluir:hover{background:#e7f7e9}
+body.pg-gerenciar-servicos .acao.excluir{--ic:var(--gs-ic-lixeira);color:#fff;background:#d93025;border-color:#d93025;box-shadow:0 4px 10px rgba(217,48,37,.22)}
+body.pg-gerenciar-servicos .acao.excluir:hover{background:#b3261e;border-color:#b3261e}
+
+/* ===== Estados: carregando, vazio, sem resultado e erro ===== */
+body.pg-gerenciar-servicos .esqueleto{height:56px;margin:12px 20px;border-radius:12px}
+body.pg-gerenciar-servicos #lista>.esqueleto:first-child{margin-top:18px}
+body.pg-gerenciar-servicos #lista>.vazio{padding:46px 20px;background:#fff;color:var(--azul);font-size:1.15rem;font-weight:800}
+body.pg-gerenciar-servicos #lista>.vazio>span:first-child{position:relative;display:block;font-size:0;width:84px;height:84px;margin:0 auto 14px;border-radius:24px;background:#e8f1ff}
+body.pg-gerenciar-servicos #lista>.vazio>span:first-child::after{content:"";position:absolute;inset:20px;background:#1f6fe5;-webkit-mask:var(--gs-ic-tesoura) center/contain no-repeat;mask:var(--gs-ic-tesoura) center/contain no-repeat}
+body.pg-gerenciar-servicos #lista>.vazio:has([data-acao=limpar])>span:first-child::after{-webkit-mask-image:var(--gs-ic-busca);mask-image:var(--gs-ic-busca)}
+body.pg-gerenciar-servicos #lista>.vazio:has([data-acao=recarregar])>span:first-child{background:#fdecea}
+body.pg-gerenciar-servicos #lista>.vazio:has([data-acao=recarregar])>span:first-child::after{background:#d93025;-webkit-mask-image:var(--gs-ic-alerta);mask-image:var(--gs-ic-alerta)}
+body.pg-gerenciar-servicos #lista>.vazio .sub{font-size:.95rem;font-weight:400;color:var(--cinza);margin:6px auto 0;max-width:420px}
+body.pg-gerenciar-servicos #lista>.vazio .btn{min-height:46px;margin-top:18px}
+
+/* ===== Painel de cadastro/edição ===== */
+body.pg-gerenciar-servicos .painel-form form{position:relative;z-index:1}
+body.pg-gerenciar-servicos .painel-deco{position:absolute;top:14px;right:16px;width:64px;height:64px;fill:#dbe8fc;transform:rotate(-20deg);pointer-events:none;z-index:0}
+body.pg-gerenciar-servicos .selo-form{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.78rem;color:#b25a00;margin-bottom:2px}
+body.pg-gerenciar-servicos .selo-form::before{content:"Novo cadastro"}
+body.pg-gerenciar-servicos:has(.t-servicos .reg.selecionado) .selo-form::before{content:"Edição"}
+body.pg-gerenciar-servicos .painel-topo h2{font-size:1.35rem;font-weight:800;color:var(--azul);margin-bottom:16px}
+body.pg-gerenciar-servicos .painel-form .campo label{font-weight:700}
+body.pg-gerenciar-servicos .painel-form .campo input,body.pg-gerenciar-servicos .painel-form .campo textarea{border-radius:14px;background:#fbfdff;min-height:48px;transition:border-color .15s,box-shadow .15s}
+body.pg-gerenciar-servicos .painel-form .campo input:focus,body.pg-gerenciar-servicos .painel-form .campo textarea:focus{border-color:#1f6fe5;box-shadow:0 0 0 3px rgba(31,111,229,.16);background:#fff}
+body.pg-gerenciar-servicos .painel-form .campo.invalido input,body.pg-gerenciar-servicos .painel-form .campo.invalido textarea{border-color:#d93025;background:#fff8f7}
+body.pg-gerenciar-servicos .painel-form .rodape-dlg .btn{flex:1 1 auto;min-height:48px}
+body.pg-gerenciar-servicos #serv-salvar{box-shadow:0 6px 16px rgba(242,138,12,.28)}
+body.pg-gerenciar-servicos #serv-salvar:disabled{opacity:.6;cursor:wait}
+body.pg-gerenciar-servicos #serv-erro{border-radius:12px;padding:10px 14px}
+@media(min-width:801px){
+  body.pg-gerenciar-servicos .painel-form{border-top:0;border-radius:20px;box-shadow:0 10px 30px rgba(11,58,158,.12);padding:22px;top:120px}
+}
+
+/* ===== Janelas de confirmação (desativar e excluir) ===== */
+body.pg-gerenciar-servicos .dlg-confirma{position:relative;max-width:420px;border-radius:24px;padding:34px 28px 28px}
+body.pg-gerenciar-servicos .dlg-confirma .icone-alerta{width:64px;height:64px;margin-bottom:14px;border-color:#1f6fe5;color:#1f6fe5;background:#eef4ff}
+body.pg-gerenciar-servicos .dlg-confirma .icone-alerta.perigo{border-color:#d93025;color:#d93025;background:#fdecea}
+body.pg-gerenciar-servicos .dlg-confirma h2{font-size:1.35rem;font-weight:800}
+body.pg-gerenciar-servicos .dlg-confirma .sub{font-size:.95rem}
+body.pg-gerenciar-servicos .dlg-confirma .rodape-dlg{margin-top:22px;gap:12px}
+body.pg-gerenciar-servicos .dlg-confirma .rodape-dlg .btn{flex:1 1 140px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+body.pg-gerenciar-servicos .dlg-confirma .btn-perigo{box-shadow:0 6px 16px rgba(217,48,37,.28)}
+body.pg-gerenciar-servicos .dlg-confirma .btn-perigo::before{content:"";width:18px;height:18px;flex:none;background:currentColor;-webkit-mask:var(--gs-ic-lixeira) center/contain no-repeat;mask:var(--gs-ic-lixeira) center/contain no-repeat}
+body.pg-gerenciar-servicos #dlg-desativar .btn-perigo::before{-webkit-mask-image:var(--gs-ic-desativar);mask-image:var(--gs-ic-desativar)}
+body.pg-gerenciar-servicos .gs-fechar{position:absolute;top:12px;right:14px;width:40px;height:40px;border:0;border-radius:50%;background:none;color:var(--azul);font-size:1.7rem;line-height:1;cursor:pointer}
+body.pg-gerenciar-servicos .gs-fechar:hover{background:#eef4ff}
+
+/* ===== Responsivo ===== */
+@media(max-width:1100px){
+  body.pg-gerenciar-servicos .gs-hero{grid-template-columns:minmax(0,1fr) 290px}
+  body.pg-gerenciar-servicos .gs-bolha{display:none}
+}
+@media(min-width:801px) and (max-width:1000px){
+  /* sem espaço para 6 colunas: as ações descem para uma linha própria */
+  body.pg-gerenciar-servicos .area:not(.com-painel) .t-servicos .cab,
+  body.pg-gerenciar-servicos .area:not(.com-painel) .t-servicos .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) 96px 84px 100px}
+  body.pg-gerenciar-servicos .area:not(.com-painel) .t-servicos .cab>:last-child{display:none}
+  body.pg-gerenciar-servicos .area:not(.com-painel) .t-servicos .reg>.acoes{grid-column:1/-1;justify-content:flex-end}
+}
+@media(max-width:800px){
+  body.pg-gerenciar-servicos .gs-hero{grid-template-columns:minmax(0,1fr) 220px;gap:18px}
+  body.pg-gerenciar-servicos .gs-pets .tesoura{width:24px;height:24px}
+  body.pg-gerenciar-servicos .pata-deco.p3{display:none}
+  body.pg-gerenciar-servicos .gs-barra .filtro{flex:1 1 100%}
+  body.pg-gerenciar-servicos .filtro select{flex:1 1 auto}
+  /* tabelas.css transforma as linhas em cartões: aqui só o acabamento */
+  body.pg-gerenciar-servicos .t-servicos{background:none;box-shadow:none;overflow:visible}
+  body.pg-gerenciar-servicos .t-servicos .reg{background:#fff;border:1px solid #e3ebf7;border-radius:16px;margin-top:10px;padding:14px 16px;box-shadow:0 4px 14px rgba(11,58,158,.06)}
+  body.pg-gerenciar-servicos .t-servicos>.vazio,body.pg-gerenciar-servicos #lista>.esqueleto{border-radius:16px}
+  body.pg-gerenciar-servicos #lista>.vazio{border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.06)}
+  body.pg-gerenciar-servicos #lista>.esqueleto{margin:10px 0;background-color:#fff}
+  body.pg-gerenciar-servicos .acoes .acao{flex:1 1 auto;justify-content:center;min-height:42px}
+  /* Painel em tela cheia (vem do gerenciar-servicos.css); aqui só o acabamento */
+  body.pg-gerenciar-servicos .painel-form{box-shadow:none}
+  body.pg-gerenciar-servicos .painel-topo .voltar{min-height:40px}
+}
+@media(max-width:600px){
+  body.pg-gerenciar-servicos .gs-pagina{padding-top:22px}
+  body.pg-gerenciar-servicos .gs-hero{grid-template-columns:minmax(0,1fr)}
+  body.pg-gerenciar-servicos .gs-pets{display:none}
+  body.pg-gerenciar-servicos .topo-pagina{align-items:stretch}
+  body.pg-gerenciar-servicos .topo-pagina h1{font-size:2rem}
+  body.pg-gerenciar-servicos .pata-deco.p1,body.pg-gerenciar-servicos .pata-deco.p2,body.pg-gerenciar-servicos .pata-deco.p4{display:none}
+  /* celular: o título ocupa a largura toda, então a patinha do topo sai (ficam a onda e a patinha branca) */
+  body.pg-gerenciar-servicos .pata-deco.p3{display:none}
+  body.pg-gerenciar-servicos .gs-deco .onda{height:110px}
+  body.pg-gerenciar-servicos .pata-onda{width:42px;height:42px}
+  body.pg-gerenciar-servicos #btn-limpar{flex:1 1 100%}
+  body.pg-gerenciar-servicos .dlg-confirma{padding:30px 20px 22px}
+}

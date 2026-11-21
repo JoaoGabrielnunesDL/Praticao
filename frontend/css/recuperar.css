@@ -1,0 +1,41 @@
+/* =====================================================================
+   REDEFINIR SENHA — complemento de login.css (Fase 3)
+   Mesma linguagem do login, comunicando "recuperação de acesso": passo atual + progresso, ícones de cadeado/chave,
+   pet menor e mais discreto. #rotulo-passo, .forca/.nivel-N e #forca-texto continuam controlados pelo JS.
+   ===================================================================== */
+
+/* Pet mais discreto que no login */
+.pg-recuperar .ac-pets{max-width:380px;filter:brightness(1.07)} /* fundo cinza-claro da foto vira branco e some no multiply */
+.pg-recuperar .boas-vindas h1 strong{font-size:clamp(2.25rem,1.5rem + 2vw,3rem)}
+.pg-recuperar .boas-vindas .aviso{display:inline-flex;align-items:center;gap:var(--esp-2);margin-top:var(--esp-4);font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-texto-2)} /* 5,76:1 */
+.ac-ic{width:18px;height:18px;flex:none;fill:none;stroke:var(--cor-azul);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Passo atual: rótulo discreto (não mais "pílula" azul) + barra de progresso que acompanha o passo visível */
+.passo{display:block;font-size:var(--texto-12);font-weight:var(--peso-forte);letter-spacing:var(--espaco-letra-rotulo);text-transform:uppercase;color:var(--cor-texto-2)} /* 6,36:1 */
+.ac-progresso{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:var(--esp-2) 0 var(--esp-6)}
+.ac-progresso i{height:4px;border-radius:2px;background:var(--cor-azul-superficie)}
+.ac-progresso i:first-child{background:var(--cor-azul)}
+.cartao:has(#passo-2:not([hidden])) .ac-progresso i:nth-child(-n+2){background:var(--cor-azul)}
+.cartao:has(#passo-3:not([hidden])) .ac-progresso i{background:var(--cor-sucesso)}
+
+/* Ícone do passo (cadeado / chave): traço direto sobre o cartão, sem "ladrilho" atrás */
+.cartao .avatar{display:block;margin-bottom:var(--esp-3);color:var(--cor-azul);line-height:0}
+.cartao .avatar svg,.concluido .check svg{width:32px;height:32px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Força da senha (cores definidas pelo nível que o JS aplica) */
+.forca{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:var(--esp-2)}
+.forca i{height:6px;border-radius:999px;background:var(--cor-azul-superficie)}
+.forca.nivel-1 i:nth-child(1){background:#d93025}
+.forca.nivel-2 i:nth-child(-n+2){background:#f2b705}
+.forca.nivel-3 i{background:#2e9e4f}
+#forca-texto{display:block;margin-top:6px}
+
+/* Concluído */
+.concluido .check{display:block;margin-bottom:var(--esp-3);color:var(--cor-sucesso);line-height:0}
+.concluido .check svg{width:40px;height:40px;stroke-width:2.2}
+.concluido .sub{margin:var(--esp-2) 0 var(--esp-6)}
+.concluido .btn{display:flex}
+
+@media(max-width:599px){
+  .pg-recuperar .boas-vindas .aviso{margin-top:var(--esp-2)}
+}

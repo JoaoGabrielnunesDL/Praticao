@@ -1,0 +1,117 @@
+/* Painel do Tutor. Usa as cores e componentes de base.css. */
+.ola{margin:8px 0 22px;color:var(--cinza)}
+.ola strong{color:var(--azul)}
+.btn-azul{background:var(--azul);color:#fff}
+.btn-azul:hover{background:var(--azul-esc)}
+
+.pn-cartoes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pn-card{padding:22px 24px}
+.pn-card h2{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.pn-icone{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:12px;background:#e4eeff;font-size:1.2rem}
+.pn-icone.azul{background:#e4eeff}.pn-icone.laranja{background:#ffeedb}.pn-icone.roxo{background:#efe6fb}.pn-icone.verde{background:#dff5e5}
+.pn-numero{font-size:2.2rem;font-weight:800;color:var(--azul);line-height:1.1}
+.pn-card .sub{margin-bottom:14px}
+.pn-card p.vazio-txt{color:var(--cinza);margin-bottom:14px}
+
+/* Próximo agendamento preenchido */
+.pn-prox{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin-bottom:14px}
+.pn-prox dt{color:var(--cinza);font-weight:600}
+.pn-prox dd{color:var(--azul);font-weight:700}
+
+.pn-titulo{margin:30px 0 12px;font-size:1.6rem;color:var(--azul)}
+.pn-titulo small{display:block;font-size:.85rem;font-weight:400;color:var(--cinza)}
+.pn-acoes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pn-acao{display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:14px;font:inherit;color:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(11,58,158,.08);transition:transform .2s}
+.pn-acao:hover{transform:translateY(-3px)}
+.pn-acao strong{display:block;color:var(--azul)}
+.pn-acao small{display:block;color:var(--cinza);font-size:.78rem}
+.pn-acao i{margin-left:auto;font-style:normal;font-size:1.5rem;color:var(--laranja)}
+
+.pn-banner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:28px;padding:22px 28px;border-radius:20px;color:#fff;background:linear-gradient(100deg,var(--azul),#1f5ed8)}
+.pn-banner-titulo{display:flex;align-items:center;gap:14px}
+.pn-banner-titulo span{font-size:2.4rem}
+.pn-banner h2{font-size:1.5rem;line-height:1.2}
+.pn-banner ul{list-style:none;display:grid;gap:4px;font-size:.92rem}
+.pn-banner li::before{content:"✔ ";color:#9be19b}
+.pn-casinha{font-size:3rem}
+
+/* Lembretes */
+#dlg-lembretes{margin:auto}
+.lem{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--borda);border-radius:12px;padding:10px 14px;margin-bottom:8px}
+.lem small{display:block;color:var(--cinza)}
+
+@media(max-width:900px){.pn-cartoes{grid-template-columns:1fr}.pn-acoes{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.pn-acoes{grid-template-columns:1fr}.pn-banner{justify-content:center;text-align:center}}
+
+/* =====================================================================
+   PILOTO: kit pet shop (praticao-ui.css) no Painel do Tutor.
+   Tudo abaixo vale só para body.pg-painel-tutor. Nenhuma classe/ID usado pelo JS foi renomeado.
+   Importante: nada entre a foto dos pets e o fundo da página pode ter z-index/isolation/opacity/transform,
+   senão o multiply para de funcionar (o branco da foto apareceria).
+   ===================================================================== */
+
+/* ---------- Página e fundo (mesma identidade das telas redesenhadas) ---------- */
+.pg-painel-tutor .pagina{position:relative;overflow-x:clip;padding:30px 0 130px;background:radial-gradient(1200px 500px at 70% -10%,#dcebff 0%,transparent 60%),linear-gradient(180deg,#eaf3ff 0%,#f5f9ff 45%,#eef5ff 100%)}
+.pg-painel-tutor .pagina>.container{position:relative}
+
+/* ---------- Topo: título à esquerda, cachorro e gato à direita, "sentados" sobre os cartões ---------- */
+.pn-topo{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:24px;align-items:center;margin-bottom:22px}
+.pg-painel-tutor .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
+.pg-painel-tutor h1{font-size:2.4rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
+.pn-sem-quebra{white-space:nowrap}
+.pn-faisca{width:34px;height:34px;margin-left:6px;vertical-align:top;color:var(--laranja)}
+.pg-painel-tutor .ola{margin:0;color:#183b8c;font-size:1.02rem}
+.pn-pets{align-self:end;width:360px;padding:0;margin-bottom:-22px;--pc-pets-proporcao:1290/880;--pc-pets-foco:40% 50%}
+.pn-pets img{filter:brightness(1.07)} /* fundo cinza-claro da foto vira branco e some no multiply */
+.pn-pets::before{bottom:-6px;height:18px}
+.pn-d-coracao{top:14%;left:69%;width:20px;height:20px;background-color:var(--pc-deco-forte);rotate:12deg}
+.pn-d-brilho{top:4%;right:2%;width:18px;height:18px;background-color:var(--pc-deco-forte)}
+
+/* ---------- Cartões e ícones (emojis trocados por ícones SVG do kit) ---------- */
+.pg-painel-tutor .pn-card{border-radius:20px;box-shadow:0 8px 26px rgba(11,58,158,.08)}
+.pg-painel-tutor .pn-icone,
+.pg-painel-tutor .pn-icone.azul,.pg-painel-tutor .pn-icone.laranja,.pg-painel-tutor .pn-icone.roxo,.pg-painel-tutor .pn-icone.verde{background:var(--pc-ic-fundo);color:var(--pc-ic-cor);font-size:20px;border-radius:12px}
+.pg-painel-tutor .pn-acao{border-color:#e3ebf7;border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.06)}
+.pg-painel-tutor .pn-acao:hover{box-shadow:0 10px 24px rgba(11,58,158,.12)}
+.pg-painel-tutor .vazio>.pc-ic{display:block;margin:0 auto 8px;font-size:2.6rem;color:#d93025}
+@media(prefers-reduced-motion:reduce){.pg-painel-tutor .pn-acao,.pg-painel-tutor .pn-acao:hover{transition:none;transform:none}}
+
+/* ---------- Banner: onda clara por dentro, coração e casinha em SVG, orelhas de gato espiando ---------- */
+.pg-painel-tutor .pn-banner{position:relative;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160' preserveAspectRatio='none'%3E%3Cpath d='M0 160C90 150 150 120 210 80S330 10 400 0V160Z' fill='%23fff' fill-opacity='.07'/%3E%3C/svg%3E") right bottom/58% 100% no-repeat,linear-gradient(100deg,var(--azul),#1f5ed8)}
+.pg-painel-tutor .pn-banner-titulo .pc-ic{color:#9cc3ff}
+.pg-painel-tutor .pn-casinha{color:#fff;opacity:.92;line-height:1}
+.pn-gato{top:-25px;right:150px;width:46px;height:28px;background-color:var(--pc-deco-forte)}
+
+/* ---------- Enfeites de fundo (só nas margens; somem quando não há margem) ----------
+   --margem = largura livre ao lado do container de 1100px; as posições laterais são frações dela,
+   então os enfeites nunca invadem o título, os cartões ou o banner. */
+.pn-cena{--margem:calc((100% - 1100px) / 2)}
+.pn-cena .pc-d{opacity:.7}
+.pn-d-trilha1{top:64px;left:calc(var(--margem) * .22);width:22px;height:22px;rotate:-20deg}
+.pn-d-trilha2{top:112px;left:calc(var(--margem) * .5);width:26px;height:26px;rotate:10deg}
+.pn-d-trilha3{top:166px;left:calc(var(--margem) * .28);width:30px;height:30px;rotate:-12deg}
+.pn-d-pata{top:28px;right:calc(var(--margem) * .3);width:64px;height:64px;rotate:-12deg;opacity:.55}
+.pn-d-osso{top:52%;right:-12px;width:72px;height:72px;rotate:-28deg;opacity:.6}
+.pn-d-pote{bottom:230px;left:calc(var(--margem) * .14);width:56px;height:56px;opacity:.65}
+.pn-d-bolinha{bottom:196px;left:calc(var(--margem) * .55);width:26px;height:26px;background-color:var(--pc-deco-forte);opacity:.6}
+.pn-cena .pn-d-pata-onda{right:26px;bottom:20px;width:56px;height:56px;background-color:#fff;opacity:.9;rotate:-14deg}
+
+@media(max-width:1279px){
+  .pn-d-trilha1,.pn-d-trilha2,.pn-d-trilha3,.pn-d-pata,.pn-d-osso,.pn-d-pote,.pn-d-bolinha{display:none}
+}
+@media(max-width:1099px){
+  .pn-pets{width:300px}
+}
+@media(max-width:899px){
+  .pn-pets{width:240px}
+}
+/* Celular: sem pets e sem enfeites laterais (o conteúdo vem primeiro); ficam a onda e as orelhas no banner */
+@media(max-width:599px){
+  .pn-topo{grid-template-columns:minmax(0,1fr)}
+  .pn-pets{display:none}
+  .pg-painel-tutor h1{font-size:1.9rem}
+  .pg-painel-tutor .pagina{padding-bottom:110px}
+  .pg-painel-tutor .pc-onda{height:100px}
+  .pn-cena .pn-d-pata-onda{width:40px;height:40px;right:18px;bottom:14px}
+  .pn-gato{right:50%;translate:50% 0}
+}

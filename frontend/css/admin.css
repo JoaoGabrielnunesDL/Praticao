@@ -1,0 +1,213 @@
+/* Painel do Administrador (Visão geral). Complementa base.css.
+   Mesmo padrão visual da tela de Relatórios; tudo aqui vale só para painel-admin.html. */
+
+/* ===== Página, fundo e decoração ===== */
+.adm-pagina{position:relative;overflow-x:clip;background:radial-gradient(1200px 500px at 70% -10%,#dcebff 0%,transparent 60%),linear-gradient(180deg,#eaf3ff 0%,#f5f9ff 45%,#eef5ff 100%);padding:30px 0 90px}
+.adm-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.pata-deco{position:absolute;fill:#c7dbfb;opacity:.55}
+.pata-deco.p1{top:40px;left:3%;width:52px;height:52px;transform:rotate(-18deg)}
+.pata-deco.p2{top:150px;left:10%;width:40px;height:40px;transform:rotate(12deg)}
+.pata-deco.p3{top:80px;right:34%;width:42px;height:42px;transform:rotate(10deg)}
+.pata-deco.p4{top:30px;right:12%;width:84px;height:84px;transform:rotate(-12deg)}
+.pata-deco.p5{top:420px;left:14%;width:40px;height:40px;transform:rotate(16deg)}
+.adm-deco .onda{position:absolute;right:0;bottom:0;width:min(440px,62vw);height:150px}
+.pata-onda{position:absolute;right:26px;bottom:20px;width:56px;height:56px;fill:#fff;opacity:.9;transform:rotate(-14deg)}
+/* Sem z-index: o conteúdo já fica acima da decoração pela ordem do HTML, e assim a foto dos pets
+   (multiply) consegue se misturar com o fundo da página */
+.adm-container{position:relative}
+.adm-conteudo{position:relative;min-width:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Ilustração dos pets: componente .pc-pets (praticao-ui.css) cuida do fundo, do círculo e da foto.
+   Aqui ficam só o escudo, a faísca e as posições próprias desta tela. */
+.adm-pets{color:var(--laranja)}
+.adm-pets .escudo{position:absolute;width:72px;height:82px;filter:drop-shadow(0 8px 14px rgba(11,58,158,.28))}
+.adm-pets .faisca{position:absolute;width:32px;height:32px;transform:rotate(-10deg)}
+.adm-pets .pc-pets-trilha{display:none}
+
+/* ===== Título ===== */
+.adm-topo .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
+.adm-topo h1{font-size:2.4rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
+.sem-quebra{white-space:nowrap}
+.faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:var(--laranja)}
+.adm-topo .sub{font-size:1.02rem}
+
+/* ===== Grade de cartões =====
+   20 colunas: usuários e agendamentos dividem ao meio; status (9) fica mais estreito que a agenda (11), como na referência. */
+.adm-grade{display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:18px;margin:24px 0 18px}
+.bloco-usuarios,.bloco-agendamentos{grid-column:span 10}
+.bloco-status{grid-column:span 9}
+.bloco-agenda{grid-column:span 11}
+.adm-pagina .bloco{position:relative;min-width:0;border-radius:20px;box-shadow:0 8px 26px rgba(11,58,158,.08);padding:20px 22px}
+.adm-pagina .bloco h2{display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:800;color:var(--azul)}
+.cab-bloco{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.cab-faixa{background:#eef4ff;margin:-20px -22px 16px;padding:12px 22px;border-radius:20px 20px 0 0;min-height:66px}
+/* "Administradores" é uma palavra só: sem recuo lateral e com letras um pouco mais juntas, cabe inteira */
+.bloco-usuarios .num{font-size:.74rem;padding-left:0;padding-right:0;letter-spacing:-.01em}
+.bloco-status{display:flex;flex-direction:column}
+.bloco-status .grafico{flex:1}
+.tit-ic{width:34px;height:34px;border-radius:11px;background:#e2edff;color:#1f6fe5;display:grid;place-items:center;flex:none}
+.cab-faixa .tit-ic{background:#fff}
+.tit-ic svg{width:19px;height:19px;fill:currentColor}
+.pata-canto{position:absolute;top:16px;right:18px;width:30px;height:30px;fill:#cfe0fb}
+.bloco-status h2{padding-right:40px}
+#btn-atualizar{min-height:40px;background:#fff}
+#btn-atualizar:disabled{opacity:.6;cursor:wait}
+
+/* Números (cada um é um link para a tela filtrada) */
+.numeros{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.num{display:block;text-align:center;padding:8px 4px;border-radius:12px;color:var(--cinza);font-size:.8rem;font-weight:600;line-height:1.25;position:relative;transition:background .15s}
+.num+.num::before{content:"";position:absolute;left:0;top:14%;bottom:14%;border-left:1px solid #dfe8f6}
+.num:hover{background:#f1f6ff}
+.num strong{display:block;font-size:1.85rem;font-weight:800;color:var(--azul);line-height:1.15}
+.num.cor-pendente,.num.cor-pendente strong{color:#b35c00}
+.num.cor-pendente strong{color:#cc6a00}
+.num.cor-confirmado,.num.cor-confirmado strong{color:#1f5fd0}
+.num.cor-concluido,.num.cor-concluido strong{color:#1d7a34}
+.num.cor-cancelado,.num.cor-cancelado strong{color:#c62828}
+.nota{font-size:.78rem;color:var(--cinza);margin-top:10px}
+.erro-bloco{background:#fdecea;color:#b3261e;border-radius:10px;padding:8px 12px;font-size:.85rem;margin-top:10px}
+
+/* ===== Gráfico de rosca (CSS puro: conic-gradient) ===== */
+.grafico{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;min-height:200px}
+.rosca{width:180px;height:180px;border-radius:50%;background:#e3eaf6;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 18px rgba(11,58,158,.12)}
+.rosca .miolo{width:108px;height:108px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--azul);font-weight:700;font-size:.9rem;box-shadow:inset 0 2px 8px rgba(11,58,158,.1)}
+.rosca .miolo strong{font-size:2.1rem;font-weight:800;color:var(--azul);line-height:1}
+.legenda{list-style:none;display:grid;gap:4px;flex:1 1 160px;min-width:0;max-width:260px}
+.legenda a{display:flex;align-items:center;gap:10px;min-height:40px;padding:6px 10px;border-radius:10px;font-weight:600;color:var(--texto)}
+.legenda a:hover{background:#f1f6ff}
+.legenda i{width:14px;height:14px;border-radius:50%;flex:none}
+.legenda .pct{margin-left:auto;font-weight:700;color:var(--azul)}
+
+/* ===== Prévia da agenda (tabela) ===== */
+.ver-mais{font-size:.9rem;color:var(--azul);font-weight:700;padding:6px 2px}
+.ver-mais:hover{color:var(--laranja-esc)}
+.previa{border:1px solid #e3ebf7;border-radius:14px;overflow:hidden}
+.previa .cab-prev,.previa .linha-ag{display:grid;grid-template-columns:62px minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr) 128px;gap:10px;align-items:center;padding:10px 14px;text-align:left}
+.previa .cab-prev{background:#eef4ff;color:var(--azul);font-weight:800;font-size:.84rem}
+.previa .linha-ag{width:100%;background:#fff;border:0;border-top:1px solid #edf2fa;font:inherit;font-size:.92rem;color:var(--texto);cursor:pointer;transition:background .12s}
+.previa .linha-ag:hover{background:#f5f9ff}
+.previa .linha-ag strong{font-weight:700;color:var(--azul)}
+.previa .linha-ag>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.previa .status{display:inline-flex;align-items:center;justify-content:center;gap:5px;justify-self:start;font-size:.78rem;padding:3px 10px 3px 5px}
+.previa .status .ic{width:15px;height:15px;flex:none}
+.previa .status.pendente .ic{color:#f28a0c}
+.previa .status.confirmado .ic{color:#1f6fe5}
+.previa .status.concluido .ic{color:#2e9e4f}
+.previa .status.cancelado .ic{color:#e53935}
+.previa>.nota{margin:0;padding:10px 14px;border-top:1px solid #edf2fa;background:#fafcff}
+.previa>.vazio{padding:36px 16px;background:#fff}
+/* Antes da 1ª resposta a prévia está vazia: mostra um indicador de carregamento (só CSS) */
+.previa:empty{min-height:140px;display:grid;place-items:center;background:#fff}
+.previa:empty::before{content:"";width:34px;height:34px;border:4px solid #cfe0fb;border-top-color:var(--azul);border-radius:50%;animation:girar .8s linear infinite}
+.adm-pagina:has(#erro-agenda:not([hidden])) .previa:empty::before{content:"Agenda indisponível no momento.";width:auto;height:auto;border:0;animation:none;color:var(--cinza);font-weight:600}
+@media(prefers-reduced-motion:reduce){.previa:empty::before{animation-duration:3s}}
+
+/* ===== Acesso rápido ===== */
+.atalhos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.atalhos a{display:flex;align-items:center;gap:14px;min-height:84px;padding:14px 16px;background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.08);transition:transform .15s,box-shadow .15s,border-color .15s}
+.atalhos a:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(11,58,158,.13);border-color:var(--laranja)}
+.atalho-ic{width:52px;height:52px;border-radius:50%;background:#eaf2ff;color:#1f5fd0;display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px #d6e5fb}
+.atalho-ic svg{width:26px;height:26px;fill:currentColor}
+.atalho-txt{display:flex;flex-direction:column;min-width:0;line-height:1.2}
+.atalhos strong{color:var(--azul);font-weight:800;font-size:.98rem}
+.atalhos small{color:var(--cinza);font-size:.8rem;margin-top:2px}
+
+/* Janela de detalhes */
+#dlg-detalhes .dados{gap:0 14px}
+#dlg-detalhes .dados dt,#dlg-detalhes .dados dd{padding:8px 0;border-bottom:1px solid #edf2fa}
+
+/* ===== Telas largas (≥ 1280px): pets em coluna lateral =====
+   O painel ocupa a altura toda do conteúdo (do título aos atalhos); os pets ficam na base,
+   alinhados aos cartões, e a parte de cima recebe só o círculo, o escudo e a trilha de patinhas. */
+@media(min-width:1280px){
+  .adm-container{max-width:1480px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
+  .adm-pets{align-self:stretch;--pc-pets-circulo-base:150px}
+  .adm-pets .pc-pets-circulo{width:96%}
+  /* círculo: 96% de 300px = 288px, apoiado a 150px da base → topo em 438px */
+  .adm-pets .escudo{left:14px;bottom:352px}
+  .adm-pets .faisca{left:82px;bottom:412px}
+  .adm-pets .pc-pets-trilha{display:block;top:36px;right:18px;width:96px;height:184px}
+  /* a coluna dos pets já tem a trilha: duas patinhas de fundo cairiam em cima dela */
+  .pata-deco.p2,.pata-deco.p5{display:none}
+}
+/* 1280–1365px: coluna um pouco menor para os cartões (dados) não perderem largura */
+@media(min-width:1280px) and (max-width:1365px){
+  .adm-container{grid-template-columns:270px minmax(0,1fr);gap:24px}
+  /* 96% de 270px = 259px, apoiado a 150px → topo em 409px */
+  .adm-pets .escudo{left:12px;bottom:323px}
+  .adm-pets .faisca{left:80px;bottom:383px}
+  .bloco-usuarios .num{font-size:.7rem}
+}
+@media(min-width:1600px){
+  .adm-container{max-width:1580px;grid-template-columns:320px minmax(0,1fr);gap:36px}
+  .adm-pets{--pc-pets-circulo-base:160px}
+  /* 96% de 320px = 307px, apoiado a 160px → topo em 467px */
+  .adm-pets .escudo{left:16px;bottom:376px}
+  .adm-pets .faisca{left:86px;bottom:438px}
+}
+
+/* ===== Notebook e tablet (700–1279px): pets ao lado do título, sem painel ===== */
+@media(max-width:1279px){
+  .adm-pets{position:absolute;top:-6px;right:20px;width:156px;padding:0 0 10px;--pc-pets-circulo-base:18px}
+  .adm-pets .escudo{width:44px;height:50px;top:-4px;left:-10px}
+  .adm-pets .faisca{width:22px;height:22px;top:-6px;left:30px}
+  .adm-topo{padding-right:190px;min-height:184px;align-content:start}
+}
+@media(max-width:1099px){
+  .adm-pets{width:132px}
+  .adm-topo{padding-right:160px;min-height:156px}
+}
+@media(max-width:1100px){
+  .bloco-status,.bloco-agenda{grid-column:1/-1}
+  .atalhos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .num strong{font-size:1.6rem}
+  .num{font-size:.76rem}
+}
+@media(min-width:901px) and (max-width:1100px){
+  .bloco-usuarios .num{font-size:.7rem}
+}
+@media(max-width:900px){
+  .bloco-usuarios,.bloco-agendamentos,.bloco-status,.bloco-agenda{grid-column:1/-1}
+  .atalhos{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* ===== Celular ===== */
+@media(max-width:699px){
+  .adm-pets{display:none}
+  .adm-topo{padding-right:0}
+  .adm-topo h1{font-size:1.9rem}
+  .pata-deco.p1,.pata-deco.p2,.pata-deco.p3,.pata-deco.p5{display:none}
+  .pata-deco.p4{top:20px;right:4%;width:56px;height:56px}
+  .adm-deco .onda{height:110px}
+  .pata-onda{width:42px;height:42px}
+}
+@media(max-width:600px){
+  .adm-pagina{padding-top:22px}
+  .adm-grade{gap:14px}
+  .adm-pagina .bloco{padding:16px 14px;border-radius:18px}
+  .cab-faixa{margin:-16px -14px 12px;padding:10px 14px;border-radius:18px 18px 0 0}
+  /* Números em 3 + 2, como na referência */
+  .numeros{grid-template-columns:repeat(6,minmax(0,1fr));row-gap:6px}
+  .num{grid-column:span 2;min-height:56px}
+  .num:nth-child(n+4){grid-column:span 3}
+  .num:nth-child(4)::before{display:none}
+  .num:nth-child(n+4){border-top:1px solid #edf2fa;border-radius:0;padding-top:10px}
+  .rosca{width:150px;height:150px}
+  .rosca .miolo{width:92px;height:92px}
+  .rosca .miolo strong{font-size:1.8rem}
+  .legenda{flex-basis:100%;max-width:none}
+  /* Agenda: cada linha vira um cartão compacto de duas linhas */
+  .previa .cab-prev{display:none}
+  .previa .linha-ag{grid-template-columns:auto minmax(0,1.15fr) minmax(0,1fr);grid-template-areas:"h pet st" "h serv tutor";gap:2px 10px;padding:10px 12px}
+  .previa .linha-ag>:nth-child(1){grid-area:h}
+  .previa .linha-ag>.c-pet{grid-area:pet;font-weight:700}
+  .previa .linha-ag>.c-serv{grid-area:serv;font-size:.86rem}
+  .previa .linha-ag>.c-tutor{grid-area:tutor;color:var(--cinza);font-size:.8rem;text-align:right}
+  .previa .linha-ag>.status{grid-area:st;justify-self:end}
+  .atalhos{gap:10px}
+  .atalhos a{flex-direction:column;align-items:center;text-align:center;gap:8px;padding:14px 8px;min-height:120px}
+  .atalho-txt{align-items:center}
+  .atalhos small{display:none}
+  .atalhos strong{font-size:.9rem}
+}

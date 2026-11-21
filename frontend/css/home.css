@@ -1,0 +1,110 @@
+/* =====================================================================
+   HOME — Fase 3 (Design System: tokens de base.css; títulos em Figtree)
+   Substitui hero.css, servicos.css, agendar.css, sobre.css, curiosidades.css e depoimentos.css nesta página.
+   Composição com ritmo: hero (foto) → serviços (lista com ícones) → agendamento (foto + benefícios)
+   → bloco editorial → dicas (lista editorial com fotos) → depoimentos (tipografia).
+   Laranja só no CTA do hero. Pets direto sobre o fundo (multiply), sem círculo, moldura ou cartão.
+   ===================================================================== */
+.pg-home{background:var(--cor-superficie)}
+.pg-home main{overflow-x:clip}
+
+/* ---------- Tipografia da página ---------- */
+.hm-eyebrow{font-size:var(--texto-12);font-weight:var(--peso-forte);letter-spacing:var(--espaco-letra-rotulo);text-transform:uppercase;color:var(--cor-texto-2);margin-bottom:var(--esp-3)} /* 5,76:1 */
+.hm-titulo{font-family:var(--fonte-titulo);font-size:clamp(1.625rem,1.2rem + 1.2vw,2.125rem);font-weight:var(--peso-forte);line-height:var(--altura-linha-titulo);letter-spacing:-.015em;color:var(--cor-titulo)}
+.hm-titulo-g{font-size:clamp(1.875rem,1.3rem + 1.7vw,2.625rem);letter-spacing:-.02em}
+.hm-sub{margin-top:var(--esp-2);font-size:var(--texto-16);color:var(--cor-texto-2);line-height:var(--altura-linha-texto)}
+.hm-secao{padding:var(--esp-16) 0}
+.hm-cab{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--esp-4);margin-bottom:var(--esp-8);flex-wrap:wrap}
+.hm-link{display:inline-flex;align-items:center;gap:6px;min-height:40px;color:var(--cor-link);font-weight:var(--peso-medio);text-underline-offset:3px} /* 5,82:1 */
+.hm-link:hover{text-decoration:underline}
+.hm-link svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Foco: anel azul do sistema em tudo que é clicável na página */
+.pg-home main :is(a,button):focus-visible{outline:none;box-shadow:var(--anel-foco);border-radius:var(--raio-m)}
+
+/* ---------- Hero ---------- */
+.hm-hero{background:var(--cor-azul-claro);padding:var(--esp-12) 0 var(--esp-16)}
+.hm-hero-grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--esp-12);align-items:center}
+.hm-hero h1{font-family:var(--fonte-titulo);font-size:clamp(2.25rem,1.4rem + 2.6vw,3.375rem);font-weight:var(--peso-forte);line-height:1.06;letter-spacing:-.025em;color:var(--cor-titulo);max-width:18ch}
+.hm-hero h1 span{display:block;color:var(--cor-azul)}                                   /* 5,27:1 no azul-claro (texto grande) */
+.hm-hero-desc{margin:var(--esp-4) 0 var(--esp-8);font-size:var(--texto-18);line-height:var(--altura-linha-texto);color:var(--cor-texto-2);max-width:44ch} /* 5,76:1 */
+.hm-cta{display:inline-flex;align-items:center;gap:var(--esp-2);min-height:var(--altura-botao-g);padding:0 var(--esp-6);border-radius:var(--raio-m);background:var(--cor-cta);color:var(--cor-cta-texto);font-size:var(--texto-16);font-weight:var(--peso-forte);transition:background-color var(--transicao)} /* 5,41:1 */
+.hm-cta:hover{background:var(--cor-laranja-hover)}                                        /* 6,37:1 */
+.hm-cta svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* Pets: foto inteira, o fundo branco some no azul-claro (multiply). Nada entre a foto e o fundo cria contexto de empilhamento. */
+.hm-hero-pets img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
+
+/* ---------- Serviços ---------- */
+.hm-servicos-grade{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--esp-4)}
+.hm-servico{display:flex;flex-direction:column;gap:var(--esp-2);padding:var(--esp-6);border:1px solid var(--cor-borda);border-radius:var(--raio-g);background:var(--cor-superficie);transition:border-color var(--transicao),background-color var(--transicao)}
+.hm-servico:hover{border-color:var(--cor-azul);background:var(--cor-azul-claro)}
+.hm-ic{display:grid;place-items:center;width:44px;height:44px;margin-bottom:var(--esp-2);border-radius:var(--raio-m);background:var(--cor-azul-claro);color:var(--cor-azul)}
+.hm-servico:hover .hm-ic{background:var(--cor-superficie)}
+.hm-ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hm-servico-nome{font-family:var(--fonte-titulo);font-size:1.25rem;font-weight:var(--peso-forte);color:var(--cor-titulo);line-height:1.2}
+.hm-servico-desc{font-size:.9375rem;color:var(--cor-texto-2);line-height:1.45}            /* 6,36:1 */
+.hm-preco{margin-top:auto;padding-top:var(--esp-3);font-size:.9375rem;font-weight:var(--peso-forte);color:var(--cor-titulo)} /* 13,49:1 (antes laranja 2,5:1) */
+
+/* ---------- Agendamento ---------- */
+.hm-agendar{background:var(--cor-azul-claro)}
+.hm-agendar-grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--esp-12);align-items:center}
+.hm-agendar-pets img{display:block;width:100%;height:auto;filter:brightness(1.07);mix-blend-mode:multiply} /* fundo cinza-claro da foto vira branco e some */
+.hm-beneficios{list-style:none;display:grid;gap:var(--esp-4);margin:var(--esp-6) 0 var(--esp-8)}
+.hm-beneficios li{display:flex;gap:var(--esp-3);align-items:flex-start}
+.hm-beneficios svg{flex:none;width:28px;height:28px;padding:5px;border-radius:var(--raio-p);background:var(--cor-superficie);fill:none;stroke:var(--cor-azul);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.hm-beneficios strong{display:block;font-weight:var(--peso-medio);color:var(--cor-texto)}
+.hm-beneficios span{font-size:.9375rem;color:var(--cor-texto-2);line-height:1.45}
+.hm-btn-sec{display:inline-flex;align-items:center;min-height:var(--altura-botao-g);padding:0 var(--esp-6);border:1.5px solid var(--cor-azul);border-radius:var(--raio-m);background:var(--cor-superficie);color:var(--cor-azul);font-weight:var(--peso-medio);transition:background-color var(--transicao)} /* 5,82:1 */
+.hm-btn-sec:hover{background:var(--cor-azul-claro);color:var(--cor-azul-forte);border-color:var(--cor-azul-forte)}
+
+/* ---------- Bloco editorial (o pet shop) ---------- */
+.hm-petshop-grade{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:var(--esp-12);align-items:start}
+.hm-petshop-texto{font-size:var(--texto-18);line-height:var(--altura-linha-texto);color:var(--cor-texto-2);margin-bottom:var(--esp-8)}
+.hm-fatos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-6)}
+.hm-fatos>div{padding-top:var(--esp-3);border-top:2px solid var(--cor-azul-superficie)}
+.hm-fatos dt{font-weight:var(--peso-forte);color:var(--cor-titulo);margin-bottom:var(--esp-1)}
+.hm-fatos dd{font-size:var(--texto-14);color:var(--cor-texto-2)}
+
+/* ---------- Dicas (lista editorial com as fotos dos artigos) ---------- */
+.hm-dicas{border-top:1px solid var(--cor-borda)}
+.hm-dicas-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-8)}
+.hm-dica{display:grid;grid-template-columns:88px minmax(0,1fr);gap:var(--esp-4);align-items:start;padding-top:var(--esp-4);border-top:1px solid var(--cor-borda)}
+.hm-dica img{width:88px;height:88px;object-fit:cover;border-radius:var(--raio-m)}
+.hm-dica-corpo{display:flex;flex-direction:column;gap:6px}
+.hm-tag{font-size:var(--texto-12);font-weight:var(--peso-forte);letter-spacing:var(--espaco-letra-rotulo);text-transform:uppercase;color:var(--cor-texto-2)}
+.hm-dica-titulo{font-family:var(--fonte-titulo);font-size:1.125rem;font-weight:var(--peso-forte);line-height:1.25;color:var(--cor-titulo)}
+.hm-dica-desc{font-size:.9375rem;color:var(--cor-texto-2);line-height:1.45}
+.hm-ler{font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-link);text-decoration:underline;text-underline-offset:3px}
+.hm-dica:hover .hm-dica-titulo{color:var(--cor-azul)}
+
+/* ---------- Depoimentos ---------- */
+.hm-depo{background:var(--cor-azul-claro);padding-bottom:calc(var(--esp-16) + 24px)} /* reserva a onda do rodapé */
+.hm-depo-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-8);margin-top:var(--esp-8)}
+.hm-depo-item{padding-top:var(--esp-4);border-top:2px solid var(--cor-azul-superficie)}
+.hm-estrelas{display:flex;gap:2px;margin-bottom:var(--esp-3)}
+.hm-estrelas svg{width:16px;height:16px;fill:var(--cor-laranja)}                          /* acento de marca (não é texto) */
+.hm-depo-item blockquote p{font-family:var(--fonte-titulo);font-size:1.125rem;line-height:1.5;color:var(--cor-texto)}
+.hm-depo-item figcaption{margin-top:var(--esp-4);font-size:var(--texto-14);font-weight:var(--peso-forte);color:var(--cor-titulo)}
+
+/* ---------- Responsivo ---------- */
+@media(max-width:1023px){
+  .hm-servicos-grade{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hm-dicas-grade{grid-template-columns:1fr;gap:var(--esp-4)}
+  .hm-petshop-grade{grid-template-columns:1fr;gap:var(--esp-6)}
+}
+@media(max-width:799px){
+  .hm-secao{padding:var(--esp-12) 0}
+  .hm-hero{padding:var(--esp-8) 0 var(--esp-8)}
+  .hm-hero-grade,.hm-agendar-grade{grid-template-columns:1fr;gap:var(--esp-6)}
+  .hm-hero-pets{max-width:520px}
+  .hm-agendar-pets{max-width:480px;order:2}
+  .hm-depo-grade{grid-template-columns:1fr;gap:var(--esp-6)}
+  .hm-fatos{grid-template-columns:1fr;gap:var(--esp-3)}
+  .hm-depo{padding-bottom:calc(var(--esp-12) + 16px)}
+}
+@media(max-width:479px){
+  .hm-servicos-grade{grid-template-columns:1fr}
+  .hm-servico{padding:var(--esp-4)}
+  .hm-cta{width:100%;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){.hm-cta,.hm-servico,.hm-btn-sec{transition:none}}

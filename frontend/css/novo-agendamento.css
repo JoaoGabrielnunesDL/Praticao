@@ -1,0 +1,32 @@
+/* Novo Agendamento. Usa as cores e componentes de base.css. */
+.so-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.ag-layout{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;margin-top:20px;align-items:start}
+.ag-form{padding:24px}
+.ag-form h2,.ag-resumo h2{margin-bottom:4px}
+.obrig{color:#d93025}
+.opc{color:var(--cinza);font-weight:400;font-size:.85rem}
+fieldset{border:1px solid var(--borda);border-radius:14px;padding:14px 16px 4px;margin:16px 0}
+legend{display:flex;align-items:center;gap:8px;padding:0 8px;font-weight:700;color:var(--azul)}
+.num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--azul);color:#fff;font-size:.8rem}
+.ag-par{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.campo select,.campo input[type=date]{width:100%;padding:12px 14px;border:1.5px solid var(--borda);border-radius:12px;font:inherit;background:#fff}
+.campo select:focus,.campo input[type=date]:focus{border-color:var(--azul);outline:none}
+.campo .invalido{border-color:#d93025}
+.ag-erro{color:#b3261e!important;font-weight:600}
+.ag-contador{text-align:right}
+
+.ag-resumo{padding:22px}
+.ag-resumo dl{display:grid;grid-template-columns:auto 1fr;gap:0 14px;margin:12px 0}
+.ag-resumo dt,.ag-resumo dd{padding:9px 0;border-bottom:1px dashed var(--borda)}
+.ag-resumo dt{font-weight:700;color:var(--azul)}
+.ag-resumo dd{color:var(--cinza);text-align:right}
+.ag-resumo dd.ok{color:var(--texto);font-weight:600}
+.ag-valor{display:flex;justify-content:space-between;align-items:center;background:#fff1de;border-radius:12px;padding:12px 14px;color:var(--laranja-esc);font-weight:700}
+.ag-valor strong{font-size:1.25rem}
+.ag-regras{list-style:none;display:grid;gap:6px;margin-top:14px;background:#eaf1fd;border-radius:12px;padding:12px 14px;font-size:.85rem;color:var(--azul)}
+.ag-regras li::before{content:"✔ ";color:var(--azul)}
+
+#dlg-sucesso{margin:auto}
+#confirmar:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:900px){.ag-layout{grid-template-columns:1fr}}
+@media(max-width:560px){.ag-par{grid-template-columns:1fr}}

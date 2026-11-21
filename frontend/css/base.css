@@ -1,0 +1,267 @@
+:root{--azul:#0b3a9e;--azul-esc:#082a75;--laranja:#f28a0c;--laranja-esc:#d97500;--fundo:#f4f8ff;--texto:#1c2b4a;--cinza:#5b6b88;--borda:#dbe6f7}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Segoe UI',Arial,sans-serif;color:var(--texto);background:#fff;line-height:1.5;display:flex;flex-direction:column;min-height:100vh}
+main{flex:1}
+a{color:inherit;text-decoration:none}
+section{scroll-margin-top:120px}
+:focus-visible{outline:3px solid var(--laranja);outline-offset:2px}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.secao{padding:60px 0}
+.btn{display:inline-block;border:0;border-radius:999px;padding:12px 26px;font-weight:700;font-size:1rem;cursor:pointer;transition:background .2s}
+.btn-laranja{background:var(--laranja);color:#fff}
+.btn-laranja:hover{background:var(--laranja-esc)}
+.titulo{font-size:1.8rem;color:var(--azul);margin:4px 0 8px}
+.sub{color:var(--cinza)}
+.cab-sec{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px}
+.ver-mais{color:var(--laranja);font-weight:700}
+/* Espaço reservado para as fotos (troque depois por <img>) */
+.img-ph{background:linear-gradient(135deg,#cfe3ff,#eaf3ff);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:3rem;min-height:160px}
+/* Cartões usados em Serviços e Dicas */
+.grade-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grade-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{display:block;background:#fff;border:1px solid var(--borda);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(11,58,158,.08);transition:transform .2s}
+.card:hover{transform:translateY(-4px)}
+.card .img-ph{border-radius:0;min-height:130px;font-size:2.4rem}
+.card .corpo{padding:14px}
+.card h3{color:var(--azul);font-size:1.05rem}
+.card p{font-size:.88rem;color:var(--cinza)}
+@media(max-width:900px){.grade-4{grid-template-columns:repeat(2,1fr)}.grade-3{grid-template-columns:1fr}}
+[hidden]{display:none!important}
+.btn-contorno{background:#fff;color:var(--azul);border:1.5px solid var(--azul)}
+.btn-contorno:hover{background:#eef4ff}
+
+/* ===== Componentes compartilhados das telas internas ===== */
+.pagina{background:linear-gradient(160deg,#eaf3ff,#f7fbff);padding:36px 0 60px;min-height:70vh}
+.pagina h1{font-size:2.2rem;color:var(--azul);line-height:1.1}
+.selo-op{color:var(--laranja);font-weight:700;font-size:.85rem}
+.bloco{background:#fff;border-radius:16px;box-shadow:0 6px 20px rgba(11,58,158,.1);padding:18px 20px}
+.bloco h2{font-size:1.1rem;color:var(--azul)}
+.filtro{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:18px 0}
+.filtro label{font-weight:700;color:var(--azul)}
+.filtro input,.filtro select{padding:10px 14px;border:1.5px solid var(--borda);border-radius:999px;font:inherit;background:#fff}
+.mensagem{display:flex;justify-content:space-between;align-items:center;gap:12px;border-radius:12px;padding:12px 16px;margin-top:14px;font-weight:600}
+.mensagem.sucesso{background:#dff5d8;color:#1d6b2a;border:1px solid #9fd694}
+.mensagem.erro{background:#fdecea;color:#b3261e;border:1px solid #f1a9a4}
+.mensagem button{background:none;border:0;font-size:1.3rem;cursor:pointer;color:inherit}
+.acoes{display:flex;gap:8px;flex-wrap:wrap}
+.acao{border-radius:999px;padding:6px 14px;font:inherit;font-weight:600;font-size:.85rem;background:#fff;cursor:pointer;border:1.5px solid}
+.acao:disabled{opacity:.5;cursor:not-allowed}
+.acao.confirmar{color:var(--azul);border-color:var(--azul)}
+.acao.concluir{color:#1d7a34;border-color:#1d7a34}
+.acao.cancelar{color:#c62828;border-color:#c62828}
+.acao.detalhes{color:var(--cinza);border-color:var(--borda)}
+.status{display:inline-block;border-radius:999px;padding:4px 12px;font-weight:700;font-size:.85rem}
+.status.pendente{background:#ffe2b8;color:#9a5300}
+.status.confirmado{background:#d6e6ff;color:#0b3a9e}
+.status.concluido,.status.ativa{background:#d4f2d0;color:#1d6b2a}
+.status.cancelado,.status.inativa{background:#fcd5d3;color:#b3261e}
+.etiqueta{display:inline-block;border-radius:999px;padding:4px 12px;font-weight:600;font-size:.85rem;background:#eaf1fd;color:var(--azul)}
+.vazio,.carregando{padding:50px 20px;text-align:center;color:var(--azul);font-weight:700}
+.vazio span{display:block;font-size:3rem}
+.carregando{color:var(--cinza);font-weight:400}
+/* Janelas (detalhes, confirmação e formulários) */
+dialog{margin:auto;border:0;border-radius:16px;padding:24px;max-width:440px;width:92%;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(8,42,117,.45)}
+dialog.painel{margin:0 0 0 auto;height:100%;max-height:100%;max-width:420px;width:100%;border-radius:16px 0 0 16px}
+dialog h2{color:var(--azul);margin-bottom:10px}
+.dados{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:14px 0}
+.dados dt{color:var(--cinza);font-weight:600}
+.rodape-dlg{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:18px}
+@media(max-width:800px){dialog.painel{border-radius:0}}
+/* Campos de formulário */
+.campo{margin-bottom:14px}
+.campo label{display:block;font-size:.85rem;font-weight:600;color:var(--azul);margin-bottom:4px}
+.campo .entrada{position:relative}
+.campo input,.campo textarea{width:100%;padding:12px 14px;border:1.5px solid var(--borda);border-radius:12px;font-size:1rem;font-family:inherit}
+.campo input:focus,.campo textarea:focus{border-color:var(--azul);outline:none}
+.campo input[readonly]{background:#f1f5fb;color:var(--cinza)}
+.campo input.com-botao{padding-right:84px}
+.campo small{display:block;color:var(--cinza);font-size:.78rem;margin-top:3px}
+.mostrar{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--azul);font-weight:600;font-size:.8rem;cursor:pointer}
+.link{background:none;border:0;color:var(--azul);font-weight:700;font-size:inherit;font-family:inherit;text-decoration:underline;cursor:pointer}
+.erro{background:#fdecea;color:#b3261e;border-radius:8px;padding:8px 12px;font-size:.88rem;margin-bottom:12px}
+.btn-pequeno{padding:7px 16px;font-size:.88rem}
+.btn-pequeno:disabled{opacity:.6;cursor:wait}
+
+/* ===== Estados do sistema (carregando, mensagens, confirmação) ===== */
+@keyframes girar{to{transform:rotate(360deg)}}
+.carregando::before{content:"";display:block;width:36px;height:36px;margin:0 auto 10px;border:4px solid #cfe0fb;border-top-color:var(--azul);border-radius:50%;animation:girar .8s linear infinite}
+@media(prefers-reduced-motion:reduce){.carregando::before{animation-duration:3s}}
+.mensagem span{flex:1}
+.mensagem.sucesso::before{content:"✔";font-weight:800}
+.mensagem.erro::before{content:"✖";font-weight:800}
+dialog.dlg-pergunta{position:relative;text-align:center;max-width:400px}
+.dlg-pergunta .fechar-x{position:absolute;top:10px;right:14px;background:none;border:0;font-size:1.6rem;line-height:1;color:var(--azul);cursor:pointer}
+.rodape-dlg.centro{justify-content:center}
+
+/* =====================================================================
+   DESIGN SYSTEM PRATICÃO — FASE 1 (fundação)        documentação: frontend/DESIGN-SYSTEM.md
+   Direção: "clínica pet de bairro, cuidada" — calor + precisão.
+
+   COMO ESTA SEÇÃO FUNCIONA (importante para não quebrar telas):
+   - Só ACRESCENTA. Nada acima foi alterado: as variáveis antigas (--azul, --laranja, --cinza...)
+     e todas as regras existentes continuam valendo para as telas atuais.
+   - Tokens (:root) não mudam nada sozinhos: só têm efeito onde forem usados.
+   - Componentes .ds-* são de adesão explícita: nenhuma tela usa ainda; cada tela passa a usar
+     quando for redesenhada (fase 2 em diante). Por isso esta fase não altera o visual de nenhuma tela.
+   - Contrastes conferidos (WCAG 2.1 AA) e anotados ao lado de cada cor usada em texto/controle.
+   ===================================================================== */
+:root{
+  /* ---------- Cor: marca (primitivas) ---------- */
+  --cor-azul-profundo:#0a2a6b;   /* marca, títulos, rodapé. Branco sobre ele: 13,49:1 */
+  --cor-azul:#1f5fd0;            /* interação: links, foco, botão secundário. Sobre branco: 5,82:1; sobre #eef4ff: 5,27:1 */
+  --cor-azul-forte:#174bb0;      /* hover do azul / texto informativo. Sobre #e4eeff: 6,73:1 */
+  --cor-azul-claro:#eef4ff;      /* fundo de página e superfícies suaves */
+  --cor-azul-superficie:#dbe8fb; /* superfície destacada, linha selecionada */
+  --cor-laranja:#f28a0c;         /* SÓ CTA principal e acentos de marca. NUNCA texto sobre branco (2,50:1) */
+  --cor-laranja-hover:#ff9a2a;   /* hover do CTA (texto azul-profundo: 6,37:1) */
+  --cor-laranja-texto:#9c4f00;   /* raro: texto de marca em laranja sobre claro (5,31:1 em #eaf3ff) */
+
+  /* ---------- Cor: neutros ---------- */
+  --cor-branco:#fff;
+  --cor-texto:#1c2b4a;           /* 14,06:1 no branco; 11,35:1 em #dbe8fb */
+  --cor-texto-2:#51607a;         /* secundário: 6,36:1 no branco; 5,13:1 em #dbe8fb */
+  --cor-borda:#e3ebf7;           /* divisórias e contorno de superfícies (decorativo: não precisa de 3:1) */
+  --cor-borda-controle:#7c8cab;  /* contorno de CAMPOS de formulário: 3,39:1 no branco (WCAG 1.4.11 exige 3:1) */
+  --cor-desabilitado-fundo:#f1f5fb;
+  --cor-desabilitado-texto:#8a96ab; /* desabilitado é isento de contraste; mantido legível */
+
+  /* ---------- Cor: estados (texto / fundo) ---------- */
+  --cor-sucesso:#17652a;  --cor-sucesso-fundo:#e3f6e5;   /* 6,34:1 */
+  --cor-erro:#b3261e;     --cor-erro-fundo:#fdecea;      /* 5,72:1 */
+  --cor-alerta:#8a4600;   --cor-alerta-fundo:#fff1de;    /* 6,39:1 */
+  --cor-pendente:#9a5300; --cor-pendente-fundo:#ffe2b8;  /* 4,66:1 */
+  --cor-info:#174bb0;     --cor-info-fundo:#e4eeff;      /* 6,73:1 */
+  --cor-perigo:#c62828;   /* botão destrutivo: branco sobre ele 5,62:1; como contorno sobre branco 5,62:1 */
+
+  /* ---------- Cor: semânticas (use estas nas telas) ---------- */
+  --cor-fundo-pagina:var(--cor-azul-claro);
+  --cor-superficie:var(--cor-branco);
+  --cor-titulo:var(--cor-azul-profundo);
+  --cor-link:var(--cor-azul);
+  --cor-foco:var(--cor-azul);    /* anel de foco: 5,82:1 no branco, 5,27:1 em #eef4ff, 4,70:1 em #dbe8fb (mín. 3:1) */
+  --cor-cta:var(--cor-laranja);
+  --cor-cta-texto:var(--cor-azul-profundo); /* texto do CTA laranja: 5,41:1 (branco sobre laranja reprova: 2,50:1) */
+
+  /* ---------- Tipografia ---------- */
+  /* Interface: fonte do sistema (legível, sem download). Marca/títulos: Figtree local (Fase 3, ver @font-face abaixo) */
+  --fonte-ui:'Segoe UI',Arial,sans-serif;
+  --fonte-titulo:'Figtree','Segoe UI',Arial,sans-serif;
+  --texto-12:.75rem;   /* só metadados */
+  --texto-14:.875rem;  /* rótulos, tabela densa */
+  --texto-16:1rem;     /* corpo */
+  --texto-18:1.125rem; /* corpo de destaque, subtítulo */
+  --texto-22:1.375rem; /* título de seção / cartão */
+  --texto-28:1.75rem;  /* título de página (celular) */
+  --texto-36:2.25rem;  /* título de página */
+  --texto-44:2.75rem;  /* hero */
+  --peso-normal:400;
+  --peso-medio:600;
+  --peso-forte:700;    /* títulos: 700, não 800/900 */
+  --altura-linha-titulo:1.15;
+  --altura-linha-texto:1.5;
+  --altura-linha-leitura:1.65; /* conteúdo editorial (dicas/artigo) */
+  --espaco-letra-rotulo:.06em;
+
+  /* ---------- Espaçamento (base 4px) ---------- */
+  --esp-1:4px; --esp-2:8px; --esp-3:12px; --esp-4:16px; --esp-6:24px; --esp-8:32px; --esp-12:48px; --esp-16:64px;
+  --esp-titulo-conteudo:var(--esp-6); /* título da página → conteúdo */
+  --esp-secao:var(--esp-12);          /* entre seções */
+  --esp-componente:20px;              /* padding interno de cartões (20–24) */
+
+  /* ---------- Raios ---------- */
+  --raio-p:8px;    /* controles pequenos, chips de tabela */
+  --raio-m:12px;   /* botões, campos, componentes de interface */
+  --raio-g:16px;   /* cartões */
+  --raio-xg:24px;  /* hero / blocos grandes */
+  --raio-pill:999px; /* SÓ chips, filtros e badges */
+
+  /* ---------- Sombras (3 níveis) ---------- */
+  --sombra-nenhuma:none;
+  --sombra-sutil:0 1px 2px rgba(10,42,107,.06),0 2px 8px rgba(10,42,107,.06);
+  --sombra-elevada:0 12px 32px rgba(10,42,107,.14);  /* só o que flutua: diálogos, menus, painel lateral */
+
+  /* ---------- Controles ---------- */
+  --altura-controle:44px;
+  --altura-botao:40px;
+  --altura-botao-g:48px;
+  --anel-foco:0 0 0 3px var(--cor-branco),0 0 0 5px var(--cor-foco); /* anel duplo: visível em qualquer fundo */
+
+  /* ---------- Movimento ---------- */
+  --transicao:150ms cubic-bezier(.2,.7,.3,1);
+
+  /* ---------- Breakpoints de referência (CSS não aceita var() em @media: usar estes valores) ----------
+     celular ≤599 · tablet 600–899 · notebook 900–1279 · desktop ≥1280 · largo ≥1600 */
+}
+
+/* ---------- Fonte de marca: Figtree (OFL), hospedada em frontend/fonts — sem CDN ----------
+   Variável (pesos 300–900) num único arquivo de 20 KB, só caracteres latinos (inclui acentos do português).
+   font-display:swap: o texto aparece na hora com a fonte de reserva e troca quando a Figtree chega.
+   Só é baixada pelas páginas que usam --fonte-titulo. */
+@font-face{
+  font-family:'Figtree';
+  src:url('../fonts/figtree-latin-wght-normal.woff2') format('woff2');
+  font-weight:300 900;
+  font-style:normal;
+  font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* ---------- Componentes de adesão explícita (ainda não usados por nenhuma tela) ---------- */
+
+/* Título de página: rótulo opcional + título + subtítulo */
+.ds-titulo-pagina{display:grid;gap:var(--esp-2);margin-bottom:var(--esp-titulo-conteudo)}
+.ds-titulo-pagina .ds-rotulo{font-size:var(--texto-12);font-weight:var(--peso-forte);letter-spacing:var(--espaco-letra-rotulo);text-transform:uppercase;color:var(--cor-texto-2)}
+.ds-titulo-pagina h1{font-family:var(--fonte-titulo);font-size:var(--texto-36);font-weight:var(--peso-forte);line-height:var(--altura-linha-titulo);letter-spacing:-.01em;color:var(--cor-titulo)}
+.ds-titulo-pagina .ds-subtitulo{font-size:var(--texto-18);line-height:var(--altura-linha-texto);color:var(--cor-texto-2);max-width:62ch}
+
+/* Botões: 2 alturas, raio 12, 4 variantes. Pill NÃO é padrão de botão. */
+.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--esp-2);min-height:var(--altura-botao);padding:0 var(--esp-4);border:1.5px solid transparent;border-radius:var(--raio-m);font:inherit;font-size:var(--texto-16);font-weight:var(--peso-medio);line-height:1.2;text-decoration:none;cursor:pointer;transition:background-color var(--transicao),border-color var(--transicao),color var(--transicao)}
+.ds-btn--g{min-height:var(--altura-botao-g);padding:0 var(--esp-6)}
+.ds-btn--primario{background:var(--cor-cta);color:var(--cor-cta-texto)}            /* 5,41:1 */
+.ds-btn--primario:hover{background:var(--cor-laranja-hover)}                         /* 6,37:1 */
+.ds-btn--secundario{background:var(--cor-superficie);color:var(--cor-azul);border-color:var(--cor-azul)} /* 5,82:1 */
+.ds-btn--secundario:hover{background:var(--cor-azul-claro);color:var(--cor-azul-forte);border-color:var(--cor-azul-forte)}
+.ds-btn--texto{background:transparent;color:var(--cor-azul);padding:0 var(--esp-2);text-decoration:underline;text-underline-offset:3px}
+.ds-btn--texto:hover{color:var(--cor-azul-forte)}
+.ds-btn--destrutivo{background:var(--cor-superficie);color:var(--cor-perigo);border-color:currentColor} /* contorno: não domina a tabela */
+.ds-btn--destrutivo:hover{background:var(--cor-erro-fundo)}
+.ds-btn--destrutivo-cheio{background:var(--cor-perigo);color:var(--cor-branco)}    /* só dentro da confirmação final */
+.ds-btn:disabled,.ds-btn[aria-disabled=true]{background:var(--cor-desabilitado-fundo);color:var(--cor-desabilitado-texto);border-color:transparent;cursor:not-allowed}
+
+/* Campos: 44px, raio 12, borda com 3:1, foco com anel visível, erro e desabilitado */
+.ds-campo{display:grid;gap:var(--esp-1)}
+.ds-campo>label{font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-texto)}
+.ds-campo :is(input,select,textarea){min-height:var(--altura-controle);width:100%;padding:0 var(--esp-3);border:1.5px solid var(--cor-borda-controle);border-radius:var(--raio-m);background:var(--cor-superficie);color:var(--cor-texto);font:inherit;font-size:var(--texto-16)}
+.ds-campo textarea{padding:var(--esp-3);min-height:96px}
+.ds-campo :is(input,select,textarea):hover{border-color:var(--cor-texto-2)}
+.ds-campo :is(input,select,textarea):focus-visible{outline:none;border-color:var(--cor-foco);box-shadow:var(--anel-foco)}
+.ds-campo [aria-invalid=true],.ds-campo .invalido{border-color:var(--cor-erro)}
+.ds-campo :is(input,select,textarea):disabled{background:var(--cor-desabilitado-fundo);color:var(--cor-desabilitado-texto);cursor:not-allowed}
+.ds-campo .ds-ajuda{font-size:var(--texto-14);color:var(--cor-texto-2)}
+.ds-campo .ds-erro{font-size:var(--texto-14);color:var(--cor-erro)}
+
+/* Foco padrão do sistema (só para quem adotar .ds-*) */
+:is(.ds-btn,.ds-link,.ds-tabela .ds-linha-clicavel):focus-visible{outline:none;box-shadow:var(--anel-foco)}
+.ds-link{color:var(--cor-link);text-decoration:underline;text-underline-offset:3px}
+
+/* Superfície (no lugar do "cartão para tudo"): borda + superfície + espaço; sombra só se flutuar */
+.ds-superficie{background:var(--cor-superficie);border:1px solid var(--cor-borda);border-radius:var(--raio-g);padding:var(--esp-componente)}
+.ds-superficie--elevada{box-shadow:var(--sombra-elevada);border-color:transparent}
+
+/* Tabela: cabeçalho discreto, linhas limpas, divisórias sutis */
+.ds-tabela{width:100%;border-collapse:collapse;font-size:var(--texto-14)}
+.ds-tabela th{text-align:left;font-weight:var(--peso-medio);color:var(--cor-texto-2);padding:var(--esp-3) var(--esp-4);border-bottom:1px solid var(--cor-borda)}
+.ds-tabela td{padding:var(--esp-3) var(--esp-4);border-bottom:1px solid var(--cor-borda);color:var(--cor-texto);vertical-align:middle}
+.ds-tabela tbody tr:hover{background:var(--cor-azul-claro)}
+
+/* Badges de status: forma "etiqueta" (raio 8), com ícone opcional à esquerda */
+.ds-badge{display:inline-flex;align-items:center;gap:var(--esp-1);padding:2px var(--esp-2);border-radius:var(--raio-p);font-size:var(--texto-12);font-weight:var(--peso-forte);line-height:1.6;white-space:nowrap}
+.ds-badge--sucesso{background:var(--cor-sucesso-fundo);color:var(--cor-sucesso)}
+.ds-badge--pendente{background:var(--cor-pendente-fundo);color:var(--cor-pendente)}
+.ds-badge--erro{background:var(--cor-erro-fundo);color:var(--cor-erro)}
+.ds-badge--info{background:var(--cor-info-fundo);color:var(--cor-info)}
+.ds-badge--neutro{background:var(--cor-azul-claro);color:var(--cor-texto-2)}
+
+@media(prefers-reduced-motion:reduce){.ds-btn{transition:none}}

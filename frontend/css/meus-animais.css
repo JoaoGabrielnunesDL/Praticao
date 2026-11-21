@@ -1,0 +1,51 @@
+/* Meus Animais. Usa as cores e componentes de base.css. */
+.an-topo{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.an-indicadores{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0 8px}
+.an-ind{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:14px;box-shadow:0 2px 8px rgba(11,58,158,.08);color:var(--cinza);font-size:.9rem}
+a.an-ind,button.an-ind{transition:transform .2s}a.an-ind:hover,button.an-ind:hover{transform:translateY(-3px)}
+button.an-ind{font:inherit;text-align:left;cursor:pointer;width:100%}
+.an-ind small{display:block;font-size:.72rem;color:var(--laranja-esc)}
+.an-ind strong{display:block;font-size:1.6rem;line-height:1.1;color:var(--azul)}
+.pn-ic{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;border-radius:12px;background:#e4eeff;font-size:1.3rem}
+.pn-ic.laranja{background:#ffeedb}.pn-ic.verde{background:#dff5e5}.pn-ic.roxo{background:#efe6fb}
+.an-titulo{margin-top:24px;font-size:1.5rem;color:var(--azul)}
+
+.an-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin:14px 0 22px}
+.an-lista .vazio,.an-lista .carregando{grid-column:1/-1}
+.an-lista .vazio p{font-weight:400;color:var(--cinza);margin:6px 0 14px}
+.an-card{background:#fff;border:1px solid var(--borda);border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(11,58,158,.08)}
+.an-foto{display:flex;align-items:center;justify-content:center;height:130px;font-size:3.6rem;background:linear-gradient(135deg,#cfe3ff,#eaf3ff)}
+.an-card .corpo{padding:14px;display:grid;gap:8px}
+.an-card h3{color:var(--azul);font-size:1.2rem;overflow-wrap:anywhere}
+.an-card .raca{color:var(--cinza);font-size:.9rem}
+.an-card .acoes{margin-top:4px}
+.an-card .agendar{font-size:.85rem;color:var(--laranja-esc);font-weight:700}
+
+.an-atalhos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.an-atalho{display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:16px;font-weight:700;color:var(--azul);box-shadow:0 2px 8px rgba(11,58,158,.08);transition:transform .2s}
+.an-atalho:hover{transform:translateY(-3px)}
+.an-atalho span{font-size:1.8rem}
+
+.an-banner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:20px;padding:22px 28px;border-radius:20px;color:#fff;background:linear-gradient(100deg,var(--azul),#1f5ed8)}
+.an-banner h2{font-size:1.5rem;margin-bottom:8px}
+.an-banner ul{list-style:none;display:grid;gap:3px;font-size:.92rem}
+.an-banner li::before{content:"✔ ";color:#9be19b}
+.an-rodape{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px;padding:16px 20px;background:#fff;border:1px solid var(--borda);border-radius:14px}
+.an-rodape strong{color:var(--azul)}
+
+#dlg-animal{margin:auto}
+#dlg-animal select{width:100%;padding:12px 14px;border:1.5px solid var(--borda);border-radius:12px;font:inherit;background:#fff}
+
+@media(max-width:900px){.an-indicadores{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.an-indicadores,.an-atalhos{grid-template-columns:1fr}.an-banner{justify-content:center;text-align:center}}
+
+/* Janela de lista (indicadores) */
+.dlg-lista{margin:auto;max-width:460px;max-height:80vh}
+.lista-cab{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.lista-cab h2{margin:0}
+.lista-x{background:none;border:0;font-size:1.8rem;line-height:1;color:var(--cinza);cursor:pointer}
+.lista-grupo{margin:14px 0 6px;color:var(--laranja-esc);font-weight:700;font-size:.9rem}
+.lista-item{display:flex;align-items:center;gap:12px;border:1px solid var(--borda);border-radius:12px;padding:8px 12px;margin-bottom:8px}
+.lista-foto{display:flex;align-items:center;justify-content:center;flex:none;width:48px;height:48px;border-radius:50%;font-size:1.6rem;background:linear-gradient(135deg,#cfe3ff,#eaf3ff)}
+.lista-item strong{display:block;color:var(--azul);overflow-wrap:anywhere}
+.lista-item small{color:var(--cinza)}

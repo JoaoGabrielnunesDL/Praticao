@@ -1,0 +1,274 @@
+/* Agenda (funcionário e administrador): mesma identidade de Relatórios, Painel do Administrador, Serviços, Usuários e Estados.
+   Tudo escopado em body.pg-agenda. O comportamento continua no agenda.js (filtros, lista, ações, mensagens e estados).
+   Mensagens, carregando, vazio e erro também recebem o visual de estados-componentes.css (body.ui-estados). */
+
+body.pg-agenda{
+  --ag-ic-relogio:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2.2a7.8 7.8 0 1 1 0 15.6 7.8 7.8 0 0 1 0-15.6zM11 6.5h2v5l3.5 2.1-1 1.7L11 12.6z'/></svg>");
+  --ag-ic-pessoa:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='7.5' r='4.5'/><path d='M3.5 21c0-4.7 3.8-8 8.5-8s8.5 3.3 8.5 8z'/></svg>");
+  --ag-ic-pata:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><ellipse cx='13' cy='29' rx='6' ry='8'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5'/><ellipse cx='51' cy='29' rx='6' ry='8'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>");
+  --ag-ic-tesoura:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9.6 7.5a3.6 3.6 0 1 0-1.3 2.8l2.4 1.7-2.4 1.7a3.6 3.6 0 1 0 1.3 2.8c0-.4 0-.8-.2-1.1L21 7.2 19.8 6l-7.6 5.2-2.8-2c.1-.4.2-.9.2-1.4zm-3.6 1.6a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm0 9a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm8.5-3.3 5.3 3.7L21 17.3l-5.1-3.6z'/></svg>");
+  --ag-ic-etiqueta:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M3 3h8.6L21 12.4 12.4 21 3 11.6zm4.5 2.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4z'/></svg>");
+  --ag-ic-engrenagem:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M10.3 2h3.4l.5 2.6 1.7.9 2.4-1.2 2.4 2.4-1.2 2.4.7 1.7 2.8.5v3.4l-2.8.5-.7 1.7 1.2 2.4-2.4 2.4-2.4-1.2-1.7.7-.5 2.8h-3.4l-.5-2.8-1.7-.7-2.4 1.2-2.4-2.4 1.2-2.4-.7-1.7L2 13.7v-3.4l2.6-.5.9-1.7-1.2-2.4 2.4-2.4 2.4 1.2 1.7-.9zM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z'/></svg>");
+  --ag-ic-check:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='m9.5 16.2-4.2-4.2-1.5 1.5 5.7 5.7L21 7.7l-1.5-1.5z'/></svg>");
+  --ag-ic-check-circulo:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.3 14.2-4.4-4.4 1.5-1.5 2.9 2.9 5.6-5.6 1.5 1.5z'/></svg>");
+  --ag-ic-x-circulo:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.3 6.9 12 10.6l3.7-3.7 1.4 1.4-3.7 3.7 3.7 3.7-1.4 1.4-3.7-3.7-3.7 3.7-1.4-1.4 3.7-3.7-3.7-3.7z'/></svg>");
+  --ag-ic-olho:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 5c5 0 9 4.5 10 7-1 2.5-5 7-10 7S3 14.5 2 12c1-2.5 5-7 10-7zm0 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z'/></svg>");
+}
+
+/* ===== Estrutura original (o agenda.js depende destas classes) ===== */
+body.pg-agenda .ind{text-align:center;cursor:pointer;font:inherit}
+body.pg-agenda .ind strong{display:block;color:var(--azul)}
+body.pg-agenda .lista{background:#fff;overflow:hidden}
+body.pg-agenda .cab-lista,body.pg-agenda .item{display:grid;align-items:center}
+body.pg-agenda .cab-lista{color:var(--azul)}
+body.pg-agenda .item{cursor:pointer}
+
+/* ===== Página, fundo e decoração ===== */
+body.pg-agenda .agenda{position:relative;overflow-x:clip;background:radial-gradient(1200px 500px at 70% -10%,#dcebff 0%,transparent 60%),linear-gradient(180deg,#eaf3ff 0%,#f5f9ff 45%,#eef5ff 100%);padding:30px 0 100px}
+body.pg-agenda .ag-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+body.pg-agenda .pata-deco{position:absolute;fill:#c7dbfb;opacity:.55}
+body.pg-agenda .pata-deco.p1{top:40px;left:3%;width:52px;height:52px;transform:rotate(-18deg)}
+body.pg-agenda .pata-deco.p2{top:520px;left:2%;width:40px;height:40px;transform:rotate(12deg)}
+body.pg-agenda .pata-deco.p3{top:60px;right:30%;width:42px;height:42px;transform:rotate(10deg)}
+body.pg-agenda .pata-deco.p4{top:30px;right:5%;width:76px;height:76px;transform:rotate(-12deg)}
+body.pg-agenda .pata-deco.p5{top:360px;right:1.5%;width:44px;height:44px;transform:rotate(16deg)}
+body.pg-agenda .ag-deco .onda{position:absolute;right:0;bottom:0;width:min(440px,62vw);height:150px}
+body.pg-agenda .pata-onda{position:absolute;right:26px;bottom:20px;width:56px;height:56px;fill:#fff;opacity:.9;transform:rotate(-14deg)}
+/* Sem z-index no container: os diálogos e o conteúdo continuam acima da decoração pela ordem do HTML. */
+body.pg-agenda .ag-container{position:relative}
+body.pg-agenda .ag-conteudo{position:relative;min-width:0}
+
+/* Ilustração: o fundo claro da foto "some" no painel azul (multiply), como nas outras telas */
+/* Pets direto sobre o fundo (sem painel, círculo, selo ou moldura). A foto aparece INTEIRA, na proporção
+   original 16:9 (sem object-fit/recorte). brightness: o fundo cinza-claro da foto vira branco e some no multiply.
+   Nada entre a foto e o fundo pode ter z-index/isolation/opacity/transform/sticky, senão o branco apareceria. */
+body.pg-agenda .ag-pets{position:relative;color:var(--laranja)}
+body.pg-agenda .ag-pets img{display:block;width:100%;height:auto;filter:brightness(1.07);mix-blend-mode:multiply}
+/* A prancheta azul era um selo sobre os pets (mesmo papel do escudo retirado do Painel Admin): fica oculta */
+body.pg-agenda .ag-pets .prancheta{display:none}
+body.pg-agenda .ag-pets .faisca{position:absolute;top:-16px;left:16%;width:30px;height:30px;transform:rotate(-20deg)}
+/* sombra de chão bem leve sob as patas (::before é pintado antes da foto) */
+body.pg-agenda .ag-pets::before{content:"";position:absolute;left:8%;right:8%;bottom:-6px;height:18px;border-radius:50%;background:radial-gradient(closest-side,rgba(11,58,158,.15),rgba(11,58,158,0))}
+/* Enfeites do kit (praticao-ui.css): só a partir de 1280px (ver bloco das telas largas) */
+body.pg-agenda .ag-deco .pc-d{display:none}
+
+/* ===== Título ===== */
+/* Grade: a faísca fica sempre colada ao fim do título (o texto do título muda para o administrador) */
+body.pg-agenda .ag-topo{position:relative;display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:start;align-content:start}
+body.pg-agenda .ag-topo .selo-op{grid-column:1/-1;grid-row:1;text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
+body.pg-agenda .agenda h1{grid-column:1;grid-row:2;font-size:2.6rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
+body.pg-agenda .ag-topo .sub{grid-column:1/-1;grid-row:3;font-size:1.02rem;color:#183b8c}
+body.pg-agenda .faisca-titulo{grid-column:2;grid-row:2;width:36px;height:36px;margin-top:2px;color:var(--laranja)}
+
+/* ===== Filtro de data ===== */
+body.pg-agenda .filtro{gap:10px;margin:22px 0 14px}
+body.pg-agenda .ag-data{display:inline-flex;align-items:center;gap:8px;min-height:52px;padding:4px 6px 4px 14px;background:#fff;border:1.5px solid var(--borda);border-radius:999px;box-shadow:0 4px 14px rgba(11,58,158,.07)}
+body.pg-agenda .ag-data:focus-within{border-color:#1f6fe5;box-shadow:0 0 0 3px rgba(31,111,229,.16)}
+body.pg-agenda .ag-data-ic{width:22px;height:22px;flex:none;fill:none;stroke:#1f5fd0;stroke-width:2;stroke-linecap:round}
+body.pg-agenda .filtro label{font-weight:800}
+body.pg-agenda .filtro .ag-data input{border:0;box-shadow:none;padding:8px 10px;min-height:42px;background:#f5f9ff;font-weight:600;color:var(--texto)}
+body.pg-agenda .filtro .ag-data input:focus{outline:none}
+body.pg-agenda .filtro .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+body.pg-agenda .filtro .btn-laranja{padding:12px 26px;box-shadow:0 6px 16px rgba(242,138,12,.32)}
+body.pg-agenda .filtro .btn-contorno{padding:10px 18px;font-size:.93rem;box-shadow:0 2px 8px rgba(11,58,158,.06)}
+body.pg-agenda .filtro .btn.ativo{background:var(--azul);color:#fff;border-color:var(--azul)}
+body.pg-agenda .btn-ic{width:18px;height:18px;flex:none;fill:currentColor}
+body.pg-agenda #info-periodo{margin:-4px 0 14px;font-size:.88rem;font-weight:600}
+
+/* ===== Indicadores (filtram a lista por status) ===== */
+body.pg-agenda .indicadores{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:18px}
+body.pg-agenda .ind{min-height:76px;padding:12px 10px;background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.08);color:var(--cinza);font-weight:600;font-size:.88rem;transition:transform .15s,box-shadow .15s,border-color .15s}
+body.pg-agenda .ind:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(11,58,158,.13)}
+body.pg-agenda .ind strong{font-size:1.7rem;font-weight:800;line-height:1.15}
+body.pg-agenda .ind[data-filtro=AGENDADO] strong{color:#cc6a00}
+body.pg-agenda .ind[data-filtro=CONFIRMADO] strong{color:#1f5fd0}
+body.pg-agenda .ind[data-filtro=CONCLUIDO] strong{color:#1d7a34}
+body.pg-agenda .ind[data-filtro=CANCELADO] strong{color:#c62828}
+body.pg-agenda .ind.ativo{border-color:var(--laranja);background:#fffaf2;box-shadow:0 6px 18px rgba(242,138,12,.18)}
+
+/* ===== Lista (tabela) ===== */
+body.pg-agenda .lista{border-radius:20px;box-shadow:0 8px 26px rgba(11,58,158,.08)}
+body.pg-agenda .cab-lista,body.pg-agenda .item{grid-template-columns:104px minmax(0,1.2fr) minmax(0,.9fr) minmax(0,1fr) 142px 362px;gap:0;padding:0 8px}
+body.pg-agenda .cab-lista{background:#eef4ff;font-weight:800;font-size:.9rem;min-height:48px}
+body.pg-agenda .item{min-height:48px}
+/* Linhas compactas (~48px) com divisórias verticais sutis entre as colunas (só na tabela; no celular viram cartões) */
+@media(min-width:801px){
+  body.pg-agenda .cab-lista>*,body.pg-agenda .item>*{align-self:stretch;display:flex;align-items:center;min-width:0;padding:6px 12px;border-left:1px solid #e3ebf7}
+  body.pg-agenda .cab-lista>:first-child,body.pg-agenda .item>:first-child{border-left:0}
+  body.pg-agenda .cab-lista>*{border-left-color:#d6e3f7}
+  /* "data<br>hora" (modo período) continua em duas linhas */
+  body.pg-agenda .item>.c-hora{flex-direction:column;align-items:flex-start;justify-content:center}
+  body.pg-agenda .item>.acoes{flex-wrap:wrap;align-content:center;gap:6px}
+}
+body.pg-agenda .cab-lista span{display:inline-flex;align-items:center;gap:7px;min-width:0}
+body.pg-agenda .cab-lista span::before{content:"";width:17px;height:17px;flex:none;background:#1f6fe5;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+body.pg-agenda .cab-lista span:nth-child(1){--ic:var(--ag-ic-relogio)}
+body.pg-agenda .cab-lista span:nth-child(2){--ic:var(--ag-ic-pessoa)}
+body.pg-agenda .cab-lista span:nth-child(3){--ic:var(--ag-ic-pata)}
+body.pg-agenda .cab-lista span:nth-child(4){--ic:var(--ag-ic-tesoura)}
+body.pg-agenda .cab-lista span:nth-child(5){--ic:var(--ag-ic-etiqueta)}
+body.pg-agenda .cab-lista span:nth-child(6){--ic:var(--ag-ic-engrenagem)}
+body.pg-agenda .item{border-top:1px solid #edf2fa;transition:background .12s}
+body.pg-agenda .item:hover{background:#f6f9ff}
+body.pg-agenda .c-hora{color:var(--azul);font-weight:800;line-height:1.25}
+body.pg-agenda .c-tutor{font-weight:600}
+
+/* Etiquetas de status (lista e detalhes) com ícone desenhado em CSS */
+body.pg-agenda .lista .status,body.pg-agenda #det-conteudo .status{display:inline-flex;align-items:center;gap:6px;padding:4px 11px 4px 8px;font-size:.8rem}
+body.pg-agenda .lista .status::before,body.pg-agenda #det-conteudo .status::before{content:"";width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+body.pg-agenda .status.pendente{--ic:var(--ag-ic-relogio)}
+body.pg-agenda .status.confirmado{--ic:var(--ag-ic-check)}
+body.pg-agenda .status.concluido{--ic:var(--ag-ic-check-circulo)}
+body.pg-agenda .status.cancelado{--ic:var(--ag-ic-x-circulo)}
+
+/* Botões de ação (Confirmar, Concluir, Cancelar, Detalhes) */
+body.pg-agenda .acoes{gap:8px}
+body.pg-agenda .acao{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:34px;padding:4px 11px;border-radius:999px;font-weight:700;font-size:.82rem;background:#fff;border-width:1.5px;transition:background .15s}
+body.pg-agenda .acao::before{content:"";width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+body.pg-agenda .acao.confirmar{--ic:var(--ag-ic-check);color:#1f5fd0;border-color:#9fc0f2}
+body.pg-agenda .acao.confirmar:hover{background:#eef4ff}
+body.pg-agenda .acao.concluir{--ic:var(--ag-ic-check);color:#1d7a34;border-color:#9fd694}
+body.pg-agenda .acao.concluir:hover{background:#e7f7e9}
+body.pg-agenda .acao.cancelar{--ic:var(--ag-ic-x-circulo);color:#c62828;border-color:#f1a9a4}
+body.pg-agenda .acao.cancelar:hover{background:#fdecea}
+body.pg-agenda .acao.detalhes{--ic:var(--ag-ic-olho);color:#44526e;border-color:#d6dfec}
+body.pg-agenda .acao.detalhes:hover{background:#f1f5fb}
+body.pg-agenda .lista.ocupada{opacity:.6;pointer-events:none}
+
+/* Estados dentro da lista (o visual vem de estados-componentes.css) */
+body.pg-agenda #lista>.carregando,body.pg-agenda #lista>.vazio{background:#fff}
+
+/* ===== Janelas: detalhes (painel lateral) e confirmação ===== */
+body.pg-agenda #dlg-detalhes{padding:26px 24px}
+body.pg-agenda #dlg-detalhes h2,body.pg-agenda #dlg-confirmar h2{font-size:1.3rem;font-weight:800}
+body.pg-agenda #dlg-detalhes .dados,body.pg-agenda #dlg-confirmar .dados{gap:0 14px;background:#f8fbff;border:1px solid #e3ebf7;border-radius:16px;padding:6px 14px}
+body.pg-agenda #dlg-detalhes .dados dt,body.pg-agenda #dlg-detalhes .dados dd,body.pg-agenda #dlg-confirmar .dados dt,body.pg-agenda #dlg-confirmar .dados dd{padding:8px 0;border-bottom:1px solid #edf2fa}
+body.pg-agenda #dlg-detalhes .dados>:nth-last-child(-n+2),body.pg-agenda #dlg-confirmar .dados>:nth-last-child(-n+2){border-bottom:0}
+body.pg-agenda #dlg-detalhes .rodape-dlg{align-items:center}
+body.pg-agenda #dlg-confirmar{max-width:440px;border-radius:24px;padding:30px 26px 24px}
+body.pg-agenda #dlg-confirmar .rodape-dlg .btn,body.pg-agenda #dlg-detalhes .rodape-dlg .btn{min-height:46px}
+body.pg-agenda #dlg-confirmar .rodape-dlg .btn{flex:1 1 140px}
+body.pg-agenda #conf-ok{box-shadow:0 6px 16px rgba(242,138,12,.28)}
+
+/* ===== Telas largas (≥ 1280px): pets grandes ao lado do título, filtros e indicadores; tabela na largura toda =====
+   Só CSS: o .ag-conteudo vira "display:contents" e seus filhos entram na grade do container.
+   - coluna 1, linhas 1–4: os pets (pés apoiados na altura do fim dos indicadores)
+   - coluna 2: título, filtro, período e indicadores (mesmos espaçamentos de antes: as margens somam igual)
+   - linha 5: a tabela ocupa as duas colunas (mais espaço do que antes, sem quebrar linhas)
+   A ordem do HTML (e do Tab) não muda. */
+@media(min-width:1280px){
+  body.pg-agenda .ag-container{max-width:1480px;display:grid;grid-template-columns:360px minmax(0,1fr);column-gap:28px;row-gap:0;align-items:start}
+  body.pg-agenda .ag-conteudo{display:contents}
+  body.pg-agenda .ag-topo{grid-column:2;grid-row:1}
+  body.pg-agenda #filtro-data{grid-column:2;grid-row:2}
+  body.pg-agenda #info-periodo{grid-column:2;grid-row:3}
+  body.pg-agenda .indicadores{grid-column:2;grid-row:4}
+  body.pg-agenda #lista{grid-column:1/-1;grid-row:5}
+  /* pets: avançam 20px sobre o recuo livre à esquerda; pés na linha de base dos indicadores */
+  /* margin-top negativo: os pets podem subir um pouco além do topo da grade, assim nunca esticam as linhas
+     ao lado (o espaço entre filtro, indicadores e tabela continua 22/14/18 como antes) */
+  body.pg-agenda .ag-pets{grid-column:1;grid-row:1/5;align-self:end;margin-top:-28px;margin-bottom:18px;width:calc(100% + 20px);margin-left:-20px}
+  /* a mensagem continua no canto direito (agora medida pelo container, que tem 20px de recuo) */
+  body.pg-agenda #mensagem{right:20px}
+  /* enfeites do kit na faixa livre abaixo da tabela, à esquerda (a onda laranja fica à direita) */
+  body.pg-agenda .ag-deco .ag-d-cal,body.pg-agenda .ag-deco .ag-d-coracao,body.pg-agenda .ag-deco .ag-d-pata1,body.pg-agenda .ag-deco .ag-d-pata2{display:block}
+  body.pg-agenda .ag-d-cal{bottom:30px;left:calc(2% + 20px);width:34px;height:34px;rotate:-10deg;opacity:.55}
+  body.pg-agenda .ag-d-pata1{bottom:44px;left:calc(2% + 84px);width:22px;height:22px;rotate:14deg;opacity:.6}
+  body.pg-agenda .ag-d-coracao{bottom:22px;left:calc(2% + 128px);width:16px;height:16px;rotate:-12deg;background-color:var(--pc-deco-forte);opacity:.75}
+  body.pg-agenda .ag-d-pata2{bottom:36px;left:calc(2% + 168px);width:26px;height:26px;rotate:-8deg;opacity:.55}
+  /* a coluna agora é dos pets: as patinhas de fundo da esquerda cairiam atrás deles */
+  body.pg-agenda .pata-deco.p1,body.pg-agenda .pata-deco.p2{display:none}
+}
+@media(min-width:1366px){
+  body.pg-agenda .ag-container{grid-template-columns:400px minmax(0,1fr)}
+}
+@media(min-width:1600px){
+  body.pg-agenda .ag-container{max-width:1580px;grid-template-columns:440px minmax(0,1fr);column-gap:36px}
+}
+/* telas bem largas: há margem livre à esquerda, então os pets crescem para dentro dela */
+@media(min-width:1800px){
+  body.pg-agenda .ag-pets{width:calc(100% + 60px);margin-left:-60px}
+}
+/* Patinhas de fundo antigas: em % da tela elas encostavam no título (p1), nos indicadores e na tabela (p2, p5).
+   p1/p2 saem quando não há margem livre; p5 só aparece dentro da margem direita, quando ela existe. */
+@media(max-width:1279px){
+  body.pg-agenda .pata-deco.p1,body.pg-agenda .pata-deco.p2{display:none}
+}
+/* 700–1279px: os pets ficam no canto direito, onde está a p4 (ela apareceria atrás deles) */
+@media(min-width:700px) and (max-width:1279px){
+  body.pg-agenda .pata-deco.p4{display:none}
+}
+@media(max-width:1699px){
+  body.pg-agenda .pata-deco.p5{display:none}
+}
+@media(min-width:1700px){
+  body.pg-agenda .pata-deco.p5{right:calc((100% - 1580px) / 2 * .35)}
+}
+/* Mensagens de sucesso/erro no canto direito, ao lado do título, sem empurrar filtro e tabela */
+@media(min-width:1100px){
+  body.pg-agenda #mensagem{position:absolute;top:22px;right:0;width:min(440px,46%);margin:0;z-index:5}
+}
+@media(min-width:1100px) and (max-width:1279px){
+  /* nesta faixa os pets ocupam o canto direito: a mensagem fica à esquerda deles */
+  body.pg-agenda #mensagem{right:220px;width:min(400px,calc(100% - 590px))}
+}
+/* ===== Notebook e tablet (700–1279px): pets pequenos ao lado do título ===== */
+@media(max-width:1279px){
+  body.pg-agenda .ag-pets{position:absolute;top:10px;right:20px;width:190px;pointer-events:none}
+  body.pg-agenda .ag-pets .faisca{width:22px;height:22px;top:-12px}
+  /* reserva a altura dos pets para o filtro começar abaixo deles */
+  body.pg-agenda .ag-topo{min-height:150px;padding-right:220px}
+}
+@media(min-width:801px) and (max-width:1100px){
+  /* sem espaço para as ações na mesma linha: elas descem para uma linha própria */
+  body.pg-agenda .cab-lista,body.pg-agenda .item{grid-template-columns:104px minmax(0,1.2fr) minmax(0,.9fr) minmax(0,1fr) 142px}
+  body.pg-agenda .cab-lista>:last-child{display:none}
+  body.pg-agenda .item>.acoes{grid-column:1/-1;justify-content:flex-end;border-left:0;padding-top:0;padding-bottom:8px}
+}
+@media(max-width:800px){
+  body.pg-agenda .indicadores{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  body.pg-agenda .ag-data{flex:1 1 100%}
+  body.pg-agenda .filtro .ag-data input{flex:1;min-width:0}
+  body.pg-agenda .filtro .btn{flex:1 1 auto}
+  body.pg-agenda .filtro .btn-laranja{flex:1 1 100%}
+  /* A lista vira cartões (as áreas vêm da regra original abaixo) */
+  body.pg-agenda .lista{background:none;box-shadow:none;overflow:visible}
+  body.pg-agenda .cab-lista{display:none}
+  body.pg-agenda .item{min-height:0;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"hora tutor tutor" "animal animal status" "servico servico servico" "acoes acoes acoes";gap:6px 12px;background:#fff;border:1px solid #e3ebf7;border-radius:16px;margin-top:10px;padding:14px 16px;box-shadow:0 4px 14px rgba(11,58,158,.06)}
+  body.pg-agenda .c-hora{grid-area:hora}
+  body.pg-agenda .c-tutor{grid-area:tutor;align-self:center}
+  body.pg-agenda .c-animal{grid-area:animal}
+  body.pg-agenda .c-servico{grid-area:servico}
+  body.pg-agenda .c-status{grid-area:status}
+  body.pg-agenda .item>.acoes{grid-area:acoes}
+  body.pg-agenda .item .acao{flex:1 1 auto;min-height:42px}
+  body.pg-agenda #det-acoes .acao{min-height:42px}
+  /* Rótulos visíveis nos cartões (só CSS; o HTML continua o gerado pelo agenda.js) */
+  body.pg-agenda .c-animal::before,body.pg-agenda .c-servico::before{color:var(--cinza);font-weight:700;font-size:.78rem;margin-right:4px}
+  body.pg-agenda .c-animal::before{content:"Animal:"}
+  body.pg-agenda .c-servico::before{content:"Serviço:"}
+  body.pg-agenda .c-status{align-self:center}
+  body.pg-agenda #lista>.carregando,body.pg-agenda #lista>.vazio{border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.06)}
+}
+@media(max-width:699px){
+  body.pg-agenda .ag-pets{display:none}
+  body.pg-agenda .ag-topo{min-height:0;padding-right:0}
+  body.pg-agenda .faisca-titulo{width:30px;height:30px}
+  body.pg-agenda .pata-deco.p1,body.pg-agenda .pata-deco.p2,body.pg-agenda .pata-deco.p3,body.pg-agenda .pata-deco.p5{display:none}
+  body.pg-agenda .pata-deco.p4{top:16px;right:4%;width:52px;height:52px}
+  body.pg-agenda .ag-deco .onda{height:110px}
+  body.pg-agenda .pata-onda{width:42px;height:42px}
+}
+@media(max-width:600px){
+  body.pg-agenda .agenda{padding-top:22px}
+  body.pg-agenda .agenda h1{font-size:2rem}
+  body.pg-agenda .indicadores{grid-template-columns:repeat(6,minmax(0,1fr))}
+  body.pg-agenda .ind{grid-column:span 2;min-height:68px}
+  body.pg-agenda .ind:nth-child(n+4){grid-column:span 3}
+  body.pg-agenda #dlg-confirmar{padding:26px 18px 20px}
+  body.pg-agenda #dlg-detalhes{padding:22px 18px}
+}
+/* Impressão: enfeites do kit fora (a regra do kit usa :where e perderia para as regras desta tela) */
+@media print{
+  body.pg-agenda .ag-deco .pc-d{display:none}
+}

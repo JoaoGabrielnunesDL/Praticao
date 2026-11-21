@@ -1,0 +1,74 @@
+/* =====================================================================
+   ACESSO (Login e Redefinir senha) — Fase 3 (tokens de base.css; títulos em Figtree)
+   Composição: área de marca com os pets (esquerda) + formulário limpo (direita).
+   Classes e IDs usados pelo JS foram mantidos: #form-login, #form-cadastro, #titulo-cartao, #subtitulo-cartao,
+   .erro (o login.js esconde TODAS as .erro da página: não usar essa classe em outro lugar), .mostrar[data-alvo],
+   [data-mostrar], button[type=submit][data-texto]; na recuperação: #passo-1/2/3, #rotulo-passo, .sub, .forca, #forca-texto.
+   ===================================================================== */
+[hidden]{display:none!important}
+
+.login-pagina{background:var(--cor-azul-claro);padding:var(--esp-12) 0 calc(var(--esp-16) + 16px)} /* reserva a onda do rodapé */
+.login-pagina .container{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:var(--esp-12);align-items:center}
+
+/* ---------- Área de marca ---------- */
+.boas-vindas{display:flex;flex-direction:column;align-self:stretch;justify-content:center}
+.boas-vindas h1{font-family:var(--fonte-titulo);font-size:var(--texto-22);font-weight:var(--peso-medio);color:var(--cor-texto-2);line-height:1.2} /* 5,76:1 */
+.boas-vindas h1 strong{display:block;margin-top:var(--esp-1);font-size:clamp(2.5rem,1.6rem + 2.4vw,3.5rem);font-weight:var(--peso-forte);letter-spacing:-.025em;line-height:1.04;color:var(--cor-titulo)}
+.boas-vindas h1 em{font-style:normal;color:var(--cor-laranja-texto)}                         /* 5,31:1 (o laranja puro daria 2,26:1) */
+.boas-vindas>p{margin-top:var(--esp-3);font-size:var(--texto-18);line-height:var(--altura-linha-texto);color:var(--cor-texto-2);max-width:40ch}
+/* Pets direto sobre o fundo: o branco da foto some no azul-claro (multiply), sem círculo ou moldura */
+.ac-pets{display:block;width:100%;max-width:560px;height:auto;margin-top:var(--esp-6);mix-blend-mode:multiply}
+
+/* ---------- Cartão do formulário ---------- */
+.cartao{background:var(--cor-superficie);border:1px solid var(--cor-borda);border-radius:var(--raio-xg);padding:var(--esp-8) 36px;box-shadow:var(--sombra-sutil)}
+.cartao h2{font-family:var(--fonte-titulo);font-size:1.75rem;font-weight:var(--peso-forte);letter-spacing:-.015em;line-height:1.15;color:var(--cor-titulo)}
+.cartao .sub{margin:var(--esp-2) 0 var(--esp-6);font-size:var(--texto-16);color:var(--cor-texto-2)} /* 6,36:1 */
+
+/* Campos (padrão do Design System: 44px, raio 12, borda com 3:1, foco azul com anel) */
+.cartao .campo{margin-bottom:var(--esp-4)}
+.cartao .campo label{font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-texto);margin-bottom:6px}
+.cartao .campo input{min-height:var(--altura-controle);padding:0 var(--esp-3);border:1.5px solid var(--cor-borda-controle);border-radius:var(--raio-m);font-size:var(--texto-16);color:var(--cor-texto)} /* borda 3,39:1 */
+.cartao .campo input:hover{border-color:var(--cor-texto-2)}
+.cartao .campo input:focus{border-color:var(--cor-foco);box-shadow:var(--anel-foco)}
+.cartao .campo input.com-botao{padding-right:92px}
+.cartao .campo small{font-size:.8125rem;color:var(--cor-texto-2)}
+.cartao .mostrar{min-height:32px;padding:0 var(--esp-2);border-radius:var(--raio-p);color:var(--cor-azul);font-size:var(--texto-14);font-weight:var(--peso-medio)} /* 5,82:1 */
+.cartao .mostrar:hover{background:var(--cor-azul-claro)}
+.cartao .mostrar:focus-visible{outline:none;box-shadow:var(--anel-foco)}
+
+/* Linha "lembrar" + "esqueci" */
+.linha{display:flex;justify-content:space-between;align-items:center;gap:var(--esp-2) var(--esp-3);flex-wrap:wrap;margin:var(--esp-2) 0 var(--esp-6);font-size:var(--texto-14);color:var(--cor-texto)}
+.linha label{display:inline-flex;align-items:center;gap:var(--esp-2);min-height:32px;cursor:pointer}
+.linha input[type=checkbox]{width:18px;height:18px;accent-color:var(--cor-azul)}
+.cartao .link{display:inline-flex;align-items:center;min-height:24px;color:var(--cor-azul);font-weight:var(--peso-medio);text-underline-offset:3px}  /* 5,82:1; alvo mínimo 24px (WCAG 2.5.8) */
+.cartao .link:focus-visible,.linha input:focus-visible{outline:none;box-shadow:var(--anel-foco);border-radius:var(--raio-p)}
+
+/* Botão principal: laranja da marca com texto azul-profundo (branco reprovava: 2,50:1) */
+.cartao .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:var(--altura-botao-g);padding:0 var(--esp-6);border-radius:var(--raio-m);background:var(--cor-cta);color:var(--cor-cta-texto);font-size:var(--texto-16);font-weight:var(--peso-forte);transition:background-color var(--transicao)} /* 5,41:1 */
+.cartao .btn:hover{background:var(--cor-laranja-hover)}                                       /* 6,37:1 */
+.cartao .btn:focus-visible{outline:none;box-shadow:var(--anel-foco)}
+.cartao .btn:disabled{opacity:.6;cursor:wait}
+
+.troca{margin-top:var(--esp-6);padding-top:var(--esp-4);border-top:1px solid var(--cor-borda);font-size:.9375rem;color:var(--cor-texto-2);text-align:center}
+
+/* Mensagem de erro (preenchida pelo JS) */
+.cartao .erro{display:block;margin-bottom:var(--esp-4);padding:var(--esp-3) var(--esp-4);border:1px solid #f4c7c3;border-radius:var(--raio-m);background:var(--cor-erro-fundo);color:var(--cor-erro);font-size:var(--texto-14);font-weight:var(--peso-medio)} /* 5,72:1 */
+
+/* Aviso (login: perfis da equipe também entram aqui) */
+.cartao .aviso{margin-top:var(--esp-6);padding:var(--esp-3) var(--esp-4);border-radius:var(--raio-m);background:var(--cor-azul-claro);font-size:var(--texto-14);line-height:1.5;color:var(--cor-texto-2)} /* 5,76:1 */
+
+/* ---------- Responsivo ---------- */
+@media(max-width:899px){
+  .login-pagina .container{grid-template-columns:1fr;gap:var(--esp-6);max-width:560px}
+  .boas-vindas h1 strong{font-size:clamp(2rem,1.4rem + 3vw,2.75rem)}
+  .ac-pets{max-width:360px;margin-top:var(--esp-4)}
+}
+@media(max-width:599px){
+  .login-pagina{padding:var(--esp-6) 0 calc(var(--esp-12) + 8px)}
+  .ac-pets{display:none}            /* no celular o formulário vem primeiro: a foto não empurra os campos */
+  .boas-vindas h1{font-size:var(--texto-18)}
+  .boas-vindas>p{font-size:var(--texto-16)}
+  .cartao{padding:var(--esp-6) 20px;border-radius:var(--raio-g)}
+  .cartao h2{font-size:1.5rem}
+}
+@media(prefers-reduced-motion:reduce){.cartao .btn{transition:none}}

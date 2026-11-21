@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meu Perfil - PratiCão</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/perfil.css">
+</head>
+<body>
+  <header id="cabecalho"></header>
+
+  <main class="pagina">
+    <div class="container">
+      <h1>Meu Perfil</h1>
+      <p class="sub">Consulte e atualize seus dados pessoais.</p>
+
+      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+      <div id="erro-tela" class="vazio" hidden>
+        <span>⚠️</span><p id="erro-texto"></p>
+        <button type="button" class="btn btn-laranja btn-pequeno" id="tentar">Tentar novamente</button>
+      </div>
+
+      <section class="bloco pf-card" id="conteudo" aria-labelledby="t-dados">
+        <h2 id="t-dados">🪪 Dados pessoais</h2>
+        <div class="pf-corpo">
+          <aside class="pf-resumo" aria-hidden="true">
+            <span class="pf-avatar" id="avatar">👤</span>
+            <strong id="ola">Olá!</strong>
+            <span class="pf-resumo-sub">Seus dados no PratiCão</span>
+          </aside>
+          <dl class="pf-campos">
+            <div class="pf-campo pf-larga"><dt>👤 Nome completo</dt><dd id="v-nome"><span class="carregando">Carregando...</span></dd></div>
+            <div class="pf-campo"><dt>✉️ E-mail</dt><dd id="v-email">–</dd></div>
+            <div class="pf-campo"><dt>📱 Telefone / WhatsApp</dt><dd id="v-tel">–</dd></div>
+            <div class="pf-campo"><dt>🎓 Tipo de conta</dt><dd><span class="etiqueta" id="v-tipo">–</span></dd></div>
+            <div class="pf-campo"><dt>🛡️ Status</dt><dd><span class="status" id="v-status">–</span></dd></div>
+          </dl>
+        </div>
+        <p class="pf-dica">🔒 Para trocar a senha, saia da conta e use “Esqueci minha senha” na tela de login.</p>
+        <div class="acoes">
+          <button type="button" class="btn btn-laranja" id="editar">✏️ Editar dados</button>
+          <a class="btn btn-contorno" id="voltar" href="painel.html">↩ Voltar ao painel</a>
+        </div>
+      </section>
+
+      <p class="pf-sair"><button type="button" class="link" id="sair">↪ Sair da conta</button></p>
+    </div>
+  </main>
+
+  <!-- Editar dados -->
+  <dialog id="dlg-editar" aria-labelledby="ed-titulo">
+    <form id="form-dados" novalidate>
+      <h2 id="ed-titulo">Editar dados pessoais</h2>
+      <div class="erro" id="ed-erro" role="alert" hidden></div>
+      <div class="campo"><label for="p-nome">Nome completo</label><input id="p-nome" type="text" minlength="2" maxlength="100" autocomplete="name"></div>
+      <div class="campo"><label for="p-email">E-mail</label><input id="p-email" type="email" readonly><small>O e-mail não pode ser alterado.</small></div>
+      <div class="campo"><label for="p-tel">Telefone / WhatsApp</label><input id="p-tel" type="tel" maxlength="20" autocomplete="tel" placeholder="(11) 99999-9999"><small>Opcional.</small></div>
+      <div class="rodape-dlg">
+        <button type="button" class="btn btn-contorno" id="ed-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-laranja" id="ed-salvar">Salvar alterações</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/perfil.js"></script>
+</body>
+</html>

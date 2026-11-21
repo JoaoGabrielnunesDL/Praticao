@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PratiCão - Banho e Tosa</title>
+  <link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body class="pg-home">
+  <div id="inicio"></div>
+  <header id="cabecalho"></header>
+
+  <!-- Ícones da página (traço único, 24px): usados com <use>, sempre decorativos -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="hi-banho" viewBox="0 0 24 24"><path d="M3.5 12h17v1.5a5.5 5.5 0 0 1-5.5 5.5H9a5.5 5.5 0 0 1-5.5-5.5zM6 12V6.5A2.5 2.5 0 0 1 8.5 4c1.1 0 2 .7 2.4 1.7M7.5 19l-1 2M16.5 19l1 2"/></symbol>
+    <symbol id="hi-tosa" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></symbol>
+    <symbol id="hi-hidratacao" viewBox="0 0 24 24"><path d="M12 3.5s-6 6.4-6 10.8a6 6 0 0 0 12 0C18 9.9 12 3.5 12 3.5z"/><path d="M9.6 14.6a2.6 2.6 0 0 0 2.4 2.4"/></symbol>
+    <symbol id="hi-unhas" viewBox="0 0 24 24"><circle cx="6.5" cy="10" r="1.9"/><circle cx="10" cy="6.2" r="1.9"/><circle cx="14.5" cy="6.2" r="1.9"/><circle cx="18" cy="10" r="1.9"/><path d="M7.6 17.4c0-2.7 2-5.4 4.4-5.4s4.4 2.7 4.4 5.4c0 1.5-1.1 2.4-2.4 2.4-1 0-1.3-.6-2-.6s-1 .6-2 .6c-1.3 0-2.4-.9-2.4-2.4z"/></symbol>
+    <symbol id="hi-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="hi-seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="hi-estrela" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></symbol>
+  </svg>
+
+  <main>
+    <!-- HERO: contexto, título, descrição, CTA e os pets como apoio visual -->
+    <section class="hm-hero" aria-labelledby="hm-hero-titulo">
+      <div class="container hm-hero-grade">
+        <div class="hm-hero-texto">
+          <p class="hm-eyebrow">Banho, tosa e cuidados</p>
+          <h1 id="hm-hero-titulo">Cuidado &amp; Diversão <span>para o seu melhor amigo!</span></h1>
+          <p class="hm-hero-desc">Serviços de banho e tosa, hidratação e muito mais. Tudo para o bem-estar do seu pet.</p>
+          <a class="hm-cta" href="login.html" data-protegido="agendamento.html">Agendar Banho &amp; Tosa<svg aria-hidden="true" focusable="false"><use href="#hi-seta"/></svg></a>
+        </div>
+        <div class="hm-hero-pets">
+          <img src="img/dicas/WhatsApp%20Image%202026-11-17%20at%2010.56.39.jpeg" alt="Cachorro e gato deitados lado a lado" width="1456" height="819" decoding="async" fetchpriority="high">
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS: lista com ícones próprios (sem emoji), preço em azul -->
+    <section class="hm-secao hm-servicos" id="servicos" aria-labelledby="hm-servicos-titulo">
+      <div class="container">
+        <div class="hm-cab">
+          <div>
+            <h2 class="hm-titulo" id="hm-servicos-titulo">Nossos Serviços</h2>
+            <p class="hm-sub">Cuidado completo para o seu pet.</p>
+          </div>
+          <a class="hm-link" href="login.html" data-protegido="servicos.html">Ver mais<svg aria-hidden="true" focusable="false"><use href="#hi-seta"/></svg></a>
+        </div>
+        <div class="hm-servicos-grade">
+          <a class="hm-servico" href="login.html" data-protegido="servicos.html">
+            <span class="hm-ic" aria-hidden="true"><svg><use href="#hi-banho"/></svg></span>
+            <span class="hm-servico-nome">Banho</span>
+            <span class="hm-servico-desc">Limpeza, higiene e bem-estar.</span>
+            <span class="hm-preco">a partir de R$ 85,00</span>
+          </a>
+          <a class="hm-servico" href="login.html" data-protegido="servicos.html">
+            <span class="hm-ic" aria-hidden="true"><svg><use href="#hi-tosa"/></svg></span>
+            <span class="hm-servico-nome">Tosa</span>
+            <span class="hm-servico-desc">Corte, cuidado e muito profissionalismo.</span>
+            <span class="hm-preco">a partir de R$ 70,00</span>
+          </a>
+          <a class="hm-servico" href="login.html" data-protegido="servicos.html">
+            <span class="hm-ic" aria-hidden="true"><svg><use href="#hi-hidratacao"/></svg></span>
+            <span class="hm-servico-nome">Hidratação</span>
+            <span class="hm-servico-desc">Pelos macios, sedosos e brilhantes.</span>
+            <span class="hm-preco">a partir de R$ 60,00</span>
+          </a>
+          <a class="hm-servico" href="login.html" data-protegido="servicos.html">
+            <span class="hm-ic" aria-hidden="true"><svg><use href="#hi-unhas"/></svg></span>
+            <span class="hm-servico-nome">Corte de Unhas</span>
+            <span class="hm-servico-desc">Rápido, seguro e sem estresse.</span>
+            <span class="hm-preco">a partir de R$ 20,00</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENDAMENTO: foto + benefícios em lista (sem cartões) -->
+    <section class="hm-secao hm-agendar" id="agendamento" aria-labelledby="hm-agendar-titulo">
+      <div class="container hm-agendar-grade">
+        <div class="hm-agendar-pets">
+          <img src="img/dicas/WhatsApp%20Image%202026-11-18%20at%2020.11.15.jpeg" alt="Cachorro golden e gato sentados juntos" width="1600" height="900" loading="lazy" decoding="async">
+        </div>
+        <div>
+          <h2 class="hm-titulo" id="hm-agendar-titulo">Quer agendar um serviço com comodidade?</h2>
+          <p class="hm-sub">Permita o formulário e deixe o seu pet pronto para o próximo passeio.</p>
+          <ul class="hm-beneficios">
+            <li><svg aria-hidden="true" focusable="false"><use href="#hi-check"/></svg><span><strong>Agendamento rápido e fácil</strong>Escolha o serviço, o dia e o horário.</span></li>
+            <li><svg aria-hidden="true" focusable="false"><use href="#hi-check"/></svg><span><strong>Atendimento seguro e carinhoso</strong>Seu pet cuidado por quem ama animais.</span></li>
+            <li><svg aria-hidden="true" focusable="false"><use href="#hi-check"/></svg><span><strong>Equipe especializada e experiente</strong>Profissionais treinados para cada serviço.</span></li>
+          </ul>
+          <a class="hm-btn-sec" href="login.html" data-protegido="agendamento.html">Quero agendar um serviço</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- O PET SHOP: bloco editorial (sem imagem de enfeite) -->
+    <section class="hm-secao hm-petshop" aria-labelledby="hm-petshop-titulo">
+      <div class="container hm-petshop-grade">
+        <h2 class="hm-titulo hm-titulo-g" id="hm-petshop-titulo">Mais que um pet shop, somos uma família que cuida de pets!</h2>
+        <div>
+          <p class="hm-petshop-texto">Aqui, seu pet encontra um ambiente confortável, profissionais capacitados e todo o carinho que ele merece.</p>
+          <dl class="hm-fatos">
+            <div><dt>Ambiente limpo</dt><dd>Higiene em primeiro lugar</dd></div>
+            <div><dt>Produtos de qualidade</dt><dd>Seguros para o seu pet</dd></div>
+            <div><dt>Equipe apaixonada</dt><dd>Amor por animais</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- DICAS (leitura pública: não exige login): fotos reais dos próprios artigos -->
+    <section class="hm-secao hm-dicas" aria-labelledby="hm-dicas-titulo">
+      <div class="container">
+        <div class="hm-cab">
+          <div>
+            <h2 class="hm-titulo" id="hm-dicas-titulo">Curiosidades e Novidades do PratiCão</h2>
+            <p class="hm-sub">Tudo o que você precisa saber para cuidar melhor do seu pet.</p>
+          </div>
+          <a class="hm-link" href="curiosidades.html">Ver mais<svg aria-hidden="true" focusable="false"><use href="#hi-seta"/></svg></a>
+        </div>
+        <div class="hm-dicas-grade">
+          <a class="hm-dica" href="artigo.html?id=1">
+            <img src="img/dicas/racao.jpg" alt="" width="141" height="142" loading="lazy" decoding="async">
+            <span class="hm-dica-corpo"><span class="hm-tag">Alimentação</span><span class="hm-dica-titulo">Como escolher a ração ideal?</span><span class="hm-dica-desc">Descubra o que considerar na hora de escolher a ração.</span><span class="hm-ler">Ler mais</span></span>
+          </a>
+          <a class="hm-dica" href="artigo.html?id=7">
+            <img src="img/dicas/passeio-seguro.jpg" alt="" width="139" height="128" loading="lazy" decoding="async">
+            <span class="hm-dica-corpo"><span class="hm-tag">Passeios</span><span class="hm-dica-titulo">Como tornar o passeio mais seguro?</span><span class="hm-dica-desc">Dicas para um passeio tranquilo e sem riscos.</span><span class="hm-ler">Ler mais</span></span>
+          </a>
+          <a class="hm-dica" href="artigo.html?id=8">
+            <img src="img/dicas/passeio-gatos.jpg" alt="" width="142" height="128" loading="lazy" decoding="async">
+            <span class="hm-dica-corpo"><span class="hm-tag">Gatos</span><span class="hm-dica-titulo">Passeio para gatos: é possível?</span><span class="hm-dica-desc">Saiba como adaptar passeios para seu felino.</span><span class="hm-ler">Ler mais</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÕES (destino do botão "Sobre Nós") -->
+    <section class="hm-secao hm-depo" id="sobre" aria-labelledby="hm-depo-titulo">
+      <div class="container">
+        <h2 class="hm-titulo" id="hm-depo-titulo">O que dizem os nossos clientes</h2>
+        <p class="hm-sub">A confiança é o combustível que faz o PratiCão ser a experiência de pet shop ideal.</p>
+        <div class="hm-depo-grade">
+          <figure class="hm-depo-item">
+            <p class="hm-estrelas" role="img" aria-label="5 de 5 estrelas"><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg></p>
+            <blockquote><p>Excelente atendimento! O banho e a tosa deixaram meu cão com super cuidado. Recomendo muito!</p></blockquote>
+            <figcaption>Mariana Souza</figcaption>
+          </figure>
+          <figure class="hm-depo-item">
+            <p class="hm-estrelas" role="img" aria-label="5 de 5 estrelas"><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg></p>
+            <blockquote><p>Amo esse pet shop! Pesquisei e achei o ambiente limpo e organizado. Volto sempre.</p></blockquote>
+            <figcaption>Carlos Eduardo</figcaption>
+          </figure>
+          <figure class="hm-depo-item">
+            <p class="hm-estrelas" role="img" aria-label="5 de 5 estrelas"><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg><svg aria-hidden="true"><use href="#hi-estrela"/></svg></p>
+            <blockquote><p>Profissionais ao melhor! Meu dog parece outro pet depois do serviço. Nota 10!</p></blockquote>
+            <figcaption>Rafael Lima</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- O rodapé é montado por js/header.js em todas as telas -->
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
