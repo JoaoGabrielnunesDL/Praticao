@@ -1,0 +1,271 @@
+/* Agenda do Dia: novo visual. Tudo escopado em body.pg-agenda-dia. Não altera JS nem CSS compartilhado.
+   Carregar DEPOIS de base/header/agenda/estados/praticao-ui. Unidades de texto em rem/em. */
+
+/* ===== 1. Variáveis ===== */
+body.pg-agenda-dia{
+  --ad-royal:#1a56c4; --ad-azul:#0a2a6b; --ad-azul-2:#1f5fd0; --ad-gelo:#eaf3ff; --ad-borda:#d3e2f8;
+  --ad-laranja:#f28a0c; --ad-texto:#1c2b4a; --ad-sub:#3b5380;
+  --ad-sombra:0 10px 30px rgba(11,58,158,.10);
+  --ad-ic-cal:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M7 2h2v2h6V2h2v2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2zM5 9v11h14V9zm10.7 2.8-4.9 4.9-2.5-2.5 1.4-1.4 1.1 1.1 3.5-3.5z'/></svg>");
+  --ad-ic-estrela:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='m12 2 3 6.5 7 .9-5.2 4.8 1.4 7L12 17.7 5.8 21.2l1.4-7L2 9.4l7-.9z'/></svg>");
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:#f1f7ff;
+}
+
+/* ===== 2. Fundo (degradê, ondas, patinhas, onda laranja) ===== */
+body.pg-agenda-dia .agenda{
+  padding:24px 0 56px;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300' preserveAspectRatio='none'><path d='M0 0h420C300 40 240 120 120 170 70 192 30 230 0 300z' fill='%23d3e5ff' fill-opacity='.55'/></svg>") left top/min(46vw,620px) 300px no-repeat,
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300' preserveAspectRatio='none'><path d='M600 300H180c120-40 180-120 300-170 50-22 90-60 120-130z' fill='%23d3e5ff' fill-opacity='.5'/></svg>") right bottom/min(46vw,620px) 300px no-repeat,
+    linear-gradient(180deg,#eaf3ff 0%,#f7fbff 100%);
+}
+body.pg-agenda-dia .pata-deco{fill:#8fb6ef;opacity:.2}
+body.pg-agenda-dia .pata-onda{fill:#fff;opacity:.95}
+
+/* ===== 3. Cabeçalho, faixa e rodapé (montados pelo header.js) ===== */
+body.pg-agenda-dia #cabecalho{background:linear-gradient(#eaf3ff,rgba(234,243,255,0));padding:10px 16px 0}
+body.pg-agenda-dia #cabecalho .topbar{background:var(--ad-azul);border-radius:14px 14px 0 0;max-width:1360px;margin:0 auto}
+body.pg-agenda-dia #cabecalho .navbar{max-width:1360px;margin:0 auto;border:1px solid rgba(211,226,248,.9);border-radius:22px;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 8px 24px rgba(11,58,158,.10)}
+body.pg-agenda-dia #cabecalho .logo{color:var(--ad-azul)}
+body.pg-agenda-dia #cabecalho .menu a{color:var(--ad-azul);font-weight:700}
+body.pg-agenda-dia #cabecalho .menu a:hover{background:#eef4ff}
+body.pg-agenda-dia #cabecalho .menu a[aria-current=page]::after{height:3px;background:var(--ad-laranja)}
+body.pg-agenda-dia #cabecalho .conta .conta-perfil{border-radius:999px;background:#eaf2ff;color:var(--ad-azul);font-weight:700}
+body.pg-agenda-dia #cabecalho .conta .sair{color:var(--ad-azul)}
+body.pg-agenda-dia .rodape{background:linear-gradient(180deg,#1556c8 0%,#0a2a6b 100%);margin-top:20px}
+body.pg-agenda-dia .rodape-onda{height:44px;fill:#1556c8}
+body.pg-agenda-dia .rodape--compacto .rodape-in{justify-content:center;text-align:center;gap:8px 40px}
+body.pg-agenda-dia .rodape,body.pg-agenda-dia .rodape a{color:#fff}
+
+/* ===== 4. Título ===== */
+body.pg-agenda-dia .ag-topo .selo-op{color:#b45309;font-weight:700;letter-spacing:.1em}
+body.pg-agenda-dia .agenda h1{color:var(--ad-royal);font-weight:800}
+body.pg-agenda-dia .ag-topo .sub{color:var(--ad-sub)}
+body.pg-agenda-dia .ag-topo::after{content:"";grid-column:2;grid-row:2;width:34px;height:34px;margin-top:0;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='%23f28a0c' stroke-width='4' stroke-linecap='round'><path d='M6 8l9 5M16 22l14-4M10 33l18-1'/></svg>") center/contain no-repeat}
+body.pg-agenda-dia .ag-pets .faisca,body.pg-agenda-dia .ag-pets .prancheta{display:none}
+body.pg-agenda-dia .ag-pets::before{display:none}
+body.pg-agenda-dia .ag-pets img{mix-blend-mode:normal;filter:drop-shadow(0 10px 14px rgba(11,58,158,.18))}
+
+/* ===== 5. Mensagem (sucesso/erro) ===== */
+body.pg-agenda-dia .mensagem{border-radius:16px;font-weight:600;box-shadow:0 6px 18px rgba(11,58,158,.08)}
+body.pg-agenda-dia .mensagem.sucesso{background:#e4f8df;border:1.5px solid #7cc67a;color:#14532d}
+body.pg-agenda-dia .mensagem.erro{background:#fdecea;border:1.5px solid #f1a9a4;color:#8f1d16}
+body.pg-agenda-dia .mensagem button{color:inherit;min-width:40px;min-height:40px}
+
+/* ===== 6. Filtro ===== */
+body.pg-agenda-dia .filtro{gap:10px;margin:20px 0 12px}
+body.pg-agenda-dia .ag-data{border:1.5px solid var(--ad-borda);background:#fff;box-shadow:0 6px 16px rgba(11,58,158,.07)}
+body.pg-agenda-dia .filtro label{color:var(--ad-azul);font-weight:700}
+body.pg-agenda-dia .filtro .ag-data input{background:#f4f8ff;border-radius:999px;color:var(--ad-texto)}
+body.pg-agenda-dia .filtro .btn-laranja{background:linear-gradient(180deg,#ffa133,#f28a0c);color:var(--ad-azul);font-weight:800;border-radius:999px;box-shadow:0 8px 18px rgba(242,138,12,.32)}
+body.pg-agenda-dia .filtro .btn-laranja:hover{background:linear-gradient(180deg,#ffb04d,#ff9a2a)}
+body.pg-agenda-dia .filtro .btn-contorno{background:rgba(255,255,255,.75);color:var(--ad-azul-2);border:1.5px solid #9fc0f2;font-weight:600;box-shadow:none}
+body.pg-agenda-dia .filtro .btn-contorno:hover{background:#eef4ff}
+body.pg-agenda-dia .filtro .btn.ativo,body.pg-agenda-dia .filtro .btn-contorno.ativo{background:var(--ad-azul-2);border-color:var(--ad-azul-2);color:#fff}
+body.pg-agenda-dia #info-periodo{color:var(--ad-sub)}
+
+/* ===== 7. Indicadores (chips) ===== */
+body.pg-agenda-dia .indicadores{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+body.pg-agenda-dia .ind{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:6px 16px 6px 12px;background:#fff;border:1.5px solid var(--ad-borda);border-radius:999px;box-shadow:none;color:var(--ad-texto);font-size:.9rem;font-weight:600;grid-column:auto}
+body.pg-agenda-dia .ind strong{display:inline;font-size:1.3rem;line-height:1;color:var(--ad-royal)}
+body.pg-agenda-dia .ind:hover{transform:none;border-color:#9fc0f2;box-shadow:0 4px 12px rgba(11,58,158,.08)}
+body.pg-agenda-dia .ind.ativo{background:#fffaf2;border-color:var(--ad-laranja);box-shadow:0 4px 14px rgba(242,138,12,.2)}
+body.pg-agenda-dia .ind[data-filtro=AGENDADO] strong{color:#a85500}
+body.pg-agenda-dia .ind[data-filtro=CONFIRMADO] strong{color:#1a56c4}
+body.pg-agenda-dia .ind[data-filtro=CONCLUIDO] strong{color:#1d6b2a}
+body.pg-agenda-dia .ind[data-filtro=CANCELADO] strong{color:#b3261e}
+
+/* ===== 8. Tabela ===== */
+body.pg-agenda-dia .lista{background:#fff;border:1px solid var(--ad-borda);border-radius:22px;box-shadow:var(--ad-sombra);position:relative}
+body.pg-agenda-dia .cab-lista{background:#e6f0ff;color:var(--ad-azul);font-weight:800}
+body.pg-agenda-dia .cab-lista span::before{background:var(--ad-azul-2)}
+body.pg-agenda-dia .item{border-top:1px solid #e6eef9}
+body.pg-agenda-dia .item:hover{background:#f4f8ff}
+body.pg-agenda-dia .c-hora{color:var(--ad-azul);font-weight:800}
+body.pg-agenda-dia .c-tutor{font-weight:600;color:var(--ad-texto)}
+@media(min-width:801px){
+  body.pg-agenda-dia .cab-lista,body.pg-agenda-dia .item{grid-template-columns:92px minmax(0,1.2fr) minmax(0,.9fr) minmax(0,1fr) 140px 300px}
+}
+
+/* ===== 9. Status ===== */
+body.pg-agenda-dia .lista .status,body.pg-agenda-dia #det-conteudo .status{font-weight:700;font-size:.82rem;border-radius:999px}
+body.pg-agenda-dia .status.pendente{background:#fff0d3;color:#7c4200}
+body.pg-agenda-dia .status.confirmado{background:#dbe8fb;color:#174bb0}
+body.pg-agenda-dia .status.concluido{background:#dff5d8;color:#1d6b2a}
+body.pg-agenda-dia .status.cancelado{background:#fde2df;color:#a8211a}
+
+/* ===== 10. Ações ===== */
+body.pg-agenda-dia .acao{background:#fff;font-weight:700}
+body.pg-agenda-dia .acao.confirmar{color:#1a56c4;border-color:#8fb6ef}
+body.pg-agenda-dia .acao.concluir{color:#1d6b2a;border-color:#8ccf84}
+body.pg-agenda-dia .acao.cancelar{color:#b3261e;border-color:#f0a09a}
+body.pg-agenda-dia .acao.detalhes{color:#44526e;border-color:#d3dce9;background:#f6f8fc}
+body.pg-agenda-dia .acao.confirmar:hover{background:#e6f0ff}
+body.pg-agenda-dia .acao.concluir:hover{background:#e4f6e1}
+body.pg-agenda-dia .acao.cancelar:hover{background:#fdeceb}
+body.pg-agenda-dia .acao.detalhes:hover{background:#e9eef6}
+body.pg-agenda-dia .acao:disabled{opacity:.45;cursor:not-allowed}
+body.pg-agenda-dia :is(.acao,.ind,.btn,.mensagem button,.ag-data input):focus-visible{outline:3px solid var(--ad-laranja);outline-offset:2px}
+body.pg-agenda-dia .lista.ocupada{opacity:.6;pointer-events:none}
+body.pg-agenda-dia #lista>.carregando,body.pg-agenda-dia #lista>.vazio{background:#fff;color:var(--ad-azul)}
+
+/* ===== 11. Diálogos ===== */
+body.pg-agenda-dia dialog{border-radius:24px;box-shadow:0 18px 48px rgba(10,42,107,.28)}
+body.pg-agenda-dia dialog.painel{border-radius:24px 0 0 24px}
+body.pg-agenda-dia dialog::backdrop{background:rgba(10,42,107,.42)}
+body.pg-agenda-dia dialog h2{color:var(--ad-azul)}
+body.pg-agenda-dia #dlg-detalhes .dados,body.pg-agenda-dia #dlg-confirmar .dados{background:#f4f8ff;border-color:var(--ad-borda)}
+body.pg-agenda-dia dialog .btn-contorno{border-color:#9fc0f2;color:var(--ad-azul-2)}
+body.pg-agenda-dia dialog .btn-laranja,body.pg-agenda-dia #conf-ok{background:linear-gradient(180deg,#ffa133,#f28a0c);color:var(--ad-azul);font-weight:800}
+
+/* ===== 12. Blocos inferiores (somente leitura) ===== */
+body.pg-agenda-dia .ag-resumo{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:28px;max-width:1360px}
+body.pg-agenda-dia .rs-card{background:#fff;border:1px solid var(--ad-borda);border-radius:20px;box-shadow:var(--ad-sombra);padding:18px 22px 22px;min-height:210px}
+body.pg-agenda-dia .rs-tit{display:flex;align-items:center;gap:10px;font-size:1.05rem;font-weight:800;color:var(--ad-azul);margin:0 0 14px}
+body.pg-agenda-dia .rs-tit::before{content:"";width:22px;height:22px;flex:none;background:var(--ad-azul-2);-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+body.pg-agenda-dia .rs-ic-cal{--ic:var(--ad-ic-cal)}
+body.pg-agenda-dia .rs-ic-pata{--ic:var(--ag-ic-pata)}
+body.pg-agenda-dia .rs-ic-estrela{--ic:var(--ad-ic-estrela)}
+body.pg-agenda-dia .rs-ic-estrela::before{background:var(--ad-laranja)}
+body.pg-agenda-dia .rs-status{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+body.pg-agenda-dia .rs-rosca{width:132px;height:132px;border-radius:50%;background:#e3ecf9;-webkit-mask:radial-gradient(circle,transparent 0 38px,#000 39px);mask:radial-gradient(circle,transparent 0 38px,#000 39px)}
+body.pg-agenda-dia .rs-legenda{list-style:none;display:grid;gap:6px;min-width:160px}
+body.pg-agenda-dia .rs-legenda li{display:flex;align-items:center;gap:8px;color:var(--ad-texto);font-size:.95rem}
+body.pg-agenda-dia .rs-legenda li::before{content:"";width:11px;height:11px;border-radius:50%;background:var(--c);flex:none}
+body.pg-agenda-dia .rs-legenda span{flex:1}
+body.pg-agenda-dia .rs-legenda strong{color:var(--ad-azul)}
+body.pg-agenda-dia .l-pend{--c:#f28a0c}body.pg-agenda-dia .l-conf{--c:#4d8ff5}body.pg-agenda-dia .l-conc{--c:#2e9e4f}body.pg-agenda-dia .l-canc{--c:#d93025}
+body.pg-agenda-dia .rs-hoje{text-align:center;position:relative}
+body.pg-agenda-dia .rs-hoje .rs-tit{justify-content:flex-start}
+body.pg-agenda-dia .rs-num{font-size:3rem;font-weight:800;line-height:1;color:var(--ad-royal)}
+body.pg-agenda-dia .rs-rot{color:var(--ad-sub);margin-top:6px}
+body.pg-agenda-dia .rs-cal{display:block;width:64px;height:64px;margin:14px auto 0;background:#4d8ff5;-webkit-mask:var(--ad-ic-cal) center/contain no-repeat;mask:var(--ad-ic-cal) center/contain no-repeat}
+body.pg-agenda-dia .rs-dica-in{display:flex;align-items:center;gap:20px}
+body.pg-agenda-dia .rs-lampada{flex:none;width:76px;height:76px;background:var(--ad-laranja);-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zm-1 18h2v1.5a1.5 1.5 0 0 1-3 0zM9.5 19h5v1h-5zM12 4a5 5 0 0 1 2.7 9.2l-.7.4V16h-4v-2.4l-.7-.4A5 5 0 0 1 12 4z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zm-1 18h2v1.5a1.5 1.5 0 0 1-3 0zM9.5 19h5v1h-5zM12 4a5 5 0 0 1 2.7 9.2l-.7.4V16h-4v-2.4l-.7-.4A5 5 0 0 1 12 4z'/></svg>") center/contain no-repeat}
+body.pg-agenda-dia .rs-dica-t{font-size:1.15rem;font-weight:800;color:var(--ad-azul);line-height:1.3}
+body.pg-agenda-dia .rs-dica-x{margin-top:6px;color:var(--ad-texto)}
+
+/* ===== 13. Responsivo ===== */
+@media(min-width:1280px){
+  body.pg-agenda-dia .ag-container{max-width:1360px}
+  body.pg-agenda-dia #lista{grid-column:2;grid-row:5}
+  body.pg-agenda-dia .ag-pets{grid-row:1/6;margin-top:0;margin-bottom:0;align-self:end;width:calc(100% + 20px);margin-left:-20px}
+  body.pg-agenda-dia .ag-topo::before{content:"";position:absolute;left:-76px;top:12px;width:56px;height:64px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 72'><rect x='6' y='8' width='52' height='60' rx='10' fill='%231f6fe5'/><rect x='11' y='14' width='42' height='49' rx='6' fill='%23fff'/><rect x='21' y='3' width='22' height='12' rx='5' fill='%230b3a9e'/><circle cx='32' cy='44' r='9' fill='%23dbe8fb'/></svg>") center/contain no-repeat}
+}
+@media(min-width:1280px) and (max-width:1365px){body.pg-agenda-dia .ag-container{grid-template-columns:340px minmax(0,1fr)}}
+@media(min-width:1280px){body.pg-agenda-dia .ag-deco .pc-d{display:none}}
+@media(max-width:1279px){
+  body.pg-agenda-dia .ag-resumo{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body.pg-agenda-dia .rs-dica{grid-column:1/-1}
+}
+@media(max-width:899px){
+  body.pg-agenda-dia .ag-pets{position:static;display:block;width:150px;margin:0 auto 4px}
+  body.pg-agenda-dia .ag-topo{min-height:0;padding-right:0}
+  body.pg-agenda-dia .ag-resumo{grid-template-columns:1fr}
+  body.pg-agenda-dia .rs-dica{grid-column:auto}
+}
+@media(max-width:800px){
+  body.pg-agenda-dia .lista{background:none;border:0;box-shadow:none}
+  body.pg-agenda-dia .item{border:1px solid var(--ad-borda);border-radius:18px;box-shadow:0 6px 16px rgba(11,58,158,.07);margin-bottom:10px}
+  body.pg-agenda-dia .item .acao,body.pg-agenda-dia #det-acoes .acao,body.pg-agenda-dia .filtro .btn,body.pg-agenda-dia .ind{min-height:44px}
+}
+@media(max-width:480px){
+  body.pg-agenda-dia .ag-pets{width:110px}
+  body.pg-agenda-dia #cabecalho{padding:8px 8px 0}
+  body.pg-agenda-dia .rs-rosca{width:116px;height:116px}
+}
+
+/* ===== 14. Movimento reduzido ===== */
+@media(prefers-reduced-motion:reduce){
+  body.pg-agenda-dia *,body.pg-agenda-dia *::before,body.pg-agenda-dia *::after{transition:none!important;animation-duration:3s!important;scroll-behavior:auto!important}
+}
+@media print{body.pg-agenda-dia .ag-deco{display:none}}
+
+/* ===== 15. Ajuste fino: composição igual à referência ===== */
+/* Ordem visual (body é flex em coluna): conteúdo → faixa azul do rodapé → cartões de resumo */
+body.pg-agenda-dia .rodape{order:1;margin-top:0}
+body.pg-agenda-dia .ag-resumo-wrap{order:2}
+body.pg-agenda-dia .agenda{padding-bottom:64px}
+/* rodapé vira uma faixa fina em onda, com o texto centralizado */
+body.pg-agenda-dia .rodape--compacto .rodape-in{padding-top:6px;padding-bottom:12px;gap:2px 28px}
+body.pg-agenda-dia .rodape--compacto .rodape-col,body.pg-agenda-dia .rodape--compacto .rodape-contato{font-size:.8rem}
+body.pg-agenda-dia .rodape--compacto .rodape-marca{font-size:1rem}
+body.pg-agenda-dia .rodape--compacto .rodape-frase{display:none}
+body.pg-agenda-dia .rodape-onda{height:52px}
+/* cartões: fundo contínuo com onda laranja no canto */
+body.pg-agenda-dia .ag-resumo-wrap{position:relative;overflow:hidden;padding:28px 0 70px;background:
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300' preserveAspectRatio='none'><path d='M0 300V120C120 150 220 90 340 150s170 90 260 150z' fill='%23d3e5ff' fill-opacity='.5'/></svg>") left bottom/min(50vw,700px) 220px no-repeat,
+  linear-gradient(180deg,#f3f8ff 0%,#e6f0ff 100%)}
+body.pg-agenda-dia .ag-resumo-wrap::after{content:"";position:absolute;right:0;bottom:0;width:min(420px,60vw);height:150px;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160' preserveAspectRatio='none'><defs><linearGradient id='g' x1='0' y1='1' x2='1' y2='0'><stop offset='0' stop-color='%23f7931e'/><stop offset='1' stop-color='%23ffb347'/></linearGradient></defs><path d='M0 160C90 150 150 120 210 80S330 10 400 0V160Z' fill='url(%23g)'/></svg>") right bottom/100% 100% no-repeat}
+body.pg-agenda-dia .ag-resumo{margin-top:0;z-index:1}
+/* detalhes dos cartões: patinhas no "Atendimentos" e traço laranja na "Dica" */
+body.pg-agenda-dia .rs-hoje::before,body.pg-agenda-dia .rs-hoje::after{content:"";position:absolute;bottom:22px;width:34px;height:34px;opacity:.45;background:#4d8ff5;-webkit-mask:var(--ag-ic-pata) center/contain no-repeat;mask:var(--ag-ic-pata) center/contain no-repeat}
+body.pg-agenda-dia .rs-hoje::before{left:16%;transform:rotate(-14deg)}
+body.pg-agenda-dia .rs-hoje::after{right:16%;transform:rotate(14deg)}
+body.pg-agenda-dia .rs-dica{position:relative;overflow:hidden}
+body.pg-agenda-dia .rs-dica::after{content:"";position:absolute;left:12%;right:10%;bottom:14px;height:14px;border-radius:50%;border-bottom:3px solid rgba(242,138,12,.55)}
+body.pg-agenda-dia .rs-card{min-height:230px}
+/* pets maiores, apoiados na onda do rodapé */
+@media(min-width:1280px){
+  body.pg-agenda-dia .ag-pets{position:relative;z-index:2;width:calc(100% + 50px);margin-left:-36px;margin-bottom:-18px}
+}
+@media(min-width:1600px){body.pg-agenda-dia .ag-pets{width:calc(100% + 90px);margin-left:-60px}}
+/* tabela: cabeçalho e linhas mais próximos da referência */
+body.pg-agenda-dia .cab-lista{min-height:52px;font-size:.95rem}
+body.pg-agenda-dia .item{min-height:52px}
+body.pg-agenda-dia .lista{border-radius:24px;border-color:#cfe0fa;box-shadow:0 14px 34px rgba(11,58,158,.12)}
+@media(max-width:899px){body.pg-agenda-dia .ag-resumo-wrap{padding:22px 0 60px}}
+
+/* ===== 16. Ajustes: footer embaixo, sinal do título, prancheta com patinha, fundo mais cheio ===== */
+body.pg-agenda-dia .rodape{order:0}
+body.pg-agenda-dia .ag-resumo-wrap{order:0}
+body.pg-agenda-dia .rodape--compacto .rodape-frase{display:block}
+body.pg-agenda-dia .rodape--compacto .rodape-in{padding-top:14px;padding-bottom:18px}
+body.pg-agenda-dia .ag-topo::after{width:46px;height:46px;margin:-2px 0 0 12px;align-self:start;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44' fill='none' stroke='%23f28a0c' stroke-width='4.5' stroke-linecap='round'><path d='M6 14l11 6M12 36l13-10M27 6l4 11'/></svg>") center/contain no-repeat}
+/* mais patinhas, corações e ícones no fundo (só CSS; nada interfere nos controles) */
+body.pg-agenda-dia .agenda{background:
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 3% 36%/44px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 97% 42%/58px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 5% 90%/34px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 82% 7%/36px no-repeat,
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 52% 4%/30px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 93% 78%/46px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%23f7b45c'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 62% 96%/30px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f7b45c'><path d='M12 21s-8-5.2-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.8-8 11-8 11z'/></svg>") 36% 95%/24px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f7b45c'><path d='M12 21s-8-5.2-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.8-8 11-8 11z'/></svg>") 76% 92%/20px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 22% 97%/28px no-repeat,
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300' preserveAspectRatio='none'><path d='M0 0h420C300 40 240 120 120 170 70 192 30 230 0 300z' fill='%23d3e5ff' fill-opacity='.55'/></svg>") left top/min(46vw,620px) 300px no-repeat,
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300' preserveAspectRatio='none'><path d='M600 300H180c120-40 180-120 300-170 50-22 90-60 120-130z' fill='%23d3e5ff' fill-opacity='.5'/></svg>") right bottom/min(46vw,620px) 300px no-repeat,
+  linear-gradient(180deg,#eaf3ff 0%,#f7fbff 100%)}
+body.pg-agenda-dia .pata-deco{opacity:.3}
+body.pg-agenda-dia .ag-resumo-wrap{background:
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 4% 22%/40px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 30% 8%/28px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%23f7b45c'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 68% 14%/30px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f7b45c'><path d='M12 21s-8-5.2-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.8-8 11-8 11z'/></svg>") 96% 30%/24px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238fb6ef'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") 48% 94%/32px no-repeat, url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f7b45c'><path d='M12 21s-8-5.2-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.8-8 11-8 11z'/></svg>") 12% 88%/22px no-repeat,
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300' preserveAspectRatio='none'><path d='M0 300V120C120 150 220 90 340 150s170 90 260 150z' fill='%23d3e5ff' fill-opacity='.5'/></svg>") left bottom/min(50vw,700px) 220px no-repeat,
+  linear-gradient(180deg,#f3f8ff 0%,#e6f0ff 100%)}
+@media(min-width:1280px){
+  body.pg-agenda-dia .ag-topo::before{left:-80px;top:8px;width:62px;height:70px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%231f6fe5'><ellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/><ellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/><ellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/><ellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/><path d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/></svg>") center 62%/46% no-repeat,url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 72'><rect x='6' y='8' width='52' height='60' rx='10' fill='%231f6fe5'/><rect x='11' y='14' width='42' height='49' rx='6' fill='%23fff'/><rect x='21' y='3' width='22' height='12' rx='5' fill='%230b3a9e'/></svg>") center/contain no-repeat}
+  body.pg-agenda-dia .ag-pets{margin-bottom:0}
+}
+/* telas grandes: tudo cresce para a página não ficar vazia */
+@media(min-width:1600px){
+  body.pg-agenda-dia .ag-container,body.pg-agenda-dia .ag-resumo,body.pg-agenda-dia #cabecalho .navbar,body.pg-agenda-dia #cabecalho .topbar{max-width:1560px}
+  body.pg-agenda-dia .ag-container{grid-template-columns:500px minmax(0,1fr)}
+  body.pg-agenda-dia .agenda h1{font-size:3.3rem}
+  body.pg-agenda-dia .ag-topo .sub{font-size:1.15rem}
+  body.pg-agenda-dia .item,body.pg-agenda-dia .cab-lista{font-size:1.05rem;min-height:58px}
+  body.pg-agenda-dia .rs-card{min-height:260px}
+  body.pg-agenda-dia .rs-num{font-size:3.6rem}
+}
+@media(min-width:1900px){
+  body.pg-agenda-dia .ag-container,body.pg-agenda-dia .ag-resumo,body.pg-agenda-dia #cabecalho .navbar,body.pg-agenda-dia #cabecalho .topbar{max-width:1760px}
+  body.pg-agenda-dia .ag-container{grid-template-columns:600px minmax(0,1fr)}
+}
+
+/* ===== 17. Sinal do título: raios abrindo para fora do texto (para cima e para a direita), com mais espaço ===== */
+body.pg-agenda-dia .ag-topo::after{width:48px;height:48px;margin:-6px 0 0 30px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44' fill='none' stroke='%23f28a0c' stroke-width='4.5' stroke-linecap='round'><path d='M8 24l-2.5-14M17 26l8-11M22 34l13-3'/></svg>") center/contain no-repeat}
+
+/* ===== 18. Sinal colado no "a" do título; respiro entre tabela/pets e cartões; sem buraco entre filtro e chips ===== */
+body.pg-agenda-dia .ag-topo::after{margin:-8px 0 0 -4px}
+body.pg-agenda-dia .agenda{padding-bottom:110px}
+body.pg-agenda-dia .ag-resumo-wrap{padding-top:48px}
+@media(min-width:1280px){
+  /* a altura extra dos pets vai para a última linha (1fr), não para o espaço entre filtro e chips */
+  body.pg-agenda-dia .ag-container{grid-template-rows:auto auto auto auto 1fr}
+  body.pg-agenda-dia #lista{align-self:start}
+  body.pg-agenda-dia .ag-pets{margin-bottom:28px}
+  body.pg-agenda-dia .pata-deco.p3{display:none}
+}
+@media(max-width:1279px){body.pg-agenda-dia .ag-resumo-wrap{padding-top:40px}}

@@ -10,8 +10,9 @@
   <link rel="stylesheet" href="css/estados.css">
   <link rel="stylesheet" href="css/estados-componentes.css">
   <link rel="stylesheet" href="css/praticao-ui.css">
+  <link rel="stylesheet" href="css/agenda-dia.css">
 </head>
-<body class="pg-agenda ui-estados">
+<body class="pg-agenda ui-estados pg-agenda-dia">
   <header id="cabecalho"></header>
 
   <!-- Ícones só visuais, reaproveitados com <use>. -->
@@ -60,7 +61,7 @@
           <use href="#ic-pata" x="18" y="24" width="28" height="28" fill="#1f6fe5"/>
         </svg>
         <svg class="faisca" viewBox="0 0 40 40"><path d="M6 14 14 20M12 5l6 11M24 3l1 12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg>
-        <img src="img/dicas/WhatsApp%20Image%202026-11-18%20at%2020.11.15.jpeg" alt="" decoding="async">
+        <img src="img/pets/dupla-pets.png" alt="" aria-hidden="true" width="1000" height="686" loading="eager" decoding="async">
       </aside>
 
       <div class="ag-conteudo">
@@ -97,6 +98,34 @@
         <div id="lista" class="lista"></div>
       </div>
     </div>
+    <!-- Resumo somente leitura (alimentado por js/agenda-visual.js a partir dos indicadores) -->
+    <section class="container ag-resumo" aria-label="Resumo da agenda">
+      <article class="rs-card">
+        <h2 class="rs-tit rs-ic-cal">Status da Agenda</h2>
+        <div class="rs-status">
+          <div class="rs-rosca" id="av-rosca" role="img" aria-label="Distribuição dos atendimentos por status"></div>
+          <ul class="rs-legenda">
+            <li class="l-pend"><span>Pendente</span><strong id="av-pend">0</strong></li>
+            <li class="l-conf"><span>Confirmado</span><strong id="av-conf">0</strong></li>
+            <li class="l-conc"><span>Concluído</span><strong id="av-conc">0</strong></li>
+            <li class="l-canc"><span>Cancelado</span><strong id="av-canc">0</strong></li>
+          </ul>
+        </div>
+      </article>
+      <article class="rs-card rs-hoje">
+        <h2 class="rs-tit rs-ic-pata" id="av-titulo-hoje">Atendimentos de Hoje</h2>
+        <p class="rs-num" id="av-total">0</p>
+        <p class="rs-rot">Total de atendimentos</p>
+        <span class="rs-cal" aria-hidden="true"></span>
+      </article>
+      <article class="rs-card rs-dica">
+        <h2 class="rs-tit rs-ic-estrela">Dica do Dia</h2>
+        <div class="rs-dica-in">
+          <span class="rs-lampada" aria-hidden="true"></span>
+          <div><p class="rs-dica-t" id="av-dica-t">Mantenha a vacinação do seu pet em dia!</p><p class="rs-dica-x" id="av-dica-x">É essencial para a saúde e bem-estar do seu amigo.</p></div>
+        </div>
+      </article>
+    </section>
   </main>
 
   <!-- Painel de detalhes (abre ao clicar em um agendamento) -->
@@ -129,5 +158,6 @@
   <script src="js/estados.js"></script>
   <script src="js/header.js"></script>
   <script src="js/agenda.js"></script>
+  <script src="js/agenda-visual.js"></script>
 </body>
 </html>
