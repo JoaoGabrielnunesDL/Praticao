@@ -81,7 +81,11 @@ body.pg-admin-usuarios .t-usuarios .status{padding:5px 12px;font-size:.82rem}
 body.pg-admin-usuarios .status.ativa{background:#dcf5e3;color:#1d6b2a}
 body.pg-admin-usuarios .status.inativa{background:#fde3e1;color:#b3261e}
 @media(min-width:801px){
-  body.pg-admin-usuarios .t-usuarios .cab,body.pg-admin-usuarios .t-usuarios .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 124px 104px 372px;gap:12px}
+  /* coluna de ações em rem (cresce junto com a letra: 384px no tamanho normal, 456px com a letra aumentada) e IGUAL no
+     cabeçalho e nas linhas: Ver detalhes, Desativar e Excluir sempre na mesma linha */
+  /* Perfil e Situação também em rem: os selos crescem com a letra e não encostam um no outro */
+  body.pg-admin-usuarios .t-usuarios .cab,body.pg-admin-usuarios .t-usuarios .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 8.75rem 7rem 24rem;gap:12px}
+  body.pg-admin-usuarios .t-usuarios .reg>.acoes{flex-wrap:nowrap}
 }
 
 /* Botões de ação (os ícones já vêm no texto gerado pelo JS) */
@@ -148,7 +152,7 @@ body.pg-admin-usuarios .au-fechar:hover,body.pg-admin-usuarios .dlg-pergunta .fe
 }
 @media(min-width:801px) and (max-width:1000px){
   /* sem espaço para as ações na mesma linha: elas descem para uma linha própria */
-  body.pg-admin-usuarios .t-usuarios .cab,body.pg-admin-usuarios .t-usuarios .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 120px 100px}
+  body.pg-admin-usuarios .t-usuarios .cab,body.pg-admin-usuarios .t-usuarios .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 8.75rem 7rem}
   body.pg-admin-usuarios .t-usuarios .cab>:last-child{display:none}
   body.pg-admin-usuarios .t-usuarios .reg>.acoes{grid-column:1/-1;justify-content:flex-end}
 }
@@ -163,6 +167,13 @@ body.pg-admin-usuarios .au-fechar:hover,body.pg-admin-usuarios .dlg-pergunta .fe
   body.pg-admin-usuarios .t-usuarios .reg>.peq{grid-column:1/-1}
   body.pg-admin-usuarios #lista>.vazio,body.pg-admin-usuarios #lista>.carregando{border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.06)}
   body.pg-admin-usuarios .acoes .acao{flex:1 1 auto;min-height:42px}
+  /* celular estreito: "Ver detalhes" ocupa a 1ª linha e Desativar + Excluir ficam sempre lado a lado na 2ª
+     (assim cabe até com a letra aumentada, sem botão passando da borda do cartão) */
+  @media(max-width:420px){
+    body.pg-admin-usuarios .t-usuarios .reg>.acoes{gap:8px}
+    body.pg-admin-usuarios .acoes .acao.detalhes{flex:1 1 100%}
+    body.pg-admin-usuarios .acoes .acao:not(.detalhes){flex:1 1 0;min-width:0;padding:6px 8px;gap:4px}
+  }
   body.pg-admin-usuarios .paginacao{justify-content:center}
 }
 @media(max-width:600px){

@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Agenda do Dia - PratiCão</title>
+  <link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/agenda.css">
   <link rel="stylesheet" href="css/estados.css">
   <link rel="stylesheet" href="css/estados-componentes.css">
   <link rel="stylesheet" href="css/praticao-ui.css">
+  <link rel="stylesheet" href="css/admin-cenario.css">
 </head>
 <body class="pg-agenda ui-estados">
   <header id="cabecalho"></header>
@@ -28,6 +30,8 @@
   <main class="pagina agenda">
     <!-- Decoração de fundo (patinhas e onda laranja): não interfere na tela -->
     <div class="ag-deco" aria-hidden="true">
+      <!-- Cenário pet (admin-cenario.css): formas orgânicas atrás dos cartões + patinhas, ossinhos, coração e brilhos nas áreas livres -->
+      <div class="cn-cena"><span class="cn-forma f-onda s1"></span><span class="cn-forma f-mancha s2"></span><span class="cn-forma f-curva s3"></span><span class="cn cn-osso t1 m1"></span><span class="cn cn-coracao tl m2"></span><span class="cn cn-trilha t3 m3"></span><span class="cn cn-brilho tl m4"></span><span class="cn cn-pata t1 m5"></span><span class="cn cn-osso t2 m6"></span><span class="cn cn-tracos tl m7"></span><span class="cn cn-brilho t2 m8"></span></div>
       <svg class="pata-deco p1"><use href="#ic-pata"/></svg>
       <svg class="pata-deco p2"><use href="#ic-pata"/></svg>
       <svg class="pata-deco p3"><use href="#ic-pata"/></svg>
@@ -59,7 +63,6 @@
           <rect x="21" y="3" width="22" height="12" rx="5" fill="#0b3a9e"/>
           <use href="#ic-pata" x="18" y="24" width="28" height="28" fill="#1f6fe5"/>
         </svg>
-        <svg class="faisca" viewBox="0 0 40 40"><path d="M6 14 14 20M12 5l6 11M24 3l1 12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg>
         <img src="img/dicas/WhatsApp%20Image%202026-11-18%20at%2020.11.15.jpeg" alt="" decoding="async">
       </aside>
 

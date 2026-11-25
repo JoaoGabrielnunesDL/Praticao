@@ -19,10 +19,9 @@
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* Ilustração dos pets: componente .pc-pets (praticao-ui.css) cuida do fundo, do círculo e da foto.
-   Aqui ficam só o escudo, a faísca e as posições próprias desta tela. */
+   Aqui ficam só o escudo e as posições próprias desta tela. */
 .adm-pets{color:var(--laranja)}
 .adm-pets .escudo{position:absolute;width:72px;height:82px;filter:drop-shadow(0 8px 14px rgba(11,58,158,.28))}
-.adm-pets .faisca{position:absolute;width:32px;height:32px;transform:rotate(-10deg)}
 .adm-pets .pc-pets-trilha{display:none}
 
 /* ===== Título ===== */
@@ -52,6 +51,7 @@
 .pata-canto{position:absolute;top:16px;right:18px;width:30px;height:30px;fill:#cfe0fb}
 .bloco-status h2{padding-right:40px}
 #btn-atualizar{min-height:40px;background:#fff}
+#btn-atualizar:hover{background:#eef4ff}   /* hover igual ao dos outros botões de contorno */
 #btn-atualizar:disabled{opacity:.6;cursor:wait}
 
 /* Números (cada um é um link para a tela filtrada) */
@@ -83,7 +83,8 @@
 .ver-mais{font-size:.9rem;color:var(--azul);font-weight:700;padding:6px 2px}
 .ver-mais:hover{color:var(--laranja-esc)}
 .previa{border:1px solid #e3ebf7;border-radius:14px;overflow:hidden}
-.previa .cab-prev,.previa .linha-ag{display:grid;grid-template-columns:62px minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr) 128px;gap:10px;align-items:center;padding:10px 14px;text-align:left}
+/* Horário e Status em rem: crescem com a letra (A A A), como nas tabelas de Usuários, Agenda e Serviços */
+.previa .cab-prev,.previa .linha-ag{display:grid;grid-template-columns:4.25rem minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.1fr) 7.75rem;gap:8px;align-items:center;padding:10px 14px;text-align:left}
 .previa .cab-prev{background:#eef4ff;color:var(--azul);font-weight:800;font-size:.84rem}
 .previa .linha-ag{width:100%;background:#fff;border:0;border-top:1px solid #edf2fa;font:inherit;font-size:.92rem;color:var(--texto);cursor:pointer;transition:background .12s}
 .previa .linha-ag:hover{background:#f5f9ff}
@@ -122,21 +123,26 @@
    alinhados aos cartões, e a parte de cima recebe só o círculo, o escudo e a trilha de patinhas. */
 @media(min-width:1280px){
   .adm-container{max-width:1480px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
-  .adm-pets{align-self:stretch;--pc-pets-circulo-base:150px}
+  .adm-pets{align-self:stretch;margin-bottom:130px;--pc-pets-circulo-base:150px}
   .adm-pets .pc-pets-circulo{width:96%}
   /* círculo: 96% de 300px = 288px, apoiado a 150px da base → topo em 438px */
   .adm-pets .escudo{left:14px;bottom:352px}
-  .adm-pets .faisca{left:82px;bottom:412px}
   .adm-pets .pc-pets-trilha{display:block;top:36px;right:18px;width:96px;height:184px}
   /* a coluna dos pets já tem a trilha: duas patinhas de fundo cairiam em cima dela */
   .pata-deco.p2,.pata-deco.p5{display:none}
+}
+/* Parallax discreto dos pets (js/admin-parallax.js grava --adm-pets-y: 0 a 24px).
+   Move só os filhos (foto, trilha e sombra de chão), nunca o <aside>: um transform no <aside>
+   criaria um grupo isolado e o multiply da foto deixaria de se misturar com o fundo da página.
+   "translate" (e não "transform"): composto à parte das outras transformações; não altera o layout. */
+@media(min-width:1280px) and (prefers-reduced-motion:no-preference){
+  .adm-pets > img,.adm-pets > .pc-pets-trilha,.adm-pets::before{translate:0 var(--adm-pets-y,0px) 0}
 }
 /* 1280–1365px: coluna um pouco menor para os cartões (dados) não perderem largura */
 @media(min-width:1280px) and (max-width:1365px){
   .adm-container{grid-template-columns:270px minmax(0,1fr);gap:24px}
   /* 96% de 270px = 259px, apoiado a 150px → topo em 409px */
   .adm-pets .escudo{left:12px;bottom:323px}
-  .adm-pets .faisca{left:80px;bottom:383px}
   .bloco-usuarios .num{font-size:.7rem}
 }
 @media(min-width:1600px){
@@ -144,14 +150,12 @@
   .adm-pets{--pc-pets-circulo-base:160px}
   /* 96% de 320px = 307px, apoiado a 160px → topo em 467px */
   .adm-pets .escudo{left:16px;bottom:376px}
-  .adm-pets .faisca{left:86px;bottom:438px}
 }
 
 /* ===== Notebook e tablet (700–1279px): pets ao lado do título, sem painel ===== */
 @media(max-width:1279px){
   .adm-pets{position:absolute;top:-6px;right:20px;width:156px;padding:0 0 10px;--pc-pets-circulo-base:18px}
   .adm-pets .escudo{width:44px;height:50px;top:-4px;left:-10px}
-  .adm-pets .faisca{width:22px;height:22px;top:-6px;left:30px}
   .adm-topo{padding-right:190px;min-height:184px;align-content:start}
 }
 @media(max-width:1099px){

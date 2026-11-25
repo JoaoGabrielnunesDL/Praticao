@@ -1,0 +1,405 @@
+/* =====================================================================
+   CENÁRIO PET das 5 telas do Administrador (Painel, Usuários, Agenda, Serviços, Relatórios)
+   Linguagem compartilhada; cada tela tem a SUA composição (blocos "Por tela", mais abaixo).
+   - Só decoração: o bloco .cn-cena fica DENTRO da camada decorativa que cada tela já tem
+     (aria-hidden, pointer-events:none, atrás do conteúdo). Nada aqui toca IDs, classes do JS, textos ou lógica.
+   - Formas desenhadas por máscara (a cor vem de --cn-cor): os mesmos desenhos do kit praticao-ui.css
+     (pata, osso, coração, brilho), mais coração com patinha, traços, trilha e formas orgânicas de fundo.
+   - Pequenos enfeites ficam só em margens, faixas livres e no espaço reservado do fim da página;
+     as formas orgânicas (.cn-forma) ficam atrás dos cartões.
+   - Sem animação; some no alto contraste e na impressão.
+   ===================================================================== */
+.cn-cena{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.cn,.cn-forma{position:absolute;display:block;pointer-events:none}
+.cn{width:32px;height:32px;background-color:var(--cn-cor,#8fb4f4);-webkit-mask:var(--cn-f) center/contain no-repeat;mask:var(--cn-f) center/contain no-repeat}
+
+/* ---------- formas ---------- */
+.cn-pata{--cn-f:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/%3E%3Cellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/%3E%3Cellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/%3E%3Cellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/%3E%3Cpath d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/%3E%3C/svg%3E")}
+.cn-osso{--cn-f:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='11' cy='24' r='8'/%3E%3Ccircle cx='11' cy='40' r='8'/%3E%3Ccircle cx='53' cy='24' r='8'/%3E%3Ccircle cx='53' cy='40' r='8'/%3E%3Crect x='10' y='25' width='44' height='14' rx='5'/%3E%3C/svg%3E")}
+.cn-brilho{--cn-f:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4c2.2 15 7 23.8 28 28-21 4.2-25.8 13-28 28-2.2-15-7-23.8-28-28 21-4.2 25.8-13 28-28z'/%3E%3C/svg%3E")}
+.cn-tracos{--cn-f:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M8 26 18 22M12 10l10 9M27 6l-2 12' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E")}
+/* coração com uma patinha vazada no meio */
+.cn-coracao{--cn-f:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3Cmask id='m'%3E%3Crect width='64' height='64' fill='%23fff'/%3E%3Cg fill='%23000' transform='translate(21 17) scale(.34)'%3E%3Cellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/%3E%3Cellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/%3E%3Cellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/%3E%3Cellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/%3E%3Cpath d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/%3E%3C/g%3E%3C/mask%3E%3C/defs%3E%3Cpath mask='url(%23m)' d='M32 56C14 43 5 33 5 21.5 5 13.5 11 8 18.5 8c5.5 0 10 3 13.5 8 3.5-5 8-8 13.5-8C53 8 59 13.5 59 21.5 59 33 50 43 32 56z'/%3E%3C/svg%3E")}
+/* trilha: 4 patinhas subindo em diagonal, cada uma um pouco mais clara (opacidade dentro da máscara) */
+.cn-trilha{width:64px;height:84px;--cn-f:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 160'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/%3E%3Cellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/%3E%3Cellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/%3E%3Cellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/%3E%3Cpath d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/%3E%3C/g%3E%3C/defs%3E%3Cuse href='%23p' transform='translate(4 112) rotate(-18 16 16) scale(.5)'/%3E%3Cuse href='%23p' transform='translate(46 78) rotate(-8 16 16) scale(.5)' opacity='.8'/%3E%3Cuse href='%23p' transform='translate(18 40) rotate(-22 16 16) scale(.5)' opacity='.6'/%3E%3Cuse href='%23p' transform='translate(64 6) rotate(-6 16 16) scale(.5)' opacity='.42'/%3E%3C/svg%3E")}
+
+/* ---------- tons (azul forte → claro, laranja) ---------- */
+.t1{--cn-cor:#1b63e6;opacity:.72}
+.t2{--cn-cor:#4f8ef0;opacity:.7}
+.t3{--cn-cor:#7aa6f1;opacity:.8}
+.t4{--cn-cor:#a9c6f6;opacity:.95}
+.tl{--cn-cor:#f28a0c;opacity:.9}
+.tl2{--cn-cor:#ffb23a;opacity:.95}
+
+/* ---------- formas orgânicas de fundo (sempre atrás dos cartões) ---------- */
+.cn-forma{background:center/100% 100% no-repeat}
+/* mancha orgânica: borda que se dissolve (degradê radial), sem contorno de círculo */
+.f-mancha{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 320' preserveAspectRatio='none'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.48' cy='.5' r='.55'%3E%3Cstop offset='0' stop-color='%232a7af5' stop-opacity='.20'/%3E%3Cstop offset='.6' stop-color='%232a7af5' stop-opacity='.10'/%3E%3Cstop offset='1' stop-color='%232a7af5' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d='M196 18C274 6 352 42 378 112S376 250 300 286 136 318 70 268 4 150 34 92 118 30 196 18Z' fill='url(%23g)'/%3E%3C/svg%3E")}
+/* onda: nasce no canto inferior esquerdo (sem borda reta) e vai até o fim da página */
+.f-onda{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 300' preserveAspectRatio='none'%3E%3Cpath d='M0 300C60 250 120 170 260 150S520 190 640 130 760 60 800 50V300Z' fill='%232a7af5' fill-opacity='.10'/%3E%3Cpath d='M0 300C100 270 200 222 340 214S600 240 800 166V300Z' fill='%231b63e6' fill-opacity='.08'/%3E%3C/svg%3E")}
+/* "chão" sob os pets de Relatórios: brilho elíptico suave, sem bordas */
+.f-chao{background:radial-gradient(closest-side,rgba(42,122,245,.16),rgba(42,122,245,0))}
+.f-curva{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 600' preserveAspectRatio='none'%3E%3Cpath d='M0 0C120 80 150 220 90 330S60 520 0 600Z' fill='%232a7af5' fill-opacity='.12'/%3E%3Cpath d='M0 60C80 130 96 230 56 320S30 480 0 540Z' fill='%231b63e6' fill-opacity='.08'/%3E%3C/svg%3E")}
+.cn-forma.dir{transform:scaleX(-1)}
+
+/* ---------- patinhas e enfeites que as telas já tinham: mesma paleta do cenário ----------
+   (seletores com body.pg-… para vencer as regras próprias de cada tela, que pintavam #c7dbfb/#b3cdf6) */
+:is(.adm-deco,body.pg-admin-usuarios .au-deco,body.pg-agenda .ag-deco,body.pg-gerenciar-servicos .gs-deco) .pata-deco{fill:#8fb4f4;opacity:.78}
+:is(.adm-deco,body.pg-admin-usuarios .au-deco,body.pg-agenda .ag-deco,body.pg-gerenciar-servicos .gs-deco) .pata-deco.p1{fill:#5b93ef;opacity:.55}
+:is(.adm-deco,body.pg-admin-usuarios .au-deco,body.pg-agenda .ag-deco,body.pg-gerenciar-servicos .gs-deco) .pata-deco.p2{fill:#7aa6f1;opacity:.7}
+:is(.adm-deco,body.pg-admin-usuarios .au-deco,body.pg-agenda .ag-deco,body.pg-gerenciar-servicos .gs-deco) .pata-deco.p3{fill:#a9c6f6;opacity:1}
+:is(.adm-deco,body.pg-admin-usuarios .au-deco,body.pg-agenda .ag-deco,body.pg-gerenciar-servicos .gs-deco) .pata-deco.p4{fill:#7aa6f1;opacity:.5}
+/* enfeites do kit (praticao-ui.css) usam --pc-deco / --pc-deco-forte: redefinidos só dentro destas camadas */
+:is(.adm-deco,.au-deco,.ag-deco,.gs-deco,.adm-pets,.au-pets,.ag-pets,.gs-pets){--pc-deco:#8fb4f4;--pc-deco-forte:#7aa6f1}
+:is(.adm-deco,.au-deco,.ag-deco,.gs-deco) .pc-d{opacity:.8}
+.adm-pets .pc-pets-trilha{fill:#a9c6f6}
+.rel-pata.pa1{fill:#5b93ef;opacity:.6}
+.rel-pata.pa2{fill:#a9c6f6;opacity:1}
+.rel-pata.pa4{fill:#8fb4f4;opacity:.75}
+.rel-pata.pa5{fill:#8fb4f4}
+.rel-pata.pa6{fill:#4f8ef0;opacity:.6}
+/* patinha d'água dentro de cartões: o mesmo tom nas telas que têm */
+.adm-pagina .pata-canto,body.pg-gerenciar-servicos .painel-deco{fill:#c6daf9}
+body.pg-gerenciar-servicos .gs-pets .tesoura{fill:#1b63e6}
+
+/* Escondidos por padrão; cada tela liga os seus por largura */
+.cn-cena .cn,.cn-cena .cn-forma{display:none}
+
+/* =====================================================================
+   Por tela
+   --cl = onde começa o conteúdo (margem livre = --m) · posições verticais medidas a partir do topo/base da página
+   ===================================================================== */
+
+/* ---------- PAINEL (Visão geral): composição mais rica; ossinho, coração e trilha sob os pets ---------- */
+.adm-deco .cn-cena{--cmax:1480px;--m:calc((100% - min(var(--cmax),100%)) / 2);--cl:calc(var(--m) + 20px)}
+.adm-deco .s2{display:block;right:0;bottom:0;width:72%;height:300px}
+@media(min-width:1600px){.adm-deco .cn-cena{--cmax:1580px}}
+@media(min-width:1280px){
+  .adm-deco :is(.s1,.m1,.m2,.m3,.m4,.m5,.m6,.m7){display:block}
+  .adm-deco .s1{right:-80px;top:-70px;width:520px;height:340px}
+  /* abaixo dos pets: a foto termina 236px acima do fim da página (176px com o parallax no máximo);
+     a onda do rodapé cobre os 36px finais → faixa livre de 40 a 170px */
+  .adm-deco .m1{width:58px;height:58px;left:calc(var(--cl) + 18px);bottom:92px;rotate:-16deg}
+  .adm-deco .m2{width:24px;height:24px;left:calc(var(--cl) + 100px);bottom:120px;rotate:10deg}
+  .adm-deco .m3{left:calc(var(--cl) + 200px);bottom:44px;rotate:6deg}
+  .adm-deco .m4{width:18px;height:18px;left:calc(var(--cl) + 150px);bottom:50px}
+  /* faixa à direita do título, acima dos cartões */
+  .adm-deco .m5{width:46px;height:46px;right:26%;top:40px;rotate:22deg}
+  .adm-deco .m6{width:16px;height:16px;right:7%;top:112px}
+  .adm-deco .m7{width:34px;height:34px;right:21%;top:94px;rotate:-10deg}
+}
+@media(min-width:1760px){
+  .adm-deco :is(.s3,.m8,.m9){display:block}
+  .adm-deco .s3{left:0;top:180px;width:140px;height:520px}
+  .adm-deco .m8{width:42px;height:42px;left:calc(var(--m) / 2 - 21px);top:520px;rotate:-14deg}
+  .adm-deco .m9{width:52px;height:52px;right:calc(var(--m) / 2 - 26px);top:380px;rotate:64deg}
+}
+@media(max-width:1279px){
+  .adm-deco :is(.m1,.m2,.m4){display:block}
+  /* fim da página: 90px livres, 36px deles sob a onda do rodapé */
+  .adm-deco .m1{width:44px;height:44px;left:4%;bottom:40px;rotate:-14deg}
+  .adm-deco .m4{width:14px;height:14px;left:calc(4% + 60px);bottom:68px}
+  .adm-deco .m2{width:20px;height:20px;left:calc(4% + 88px);bottom:44px;rotate:10deg}
+}
+
+/* ---------- USUÁRIOS: laterais e o espaço entre o título e os pets ---------- */
+.au-deco .cn-cena{--cmax:1100px;--m:calc((100% - min(var(--cmax),100%)) / 2);--cl:calc(var(--m) + 20px);--cw:calc(min(var(--cmax),100%) - 40px)}
+.au-deco :is(.s2,.m7,.m8){display:block}
+.au-deco .s2{left:0;bottom:0;width:78%;height:300px}
+.au-deco .m7{width:30px;height:30px;left:6%;bottom:52px;rotate:-12deg}
+.au-deco .m8{width:26px;height:26px;left:calc(6% + 44px);bottom:72px}
+@media(min-width:1280px){
+  .au-deco .cn-cena{--cmax:1240px}
+  .au-deco :is(.s1,.m1,.m2,.m4,.m9){display:block}
+  .au-deco .s1{left:calc(var(--cl) + var(--cw) * .36);top:0;width:440px;height:310px}
+  .au-deco .m1{width:54px;height:54px;left:calc(var(--cl) + var(--cw) * .5);top:186px;rotate:-18deg}
+  .au-deco .m2{width:26px;height:26px;left:calc(var(--cl) + var(--cw) * .585);top:74px;rotate:8deg}
+  .au-deco .m4{width:18px;height:18px;left:calc(var(--cl) + var(--cw) * .43);top:150px}
+  .au-deco .m9{width:12px;height:12px;left:calc(var(--cl) + var(--cw) * .535);top:40px}
+}
+@media(min-width:1366px){
+  .au-deco :is(.s3,.m3,.m5,.m6){display:block}
+  .au-deco .s3{right:0;top:180px;width:120px;height:480px}
+  .au-deco .m3{left:calc(var(--m) / 2 - 32px);top:236px}
+  .au-deco .m5{width:34px;height:34px;right:calc(var(--m) / 2 - 17px);top:520px;rotate:14deg}
+  .au-deco .m6{width:46px;height:46px;right:calc(var(--m) / 2 - 23px);top:176px;rotate:60deg}
+}
+
+/* ---------- SERVIÇOS: junto do catálogo e dos pets ---------- */
+.gs-deco .cn-cena{--cmax:1100px;--m:calc((100% - min(var(--cmax),100%)) / 2);--cl:calc(var(--m) + 20px);--cw:calc(min(var(--cmax),100%) - 40px)}
+.gs-deco :is(.s2,.m7,.m8){display:block}
+.gs-deco .s2{left:0;bottom:0;width:76%;height:290px}
+.gs-deco .m7{width:30px;height:30px;left:7%;bottom:50px;rotate:14deg}
+.gs-deco .m8{width:26px;height:26px;left:calc(7% + 46px);bottom:70px}
+@media(min-width:1280px){
+  .gs-deco .cn-cena{--cmax:1240px}
+  .gs-deco :is(.s1,.m1,.m2,.m4,.m9){display:block}
+  .gs-deco .s1{left:calc(var(--cl) + var(--cw) * .38);top:0;width:420px;height:300px}
+  .gs-deco .m1{width:24px;height:24px;left:calc(var(--cl) + var(--cw) * .63);top:150px;rotate:-10deg}
+  .gs-deco .m2{width:50px;height:50px;left:calc(var(--cl) + var(--cw) * .47);top:200px;rotate:14deg}
+  .gs-deco .m4{width:16px;height:16px;left:calc(var(--cl) + var(--cw) * .56);top:92px}
+  .gs-deco .m9{width:12px;height:12px;left:calc(var(--cl) + var(--cw) * .60);top:232px}
+}
+@media(min-width:1366px){
+  .gs-deco :is(.s3,.m3,.m5,.m6){display:block}
+  .gs-deco .s3{left:0;top:220px;width:120px;height:460px}
+  .gs-deco .m3{right:calc(var(--m) / 2 - 32px);top:500px}
+  .gs-deco .m5{width:32px;height:32px;left:calc(var(--m) / 2 - 16px);top:262px;rotate:-12deg}
+  .gs-deco .m6{width:44px;height:44px;left:calc(var(--m) / 2 - 22px);top:620px;rotate:-60deg}
+}
+
+/* ---------- AGENDA: faixa à direita do título e a área livre abaixo da tabela ---------- */
+.ag-deco .cn-cena{--cmax:1100px;--m:calc((100% - min(var(--cmax),100%)) / 2);--cr:calc(var(--m) + 20px)}
+.ag-deco :is(.s1,.m3,.m6){display:block}
+.ag-deco .s1{left:0;right:0;bottom:0;height:380px;width:auto}
+.ag-deco .m3{left:30%;bottom:40px}
+.ag-deco .m6{width:44px;height:44px;left:calc(30% + 84px);bottom:58px;rotate:12deg}
+/* até 1023px sobram só 100px no fim da página: sem a trilha, ossinho menor */
+@media(max-width:1023px){
+  .ag-deco .m3{display:none}
+  .ag-deco .m6{width:38px;height:38px;left:8%;bottom:44px}
+}
+@media(min-width:1280px){
+  .ag-deco .cn-cena{--cmax:1480px}
+  .ag-deco :is(.s2,.s3,.m1,.m2,.m4,.m5,.m7,.m8){display:block}
+  .ag-deco .s2{right:-60px;top:-40px;width:440px;height:300px}
+  .ag-deco .s3{left:0;bottom:120px;width:110px;height:420px}
+  .ag-deco .m1{width:48px;height:48px;right:calc(var(--cr) + 300px);top:40px;rotate:-20deg}
+  .ag-deco .m2{width:24px;height:24px;right:calc(var(--cr) + 170px);top:104px;rotate:8deg}
+  .ag-deco .m4{width:18px;height:18px;right:calc(var(--cr) + 200px);top:20px}
+  .ag-deco .m5{width:30px;height:30px;right:calc(var(--cr) + 48px);top:150px;rotate:16deg}
+  .ag-deco .m7{width:26px;height:26px;left:22%;bottom:70px}
+  .ag-deco .m8{width:12px;height:12px;left:38%;bottom:98px}
+}
+@media(min-width:1600px){.ag-deco .cn-cena{--cmax:1580px}}
+
+/* ---------- RELATÓRIOS: composição editorial (faixa do título, atrás dos gráficos, chão dos pets) ---------- */
+@media(min-width:1200px){
+  .rel-deco :is(.s1,.s2,.m2){display:block}
+  .rel-deco .s1{right:calc(var(--xd) + 20px);top:-30px;width:480px;height:300px}
+  .rel-deco .s2{right:0;bottom:0;top:auto;width:70%;height:520px}
+  .rel-deco .m2{width:22px;height:22px;right:calc(var(--xd) + 118px);top:152px;rotate:-8deg}
+  .rel-pets .f-chao{display:block;left:0;right:0;width:auto;top:44%;height:30%}
+}
+@media(min-width:1280px){
+  .rel-deco .m1{display:block;width:46px;height:46px;right:calc(var(--xd) + 330px);top:40px;rotate:-16deg}
+}
+
+/* ---------- Celular: brilho no canto da faixa do título (Painel e Agenda) ---------- */
+@media(max-width:699px){
+  .adm-deco .m6,.ag-deco .m4{display:block;width:14px;height:14px;right:16px;left:auto;top:26px}
+}
+
+/* Usuários e Serviços: os pets só somem abaixo de 600px; o brilho do canto entra só aí */
+@media(max-width:599px){
+  :is(.au-deco,.gs-deco) .m9{display:block;width:14px;height:14px;right:16px;left:auto;top:26px}
+}
+
+/* =====================================================================
+   LINGUAGEM VISUAL COMPARTILHADA das 5 telas (padronização aprovada após a auditoria de consistência)
+   Fonte única: este arquivo é o único carregado pelas 5 telas e vem por ÚLTIMO, então estes valores
+   substituem os antigos de cada tela (mesma ou maior especificidade + ordem da cascata).
+   Escopo: só o conteúdo (main da tela) e as janelas (dialog). O cabeçalho e o rodapé compartilhados não são tocados.
+   Tokens do Design System em base.css: --fonte-titulo, --grad-fundo, --grad-laranja, --sombra-cartao, --anel-foco.
+   Gráficos: as cores de preenchimento continuam as de comum.js (STATUS[].cor) — nada aqui as altera.
+   ===================================================================== */
+:is(.adm-pagina,.au-pagina,.agenda,.gs-pagina,.rel-pagina),dialog{
+  /* tokens antigos redefinidos SÓ aqui dentro: #0b3a9e (--azul) sai de cena, títulos e textos usam a paleta aprovada */
+  --azul:#0a2a6b;
+  --cinza:#51607a;
+  /* ícones (máscaras; a cor vem de currentColor/background) */
+  --pi-relogio:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2.2a7.8 7.8 0 1 1 0 15.6 7.8 7.8 0 0 1 0-15.6zM11 6.5h2v5l3.5 2.1-1 1.7L11 12.6z'/></svg>");
+  --pi-check:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='m9.5 16.2-4.2-4.2-1.5 1.5 5.7 5.7L21 7.7l-1.5-1.5z'/></svg>");
+  --pi-check-circulo:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.3 14.2-4.4-4.4 1.5-1.5 2.9 2.9 5.6-5.6 1.5 1.5z'/></svg>");
+  --pi-x-circulo:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.3 6.9 12 10.6l3.7-3.7 1.4 1.4-3.7 3.7 3.7 3.7-1.4 1.4-3.7-3.7-3.7 3.7-1.4-1.4 3.7-3.7-3.7-3.7z'/></svg>");
+  --pi-menos-circulo:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM7 11h10v2H7z'/></svg>");
+  --pi-olho:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 5c5 0 9 4.5 10 7-1 2.5-5 7-10 7S3 14.5 2 12c1-2.5 5-7 10-7zm0 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z'/></svg>");
+  --pi-desativar:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2.2a7.8 7.8 0 0 1 6.1 12.7L7.1 5.9A7.8 7.8 0 0 1 12 4.2zM5.9 7.1l11 11A7.8 7.8 0 0 1 5.9 7.1z'/></svg>");
+  --pi-lixeira:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M9 2.5h6l1 2h4.5v2.2h-17V4.5H8zM5.5 8.5h13l-1 11.6a2 2 0 0 1-2 1.9h-7a2 2 0 0 1-2-1.9zm4 2.5v8h1.7v-8zm3.3 0v8h1.7v-8z'/></svg>");
+  --pi-atualizar:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.75 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z'/></svg>");
+  --pi-calendario:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 2.5a1 1 0 0 1 1 1V5h8V3.5a1 1 0 1 1 2 0V5h.5A2.5 2.5 0 0 1 21 7.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-11A2.5 2.5 0 0 1 5.5 5H6V3.5a1 1 0 0 1 1-1zM5 10v8.5c0 .3.2.5.5.5h13c.3 0 .5-.2.5-.5V10zm2 2h2.5v2.5H7zm4.2 0h2.5v2.5h-2.5z'/></svg>");
+  --pi-lupa:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M10.5 3a7.5 7.5 0 0 1 6 12l4.3 4.3-1.5 1.5-4.3-4.3A7.5 7.5 0 1 1 10.5 3zm0 2.2a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6z'/></svg>");
+  --pi-alerta:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M12 2.5 1.5 21h21zm-1 6.5h2v6h-2zm0 7.6h2v2h-2z'/></svg>");
+  --pi-usuarios:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm7.5 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM1 20c0-3.3 3.6-6 8-6s8 2.7 8 6v1H1zm16.6-5.7c2.9.4 5.4 2.3 5.4 4.7v2h-4v-1.2c0-2-.5-3.9-1.4-5.5z'/></svg>");
+}
+
+/* ---------- fundo único (o aprovado em Relatórios) ---------- */
+.adm-pagina,body.pg-admin-usuarios .au-pagina,body.pg-agenda .agenda,body.pg-gerenciar-servicos .gs-pagina{
+  background:radial-gradient(900px 560px at 88% 6%,rgba(42,122,245,.16),rgba(42,122,245,0) 70%),radial-gradient(760px 640px at 4% 62%,rgba(27,99,230,.10),rgba(27,99,230,0) 70%),var(--grad-fundo)}
+
+/* ---------- tipografia do topo: rótulo, H1 (Figtree 40px → 32px), subtítulo (18px → 16px) ---------- */
+:is(.adm-pagina .adm-topo,body.pg-admin-usuarios .au-topo,body.pg-agenda .ag-topo,body.pg-gerenciar-servicos .topo-pagina,body.pg-relatorios .rel-topo) h1{
+  font-family:var(--fonte-titulo);font-size:clamp(2rem,1.25rem + 1.875vw,2.5rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:#0a2a6b}
+:is(.adm-pagina .adm-topo,body.pg-admin-usuarios .au-topo,body.pg-agenda .ag-topo,body.pg-gerenciar-servicos .topo-pagina,body.pg-relatorios .rel-topo) .selo-op{
+  font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#9c4f00}
+:is(.adm-pagina .adm-topo,body.pg-admin-usuarios .au-topo,body.pg-agenda .ag-topo,body.pg-gerenciar-servicos .topo-pagina,body.pg-relatorios .rel-topo) .sub{
+  font-size:1.125rem;font-weight:400;line-height:1.5;color:#51607a}
+@media(max-width:600px){
+  :is(.adm-pagina .adm-topo,body.pg-admin-usuarios .au-topo,body.pg-agenda .ag-topo,body.pg-gerenciar-servicos .topo-pagina,body.pg-relatorios .rel-topo) .sub{font-size:1rem}
+}
+/* rótulo do formulário de Serviços: mesmo padrão do rótulo acima do H1 */
+body.pg-gerenciar-servicos .selo-form{font-size:.75rem;font-weight:800;letter-spacing:.08em;color:#9c4f00}
+
+/* ---------- títulos de cartão (Figtree 18px/700) e das janelas (Figtree) ---------- */
+:is(.adm-pagina .bloco,body.pg-relatorios .rel-pagina .bloco,body.pg-gerenciar-servicos .painel-topo) h2{
+  font-family:var(--fonte-titulo);font-size:1.125rem;font-weight:700;line-height:1.3;letter-spacing:-.005em;color:#0a2a6b}
+dialog :is(h2,h3){font-family:var(--fonte-titulo);color:#0a2a6b}
+/* pastilha de ícone dos títulos de cartão do Painel: a mesma de Relatórios */
+.adm-pagina .tit-ic{width:36px;height:36px;border-radius:12px;background:#eef4ff;color:#1b63e6;box-shadow:inset 0 0 0 1px #dbe8fb}
+.adm-pagina .cab-faixa .tit-ic{background:#fff}
+.adm-pagina .atalho-ic{background:#eef4ff;color:#1b63e6;box-shadow:inset 0 0 0 1px #dbe8fb}
+
+/* ---------- números dos indicadores: Figtree 30px/800 #0a2a6b (a cor do status fica no ícone) ---------- */
+:is(.adm-pagina .num,body.pg-agenda .ind[data-filtro],body.pg-relatorios .kpi-texto) strong{
+  font-family:var(--fonte-titulo);font-size:1.875rem;font-weight:800;line-height:1.1;letter-spacing:-.02em;color:#0a2a6b}
+:is(.adm-pagina,body.pg-relatorios) .rosca .miolo strong{font-family:var(--fonte-titulo);color:#0a2a6b}
+/* rótulos dos indicadores: texto secundário, nunca abaixo de 14px */
+.adm-pagina .num{font-size:.875rem;color:#51607a}
+body.pg-agenda .ind{color:#51607a;font-size:.875rem}
+/* pastilha de status antes do número (Painel: agendamentos de hoje; Agenda: indicadores) — cores dos estados aprovados */
+:is(.adm-pagina .num[data-status],body.pg-agenda .ind[data-filtro]) strong::before{
+  content:"";display:inline-block;width:1.75rem;height:1.75rem;margin-right:.45rem;vertical-align:-.3rem;border-radius:10px;
+  background:var(--st-img) center/58% no-repeat,var(--st-fundo)}
+:is(.adm-pagina .num[data-status=TODOS],body.pg-agenda .ind[data-filtro=TODOS]){--st-fundo:#eef4ff;--st-img:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%231b63e6' d='M7 2.5a1 1 0 0 1 1 1V5h8V3.5a1 1 0 1 1 2 0V5h.5A2.5 2.5 0 0 1 21 7.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-11A2.5 2.5 0 0 1 5.5 5H6V3.5a1 1 0 0 1 1-1zM5 10v8.5c0 .3.2.5.5.5h13c.3 0 .5-.2.5-.5V10zm2 2h2.5v2.5H7zm4.2 0h2.5v2.5h-2.5z'/></svg>")}
+:is(.adm-pagina .num[data-status=AGENDADO],body.pg-agenda .ind[data-filtro=AGENDADO]){--st-fundo:#ffe2b8;--st-img:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%239a5300' fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2.2a7.8 7.8 0 1 1 0 15.6 7.8 7.8 0 0 1 0-15.6zM11 6.5h2v5l3.5 2.1-1 1.7L11 12.6z'/></svg>")}
+:is(.adm-pagina .num[data-status=CONFIRMADO],body.pg-agenda .ind[data-filtro=CONFIRMADO]){--st-fundo:#e4eeff;--st-img:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23174bb0' d='m9.5 16.2-4.2-4.2-1.5 1.5 5.7 5.7L21 7.7l-1.5-1.5z'/></svg>")}
+:is(.adm-pagina .num[data-status=CONCLUIDO],body.pg-agenda .ind[data-filtro=CONCLUIDO]){--st-fundo:#e3f6e5;--st-img:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%2317652a' fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.3 14.2-4.4-4.4 1.5-1.5 2.9 2.9 5.6-5.6 1.5 1.5z'/></svg>")}
+:is(.adm-pagina .num[data-status=CANCELADO],body.pg-agenda .ind[data-filtro=CANCELADO]){--st-fundo:#fdecea;--st-img:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23b3261e' fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.3 6.9 12 10.6l3.7-3.7 1.4 1.4-3.7 3.7 3.7 3.7-1.4 1.4-3.7-3.7-3.7 3.7-1.4-1.4 3.7-3.7-3.7-3.7z'/></svg>")}
+/* Relatórios: as pastilhas dos indicadores passam a usar as mesmas cores dos estados */
+body.pg-relatorios .kpi.TOTAL .kpi-icone{background:#eef4ff;color:#1b63e6}
+body.pg-relatorios .kpi.AGENDADO .kpi-icone{background:#ffe2b8;color:#9a5300}
+body.pg-relatorios .kpi.CONFIRMADO .kpi-icone{background:#e4eeff;color:#174bb0}
+body.pg-relatorios .kpi.CONCLUIDO .kpi-icone{background:#e3f6e5;color:#17652a}
+body.pg-relatorios .kpi.CANCELADO .kpi-icone{background:#fdecea;color:#b3261e}
+/* Agenda: indicadores como os de Relatórios (cartão com borda; selecionado em azul) */
+body.pg-agenda .ind{background:#fff;border:1px solid #e3ebf7;border-radius:24px;box-shadow:var(--sombra-cartao)}
+body.pg-agenda .ind:hover{border-color:#dbe8fb}
+body.pg-agenda .ind.ativo{border-color:#1b63e6;background:#f6f9ff;box-shadow:inset 0 0 0 1px #1b63e6,var(--sombra-cartao)}
+
+/* ---------- cartões: branco, borda #e3ebf7, raio 24px, sombra do Design System ---------- */
+.adm-pagina .bloco{background:#fff;border:1px solid #e3ebf7;border-radius:24px;box-shadow:var(--sombra-cartao)}
+.adm-pagina .cab-faixa{border-radius:23px 23px 0 0}
+.adm-pagina .atalhos a{border:1px solid #e3ebf7;border-radius:24px;box-shadow:var(--sombra-cartao)}
+.adm-pagina .atalhos a:hover{border-color:var(--laranja)}
+.adm-pagina .previa{border-radius:16px}
+.adm-pagina .rosca{box-shadow:0 0 0 10px #f1f6ff,0 14px 30px rgba(10,73,184,.14)}
+@media(min-width:801px){
+  body.pg-admin-usuarios .t-usuarios,body.pg-agenda .lista,body.pg-gerenciar-servicos .t-servicos{background:#fff;border:1px solid #e3ebf7;border-radius:24px;box-shadow:var(--sombra-cartao)}
+  body.pg-gerenciar-servicos .painel-form{border:1px solid #e3ebf7;border-radius:24px;box-shadow:var(--sombra-cartao)}
+}
+/* celular e tablet estreito: cada linha vira um cartão, com o mesmo acabamento */
+@media(max-width:800px){
+  body.pg-admin-usuarios .t-usuarios .reg,body.pg-gerenciar-servicos .t-servicos .reg,body.pg-agenda .item{border:1px solid #e3ebf7;border-radius:24px;box-shadow:var(--sombra-cartao)}
+}
+
+/* ---------- cabeçalho de tabela: #51607a, 12px, 700, MAIÚSCULAS ---------- */
+body.pg-admin-usuarios .t-usuarios .cab,body.pg-gerenciar-servicos .t-servicos .cab,body.pg-agenda .cab-lista,.adm-pagina .previa .cab-prev{
+  color:#51607a;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+body.pg-agenda .cab-lista span::before{background:#1b63e6}
+
+/* ---------- campos: borda #7c8cab, raio 12px, altura 48px, foco com o anel do sistema ---------- */
+:is(body.pg-admin-usuarios,body.pg-gerenciar-servicos) .filtro :is(input[type=search],select){border:1.5px solid #7c8cab;border-radius:12px;min-height:48px}
+:is(body.pg-admin-usuarios,body.pg-gerenciar-servicos) .filtro input[type=search]{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%231b63e6' fill-rule='evenodd' d='M10.5 3a7.5 7.5 0 0 1 6 12l4.3 4.3-1.5 1.5-4.3-4.3A7.5 7.5 0 1 1 10.5 3zm0 2.2a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6z'/></svg>")}
+:is(body.pg-admin-usuarios,body.pg-gerenciar-servicos) .filtro :is(input[type=search],select):focus{border-color:var(--cor-foco);box-shadow:var(--anel-foco);outline:3px solid transparent;outline-offset:2px}
+body.pg-agenda .ag-data{min-height:48px;padding:3px 4px 3px 12px;border:1.5px solid #7c8cab;border-radius:12px}
+body.pg-agenda .filtro .ag-data input{min-height:38px;padding-top:6px;padding-bottom:6px;border-radius:8px}   /* campo com 48px, como nas outras telas */
+body.pg-agenda .ag-data:focus-within{border-color:var(--cor-foco);box-shadow:var(--anel-foco);outline:3px solid transparent;outline-offset:2px}
+body.pg-agenda .ag-data-ic{stroke:#1b63e6}
+body.pg-gerenciar-servicos .painel-form .campo :is(input,textarea){border:1.5px solid #7c8cab;border-radius:12px;min-height:48px;background:#fff}
+body.pg-gerenciar-servicos .painel-form .campo :is(input,textarea):focus{border-color:var(--cor-foco);box-shadow:var(--anel-foco);outline:3px solid transparent;outline-offset:2px}
+body.pg-gerenciar-servicos .painel-form .campo.invalido :is(input,textarea){border-color:#b3261e;background:#fdecea}
+
+/* (campos: contorno transparente pelo mesmo motivo — no alto contraste as sombras somem e ele vira o indicador de foco) */
+/* ---------- foco por teclado: o anel do sistema (--anel-foco) em tudo que é interativo ----------
+   (contorno transparente: invisível normalmente, mas vira contorno real no modo de alto contraste, onde sombras somem) */
+/* !important só no anel: botões com sombra própria em regras de id (#btn-novo, #btn-atualizar…) apagariam o foco */
+:is(.adm-pagina,.au-pagina,.agenda,.gs-pagina,dialog) :is(a,button,[tabindex]):focus-visible{outline:3px solid transparent;outline-offset:2px;box-shadow:var(--anel-foco)!important}
+
+/* ---------- botões: raio 12px (sem pílula); CTA laranja com texto azul-profundo ---------- */
+:is(.adm-pagina,body.pg-admin-usuarios .au-pagina,body.pg-agenda .agenda,body.pg-gerenciar-servicos .gs-pagina,dialog) .btn{border-radius:12px}
+:is(.adm-pagina,body.pg-admin-usuarios .au-pagina,body.pg-agenda .agenda,body.pg-gerenciar-servicos .gs-pagina,dialog) .btn-laranja{background:var(--grad-laranja);color:#0a2a6b;border:0}
+:is(.adm-pagina,body.pg-admin-usuarios .au-pagina,body.pg-agenda .agenda,body.pg-gerenciar-servicos .gs-pagina,dialog) .btn-laranja:hover{background:linear-gradient(180deg,#ffc25c,#ff9a2a);color:#0a2a6b}
+:is(.adm-pagina,body.pg-admin-usuarios .au-pagina,body.pg-agenda .agenda,body.pg-gerenciar-servicos .gs-pagina,dialog) .btn-contorno{background:#fff;color:#1b63e6;border:1.5px solid #1b63e6}
+:is(.adm-pagina,body.pg-admin-usuarios .au-pagina,body.pg-agenda .agenda,body.pg-gerenciar-servicos .gs-pagina,dialog) .btn-contorno:hover{background:#eef4ff;color:#0a49b8;border-color:#0a49b8}
+:is(.adm-pagina,body.pg-admin-usuarios .au-pagina,body.pg-agenda .agenda,body.pg-gerenciar-servicos .gs-pagina,dialog) .btn-perigo{background:#b3261e;color:#fff}
+:is(.adm-pagina,body.pg-admin-usuarios .au-pagina,body.pg-agenda .agenda,body.pg-gerenciar-servicos .gs-pagina,dialog) .btn-perigo:hover{background:#8c1d18}
+body.pg-agenda .filtro .btn.ativo{background:#1b63e6;color:#fff;border-color:#1b63e6}
+/* Atualizar: ícone desenhado em CSS no lugar do símbolo ↻ */
+:is(.adm-pagina,body.pg-admin-usuarios .au-pagina) #btn-atualizar{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+:is(.adm-pagina,body.pg-admin-usuarios .au-pagina) #btn-atualizar::before{content:"";width:18px;height:18px;flex:none;background:currentColor;-webkit-mask:var(--pi-atualizar) center/contain no-repeat;mask:var(--pi-atualizar) center/contain no-repeat}
+/* ações das linhas (Usuários, Agenda, Serviços): raio 12px e cores da paleta */
+:is(body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .acao{border-radius:12px;font-size:.875rem}
+:is(body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .acao.confirmar,body.pg-admin-usuarios .acao.detalhes{color:#1b63e6;border-color:#1b63e6}
+:is(body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .acao.confirmar:hover,body.pg-admin-usuarios .acao.detalhes:hover{background:#eef4ff}
+body.pg-agenda .acao.detalhes{color:#44526e;border-color:#7c8cab}
+:is(body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .acao.cancelar{color:#b3261e;border-color:#b3261e}
+:is(body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .acao.cancelar:hover{background:#fdecea}
+:is(body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .acao.concluir{color:#17652a;border-color:#17652a}
+:is(body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .acao.concluir:hover{background:#e3f6e5}
+:is(body.pg-admin-usuarios,body.pg-gerenciar-servicos) .acao.excluir{background:#b3261e;border-color:#b3261e;color:#fff;box-shadow:0 4px 10px rgba(179,38,30,.22)}
+:is(body.pg-admin-usuarios,body.pg-gerenciar-servicos) .acao.excluir:hover{background:#8c1d18;border-color:#8c1d18}
+/* Usuários: ícones desenhados em CSS no lugar dos símbolos 👁 ⊖ ✓ 🗑 (mesmo padrão de Serviços e Agenda) */
+body.pg-admin-usuarios .acao::before{content:"";width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+body.pg-admin-usuarios .acao.detalhes{--ic:var(--pi-olho)}
+body.pg-admin-usuarios .acao.cancelar{--ic:var(--pi-desativar)}
+body.pg-admin-usuarios .acao.concluir{--ic:var(--pi-check-circulo)}
+body.pg-admin-usuarios .acao.excluir{--ic:var(--pi-lixeira)}
+
+/* ---------- paginação e links: azul de ação #1b63e6 ---------- */
+body.pg-admin-usuarios .paginas button:not(.atual){color:#1b63e6;border-color:#7c8cab}
+body.pg-admin-usuarios .paginas button.atual{background:#1b63e6;border-color:#1b63e6;color:#fff;box-shadow:0 4px 10px rgba(27,99,230,.3)}
+.adm-pagina .ver-mais{color:#1b63e6}
+.adm-pagina .ver-mais:hover{color:#0a49b8;text-decoration:underline}
+:is(.adm-pagina,.au-pagina,.agenda,.gs-pagina,dialog) .link{color:#1b63e6}
+body.pg-gerenciar-servicos .painel-topo .voltar{color:#1b63e6}
+
+/* ---------- estados: selos 14px/700 em pílula, com ícone desenhado (sem ✓ ✕ ○) ---------- */
+:is(.adm-pagina,main.adm-pagina ~ dialog,body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos,body.pg-relatorios) .status.status{
+  display:inline-flex;align-items:center;gap:6px;border-radius:999px;font-size:.875rem;font-weight:700;line-height:1.3;padding:4px 12px 4px 8px}
+body.pg-agenda #det-conteudo .status.status,body.pg-admin-usuarios #det-corpo .dados dd .status.status{font-size:.875rem;padding:4px 12px 4px 8px}
+:is(.adm-pagina,main.adm-pagina ~ dialog,body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos,body.pg-relatorios) .status.status.pendente{background:#ffe2b8;color:#9a5300;--st-ic:var(--pi-relogio)}
+:is(.adm-pagina,main.adm-pagina ~ dialog,body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos,body.pg-relatorios) .status.status.confirmado{background:#e4eeff;color:#174bb0;--st-ic:var(--pi-check)}
+:is(.adm-pagina,main.adm-pagina ~ dialog,body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos,body.pg-relatorios) .status.status:is(.concluido,.ativa){background:#e3f6e5;color:#17652a;--st-ic:var(--pi-check-circulo)}
+:is(.adm-pagina,main.adm-pagina ~ dialog,body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos,body.pg-relatorios) .status.status.cancelado{background:#fdecea;color:#b3261e;--st-ic:var(--pi-x-circulo)}
+:is(.adm-pagina,main.adm-pagina ~ dialog,body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos,body.pg-relatorios) .status.status.inativa{background:#e8edf5;color:#44526e;--st-ic:var(--pi-menos-circulo)}
+/* ícone: só nos selos que ainda não trazem um <svg> próprio (Painel e Relatórios já trazem) */
+:is(.adm-pagina,main.adm-pagina ~ dialog,body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos,body.pg-relatorios) .status.status:not(:has(svg))::before{
+  content:"";width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--st-ic) center/contain no-repeat;mask:var(--st-ic) center/contain no-repeat}
+.adm-pagina .previa .status .ic{color:currentColor}
+/* etiqueta de perfil (Usuários): selo informativo, 14px */
+body.pg-admin-usuarios .t-usuarios .etiqueta,body.pg-admin-usuarios #det-corpo .dados dd .etiqueta{font-size:.875rem;font-weight:700;background:#e4eeff;color:#174bb0}
+/* mensagens, obrigatórios e alertas com as cores dos estados */
+:is(body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .mensagem.sucesso::before{background:#17652a}
+:is(body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .mensagem.erro::before{background:#b3261e}
+:is(.adm-pagina,body.pg-admin-usuarios,body.pg-agenda,body.pg-gerenciar-servicos) .obrig{color:#b3261e}
+:is(body.pg-admin-usuarios,body.pg-gerenciar-servicos) .dlg-confirma .icone-alerta{border-color:#b3261e;color:#b3261e;background:#fdecea}
+body.pg-gerenciar-servicos .dlg-confirma .icone-alerta:not(.perigo){border-color:#1b63e6;color:#1b63e6;background:#eef4ff}
+body.ui-estados.pg-agenda .carregando::before{border-color:#1b63e6;border-top-color:transparent}
+
+/* ---------- estados vazios e de erro: pastilha com ícone desenhado no lugar do emoji ---------- */
+:is(body.pg-admin-usuarios #lista,body.pg-agenda #lista,.adm-pagina .previa)>.vazio>span:first-child{
+  position:relative;display:block;width:72px;height:72px;margin:0 auto 12px;border-radius:22px;background:#eef4ff;font-size:0;color:transparent}
+:is(body.pg-admin-usuarios #lista,body.pg-agenda #lista,.adm-pagina .previa)>.vazio>span:first-child::after{
+  content:"";position:absolute;inset:20px;background:#1b63e6;-webkit-mask:var(--vz-ic,var(--pi-calendario)) center/contain no-repeat;mask:var(--vz-ic,var(--pi-calendario)) center/contain no-repeat}
+body.pg-admin-usuarios #lista>.vazio{--vz-ic:var(--pi-usuarios)}
+body.pg-admin-usuarios #lista>.vazio:has(.btn){--vz-ic:var(--pi-lupa)}
+:is(body.pg-admin-usuarios #lista,body.pg-agenda #lista)>.vazio:has(#btn-tentar,[data-tentar],[data-recarregar])>span:first-child{background:#fdecea}
+:is(body.pg-admin-usuarios #lista,body.pg-agenda #lista)>.vazio:has(#btn-tentar,[data-tentar],[data-recarregar])>span:first-child::after{background:#b3261e;-webkit-mask-image:var(--pi-alerta);mask-image:var(--pi-alerta)}
+body.pg-gerenciar-servicos #lista>.vazio>span:first-child{background:#eef4ff}
+body.pg-gerenciar-servicos #lista>.vazio>span:first-child::after{background:#1b63e6}
+body.pg-gerenciar-servicos #lista>.vazio:has([data-acao=recarregar])>span:first-child{background:#fdecea}
+body.pg-gerenciar-servicos #lista>.vazio:has([data-acao=recarregar])>span:first-child::after{background:#b3261e}
+
+/* ---------- textos secundários: nunca abaixo de 14px ---------- */
+.adm-pagina :is(.nota,.atalhos small,.erro-bloco){font-size:.875rem}
+.adm-pagina .bloco-usuarios .num{font-size:.875rem;letter-spacing:0}
+body.pg-gerenciar-servicos .rot,body.pg-gerenciar-servicos .nota-obrig{font-size:.875rem}
+body.pg-agenda :is(.c-animal,.c-servico)::before{font-size:.875rem}
+@media(max-width:600px){.adm-pagina .previa .linha-ag>:is(.c-serv,.c-tutor){font-size:.875rem}}
+
+/* ---------- detalhes que ainda usavam o azul antigo ---------- */
+body.pg-admin-usuarios .avatar{background:linear-gradient(145deg,#2a7af5,#0a49b8)}
+
+/* ---------- alto contraste e impressão: sem cenário ---------- */
+@media(forced-colors:active){.cn-cena,.cn-forma{display:none!important}}
+@media print{.cn-cena,.cn-forma{display:none!important}}

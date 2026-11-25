@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gerenciar usuários - PratiCão</title>
+  <link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/tabelas.css">
@@ -11,6 +12,7 @@
   <link rel="stylesheet" href="css/estados.css">
   <link rel="stylesheet" href="css/admin-usuarios-tela.css">
   <link rel="stylesheet" href="css/praticao-ui.css">
+  <link rel="stylesheet" href="css/admin-cenario.css">
 </head>
 <body class="pg-admin-usuarios">
   <header id="cabecalho"></header>
@@ -30,6 +32,8 @@
   <main class="pagina au-pagina">
     <!-- Decoração de fundo (patinhas e onda laranja): não interfere na tela -->
     <div class="au-deco" aria-hidden="true">
+      <!-- Cenário pet (admin-cenario.css): formas orgânicas atrás dos cartões + patinhas, ossinhos, coração e brilhos nas áreas livres -->
+      <div class="cn-cena"><span class="cn-forma f-mancha s1"></span><span class="cn-forma f-onda dir s2"></span><span class="cn-forma f-curva dir s3"></span><span class="cn cn-osso t1 m1"></span><span class="cn cn-coracao tl m2"></span><span class="cn cn-trilha t3 m3"></span><span class="cn cn-brilho tl m4"></span><span class="cn cn-pata t1 m5"></span><span class="cn cn-osso t2 m6"></span><span class="cn cn-pata t2 m7"></span><span class="cn cn-tracos tl m8"></span><span class="cn cn-brilho t2 m9"></span></div>
       <svg class="pata-deco p1"><use href="#ic-pata"/></svg>
       <svg class="pata-deco p2"><use href="#ic-pata"/></svg>
       <svg class="pata-deco p3"><use href="#ic-pata"/></svg>
@@ -80,7 +84,7 @@
           <option value="ativas">Ativos</option>
           <option value="inativas">Inativos</option>
         </select>
-        <button type="button" class="btn btn-laranja btn-pequeno" id="btn-atualizar">↻ Atualizar</button>
+        <button type="button" class="btn btn-laranja btn-pequeno" id="btn-atualizar">Atualizar</button>
       </form>
 
       <div id="lista" class="tabela t-usuarios" aria-live="polite"></div>
@@ -96,7 +100,7 @@
   <dialog id="dlg-detalhes" class="painel" aria-labelledby="det-titulo">
     <h2 id="det-titulo">Detalhes do usuário</h2>
     <div id="det-corpo"></div>
-    <div class="rodape-dlg"><button type="button" class="btn btn-contorno" id="det-fechar">✕ Fechar</button></div>
+    <div class="rodape-dlg"><button type="button" class="btn btn-contorno" id="det-fechar">Fechar</button></div>
   </dialog>
 
   <!-- Confirmação de exclusão permanente -->

@@ -106,7 +106,10 @@ body.pg-gerenciar-servicos .t-servicos .status.ativa{background:#dcf5e3;color:#1
 body.pg-gerenciar-servicos .t-servicos .status.inativa{background:#e8edf5;color:#44526e}
 @media(min-width:801px){
   body.pg-gerenciar-servicos .area:not(.com-painel) .t-servicos .cab,
-  body.pg-gerenciar-servicos .area:not(.com-painel) .t-servicos .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) 100px 88px 110px 316px;gap:12px}
+  /* coluna de ações em rem (cresce junto com a letra: 328px no tamanho normal, 390px com a letra aumentada) e IGUAL no cabeçalho
+     e nas linhas, para as colunas ficarem alinhadas: Editar, Desativar e Excluir sempre na mesma linha (botões com 14px) */
+  body.pg-gerenciar-servicos .area:not(.com-painel) .t-servicos .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) 100px 88px 110px 20.5rem;gap:12px}
+  body.pg-gerenciar-servicos .t-servicos .reg>.acoes{flex-wrap:nowrap}
 }
 
 /* Botões de ação (ícone desenhado só em CSS) */
@@ -192,6 +195,11 @@ body.pg-gerenciar-servicos .gs-fechar:hover{background:#eef4ff}
   body.pg-gerenciar-servicos #lista>.vazio{border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.06)}
   body.pg-gerenciar-servicos #lista>.esqueleto{margin:10px 0;background-color:#fff}
   body.pg-gerenciar-servicos .acoes .acao{flex:1 1 auto;justify-content:center;min-height:42px}
+  /* celular estreito: botões mais compactos para Editar, Desativar e Excluir caberem lado a lado */
+  @media(max-width:420px){
+    body.pg-gerenciar-servicos .t-servicos .reg>.acoes{flex-wrap:nowrap;gap:6px}
+    body.pg-gerenciar-servicos .acoes .acao{padding:6px 8px;gap:4px}
+  }
   /* Painel em tela cheia (vem do gerenciar-servicos.css); aqui só o acabamento */
   body.pg-gerenciar-servicos .painel-form{box-shadow:none}
   body.pg-gerenciar-servicos .painel-topo .voltar{min-height:40px}

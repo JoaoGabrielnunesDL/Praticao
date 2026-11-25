@@ -4,16 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Relatórios do Sistema - PratiCão</title>
+  <link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/tabelas.css">
   <link rel="stylesheet" href="css/relatorios.css">
   <link rel="stylesheet" href="css/estados.css">
+  <link rel="stylesheet" href="css/admin-cenario.css">
 </head>
-<body>
+<body class="pg-relatorios">
   <header id="cabecalho"></header>
 
-  <!-- Símbolos só visuais (patinha), reaproveitados com <use>. -->
+  <!-- Símbolos só visuais (patinha e brilho), reaproveitados com <use>. -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <symbol id="ic-pata" viewBox="0 0 64 64">
       <ellipse cx="13" cy="29" rx="6" ry="8" transform="rotate(-20 13 29)"/>
@@ -22,61 +24,73 @@
       <ellipse cx="51" cy="29" rx="6" ry="8" transform="rotate(20 51 29)"/>
       <path d="M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z"/>
     </symbol>
+    <symbol id="ic-brilho" viewBox="0 0 24 24"><path d="M12 2.5c.6 4.6 2.4 6.9 7 7.6-4.6.7-6.4 3-7 7.6-.6-4.6-2.4-6.9-7-7.6 4.6-.7 6.4-3 7-7.6z"/></symbol>
   </svg>
 
   <main class="pagina rel-pagina">
-    <!-- Decoração de fundo (patinhas e onda laranja): não interfere na tela -->
-    <div class="rel-deco" aria-hidden="true">
-      <svg class="pata-deco p1"><use href="#ic-pata"/></svg>
-      <svg class="pata-deco p2"><use href="#ic-pata"/></svg>
-      <svg class="pata-deco p3"><use href="#ic-pata"/></svg>
-      <svg class="pata-deco p4"><use href="#ic-pata"/></svg>
-      <svg class="pata-deco p5"><use href="#ic-pata"/></svg>
-      <svg class="onda" viewBox="0 0 400 160" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="grad-onda" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0" stop-color="#f7931e"/>
-            <stop offset="1" stop-color="#ffb347"/>
-          </linearGradient>
-        </defs>
-        <path d="M0 160C90 150 150 120 210 80S330 10 400 0V160Z" fill="url(#grad-onda)"/>
-      </svg>
-      <svg class="pata-onda"><use href="#ic-pata"/></svg>
-    </div>
-
     <div class="container rel-container">
-      <!-- Ilustração dos pets (somente decorativa) -->
-      <aside class="rel-pets" aria-hidden="true">
-        <svg class="faisca" viewBox="0 0 40 40"><path d="M6 14 14 20M12 5l6 11M24 3l1 12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg>
-        <img src="img/dicas/WhatsApp%20Image%202026-11-17%20at%2010.59.36.jpeg" alt="" loading="lazy" decoding="async">
-      </aside>
+      <!-- Faixa de cabeçalho: título + pets. A decoração fica SÓ aqui (e nas margens), nunca sobre filtros, gráficos ou tabela. -->
+      <div class="rel-faixa">
+        <div class="rel-deco" aria-hidden="true">
+      <!-- Cenário pet (admin-cenario.css): formas orgânicas atrás dos cartões + patinhas, ossinhos, coração e brilhos nas áreas livres -->
+      <div class="cn-cena"><span class="cn-forma f-mancha s1"></span><span class="cn-forma f-onda s2"></span><span class="cn cn-osso t1 m1"></span><span class="cn cn-coracao tl m2"></span></div>
+          <span class="rel-blob b1"></span>
+          <span class="rel-blob b2"></span>
+          <svg class="rel-onda" viewBox="0 0 1200 120" preserveAspectRatio="none" focusable="false"><path d="M0 92C180 60 330 112 520 84S860 20 1040 46 1200 70 1200 70V120H0Z"/></svg>
+          <svg class="rel-pata pa1" focusable="false"><use href="#ic-pata"/></svg>
+          <svg class="rel-pata pa2" focusable="false"><use href="#ic-pata"/></svg>
+          <svg class="rel-pata pa3" focusable="false"><use href="#ic-pata"/></svg>
+          <!-- Composição ampliada (só visual): manchas, patinhas da faixa do título e das margens, brilhos -->
+          <span class="rel-blob b3"></span>
+          <span class="rel-blob b4"></span>
+          <svg class="rel-pata pa4" focusable="false"><use href="#ic-pata"/></svg>
+          <svg class="rel-pata pa5" focusable="false"><use href="#ic-pata"/></svg>
+          <svg class="rel-pata pa6" focusable="false"><use href="#ic-pata"/></svg>
+          <svg class="rel-pata pa7" focusable="false"><use href="#ic-pata"/></svg>
+          <svg class="rel-pata pa8" focusable="false"><use href="#ic-pata"/></svg>
+          <svg class="rel-brilho br3" focusable="false"><use href="#ic-brilho"/></svg>
+          <svg class="rel-brilho br4" focusable="false"><use href="#ic-brilho"/></svg>
+        </div>
 
-      <div class="rel-conteudo">
         <div class="rel-topo">
           <p class="selo-op">Indicadores</p>
           <h1>Relatórios do <span class="sem-quebra">Sistema</span></h1>
           <p class="sub">Acompanhe os principais dados e estatísticas do seu pet shop.</p>
         </div>
 
+        <!-- Ilustração dos pets (somente decorativa; direto sobre o fundo, sem moldura). Em telas ≥1200px vira a coluna da esquerda. -->
+        <aside class="rel-pets" aria-hidden="true">
+          <svg class="rel-brilho br1" focusable="false"><use href="#ic-brilho"/></svg>
+          <svg class="rel-brilho br2" focusable="false"><use href="#ic-brilho"/></svg>
+          <span class="cn-forma f-chao"></span>
+          <img src="img/dicas/WhatsApp%20Image%202026-11-17%20at%2010.59.36.jpeg" alt="" width="1184" height="1018" decoding="async">
+          <!-- Trilha de patinhas sob os pets (acompanha o bloco fixo; nunca fica por cima dos animais) -->
+          <svg class="rel-trilha" viewBox="0 0 220 210" focusable="false">
+            <use href="#ic-pata" x="18" y="8" width="34" height="34" transform="rotate(-24 35 25)"/>
+            <use href="#ic-pata" x="78" y="44" width="40" height="40" transform="rotate(-10 98 64)"/>
+            <use href="#ic-pata" x="146" y="72" width="46" height="46" transform="rotate(6 169 95)"/>
+            <use href="#ic-pata" x="96" y="124" width="38" height="38" transform="rotate(-18 115 143)"/>
+            <use href="#ic-pata" x="30" y="164" width="32" height="32" transform="rotate(-30 46 180)"/>
+          </svg>
+        </aside>
+      </div>
+
+      <div class="rel-conteudo">
         <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
 
         <!-- Filtro de período: escolha as datas (ou um atalho) e clique em "Gerar relatório" -->
         <form id="filtro-periodo" class="filtro-rel" novalidate>
-          <div class="campo-data">
-            <span class="campo-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h2M12 14h2M8 17h2"/></svg></span>
-            <span class="campo-txt">
+          <div class="filtro-campos">
+            <div class="campo-data">
               <label for="inicio">Período (início) <span class="obrig" aria-hidden="true">*</span></label>
               <input type="date" id="inicio" required>
-            </span>
-          </div>
-          <div class="campo-data">
-            <span class="campo-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h2M12 14h2M8 17h2"/></svg></span>
-            <span class="campo-txt">
+            </div>
+            <div class="campo-data">
               <label for="fim">Período (fim) <span class="obrig" aria-hidden="true">*</span></label>
               <input type="date" id="fim" required>
-            </span>
+            </div>
+            <button class="btn btn-laranja" type="submit" id="btn-gerar"><svg class="btn-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 20V11M10 20V5M15 20v-7M20 20V8"/></svg>Gerar relatório</button>
           </div>
-          <button class="btn btn-laranja" type="submit" id="btn-gerar"><svg class="btn-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 20V11M10 20V5M15 20v-7M20 20V8"/></svg>Gerar relatório</button>
           <div class="atalhos-periodo" role="group" aria-label="Períodos rápidos">
             <button type="button" class="btn btn-contorno btn-pequeno" data-atalho="hoje" aria-pressed="false">Hoje</button>
             <button type="button" class="btn btn-contorno btn-pequeno" data-atalho="7dias" aria-pressed="false">Últimos 7 dias</button>
@@ -96,13 +110,11 @@
 
           <div class="graficos">
             <section class="bloco cartao-grafico" aria-labelledby="t-servicos">
-              <svg class="pata-canto" aria-hidden="true" focusable="false"><use href="#ic-pata"/></svg>
-              <h2 id="t-servicos"><span class="tit-ic" aria-hidden="true"><svg><use href="#ic-pata"/></svg></span>Serviços mais solicitados</h2>
+              <h2 id="t-servicos">Serviços mais solicitados</h2>
               <p class="dica">Clique em uma barra para filtrar a tabela.</p>
               <div id="grafico-barras"></div>
             </section>
             <section class="bloco cartao-grafico" aria-labelledby="t-status">
-              <svg class="pata-canto" aria-hidden="true" focusable="false"><use href="#ic-pata"/></svg>
               <h2 id="t-status">Status dos agendamentos</h2>
               <p class="dica">Clique em um status para filtrar a tabela.</p>
               <div class="rosca-area">
@@ -116,10 +128,10 @@
 
           <section class="bloco detalhamento" aria-labelledby="t-detalhe">
             <div class="cab-detalhe">
-              <h2 id="t-detalhe"><span class="tit-ic" aria-hidden="true"><svg><use href="#ic-pata"/></svg></span>Detalhamento dos agendamentos</h2>
+              <h2 id="t-detalhe">Detalhamento dos agendamentos</h2>
               <span class="acoes">
-                <button type="button" class="btn btn-contorno btn-pequeno" id="btn-exportar">⬇ Exportar CSV</button>
-                <button type="button" class="btn btn-contorno btn-pequeno" id="btn-imprimir">🖨 Imprimir / PDF</button>
+                <button type="button" class="btn btn-contorno btn-pequeno" id="btn-exportar">Exportar CSV</button>
+                <button type="button" class="btn btn-contorno btn-pequeno" id="btn-imprimir">Imprimir / PDF</button>
               </span>
             </div>
             <div class="chips" id="chips" aria-live="polite"></div>

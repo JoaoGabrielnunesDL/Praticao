@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Painel do Administrador - PratiCão</title>
+  <link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/admin.css">
   <link rel="stylesheet" href="css/praticao-ui.css">
+  <link rel="stylesheet" href="css/admin-cenario.css">
 </head>
 <body>
   <header id="cabecalho"></header>
@@ -30,6 +32,8 @@
   <main class="pagina adm-pagina">
     <!-- Decoração de fundo (patinhas e onda laranja): não interfere na tela -->
     <div class="adm-deco" aria-hidden="true">
+      <!-- Cenário pet (admin-cenario.css): formas orgânicas atrás dos cartões + patinhas, ossinhos, coração e brilhos nas áreas livres -->
+      <div class="cn-cena"><span class="cn-forma f-mancha s1"></span><span class="cn-forma f-onda s2"></span><span class="cn-forma f-curva s3"></span><span class="cn cn-osso t2 m1"></span><span class="cn cn-coracao tl m2"></span><span class="cn cn-trilha t3 m3"></span><span class="cn cn-brilho tl m4"></span><span class="cn cn-osso t1 m5"></span><span class="cn cn-brilho t2 m6"></span><span class="cn cn-pata t1 m7"></span><span class="cn cn-pata t2 m8"></span><span class="cn cn-osso t3 m9"></span></div>
       <svg class="pata-deco p1"><use href="#ic-pata"/></svg>
       <svg class="pata-deco p2"><use href="#ic-pata"/></svg>
       <svg class="pata-deco p3"><use href="#ic-pata"/></svg>
@@ -56,7 +60,6 @@
           <use href="#ic-pata" x="26" y="78" width="34" height="34" transform="rotate(-14 43 95)"/>
           <use href="#ic-pata" x="74" y="168" width="38" height="38" transform="rotate(12 93 187)"/>
         </svg>
-        <svg class="faisca" viewBox="0 0 40 40"><path d="M6 14 14 20M12 5l6 11M24 3l1 12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg>
         <img src="img/dicas/WhatsApp%20Image%202026-11-17%20at%2010.54.35.jpeg" alt="" loading="lazy" decoding="async">
       </aside>
 
@@ -88,7 +91,7 @@
           <section class="bloco bloco-agendamentos" aria-labelledby="t-agendamentos">
             <div class="cab-bloco cab-faixa">
               <h2 id="t-agendamentos"><span class="tit-ic" aria-hidden="true"><svg><use href="#ic-calendario"/></svg></span>Agendamentos de hoje</h2>
-              <button type="button" class="btn btn-contorno btn-pequeno" id="btn-atualizar">↻ Atualizar</button>
+              <button type="button" class="btn btn-contorno btn-pequeno" id="btn-atualizar">Atualizar</button>
             </div>
             <div class="numeros">
               <a class="num" data-status="TODOS" href="#"><strong id="a-total">–</strong>Total</a>
@@ -153,5 +156,6 @@
   <script src="js/comum.js"></script>
   <script src="js/header.js"></script>
   <script src="js/admin.js"></script>
+  <script src="js/admin-parallax.js"></script>
 </body>
 </html>
