@@ -4,16 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Agenda do Dia - PratiCão</title>
-  <link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/agenda.css">
   <link rel="stylesheet" href="css/estados.css">
   <link rel="stylesheet" href="css/estados-componentes.css">
   <link rel="stylesheet" href="css/praticao-ui.css">
-  <link rel="stylesheet" href="css/admin-cenario.css">
+  <link rel="stylesheet" href="css/agenda-dia.css">
 </head>
-<body class="pg-agenda ui-estados">
+<body class="pg-agenda ui-estados pg-agenda-dia">
   <header id="cabecalho"></header>
 
   <!-- Ícones só visuais, reaproveitados com <use>. -->
@@ -30,8 +29,6 @@
   <main class="pagina agenda">
     <!-- Decoração de fundo (patinhas e onda laranja): não interfere na tela -->
     <div class="ag-deco" aria-hidden="true">
-      <!-- Cenário pet (admin-cenario.css): formas orgânicas atrás dos cartões + patinhas, ossinhos, coração e brilhos nas áreas livres -->
-      <div class="cn-cena"><span class="cn-forma f-onda s1"></span><span class="cn-forma f-mancha s2"></span><span class="cn-forma f-curva s3"></span><span class="cn cn-osso t1 m1"></span><span class="cn cn-coracao tl m2"></span><span class="cn cn-trilha t3 m3"></span><span class="cn cn-brilho tl m4"></span><span class="cn cn-pata t1 m5"></span><span class="cn cn-osso t2 m6"></span><span class="cn cn-tracos tl m7"></span><span class="cn cn-brilho t2 m8"></span></div>
       <svg class="pata-deco p1"><use href="#ic-pata"/></svg>
       <svg class="pata-deco p2"><use href="#ic-pata"/></svg>
       <svg class="pata-deco p3"><use href="#ic-pata"/></svg>
@@ -40,8 +37,8 @@
       <svg class="onda" viewBox="0 0 400 160" preserveAspectRatio="none">
         <defs>
           <linearGradient id="grad-onda" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0" stop-color="#f7931e"/>
-            <stop offset="1" stop-color="#ffb347"/>
+            <stop offset="0" stop-color="#f28a0c"/>
+            <stop offset="1" stop-color="#ffb23a"/>
           </linearGradient>
         </defs>
         <path d="M0 160C90 150 150 120 210 80S330 10 400 0V160Z" fill="url(#grad-onda)"/>
@@ -58,12 +55,13 @@
       <!-- Ilustração dos pets com a prancheta (somente decorativa) -->
       <aside class="ag-pets" aria-hidden="true">
         <svg class="prancheta" viewBox="0 0 64 72">
-          <rect x="6" y="8" width="52" height="60" rx="10" fill="#1f6fe5"/>
+          <rect x="6" y="8" width="52" height="60" rx="10" fill="#1b63e6"/>
           <rect x="11" y="14" width="42" height="49" rx="6" fill="#fff"/>
-          <rect x="21" y="3" width="22" height="12" rx="5" fill="#0b3a9e"/>
-          <use href="#ic-pata" x="18" y="24" width="28" height="28" fill="#1f6fe5"/>
+          <rect x="21" y="3" width="22" height="12" rx="5" fill="#0a49b8"/>
+          <use href="#ic-pata" x="18" y="24" width="28" height="28" fill="#1b63e6"/>
         </svg>
-        <img src="img/dicas/WhatsApp%20Image%202026-11-18%20at%2020.11.15.jpeg" alt="" decoding="async">
+        <svg class="faisca" viewBox="0 0 40 40"><path d="M6 14 14 20M12 5l6 11M24 3l1 12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg>
+        <img src="img/pets/dupla-pets.png" alt="" aria-hidden="true" width="1000" height="686" loading="eager" decoding="async">
       </aside>
 
       <div class="ag-conteudo">
@@ -100,6 +98,34 @@
         <div id="lista" class="lista"></div>
       </div>
     </div>
+    <!-- Resumo somente leitura (alimentado por js/agenda-visual.js a partir dos indicadores) -->
+    <section class="container ag-resumo" aria-label="Resumo da agenda">
+      <article class="rs-card">
+        <h2 class="rs-tit rs-ic-cal">Status da Agenda</h2>
+        <div class="rs-status">
+          <div class="rs-rosca" id="av-rosca" role="img" aria-label="Distribuição dos atendimentos por status"></div>
+          <ul class="rs-legenda">
+            <li class="l-pend"><span>Pendente</span><strong id="av-pend">0</strong></li>
+            <li class="l-conf"><span>Confirmado</span><strong id="av-conf">0</strong></li>
+            <li class="l-conc"><span>Concluído</span><strong id="av-conc">0</strong></li>
+            <li class="l-canc"><span>Cancelado</span><strong id="av-canc">0</strong></li>
+          </ul>
+        </div>
+      </article>
+      <article class="rs-card rs-hoje">
+        <h2 class="rs-tit rs-ic-pata" id="av-titulo-hoje">Atendimentos de Hoje</h2>
+        <p class="rs-num" id="av-total">0</p>
+        <p class="rs-rot">Total de atendimentos</p>
+        <span class="rs-cal" aria-hidden="true"></span>
+      </article>
+      <article class="rs-card rs-dica">
+        <h2 class="rs-tit rs-ic-estrela">Dica do Dia</h2>
+        <div class="rs-dica-in">
+          <span class="rs-lampada" aria-hidden="true"></span>
+          <div><p class="rs-dica-t" id="av-dica-t">Mantenha a vacinação do seu pet em dia!</p><p class="rs-dica-x" id="av-dica-x">É essencial para a saúde e bem-estar do seu amigo.</p></div>
+        </div>
+      </article>
+    </section>
   </main>
 
   <!-- Painel de detalhes (abre ao clicar em um agendamento) -->
@@ -132,5 +158,6 @@
   <script src="js/estados.js"></script>
   <script src="js/header.js"></script>
   <script src="js/agenda.js"></script>
+  <script src="js/agenda-visual.js"></script>
 </body>
 </html>

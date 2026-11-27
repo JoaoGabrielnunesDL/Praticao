@@ -9,7 +9,7 @@ const moeda = v => Number(v).toLocaleString('pt-BR', { style: 'currency', curren
 // As cores são as mesmas em todo o sistema (agenda, painel e relatórios).
 const STATUS = {
   AGENDADO: { texto: 'Pendente', plural: 'Pendentes', classe: 'pendente', cor: '#f28a0c' },
-  CONFIRMADO: { texto: 'Confirmado', plural: 'Confirmados', classe: 'confirmado', cor: '#0b3a9e' },
+  CONFIRMADO: { texto: 'Confirmado', plural: 'Confirmados', classe: 'confirmado', cor: '#0a49b8' },
   CONCLUIDO: { texto: 'Concluído', plural: 'Concluídos', classe: 'concluido', cor: '#2e9e4f' },
   CANCELADO: { texto: 'Cancelado', plural: 'Cancelados', classe: 'cancelado', cor: '#d93025' },
 };

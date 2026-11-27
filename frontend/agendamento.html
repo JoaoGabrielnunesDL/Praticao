@@ -7,15 +7,40 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/novo-agendamento.css">
+  <link rel="stylesheet" href="css/praticao-ui.css">
 </head>
-<body>
+<body class="pg-agendamento">
   <header id="cabecalho"></header>
 
   <main class="pagina">
+    <!-- Decoração de fundo: só visual (aria-hidden), fora das áreas que o JS preenche -->
+    <div class="ag-cena" aria-hidden="true">
+      <svg class="ag-d-blob" viewBox="0 0 470 460" preserveAspectRatio="none"><defs><linearGradient id="ag-g-blob" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d3e4fc"/><stop offset="1" stop-color="#a9c9f7"/></linearGradient></defs><path d="M0 120C60 50 190 30 275 95 355 155 470 150 470 255 470 350 400 460 310 460H0Z" fill="url(#ag-g-blob)"/></svg>
+      <svg class="ag-d-onda-topo" viewBox="0 0 270 170" preserveAspectRatio="none"><path d="M0 0H270C250 40 200 62 150 84 95 110 40 118 0 170Z" fill="#1b63e6" opacity=".1"/><path d="M0 0H190C170 30 120 48 80 64 50 76 20 84 0 112Z" fill="#1b63e6" opacity=".09"/></svg>
+      <svg class="ag-d-ondas-base" viewBox="0 0 1600 130" preserveAspectRatio="none"><path d="M0 60C200 10 400 110 630 70 860 30 1070 120 1300 80 1430 58 1530 70 1600 86V130H0Z" fill="#cfe1fb" opacity=".7"/><path d="M0 95C220 60 430 125 680 100 930 75 1150 130 1380 105 1480 94 1550 100 1600 108V130H0Z" fill="#fff" opacity=".7"/></svg>
+      <svg class="ag-d-onda-laranja" viewBox="0 0 480 220" preserveAspectRatio="none"><defs><linearGradient id="ag-g-lar" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f28a0c"/><stop offset="1" stop-color="#ffc247"/></linearGradient></defs><path d="M0 220C90 200 190 190 290 130 370 82 430 40 480 0V220Z" fill="url(#ag-g-lar)"/></svg>
+
+      <span class="pc-d pc-f-pata ag-p1"></span>
+      <span class="pc-d pc-f-pata ag-p2"></span>
+      <span class="pc-d pc-f-pata ag-p3"></span>
+      <span class="pc-d pc-f-pata ag-p4"></span>
+      <span class="pc-d pc-f-pata ag-p5"></span>
+      <span class="pc-d pc-f-pata ag-p6"></span>
+      <span class="pc-d pc-f-pata ag-p-onda"></span>
+
+      <span class="ag-sombra"></span>
+      <img class="ag-pets-img" src="img/agendamento/pets-agendamento.webp" alt="" decoding="async">
+    </div>
+
     <div class="container">
-      <p class="selo-op">Banho, tosa e cuidados</p>
-      <h1>Novo Agendamento</h1>
-      <p class="sub">Escolha o serviço, o pet, a data e o horário. Confirmamos a disponibilidade na hora.</p>
+      <div class="ag-topo">
+        <div>
+          <p class="selo-op">Banho, tosa e cuidados</p>
+          <h1>Novo Agendamento</h1>
+          <p class="sub">Escolha o serviço, o pet, a data e o horário. Confirmamos a disponibilidade na hora.</p>
+        </div>
+        <img class="ag-pets-mini" src="img/agendamento/pets-agendamento.webp" alt="" aria-hidden="true" decoding="async">
+      </div>
 
       <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
 
@@ -26,15 +51,21 @@
 
       <!-- Tutor sem animais: o animal é obrigatório -->
       <div id="sem-animal" class="vazio" hidden>
-        <span>🐾</span>Você ainda não possui animais cadastrados.
+        <span class="pc-ic pc-f-pata" aria-hidden="true"></span>Você ainda não possui animais cadastrados.
         <p class="sub">Cadastre um pet para poder agendar um serviço.</p>
         <a class="btn btn-laranja btn-pequeno" href="meus-animais.html?novo=1">+ Cadastrar animal</a>
       </div>
 
       <div class="ag-layout" id="conteudo">
         <form class="bloco ag-form" id="form" novalidate>
-          <h2>📅 Dados do agendamento</h2>
-          <p class="sub">Os campos com <span class="obrig">*</span> são obrigatórios.</p>
+          <span class="pc-d pc-f-pata ag-form-pata" aria-hidden="true"></span>
+          <div class="ag-form-cab">
+            <span class="ag-ic-cab" aria-hidden="true"><span class="pc-ic pc-f-calendario"></span></span>
+            <div>
+              <h2>Dados do agendamento</h2>
+              <p class="sub">Os campos com <span class="obrig">*</span> são obrigatórios.</p>
+            </div>
+          </div>
 
           <fieldset>
             <legend><span class="num">1</span>Serviço e pet</legend>
@@ -71,26 +102,29 @@
           </fieldset>
 
           <div class="rodape-dlg">
-            <button type="button" class="btn btn-contorno" id="cancelar">✕ Cancelar</button>
-            <button type="submit" class="btn btn-laranja" id="confirmar" disabled>📅 Confirmar Agendamento</button>
+            <button type="button" class="btn btn-contorno" id="cancelar"><span class="pc-ic pc-f-x" aria-hidden="true"></span> Cancelar</button>
+            <button type="submit" class="btn btn-laranja" id="confirmar" disabled><span class="pc-ic pc-f-calendario" aria-hidden="true"></span> Confirmar Agendamento</button>
           </div>
         </form>
 
         <!-- Resumo: atualiza sozinho a cada mudança -->
         <aside class="bloco ag-resumo" aria-live="polite">
-          <h2>📋 Resumo</h2>
-          <dl>
-            <dt>Serviço</dt><dd id="r-servico">Não selecionado</dd>
-            <dt>Pet</dt><dd id="r-animal">Não selecionado</dd>
-            <dt>Data e horário</dt><dd id="r-data">Não selecionado</dd>
-            <dt>Duração</dt><dd id="r-duracao">—</dd>
-          </dl>
-          <p class="ag-valor"><span>Valor</span><strong id="r-valor">—</strong></p>
-          <ul class="ag-regras">
-            <li>Confirmação do horário em tempo real.</li>
-            <li>Cancelamento com até 2 horas de antecedência.</li>
-            <li>A solicitação fica <strong>Pendente</strong> até o funcionário confirmar.</li>
-          </ul>
+          <img class="ag-resumo-arte" src="img/agendamento/resumo-cao.webp" alt="" decoding="async">
+          <div class="ag-resumo-corpo">
+            <h2><span class="pc-ic pc-f-historico" aria-hidden="true"></span> Resumo</h2>
+            <dl>
+              <dt><span class="pc-ic pc-f-tesoura" aria-hidden="true"></span>Serviço</dt><dd id="r-servico">Não selecionado</dd>
+              <dt><span class="pc-ic pc-f-pata" aria-hidden="true"></span>Pet</dt><dd id="r-animal">Não selecionado</dd>
+              <dt><span class="pc-ic pc-f-calendario" aria-hidden="true"></span>Data e horário</dt><dd id="r-data">Não selecionado</dd>
+              <dt><span class="pc-ic pc-f-relogio" aria-hidden="true"></span>Duração</dt><dd id="r-duracao">—</dd>
+            </dl>
+            <p class="ag-valor"><span><span class="pc-ic pc-f-moedas" aria-hidden="true"></span> Valor</span><strong id="r-valor">—</strong></p>
+            <ul class="ag-regras">
+              <li>Confirmação do horário em tempo real.</li>
+              <li>Cancelamento com até 2 horas de antecedência.</li>
+              <li>A solicitação fica <strong>Pendente</strong> até o funcionário confirmar.</li>
+            </ul>
+          </div>
         </aside>
       </div>
     </div>

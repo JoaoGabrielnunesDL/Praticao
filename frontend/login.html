@@ -8,21 +8,56 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/login-visual.css">
 </head>
 <body class="pg-acesso">
   <header id="cabecalho"></header>
 
-  <main class="login-pagina">
+  <main class="login-pagina tela-login">
+    <!-- Camada decorativa (posições calculadas para 1920x1080, ver css/login-visual.css) -->
+    <svg class="defs" aria-hidden="true" focusable="false"><defs>
+      <symbol id="pata" viewBox="0 0 80 72"><ellipse cx="14" cy="30" rx="7" ry="10" transform="rotate(-25 14 30)"/><ellipse cx="30" cy="14" rx="7.5" ry="11" transform="rotate(-8 30 14)"/><ellipse cx="50" cy="14" rx="7.5" ry="11" transform="rotate(8 50 14)"/><ellipse cx="66" cy="30" rx="7" ry="10" transform="rotate(25 66 30)"/><path d="M40 34C52 34 64 48 64 58 64 67 56 68 48 65 44 63.5 36 63.5 32 65 24 68 16 67 16 58 16 48 28 34 40 34Z"/></symbol>
+    </defs></svg>
+    <div class="deco" aria-hidden="true">
+      <svg class="d-blob" viewBox="0 0 1010 690" preserveAspectRatio="none"><defs><linearGradient id="g-blob" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9ddfb"/><stop offset="1" stop-color="#b3cff6"/></linearGradient></defs><path d="M0 150C60 60 220 40 330 110 470 190 600 120 760 200 930 285 1000 430 960 560 930 650 800 690 640 690H0Z" fill="url(#g-blob)" opacity=".7"/><path d="M0 330C120 250 260 270 380 330 520 400 640 360 760 420 880 480 930 560 900 690H0Z" fill="#fff" opacity=".28"/></svg>
+      <svg class="d-onda-topo" viewBox="0 0 270 170" preserveAspectRatio="none"><path d="M0 0H270C250 40 200 62 150 84 95 110 40 118 0 170Z" fill="#1b63e6" opacity=".12"/><path d="M0 0H190C170 30 120 48 80 64 50 76 20 84 0 112Z" fill="#1b63e6" opacity=".1"/></svg>
+      <svg class="d-onda-calendario" viewBox="0 0 520 120" preserveAspectRatio="none"><path d="M0 120C40 70 120 20 220 40 320 60 380 10 460 0 480-2 500 50 520 120Z" fill="#cfe1fb" opacity=".75"/></svg>
+      <svg class="d-ondas-base" viewBox="0 0 1920 130" preserveAspectRatio="none"><path d="M0 60C240 10 480 110 760 70 1040 30 1280 120 1560 80 1720 58 1840 70 1920 86V130H0Z" fill="#bcd5f8" opacity=".6"/><path d="M0 95C260 60 520 125 820 100 1120 75 1380 130 1650 105 1770 94 1860 100 1920 108V130H0Z" fill="#9fc2f3" opacity=".5"/></svg>
+      <svg class="d-onda-laranja" viewBox="0 0 480 190" preserveAspectRatio="none"><defs><linearGradient id="g-lar" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f28a0c"/><stop offset="1" stop-color="#f28a0c"/></linearGradient></defs><path d="M60 190C140 130 260 120 350 70 410 36 450 14 480 0V190Z" fill="#ffb23a" opacity=".85"/><path d="M170 190C260 150 340 140 400 100 430 80 455 62 480 48V190Z" fill="url(#g-lar)"/></svg>
+
+      <svg class="d-pata-1 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-2 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-3 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-4 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-5 pata-contorno" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-rastro-1 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-rastro-2 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+
+      <svg class="d-brilho-1" viewBox="0 0 92 52"><g stroke="#f28a0c" stroke-width="8" stroke-linecap="round"><path d="M10 44L26 14"/><path d="M34 46L54 8"/><path d="M62 44L78 18"/></g></svg>
+      <svg class="d-brilho-2" viewBox="0 0 68 72"><g stroke="#f28a0c" stroke-width="8" stroke-linecap="round"><path d="M10 46L30 42"/><path d="M18 22L34 30"/><path d="M42 6L46 24"/></g></svg>
+
+
+    </div>
     <div class="container">
       <!-- Lado esquerdo: marca + pets (apoio visual) -->
       <section class="boas-vindas" aria-labelledby="ac-boas-vindas">
-        <h1 id="ac-boas-vindas">Bem-vindo ao <strong>Prati<em>Cão</em>!</strong></h1>
-        <p>Cuidado, carinho e bem-estar para o seu pet!</p>
-        <img class="ac-pets" src="img/dicas/WhatsApp%20Image%202026-11-17%20at%2011.01.31.jpeg" alt="" width="1344" height="896" decoding="async">
+        <div class="bv-texto">
+          <h1 id="ac-boas-vindas"><span class="eyebrow">Bem-vindo ao</span><strong>Prati<em>Cão!</em></strong></h1>
+          <svg class="bv-risco" viewBox="0 0 230 36" aria-hidden="true" focusable="false"><path d="M6 26C60 8 150 4 224 14" fill="none" stroke="#f28a0c" stroke-width="9" stroke-linecap="round"/></svg>
+          <p>Cuidado, carinho e <span class="sem-quebra">bem-estar</span> para o seu pet!</p>
+          <div class="bv-pilula"><svg viewBox="0 0 80 72" aria-hidden="true" focusable="false"><use href="#pata"/></svg><span>Faça login para acessar sua conta e acompanhar seus pets.</span></div>
+          <ul class="beneficios">
+            <li><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="#1b63e6"/><path d="M7.5 13.5l3.7 3.7 7.3-7.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Atendimento de qualidade</li>
+            <li><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="#1b63e6"/><path d="M7.5 13.5l3.7 3.7 7.3-7.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Profissionais especializados</li>
+            <li><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="#1b63e6"/><path d="M7.5 13.5l3.7 3.7 7.3-7.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Cuidado e carinho em cada serviço</li>
+          </ul>
+        </div>
+        <img class="ac-pets" src="img/login/pets-login.webp" alt="" width="1416" height="936" decoding="async">
       </section>
 
       <!-- Lado direito: cartão de login / cadastro -->
       <section class="cartao" aria-labelledby="titulo-cartao">
+        <div class="cartao-avatar" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="17" r="8.5" fill="#fff"/><path d="M7 41c1.5-9.5 8.5-14 17-14s15.500 4.500 17 14z" fill="#fff"/></svg></div>
         <h2 id="titulo-cartao">Entrar no PratiCão</h2>
         <p class="sub" id="subtitulo-cartao">Acesse sua conta para continuar</p>
 
@@ -31,12 +66,12 @@
           <div class="erro" role="alert" hidden></div>
           <div class="campo">
             <label for="login-email">E-mail</label>
-            <input id="login-email" name="email" type="email" autocomplete="username" maxlength="150" required>
+            <div class="entrada ic-email"><input id="login-email" name="email" type="email" placeholder="E-mail" autocomplete="username" maxlength="150" required></div>
           </div>
           <div class="campo">
             <label for="login-senha">Senha</label>
-            <div class="entrada">
-              <input id="login-senha" name="senha" type="password" class="com-botao" autocomplete="current-password" maxlength="72" required>
+            <div class="entrada ic-senha">
+              <input id="login-senha" name="senha" type="password" class="com-botao" placeholder="Senha" autocomplete="current-password" maxlength="72" required>
               <button type="button" class="mostrar" data-alvo="login-senha">Mostrar</button>
             </div>
           </div>
@@ -77,7 +112,7 @@
           <button class="btn btn-laranja" type="submit" data-texto="Criar conta">Criar conta</button>
           <p class="troca">Já tem conta? <button type="button" class="link" data-mostrar="login">Entrar</button></p>
         </form>
-        <p class="aviso">Faça login para acessar sua conta e acompanhar seus pets. Funcionários e administradores também entram por aqui e são levados ao seu painel.</p>
+        <p class="aviso">Funcionários e administradores também entram por aqui e são levados ao seu painel.</p>
       </section>
     </div>
   </main>

@@ -27,7 +27,7 @@
 .navbar .container,.topbar .container{max-width:1240px}
 .navbar .container{display:flex;align-items:center;gap:var(--esp-6);min-height:64px}
 .logo{flex:none;display:inline-flex;align-items:center;min-height:40px;font-size:1.375rem;font-weight:var(--peso-forte);letter-spacing:-.01em;color:var(--cor-azul-profundo);line-height:1}
-.logo span{color:var(--cor-laranja)}                                         /* logotipo: isento de contraste */
+.logo img{display:block;width:58px;height:58px;border-radius:50%}                /* logo oficial redonda */
 .menu-painel{display:flex;align-items:center;gap:var(--esp-6);flex:1;min-width:0}
 .menu{display:flex;align-items:center;gap:var(--esp-1)}
 .menu a{position:relative;display:inline-flex;align-items:center;min-height:40px;padding:0 8px;border-radius:var(--raio-p);color:var(--cor-texto-2);font-size:.9375rem;font-weight:var(--peso-medio);white-space:nowrap;transition:color var(--transicao),background-color var(--transicao)} /* 6,36:1 */
@@ -92,7 +92,7 @@
 }
 @media(max-width:599px){
   .topbar .contatos span:last-child{display:none}   /* só o telefone; o e-mail continua no rodapé */
-  .logo{font-size:1.25rem}
+  .logo img{width:46px;height:46px}
 }
 
 /* =====================================================================
@@ -101,8 +101,8 @@
 .rodape{position:relative;margin-top:0;background:var(--cor-azul-profundo);color:#fff;font-size:.875rem}  /* branco: 13,49:1 */
 /* A onda avança 36px sobre o fim do conteúdo (as telas já reservam esse espaço no rodapé da página) */
 .rodape-onda{position:absolute;left:0;bottom:100%;width:100%;height:36px;margin-bottom:-1px;fill:var(--cor-azul-profundo)}
-.rodape-marca{font-size:1.25rem;font-weight:var(--peso-forte);letter-spacing:-.01em;line-height:1.2}
-.rodape-marca span{color:var(--cor-laranja)}                                  /* 5,41:1 no azul-profundo */
+.rodape-marca{line-height:0}
+.rodape-marca img{display:block;width:88px;height:88px;border-radius:50%;box-shadow:0 6px 18px rgba(0,0,0,.28)}   /* logo oficial redonda */
 .rodape-frase,.rodape-contato,.rodape-endereco,.rodape-horarios,.copy{color:#c9dafc}   /* 9,58:1 */
 .rodape ul{list-style:none}
 .rodape-contato{display:flex;flex-wrap:wrap;gap:var(--esp-1) var(--esp-4)}
@@ -116,8 +116,8 @@
 .rodape--compacto .rodape-frase{font-size:.8125rem;margin-top:2px}
 
 /* Área pública: três colunas com hierarquia + base com copyright */
-.rodape--completo .rodape-in{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:var(--esp-8);padding-top:var(--esp-6);padding-bottom:var(--esp-6)}
-.rodape--completo .rodape-sobre{display:grid;gap:var(--esp-2);align-content:start}
+.rodape--completo .rodape-in{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1fr);gap:var(--esp-8);padding-top:var(--esp-6);padding-bottom:var(--esp-6)}
+.rodape--completo .rodape-sobre{display:grid;gap:var(--esp-2);align-content:start;margin-top:-40px;position:relative;z-index:1}  /* logo e textos sobem: ficam bem perto da curva azul do topo, sem encostar */
 .rodape-titulo{font-size:.875rem;font-weight:var(--peso-forte);color:#fff;margin-bottom:var(--esp-3)}
 .rodape-links{display:grid;gap:var(--esp-2)}
 .rodape-links a{text-decoration:none}
@@ -141,3 +141,32 @@
 
 @media(prefers-reduced-motion:reduce){.menu a,.menu-botao-ic i{transition:none}}
 @media print{.menu-botao,.rodape-onda{display:none}}
+
+/* Redes sociais no rodapé: ícones redondos lado a lado */
+.rodape-redes{display:flex;gap:12px;flex-wrap:wrap;margin-top:var(--esp-2)}
+.rodape .rede{display:block;width:40px;height:40px;border-radius:50%;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.28);transition:transform .15s}
+.rodape .rede:hover{transform:translateY(-2px) scale(1.06)}
+.rodape .rede svg{display:block;width:100%;height:100%}
+.rodape-redes{align-items:center}
+.rodape .rede-whatsapp{width:44px;height:44px;border-radius:0;box-shadow:none;margin:0 -2px}
+.rodape .rede-whatsapp img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 3px 5px rgba(0,0,0,.3))}
+
+/* Coluna "Segurança e Conformidade": texto padrão de rodapé + formas de pagamento (2 em cima, 2 embaixo) */
+.rodape-seguranca{display:grid;gap:var(--esp-2);align-content:start}
+.rodape-seguranca .rodape-titulo{margin-bottom:var(--esp-1)}
+.rodape-texto{color:#c9dafc;line-height:1.55}   /* 9,58:1 */
+.rodape-seguro{display:flex;align-items:center;gap:8px;color:#fff;font-weight:var(--peso-medio)}
+.rodape-seguro svg{flex:none;width:18px;height:18px;fill:var(--cor-laranja)}
+.rodape-subtitulo{margin-top:var(--esp-2);font-size:.8125rem;font-weight:var(--peso-forte);color:#fff}
+.rodape-pagamentos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:260px}
+.rodape-pagamentos li{display:flex;align-items:center;gap:8px;min-height:46px;padding:7px 10px;border-radius:12px;background:#fff;color:#0a2a6b;font-size:.8125rem;font-weight:var(--peso-forte);box-shadow:0 3px 10px rgba(0,0,0,.22)}  /* azul-escuro sobre branco: >12:1 */
+.rodape-pagamentos img{flex:none;width:32px;height:32px;object-fit:contain}
+
+@media(max-width:1099px){
+  .rodape--completo .rodape-in{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rodape--completo .rodape-sobre{margin-top:0}
+}
+@media(max-width:799px){
+  .rodape--completo .rodape-in{grid-template-columns:1fr}
+  .rodape-pagamentos{max-width:300px}
+}

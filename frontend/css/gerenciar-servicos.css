@@ -27,7 +27,7 @@
 @media(prefers-reduced-motion:reduce){.esqueleto{animation:none}}
 
 /* Painel lateral */
-.painel-form{background:#fff;border-radius:16px;box-shadow:0 6px 20px rgba(11,58,158,.1);padding:20px;position:sticky;top:96px;border-top:5px solid var(--laranja)}
+.painel-form{background:#fff;border-radius:16px;box-shadow:0 6px 20px rgba(10,73,184,.1);padding:20px;position:sticky;top:96px;border-top:5px solid var(--laranja)}
 .painel-topo h2{margin:0 0 14px}
 .painel-topo .voltar{display:none}
 .linha-campos{display:grid;grid-template-columns:1fr 1fr;gap:12px}

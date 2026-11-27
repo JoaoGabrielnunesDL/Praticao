@@ -1,110 +1,247 @@
 /* =====================================================================
-   HOME — Fase 3 (Design System: tokens de base.css; títulos em Figtree)
-   Substitui hero.css, servicos.css, agendar.css, sobre.css, curiosidades.css e depoimentos.css nesta página.
-   Composição com ritmo: hero (foto) → serviços (lista com ícones) → agendamento (foto + benefícios)
-   → bloco editorial → dicas (lista editorial com fotos) → depoimentos (tipografia).
-   Laranja só no CTA do hero. Pets direto sobre o fundo (multiply), sem círculo, moldura ou cartão.
+   HOME — visual do protótipo: degradê, ondas, patinhas, corações, riscos, fotos reais e blocos arredondados.
+   Tokens de base.css (paleta padrão: --cor-azul*, --cor-laranja*, --grad-*). Títulos em Figtree.
+   Ritmo: hero (cão e gato + ondas) → serviços (fotos) → agendamento (bloco azul) → pet shop (loja) → dicas → depoimentos.
+   Laranja só em CTA, riscos e onda decorativa. Texto de laranja não é usado (contraste).
    ===================================================================== */
 .pg-home{background:var(--cor-superficie)}
 .pg-home main{overflow-x:clip}
+.hm-wrap{position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;padding:0 var(--esp-6)}
 
-/* ---------- Tipografia da página ---------- */
-.hm-eyebrow{font-size:var(--texto-12);font-weight:var(--peso-forte);letter-spacing:var(--espaco-letra-rotulo);text-transform:uppercase;color:var(--cor-texto-2);margin-bottom:var(--esp-3)} /* 5,76:1 */
-.hm-titulo{font-family:var(--fonte-titulo);font-size:clamp(1.625rem,1.2rem + 1.2vw,2.125rem);font-weight:var(--peso-forte);line-height:var(--altura-linha-titulo);letter-spacing:-.015em;color:var(--cor-titulo)}
-.hm-titulo-g{font-size:clamp(1.875rem,1.3rem + 1.7vw,2.625rem);letter-spacing:-.02em}
-.hm-sub{margin-top:var(--esp-2);font-size:var(--texto-16);color:var(--cor-texto-2);line-height:var(--altura-linha-texto)}
-.hm-secao{padding:var(--esp-16) 0}
+/* ---------- Decoração (ficam atrás do conteúdo) ---------- */
+.hm-deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.hm-deco>svg,.hd-pata{position:absolute;display:block;overflow:visible}
+.hd-pata{fill:var(--cor-azul);opacity:.2;width:calc(var(--s,64px));height:calc(var(--s,64px)*.9)}
+.hd-cor{width:52px;height:48px}
+.hd-ris{width:64px;height:60px}
+
+/* ---------- Tipografia ---------- */
+.hm-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:var(--esp-3);font-size:var(--texto-14);font-weight:var(--peso-forte);letter-spacing:.08em;text-transform:uppercase;color:var(--cor-azul-forte)} /* 7,3:1 */
+.hm-eyebrow svg{flex:none;width:20px;height:18px;fill:var(--cor-laranja)}
+.hm-eyebrow-claro{color:var(--cor-laranja-claro)}                                         /* 5,3:1 no azul */
+.hm-titulo{font-family:var(--fonte-titulo);font-size:clamp(1.75rem,1.3rem + 1.4vw,2.375rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--cor-azul-profundo)}
+.hm-titulo em{font-style:normal;color:var(--cor-azul)}                                    /* 5,8:1 */
+.hm-titulo-g{font-size:clamp(1.875rem,1.3rem + 1.9vw,2.75rem)}
+.hm-titulo-claro{color:#fff}
+.hm-titulo-claro em{color:var(--cor-laranja-claro)}
+.hm-sub{margin-top:var(--esp-2);font-size:var(--texto-18);line-height:1.5;color:var(--cor-texto-2)}
+.hm-sub-claro{color:#dbe8fb}
+.hm-secao{position:relative;isolation:isolate;padding:var(--esp-16) 0}
 .hm-cab{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--esp-4);margin-bottom:var(--esp-8);flex-wrap:wrap}
-.hm-link{display:inline-flex;align-items:center;gap:6px;min-height:40px;color:var(--cor-link);font-weight:var(--peso-medio);text-underline-offset:3px} /* 5,82:1 */
-.hm-link:hover{text-decoration:underline}
-.hm-link svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hm-centro{text-align:center;max-width:720px;margin:0 auto}
+.hm-centro .hm-eyebrow{justify-content:center}
+.hm-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 var(--esp-4);border-radius:999px;background:var(--cor-azul-claro);color:var(--cor-azul-forte);font-weight:var(--peso-forte);transition:background-color var(--transicao)}
+.hm-link:hover{background:var(--cor-azul-superficie)}
+.hm-link svg,.hm-cta svg,.hm-ler svg,.hm-preco svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pg-home main :is(a,button):focus-visible{outline:none;box-shadow:var(--anel-foco)}
 
-/* Foco: anel azul do sistema em tudo que é clicável na página */
-.pg-home main :is(a,button):focus-visible{outline:none;box-shadow:var(--anel-foco);border-radius:var(--raio-m)}
+/* Botão principal (laranja padrão do site, texto azul-profundo) */
+.hm-cta{display:inline-flex;align-items:center;justify-content:center;gap:var(--esp-2);min-height:56px;padding:0 var(--esp-8);border-radius:999px;background:var(--grad-laranja);color:var(--cor-cta-texto);font-size:1.0625rem;font-weight:800;box-shadow:0 10px 22px rgba(242,138,12,.38);transition:transform var(--transicao),box-shadow var(--transicao)}
+.hm-cta:hover{transform:translateY(-2px);box-shadow:0 14px 26px rgba(242,138,12,.46)}
+.hm-link-pilula{display:inline-flex;align-items:center;min-height:56px;padding:0 var(--esp-6);border:2px solid var(--cor-azul);border-radius:999px;background:rgba(255,255,255,.7);color:var(--cor-azul-forte);font-weight:var(--peso-forte);transition:background-color var(--transicao)}
+.hm-link-pilula:hover{background:#fff}
 
-/* ---------- Hero ---------- */
-.hm-hero{background:var(--cor-azul-claro);padding:var(--esp-12) 0 var(--esp-16)}
-.hm-hero-grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--esp-12);align-items:center}
-.hm-hero h1{font-family:var(--fonte-titulo);font-size:clamp(2.25rem,1.4rem + 2.6vw,3.375rem);font-weight:var(--peso-forte);line-height:1.06;letter-spacing:-.025em;color:var(--cor-titulo);max-width:18ch}
-.hm-hero h1 span{display:block;color:var(--cor-azul)}                                   /* 5,27:1 no azul-claro (texto grande) */
-.hm-hero-desc{margin:var(--esp-4) 0 var(--esp-8);font-size:var(--texto-18);line-height:var(--altura-linha-texto);color:var(--cor-texto-2);max-width:44ch} /* 5,76:1 */
-.hm-cta{display:inline-flex;align-items:center;gap:var(--esp-2);min-height:var(--altura-botao-g);padding:0 var(--esp-6);border-radius:var(--raio-m);background:var(--cor-cta);color:var(--cor-cta-texto);font-size:var(--texto-16);font-weight:var(--peso-forte);transition:background-color var(--transicao)} /* 5,41:1 */
-.hm-cta:hover{background:var(--cor-laranja-hover)}                                        /* 6,37:1 */
-.hm-cta svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-/* Pets: foto inteira, o fundo branco some no azul-claro (multiply). Nada entre a foto e o fundo cria contexto de empilhamento. */
-.hm-hero-pets img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
+/* ---------- Hero: banner na proporção exata da imagem (1600x533 = 3:1), sem véu branco e sem ampliar além do container ---------- */
+.hm-hero{position:relative;isolation:isolate;padding:var(--esp-6) 0 var(--esp-4);background:linear-gradient(180deg,#eef4ff 0%,#fff 100%)}
+.hm-hero-banner{position:relative;aspect-ratio:1600/533;overflow:hidden;border-radius:28px;background:#4aa3f5;box-shadow:0 18px 40px rgba(10,42,107,.2)}
+.hm-hero-img{display:block;width:100%;height:100%;object-fit:cover}   /* mesma proporção do arquivo: nada é cortado nem esticado */
+.hm-hero-texto{position:absolute;left:5%;top:50%;transform:translateY(-50%);width:47%}
+.hm-hero .hm-eyebrow{color:var(--cor-azul-profundo)}
+.hm-hero h1{font-family:var(--fonte-titulo);font-size:clamp(1.75rem,.9rem + 1.9vw,2.75rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;color:var(--cor-azul-profundo);text-shadow:0 1px 14px rgba(255,255,255,.55)}
+.hm-hero h1 span{display:block;color:var(--cor-azul-profundo)}
+.hm-hero-desc{margin:var(--esp-3) 0 var(--esp-4);font-size:clamp(.9375rem,.75rem + .45vw,1.125rem);line-height:1.45;color:var(--cor-azul-profundo);font-weight:600;max-width:36ch;text-shadow:0 1px 10px rgba(255,255,255,.6)}
+.hm-acoes{display:flex;flex-wrap:wrap;gap:var(--esp-3)}
+.hm-hero .hm-cta{min-height:52px}
+.hm-hero .hm-link-pilula{min-height:52px;background:#fff}
 
 /* ---------- Serviços ---------- */
-.hm-servicos-grade{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--esp-4)}
-.hm-servico{display:flex;flex-direction:column;gap:var(--esp-2);padding:var(--esp-6);border:1px solid var(--cor-borda);border-radius:var(--raio-g);background:var(--cor-superficie);transition:border-color var(--transicao),background-color var(--transicao)}
-.hm-servico:hover{border-color:var(--cor-azul);background:var(--cor-azul-claro)}
-.hm-ic{display:grid;place-items:center;width:44px;height:44px;margin-bottom:var(--esp-2);border-radius:var(--raio-m);background:var(--cor-azul-claro);color:var(--cor-azul)}
-.hm-servico:hover .hm-ic{background:var(--cor-superficie)}
-.hm-ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.hm-servico-nome{font-family:var(--fonte-titulo);font-size:1.25rem;font-weight:var(--peso-forte);color:var(--cor-titulo);line-height:1.2}
-.hm-servico-desc{font-size:.9375rem;color:var(--cor-texto-2);line-height:1.45}            /* 6,36:1 */
-.hm-preco{margin-top:auto;padding-top:var(--esp-3);font-size:.9375rem;font-weight:var(--peso-forte);color:var(--cor-titulo)} /* 13,49:1 (antes laranja 2,5:1) */
+.hm-servicos{background:var(--cor-superficie);padding-top:var(--esp-8)}
+.hm-servicos-grade{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--esp-6)}
+.hm-servico{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--cor-borda);border-radius:24px;background:#fff;box-shadow:0 10px 28px rgba(10,42,107,.09);transition:transform var(--transicao),box-shadow var(--transicao)}
+.hm-servico:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(10,42,107,.16)}
+.hm-servico-foto{position:relative;display:block;aspect-ratio:4/3;overflow:hidden}
+.hm-servico-foto img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.hm-servico:hover .hm-servico-foto img{transform:scale(1.05)}
+.hm-ic{position:absolute;left:var(--esp-4);bottom:-1px;display:grid;place-items:center;width:76px;height:76px;border-radius:24px 24px 0 0;background:#fff}
+.hm-ic svg{width:44px;height:44px;padding:0;fill:none;stroke:var(--cor-azul);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.hm-servico-corpo{display:flex;flex-direction:column;gap:var(--esp-2);flex:1;padding:var(--esp-4) var(--esp-6) var(--esp-6)}
+.hm-servico-nome{font-family:var(--fonte-titulo);font-size:1.375rem;font-weight:800;color:var(--cor-azul-profundo);line-height:1.2}
+.hm-servico-desc{font-size:.9375rem;color:var(--cor-texto-2);line-height:1.45}
+.hm-preco{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:var(--esp-3);border-top:1px dashed var(--cor-azul-superficie);font-size:.9375rem;font-weight:800;color:var(--cor-azul-forte)}
+.hm-preco svg{width:30px;height:30px;padding:6px;border-radius:50%;background:var(--grad-laranja);stroke:var(--cor-cta-texto)}
 
 /* ---------- Agendamento ---------- */
-.hm-agendar{background:var(--cor-azul-claro)}
-.hm-agendar-grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--esp-12);align-items:center}
-.hm-agendar-pets img{display:block;width:100%;height:auto;filter:brightness(1.07);mix-blend-mode:multiply} /* fundo cinza-claro da foto vira branco e some */
-.hm-beneficios{list-style:none;display:grid;gap:var(--esp-4);margin:var(--esp-6) 0 var(--esp-8)}
-.hm-beneficios li{display:flex;gap:var(--esp-3);align-items:flex-start}
-.hm-beneficios svg{flex:none;width:28px;height:28px;padding:5px;border-radius:var(--raio-p);background:var(--cor-superficie);fill:none;stroke:var(--cor-azul);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.hm-beneficios strong{display:block;font-weight:var(--peso-medio);color:var(--cor-texto)}
-.hm-beneficios span{font-size:.9375rem;color:var(--cor-texto-2);line-height:1.45}
-.hm-btn-sec{display:inline-flex;align-items:center;min-height:var(--altura-botao-g);padding:0 var(--esp-6);border:1.5px solid var(--cor-azul);border-radius:var(--raio-m);background:var(--cor-superficie);color:var(--cor-azul);font-weight:var(--peso-medio);transition:background-color var(--transicao)} /* 5,82:1 */
-.hm-btn-sec:hover{background:var(--cor-azul-claro);color:var(--cor-azul-forte);border-color:var(--cor-azul-forte)}
+.hm-agendar{padding:var(--esp-8) 0 var(--esp-16)}
+.hm-agendar-bloco{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:var(--esp-12);align-items:center;padding:var(--esp-12);border-radius:36px;background:radial-gradient(circle at 12% 10%,rgba(255,255,255,.18),rgba(255,255,255,0) 40%),var(--grad-azul);box-shadow:0 24px 54px rgba(10,73,184,.28)}
+.hm-agendar-onda{position:absolute;right:0;bottom:0;width:44%;height:21%;z-index:0}
+.hm-agendar-bloco .hd-pata{fill:#fff;opacity:.12;z-index:0}
+.hm-ag-p1{--s:90px;left:44%;top:6%}.hm-ag-p2{--s:64px;left:3%;bottom:6%}
+.hm-agendar-pets,.hm-agendar-texto{position:relative;z-index:1}
+.hm-agendar-pets img{display:block;width:100%;height:auto;border-radius:28px;border:6px solid rgba(255,255,255,.9);box-shadow:0 18px 34px rgba(5,25,70,.35)}
+.hm-beneficios{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-3);margin:var(--esp-6) 0 var(--esp-8)}
+.hm-beneficios li{display:flex;flex-direction:column;gap:var(--esp-2);padding:var(--esp-4);border:1px solid rgba(255,255,255,.28);border-radius:20px;background:rgba(255,255,255,.12);color:#dbe8fb;font-size:.875rem;line-height:1.4}
+.hm-beneficios svg{width:40px;height:40px;padding:9px;border-radius:14px;background:#fff;fill:none;stroke:var(--cor-azul);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hm-beneficios strong{display:block;margin-bottom:2px;font-size:.9375rem;font-weight:800;color:#fff}
 
-/* ---------- Bloco editorial (o pet shop) ---------- */
-.hm-petshop-grade{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:var(--esp-12);align-items:start}
-.hm-petshop-texto{font-size:var(--texto-18);line-height:var(--altura-linha-texto);color:var(--cor-texto-2);margin-bottom:var(--esp-8)}
-.hm-fatos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-6)}
-.hm-fatos>div{padding-top:var(--esp-3);border-top:2px solid var(--cor-azul-superficie)}
-.hm-fatos dt{font-weight:var(--peso-forte);color:var(--cor-titulo);margin-bottom:var(--esp-1)}
-.hm-fatos dd{font-size:var(--texto-14);color:var(--cor-texto-2)}
+/* ---------- Pet shop ---------- */
+.hm-petshop{background:linear-gradient(180deg,var(--cor-superficie) 0%,#eef4ff 100%)}
+.hm-petshop-grade{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--esp-12);align-items:center}
+.hm-petshop-foto{position:relative}
+.hm-petshop-foto::before{content:"";position:absolute;inset:18px -18px -18px 18px;border-radius:32px;background:var(--grad-azul);opacity:.18}
+.hm-petshop-foto img{position:relative;display:block;width:100%;height:auto;border-radius:32px;border:6px solid #fff;box-shadow:0 20px 44px rgba(10,42,107,.2)}
+.hm-petshop-texto{margin:var(--esp-4) 0 var(--esp-6);font-size:var(--texto-18);line-height:1.55;color:var(--cor-texto-2)}
+.hm-fatos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-3)}
+.hm-fatos>div{padding:var(--esp-4);border-radius:20px;background:#fff;box-shadow:var(--sombra-sutil);border:1px solid var(--cor-borda)}
+.hm-fatos svg{display:block;width:40px;height:40px;margin-bottom:var(--esp-2);padding:9px;border-radius:14px;background:var(--grad-azul);fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hm-fatos dt{font-weight:800;color:var(--cor-azul-profundo);margin-bottom:2px}
+.hm-fatos dd{font-size:var(--texto-14);color:var(--cor-texto-2);line-height:1.4}
 
-/* ---------- Dicas (lista editorial com as fotos dos artigos) ---------- */
-.hm-dicas{border-top:1px solid var(--cor-borda)}
-.hm-dicas-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-8)}
-.hm-dica{display:grid;grid-template-columns:88px minmax(0,1fr);gap:var(--esp-4);align-items:start;padding-top:var(--esp-4);border-top:1px solid var(--cor-borda)}
-.hm-dica img{width:88px;height:88px;object-fit:cover;border-radius:var(--raio-m)}
-.hm-dica-corpo{display:flex;flex-direction:column;gap:6px}
-.hm-tag{font-size:var(--texto-12);font-weight:var(--peso-forte);letter-spacing:var(--espaco-letra-rotulo);text-transform:uppercase;color:var(--cor-texto-2)}
-.hm-dica-titulo{font-family:var(--fonte-titulo);font-size:1.125rem;font-weight:var(--peso-forte);line-height:1.25;color:var(--cor-titulo)}
+/* ---------- Dicas ---------- */
+.hm-dicas{background:#eef4ff}
+.hm-dicas-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-6)}
+.hm-dica{display:flex;flex-direction:column;overflow:hidden;border-radius:24px;background:#fff;box-shadow:0 10px 28px rgba(10,42,107,.09);transition:transform var(--transicao),box-shadow var(--transicao)}
+.hm-dica:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(10,42,107,.16)}
+.hm-dica-foto{position:relative;display:block;aspect-ratio:16/10;overflow:hidden}
+.hm-dica-foto img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.hm-dica:hover .hm-dica-foto img{transform:scale(1.05)}
+.hm-tag{position:absolute;left:var(--esp-3);top:var(--esp-3);padding:5px 12px;border-radius:999px;background:var(--cor-azul-forte);color:#fff;font-size:var(--texto-12);font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.hm-dica-corpo{display:flex;flex-direction:column;gap:var(--esp-2);flex:1;padding:var(--esp-6)}
+.hm-dica-titulo{font-family:var(--fonte-titulo);font-size:1.25rem;font-weight:800;line-height:1.25;color:var(--cor-azul-profundo)}
 .hm-dica-desc{font-size:.9375rem;color:var(--cor-texto-2);line-height:1.45}
-.hm-ler{font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-link);text-decoration:underline;text-underline-offset:3px}
-.hm-dica:hover .hm-dica-titulo{color:var(--cor-azul)}
+.hm-ler{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:var(--esp-2);font-weight:800;color:var(--cor-azul)}
+.hm-dica:hover .hm-ler{color:var(--cor-azul-forte)}
 
 /* ---------- Depoimentos ---------- */
-.hm-depo{background:var(--cor-azul-claro);padding-bottom:calc(var(--esp-16) + 24px)} /* reserva a onda do rodapé */
-.hm-depo-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-8);margin-top:var(--esp-8)}
-.hm-depo-item{padding-top:var(--esp-4);border-top:2px solid var(--cor-azul-superficie)}
+.hm-depo{padding-top:calc(var(--esp-16) + 40px);padding-bottom:calc(var(--esp-16) + 40px);background:linear-gradient(180deg,#fff 0%,#eef4ff 100%)}
+.hm-depo-onda{position:absolute;left:0;top:-1px;z-index:0;width:100%;height:clamp(40px,6vw,90px);fill:#eef4ff}
+.hm-depo-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-6);margin-top:var(--esp-8)}
+.hm-depo-item{position:relative;display:flex;flex-direction:column;padding:var(--esp-8) var(--esp-6) var(--esp-6);border:1px solid var(--cor-borda);border-radius:24px;background:#fff;box-shadow:0 10px 28px rgba(10,42,107,.09)}
+.hm-aspas{position:absolute;right:var(--esp-6);top:var(--esp-6);width:44px;height:36px;fill:var(--cor-azul-superficie)}
 .hm-estrelas{display:flex;gap:2px;margin-bottom:var(--esp-3)}
-.hm-estrelas svg{width:16px;height:16px;fill:var(--cor-laranja)}                          /* acento de marca (não é texto) */
-.hm-depo-item blockquote p{font-family:var(--fonte-titulo);font-size:1.125rem;line-height:1.5;color:var(--cor-texto)}
-.hm-depo-item figcaption{margin-top:var(--esp-4);font-size:var(--texto-14);font-weight:var(--peso-forte);color:var(--cor-titulo)}
+.hm-estrelas svg{width:20px;height:20px;fill:var(--cor-laranja)}
+.hm-depo-item blockquote{flex:1}
+.hm-depo-item blockquote p{font-size:1.0625rem;line-height:1.55;color:var(--cor-texto)}
+.hm-depo-item figcaption{display:flex;align-items:center;gap:var(--esp-3);margin-top:var(--esp-6);padding-top:var(--esp-4);border-top:1px dashed var(--cor-azul-superficie);font-weight:800;color:var(--cor-azul-profundo)}
+.hm-depo-item figcaption small{display:block;font-size:var(--texto-12);font-weight:var(--peso-normal);color:var(--cor-texto-2)}
+/* foto redonda do cliente (rosto centralizado no recorte; borda branca + anel azul-claro) */
+.hm-avatar{display:block;flex:none;width:68px;height:68px;border-radius:50%;object-fit:cover;background:var(--grad-azul);border:3px solid #fff;box-shadow:0 0 0 2px #cfe0fb,0 6px 14px rgba(10,42,107,.18)}
 
 /* ---------- Responsivo ---------- */
-@media(max-width:1023px){
+@media(max-width:1199px){
   .hm-servicos-grade{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .hm-dicas-grade{grid-template-columns:1fr;gap:var(--esp-4)}
-  .hm-petshop-grade{grid-template-columns:1fr;gap:var(--esp-6)}
+  .hm-agendar-bloco{grid-template-columns:1fr;gap:var(--esp-8);padding:var(--esp-8)}
+  .hm-agendar-pets{max-width:560px}
 }
-@media(max-width:799px){
+@media(max-width:1023px){
+  .hm-dicas-grade,.hm-depo-grade{grid-template-columns:1fr;max-width:560px;margin-left:auto;margin-right:auto}
+  .hm-petshop-grade{grid-template-columns:1fr;gap:var(--esp-8)}
+  .hm-petshop-foto{max-width:640px}
+}
+@media(max-width:699px){
   .hm-secao{padding:var(--esp-12) 0}
-  .hm-hero{padding:var(--esp-8) 0 var(--esp-8)}
-  .hm-hero-grade,.hm-agendar-grade{grid-template-columns:1fr;gap:var(--esp-6)}
-  .hm-hero-pets{max-width:520px}
-  .hm-agendar-pets{max-width:480px;order:2}
-  .hm-depo-grade{grid-template-columns:1fr;gap:var(--esp-6)}
-  .hm-fatos{grid-template-columns:1fr;gap:var(--esp-3)}
-  .hm-depo{padding-bottom:calc(var(--esp-12) + 16px)}
+  .hm-wrap{padding:0 var(--esp-4)}
+  .hm-beneficios,.hm-fatos{grid-template-columns:1fr}
+  .hm-agendar-bloco{border-radius:28px;padding:var(--esp-6) var(--esp-4)}
+  .hm-agendar-onda{width:70%;height:12%}
+  }
+@media(max-width:1099px){
+  /* tablet e celular: foto em cima (cão e gato à direita) e texto embaixo, sobre fundo claro */
+  .hm-hero{padding-top:var(--esp-4)}
+  .hm-hero-banner{aspect-ratio:auto;overflow:visible;border-radius:0;background:none;box-shadow:none}
+  .hm-hero-img{height:clamp(190px,40vw,340px);object-position:76% center;border-radius:24px;box-shadow:0 14px 30px rgba(10,42,107,.2)}
+  .hm-hero-texto{position:static;transform:none;width:auto;padding-top:var(--esp-6)}
+  .hm-hero h1,.hm-hero-desc{text-shadow:none}
 }
 @media(max-width:479px){
   .hm-servicos-grade{grid-template-columns:1fr}
-  .hm-servico{padding:var(--esp-4)}
-  .hm-cta{width:100%;justify-content:center}
+  .hm-acoes>*{width:100%;justify-content:center}
+  .hm-selos li{width:100%}
 }
-@media(prefers-reduced-motion:reduce){.hm-cta,.hm-servico,.hm-btn-sec{transition:none}}
+@media(prefers-reduced-motion:reduce){.hm-cta,.hm-servico,.hm-dica,.hm-servico-foto img,.hm-dica-foto img{transition:none}.hm-servico:hover,.hm-dica:hover{transform:none}}
+
+
+/* =====================================================================
+   Ícones decorativos da home (versão 3.33): patinhas grandes, corações, ossinhos, peixes, tigelas,
+   bolinhas, bolhas, plaquinhas, carinhas de gato e de cão e frasco de shampoo. Ficam sempre ATRÁS do conteúdo,
+   nas laterais, no meio dos cabeçalhos e nas faixas entre os blocos. Nenhum risquinho.
+   ===================================================================== */
+.hd-i{position:absolute;display:block;overflow:visible;width:calc(var(--w,64px)*var(--k,1));height:auto;aspect-ratio:var(--ar,1);
+  color:var(--c,#1b63e6);fill:currentColor;opacity:var(--o,.2);transform:rotate(var(--r,0deg));pointer-events:none}
+.i-pata{--ar:80/72}.i-coracao,.i-coracao-cheio{--ar:48/44}.i-osso{--ar:100/40}.i-peixe{--ar:100/56}.i-tigela{--ar:100/66}.i-bola,.i-bolhas{--ar:1}
+.i-plaquinha{--ar:60/84}.i-gato{--ar:80/72}.i-cao{--ar:84/80}.i-frasco{--ar:44/84}.i-gota{--ar:40/52}
+.hd-i.az{--c:#1b63e6;--o:.2}
+.hd-i.cl{--c:#2a7af5;--o:.22}
+.hd-i.la{--c:#ffb23a;--o:.6}
+.hd-i.op{--o:.6}                      /* coração de contorno (a cor vem do próprio símbolo) */
+.hd-i.br{--c:#fff;--o:.16}            /* dentro do bloco azul */
+.hd-i.br2{--c:#fff;--o:.2}
+.hd-i.bl{--c:#fff;--o:.22}
+.hd-i.mo,.hd-i.w{display:none}
+.hm-hero .k1{--w:100px;--r:-18deg;left:calc(50% + -735px);top:24px}
+.hm-hero .k2{--w:90px;--r:38deg;left:calc(50% + -724px);top:250px}
+.hm-hero .k3{--w:92px;--r:16deg;left:calc(50% + 632px);top:150px}
+.hm-hero .k4{--w:50px;--r:10deg;left:calc(50% + 650px);top:300px}
+.hm-hero .k5{--w:104px;--r:-14deg;left:calc(50% + -890px);top:60px}
+.hm-hero .k6{--w:96px;--r:-28deg;left:calc(50% + 800px);top:80px}
+.hm-hero .k7{--w:48px;--r:10deg;left:calc(50% + -846px);top:330px}
+.hm-servicos .k1{--w:80px;--r:-14deg;left:calc(50% + 70px);top:44px}
+.hm-servicos .k2{--w:52px;--r:16deg;left:calc(50% + 190px);top:88px}
+.hm-servicos .k3{--w:108px;--r:-18deg;left:calc(50% + -740px);top:40px}
+.hm-servicos .k4{--w:26px;--r:-20deg;left:calc(50% + -668px);top:250px}
+.hm-servicos .k5{--w:24px;--r:10deg;left:calc(50% + -640px);top:292px}
+.hm-servicos .k6{--w:26px;--r:-14deg;left:calc(50% + -676px);top:336px}
+.hm-servicos .k7{--w:96px;--r:36deg;left:calc(50% + -728px);top:470px}
+.hm-servicos .k8{--w:100px;--r:18deg;left:calc(50% + 630px);top:150px}
+.hm-servicos .k9{--w:54px;--r:12deg;left:calc(50% + 650px);top:330px}
+.hm-servicos .k10{--w:84px;--r:-16deg;left:calc(50% + 640px);top:470px}
+.hm-servicos .k11{--w:104px;--r:-14deg;left:calc(50% + -890px);top:60px}
+.hm-servicos .k12{--w:96px;--r:-28deg;left:calc(50% + 800px);top:80px}
+.hm-servicos .k13{--w:108px;--r:14deg;left:calc(50% + 812px);top:330px}
+.hm-servicos .m1{--w:56px;--r:14deg;right:10px;top:10px}
+.hm-agendar .k1{--w:108px;--r:-16deg;left:calc(50% + -738px);top:90px}
+.hm-agendar .k2{--w:96px;--r:-34deg;left:calc(50% + -726px);top:500px}
+.hm-agendar .k3{--w:100px;--r:14deg;left:calc(50% + 632px);top:200px}
+.hm-agendar .k4{--w:50px;--r:0deg;left:calc(50% + 652px);top:400px}
+.hm-agendar .k5{--w:104px;--r:-18deg;left:calc(50% + 626px);top:520px}
+.hm-agendar .k6{--w:104px;--r:-14deg;left:calc(50% + -890px);top:60px}
+.hm-agendar .k7{--w:96px;--r:-28deg;left:calc(50% + 800px);top:80px}
+.hm-agendar .k8{--w:48px;--r:10deg;left:calc(50% + -846px);top:330px}
+.hm-agendar .m1{--w:60px;--r:24deg;right:10px;top:6px}
+.hm-petshop .k1{--w:106px;--r:-16deg;left:calc(50% + -736px);top:50px}
+.hm-petshop .k2{--w:48px;--r:-12deg;left:calc(50% + -690px);top:310px}
+.hm-petshop .k3{--w:96px;--r:-20deg;left:calc(50% + 628px);top:40px}
+.hm-petshop .k4{--w:104px;--r:18deg;left:calc(50% + 628px);top:300px}
+.hm-petshop .k5{--w:50px;--r:-18deg;left:calc(50% + -420px);top:506px}
+.hm-petshop .k6{--w:40px;--r:18deg;left:calc(50% + -340px);top:520px}
+.hm-petshop .k7{--w:104px;--r:-14deg;left:calc(50% + -890px);top:60px}
+.hm-petshop .k8{--w:96px;--r:-28deg;left:calc(50% + 800px);top:80px}
+.hm-petshop .k9{--w:108px;--r:14deg;left:calc(50% + 812px);top:330px}
+.hm-petshop .m1{--w:56px;--r:-14deg;right:8px;top:8px}
+.hm-dicas .k1{--w:80px;--r:12deg;left:calc(50% + 130px);top:70px}
+.hm-dicas .k2{--w:50px;--r:-16deg;left:calc(50% + 250px);top:116px}
+.hm-dicas .k3{--w:112px;--r:18deg;left:calc(50% + -740px);top:40px}
+.hm-dicas .k4{--w:52px;--r:-12deg;left:calc(50% + -690px);top:330px}
+.hm-dicas .k5{--w:100px;--r:-32deg;left:calc(50% + 624px);top:40px}
+.hm-dicas .k6{--w:100px;--r:-16deg;left:calc(50% + 632px);top:380px}
+.hm-dicas .k7{--w:104px;--r:-14deg;left:calc(50% + -890px);top:60px}
+.hm-dicas .k8{--w:96px;--r:-28deg;left:calc(50% + 800px);top:80px}
+.hm-dicas .k9{--w:48px;--r:10deg;left:calc(50% + -846px);top:330px}
+.hm-dicas .m1{--w:56px;--r:16deg;right:10px;top:10px}
+.hm-depo .k1{--w:130px;--r:-16deg;left:calc(50% + -700px);top:106px}
+.hm-depo .k2{--w:58px;--r:12deg;left:calc(50% + 400px);top:104px}
+.hm-depo .k3{--w:112px;--r:18deg;left:calc(50% + 470px);top:160px}
+.hm-depo .k4{--w:84px;--r:0deg;left:calc(50% + -736px);top:330px}
+.hm-depo .k5{--w:104px;--r:-14deg;left:calc(50% + 630px);top:330px}
+.hm-depo .k6{--w:84px;--r:10deg;left:calc(50% + -240px);top:546px}
+.hm-depo .k7{--w:50px;--r:18deg;left:calc(50% + -110px);top:566px}
+.hm-depo .k8{--w:104px;--r:-14deg;left:calc(50% + -890px);top:60px}
+.hm-depo .k9{--w:96px;--r:-28deg;left:calc(50% + 800px);top:80px}
+.hm-depo .k10{--w:108px;--r:14deg;left:calc(50% + 812px);top:330px}
+.hm-depo .m1{--w:56px;--r:-14deg;left:8px;top:96px}
+.hm-agendar-bloco .b1{--w:46px;--r:-12deg;left:56px;top:40px}
+.hm-agendar-bloco .b2{--w:112px;--r:-14deg;left:190px;top:62px}
+.hm-agendar-bloco .b3{--w:96px;--r:16deg;left:330px;top:18px}
+@media(min-width:1700px){.hd-i.w{display:block}}
+@media(max-width:1199px){.hd-i.g{display:none}.hd-i.mo{display:block}}
+@media(max-width:1023px){.hd-i.h{display:none}}
+@media(max-width:699px){.hm-deco .hd-i{--k:.7}.hm-agendar-bloco .hd-i{--k:.6}}

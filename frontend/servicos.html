@@ -7,11 +7,48 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/catalogo-servicos.css">
+  <link rel="stylesheet" href="css/servicos-visual.css">
 </head>
 <body>
   <header id="cabecalho"></header>
 
-  <main class="pagina">
+  <main class="pagina tela-servicos">
+    <svg class="defs" aria-hidden="true" focusable="false"><defs>
+      <symbol id="pata" viewBox="0 0 80 72"><ellipse cx="14" cy="30" rx="7" ry="10" transform="rotate(-25 14 30)"/><ellipse cx="30" cy="14" rx="7.5" ry="11" transform="rotate(-8 30 14)"/><ellipse cx="50" cy="14" rx="7.5" ry="11" transform="rotate(8 50 14)"/><ellipse cx="66" cy="30" rx="7" ry="10" transform="rotate(25 66 30)"/><path d="M40 34C52 34 64 48 64 58 64 67 56 68 48 65 44 63.5 36 63.5 32 65 24 68 16 67 16 58 16 48 28 34 40 34Z"/></symbol>
+    </defs></svg>
+    <div class="deco" aria-hidden="true">
+      <svg class="d-blob" viewBox="0 0 1010 690" preserveAspectRatio="none"><defs><linearGradient id="sg-blob" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9ddfb"/><stop offset="1" stop-color="#b3cff6"/></linearGradient></defs><path d="M0 150C60 60 220 40 330 110 470 190 600 120 760 200 930 285 1000 430 960 560 930 650 800 690 640 690H0Z" fill="url(#sg-blob)" opacity=".7"/><path d="M0 330C120 250 260 270 380 330 520 400 640 360 760 420 880 480 930 560 900 690H0Z" fill="#fff" opacity=".28"/></svg>
+      <svg class="d-onda-topo" viewBox="0 0 270 170" preserveAspectRatio="none"><path d="M0 0H270C250 40 200 62 150 84 95 110 40 118 0 170Z" fill="#1b63e6" opacity=".12"/><path d="M0 0H190C170 30 120 48 80 64 50 76 20 84 0 112Z" fill="#1b63e6" opacity=".1"/></svg>
+      <svg class="d-onda-calendario" viewBox="0 0 520 120" preserveAspectRatio="none"><path d="M0 120C40 70 120 20 220 40 320 60 380 10 460 0 480-2 500 50 520 120Z" fill="#cfe1fb" opacity=".75"/></svg>
+      <svg class="d-ondas-base" viewBox="0 0 1920 130" preserveAspectRatio="none"><path d="M0 60C240 10 480 110 760 70 1040 30 1280 120 1560 80 1720 58 1840 70 1920 86V130H0Z" fill="#bcd5f8" opacity=".6"/><path d="M0 95C260 60 520 125 820 100 1120 75 1380 130 1650 105 1770 94 1860 100 1920 108V130H0Z" fill="#9fc2f3" opacity=".5"/></svg>
+      <svg class="d-onda-laranja" viewBox="0 0 480 190" preserveAspectRatio="none"><defs><linearGradient id="sg-lar" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f28a0c"/><stop offset="1" stop-color="#f28a0c"/></linearGradient></defs><path d="M60 190C140 130 260 120 350 70 410 36 450 14 480 0V190Z" fill="#ffb23a" opacity=".85"/><path d="M170 190C260 150 340 140 400 100 430 80 455 62 480 48V190Z" fill="url(#sg-lar)"/></svg>
+
+      <svg class="d-pata-1 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-2 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-3 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-4 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-5 pata-contorno" viewBox="0 0 80 72"><use href="#pata"/></svg>
+
+      <svg class="d-brilho-1" viewBox="0 0 92 52"><g stroke="#f28a0c" stroke-width="8" stroke-linecap="round"><path d="M10 44L26 14"/><path d="M34 46L54 8"/><path d="M62 44L78 18"/></g></svg>
+
+      <svg class="d-calendario" viewBox="0 0 290 215">
+        <defs><linearGradient id="sg-cal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a7af5"/><stop offset="1" stop-color="#0a49b8"/></linearGradient><linearGradient id="sg-ck" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb23a"/><stop offset="1" stop-color="#f28a0c"/></linearGradient></defs>
+        <g stroke="#1b63e6" stroke-width="8" stroke-linecap="round"><path d="M14 100H50"/><path d="M22 62L44 76"/><path d="M48 28L60 52"/></g>
+        <g transform="rotate(8 168 81)">
+          <rect x="80" y="6" width="176" height="150" rx="28" fill="url(#sg-cal)"/>
+          <rect x="114" y="-6" width="14" height="34" rx="7" fill="#dbe8fb" stroke="#0a49b8" stroke-width="3"/>
+          <rect x="208" y="-6" width="14" height="34" rx="7" fill="#dbe8fb" stroke="#0a49b8" stroke-width="3"/>
+          <rect x="96" y="40" width="144" height="100" rx="18" fill="#fff"/>
+          <use href="#pata" x="138" y="62" width="60" height="54" style="fill:#1b63e6"/>
+        </g>
+        <circle cx="236" cy="142" r="34" fill="url(#sg-ck)" stroke="#fff" stroke-width="5"/>
+        <path d="M221 142l11 11 20-22" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+    </div>
+    <!-- Cão e gato (imagem inteira, só na faixa à esquerda do menu lateral) -->
+    <div class="sv-pets" aria-hidden="true"><img src="img/servicos/pets-servicos.webp" alt="" width="1100" height="729" decoding="async"></div>
+
     <div class="container">
       <p class="selo-op">Nossos serviços</p>
       <h1>Serviços</h1>
@@ -22,7 +59,7 @@
       <div class="catalogo">
         <!-- Menu lateral de categorias -->
         <aside class="cat-menu" aria-label="Categorias de serviços">
-          <h2>Serviços</h2>
+          <h2><svg viewBox="0 0 80 72" width="22" height="20" fill="currentColor" aria-hidden="true"><use href="#pata"/></svg>Serviços</h2>
           <nav id="cat-lista"></nav>
         </aside>
 
@@ -31,11 +68,13 @@
           <div class="cat-ferramentas">
             <div class="cat-busca">
               <label for="busca" class="so-leitor">Buscar serviço</label>
+              <svg class="cat-lupa" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
               <input id="busca" type="search" placeholder="Buscar serviço..." autocomplete="off">
               <button type="button" id="limpar-busca" class="cat-x" aria-label="Limpar pesquisa" hidden>×</button>
             </div>
             <div class="cat-filtro">
               <label for="filtro" class="so-leitor">Filtrar por categoria</label>
+              <svg class="cat-funil" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg>
               <select id="filtro"></select>
             </div>
           </div>
@@ -47,7 +86,7 @@
       <!-- Banner de chamada para o agendamento -->
       <section class="cat-banner">
         <div class="cat-banner-titulo">
-          <span aria-hidden="true">📅</span>
+          <svg class="cat-banner-ic" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="12" width="48" height="44" rx="9"/><path d="M20 6v12M44 6v12M8 26h48"/><use href="#pata" x="22" y="31" width="20" height="18" style="fill:#fff;stroke:none"/></svg>
           <h2>Agende agora o <strong>cuidado do seu pet!</strong></h2>
         </div>
         <ul>
@@ -55,9 +94,10 @@
           <li>Profissionais especializados</li>
           <li>Cuidado e carinho em cada serviço</li>
         </ul>
-        <a class="btn btn-laranja" href="agendamento.html">Fazer Agendamento →</a>
+        <a class="btn btn-laranja" href="agendamento.html"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10H20.5"/></svg>Fazer Agendamento<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </section>
     </div>
+
   </main>
 
   <!-- Detalhes do serviço -->

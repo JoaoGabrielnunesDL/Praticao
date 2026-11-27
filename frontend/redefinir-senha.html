@@ -8,18 +8,55 @@
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/login.css">
   <link rel="stylesheet" href="css/recuperar.css">
+  <link rel="stylesheet" href="css/redefinir-nova-senha.css">
+  <link rel="stylesheet" href="css/redefinir-sucesso.css">
+  <link rel="stylesheet" href="css/recuperar-visual.css">
   <link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="pg-acesso pg-recuperar">
   <header id="cabecalho"></header>
 
-  <main class="login-pagina">
+  <main class="login-pagina tela-rv">
+    <!-- Camada decorativa do passo 1 (e-mail): só visual; posições em css/recuperar-visual.css -->
+    <svg class="rv-defs" aria-hidden="true" focusable="false"><defs>
+      <symbol id="rv-pata" viewBox="0 0 80 72"><ellipse cx="14" cy="30" rx="7" ry="10" transform="rotate(-25 14 30)"/><ellipse cx="30" cy="14" rx="7.5" ry="11" transform="rotate(-8 30 14)"/><ellipse cx="50" cy="14" rx="7.5" ry="11" transform="rotate(8 50 14)"/><ellipse cx="66" cy="30" rx="7" ry="10" transform="rotate(25 66 30)"/><path d="M40 34C52 34 64 48 64 58 64 67 56 68 48 65 44 63.500 36 63.500 32 65 24 68 16 67 16 58 16 48 28 34 40 34Z"/></symbol>
+      <symbol id="rv-coracao" viewBox="0 0 64 58"><path d="M32 54C14 41 5 31 5 19 5 10 12 4 20 4c5 0 9 2.500 12 7 3-4.500 7-7 12-7 8 0 15 6 15 15 0 12-9 22-27 35z" fill="none" stroke="#1b63e6" stroke-width="6" stroke-linejoin="round"/></symbol>
+    </defs></svg>
+    <div class="rv-deco" aria-hidden="true">
+      <svg class="rv-blob" viewBox="0 0 1010 690" preserveAspectRatio="none"><defs><linearGradient id="rv-g-blob" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9ddfb"/><stop offset="1" stop-color="#b3cff6"/></linearGradient></defs><path d="M0 150C60 60 220 40 330 110 470 190 600 120 760 200 930 285 1000 430 960 560 930 650 800 690 640 690H0Z" fill="url(#rv-g-blob)" opacity=".7"/><path d="M0 330C120 250 260 270 380 330 520 400 640 360 760 420 880 480 930 560 900 690H0Z" fill="#fff" opacity=".28"/></svg>
+      <svg class="rv-onda-topo" viewBox="0 0 270 170" preserveAspectRatio="none"><path d="M0 0H270C250 40 200 62 150 84 95 110 40 118 0 170Z" fill="#1b63e6" opacity=".12"/><path d="M0 0H190C170 30 120 48 80 64 50 76 20 84 0 112Z" fill="#1b63e6" opacity=".1"/></svg>
+      <svg class="rv-ondas-base" viewBox="0 0 1920 130" preserveAspectRatio="none"><path d="M0 60C240 10 480 110 760 70 1040 30 1280 120 1560 80 1720 58 1840 70 1920 86V130H0Z" fill="#bcd5f8" opacity=".6"/><path d="M0 95C260 60 520 125 820 100 1120 75 1380 130 1650 105 1770 94 1860 100 1920 108V130H0Z" fill="#9fc2f3" opacity=".5"/></svg>
+      <svg class="rv-onda-laranja" viewBox="0 0 480 190" preserveAspectRatio="none"><path d="M60 190C140 130 260 120 350 70 410 36 450 14 480 0V190Z" fill="#ffb23a" opacity=".85"/><path d="M170 190C260 150 340 140 400 100 430 80 455 62 480 48V190Z" fill="#f28a0c"/></svg>
+      <svg class="rv-colina" viewBox="0 0 1180 96" preserveAspectRatio="none"><defs><linearGradient id="rv-g-col" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f1ff"/><stop offset="1" stop-color="#cfe1fb"/></linearGradient></defs><path d="M0 62C14 22 44 4 110 4H940C1050 4 1130 28 1180 70V96H0Z" fill="url(#rv-g-col)"/></svg>
+
+      <svg class="rv-p rv-p1"><use href="#rv-pata"/></svg>
+      <svg class="rv-p rv-p2"><use href="#rv-pata"/></svg>
+      <svg class="rv-p rv-p3"><use href="#rv-pata"/></svg>
+      <svg class="rv-p rv-p4"><use href="#rv-pata"/></svg>
+      <svg class="rv-p rv-p5"><use href="#rv-pata"/></svg>
+      <svg class="rv-p rv-p6"><use href="#rv-pata"/></svg>
+      <svg class="rv-p rv-p7"><use href="#rv-pata"/></svg>
+      <svg class="rv-p rv-p8"><use href="#rv-pata"/></svg>
+      <svg class="rv-cor rv-cor1"><use href="#rv-coracao"/></svg>
+      <svg class="rv-cor rv-cor2"><use href="#rv-coracao"/></svg>
+
+      <svg class="rv-trc rv-trc-gato" viewBox="0 0 60 104"><g stroke="#1b63e6" stroke-width="7" stroke-linecap="round" fill="none"><path d="M10 12L50 4"/><path d="M6 36L54 40"/><path d="M10 64L48 78"/><path d="M6 92L26 100"/></g></svg>
+    </div>
+
     <div class="container">
       <section class="boas-vindas" aria-labelledby="ac-recuperar">
         <h1 id="ac-recuperar">Recupere o acesso ao <strong>Prati<em>Cão</em></strong></h1>
         <p>Em poucos passos você cria uma nova senha.</p>
         <p class="aviso"><svg class="ac-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg>Ambiente seguro. Seus dados protegidos.</p>
         <img class="ac-pets" src="img/dicas/WhatsApp%20Image%202026-11-17%20at%2010.59.36.jpeg" alt="" width="1184" height="1018" decoding="async">
+
+        <!-- Passo 1 (e-mail): textos e pets do novo visual; nos outros passos ficam escondidos -->
+        <div class="rv-texto">
+          <p class="rv-eyebrow">Bem-vindo ao PratiCão</p>
+          <p class="rv-titulo" role="presentation"><span class="rv-l1">Cuidado &amp; Diversão</span><span class="rv-l2">para o seu melhor amigo</span></p>
+          <p class="rv-desc">Perdeu o acesso? Em poucos segundos você recebe um link para criar uma nova senha e voltar a cuidar dos seus pets.</p>
+        </div>
+        <img class="rv-pets" src="img/login/pets-recuperar.webp" alt="" width="1300" height="930" decoding="async">
       </section>
 
       <section class="cartao" aria-labelledby="rotulo-passo">
@@ -30,50 +67,127 @@
         <!-- PASSO 1: e-mail -->
         <form id="passo-1" novalidate>
           <div class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg></div>
-          <h2>Recupere sua senha</h2>
-          <p class="sub">Informe o e-mail da sua conta.</p>
+          <h2>Recupere sua <span class="rv-lar">senha</span></h2>
+          <p class="sub">Informe o e-mail da sua conta. Enviaremos um link para você criar uma nova senha.</p>
           <div class="erro" role="alert" hidden></div>
           <div class="campo">
             <label for="rec-email">E-mail *</label>
-            <input id="rec-email" name="email" type="email" autocomplete="username" maxlength="150" placeholder="seuemail@exemplo.com" required>
+            <div class="rv-entrada"><input id="rec-email" name="email" type="email" autocomplete="username" maxlength="150" placeholder="seuemail@exemplo.com" required></div>
           </div>
           <button class="btn btn-laranja" type="submit" data-texto="Enviar link de recuperação">Enviar link de recuperação</button>
+          <div class="rv-ok" role="status" hidden><svg viewBox="0 0 26 26" aria-hidden="true" focusable="false"><circle cx="13" cy="13" r="13"/><path d="M7.500 13.500l3.700 3.700 7.300-7.600" fill="none" stroke="#fff" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"/></svg><span></span></div>
           <p class="troca"><a class="link" href="login.html">← Voltar para o login</a></p>
         </form>
+      </section>
+      <p class="rv-seguro"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg>Ambiente seguro. Seus dados protegidos.</p>
+    </div>
+  </main>
 
-        <!-- PASSO 2: nova senha -->
-        <form id="passo-2" novalidate hidden>
-          <div class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="8" cy="15" r="4"/><path d="m11 12 8.5-8.5M16 7l2.5 2.5M13.8 9.2l2 2"/></svg></div>
-          <h2>Crie uma nova senha</h2>
-          <p class="sub">Escolha uma senha com pelo menos 6 caracteres.</p>
+  <!-- PASSO 2: digitar a nova senha — tela própria (o JS liga body.pg-nova); passos 1 e 3 têm telas diferentes -->
+  <main class="tela-nova" id="tela-nova">
+    <svg class="defs" aria-hidden="true" focusable="false"><defs>
+      <symbol id="ns-pata" viewBox="0 0 80 72"><ellipse cx="14" cy="30" rx="7" ry="10" transform="rotate(-25 14 30)"/><ellipse cx="30" cy="14" rx="7.5" ry="11" transform="rotate(-8 30 14)"/><ellipse cx="50" cy="14" rx="7.5" ry="11" transform="rotate(8 50 14)"/><ellipse cx="66" cy="30" rx="7" ry="10" transform="rotate(25 66 30)"/><path d="M40 34C52 34 64 48 64 58 64 67 56 68 48 65 44 63.5 36 63.5 32 65 24 68 16 67 16 58 16 48 28 34 40 34Z"/></symbol>
+      <symbol id="ns-cadeado" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6.500A2.500 2.500 0 0 0 4 12.500v7A2.500 2.500 0 0 0 6.500 22h11a2.500 2.500 0 0 0 2.500-2.500v-7a2.500 2.500 0 0 0-2.500-2.500H17V7a5 5 0 0 0-5-5zm0 2.200A2.800 2.800 0 0 1 14.800 7v3H9.200V7A2.800 2.800 0 0 1 12 4.200zM12 14a1.700 1.700 0 0 1 1 3.100V19h-2v-1.900A1.700 1.700 0 0 1 12 14z"/></symbol>
+      <symbol id="ns-olho-cortado" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"><path d="M2.500 12S6 5.500 12 5.500 21.500 12 21.500 12 18 18.500 12 18.500 2.500 12 2.500 12z"/><circle cx="12" cy="12" r="3" fill="currentColor"/><path d="M4 20L20 4" stroke-width="2.600"/></g></symbol>
+      <symbol id="ns-olho" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"><path d="M2.500 12S6 5.500 12 5.500 21.500 12 21.500 12 18 18.500 12 18.500 2.500 12 2.500 12z"/><circle cx="12" cy="12" r="3" fill="currentColor"/></g></symbol>
+    </defs></svg>
+
+    <div class="deco" aria-hidden="true">
+      <svg class="d-onda-topo" viewBox="0 0 270 170" preserveAspectRatio="none"><path d="M0 0H270C250 40 200 62 150 84 95 110 40 118 0 170Z" fill="#1b63e6" opacity=".08"/></svg>
+      <svg class="d-onda-dir" viewBox="0 0 700 150" preserveAspectRatio="none"><path d="M0 150C60 90 140 40 250 60 360 80 430 20 520 10 600 2 660 50 700 150Z" fill="#cfe1fb" opacity=".6"/></svg>
+      <svg class="d-p d-p1" viewBox="0 0 80 72"><use href="#ns-pata"/></svg>
+      <svg class="d-p d-p2" viewBox="0 0 80 72"><use href="#ns-pata"/></svg>
+      <svg class="d-p d-p4" viewBox="0 0 80 72"><use href="#ns-pata"/></svg>
+      <svg class="d-p d-p5" viewBox="0 0 80 72"><use href="#ns-pata"/></svg>
+      <svg class="d-p d-p6" viewBox="0 0 80 72"><use href="#ns-pata"/></svg>
+      <svg class="d-p d-p7" viewBox="0 0 80 72"><use href="#ns-pata"/></svg>
+      <svg class="d-p d-p8" viewBox="0 0 80 72"><use href="#ns-pata"/></svg>
+    </div>
+
+    <div class="ns-pets" aria-hidden="true"><img src="img/login/pets-nova-senha.webp" alt="" width="1500" height="844" decoding="async"></div>
+
+    <div class="ns-hero">
+      <p class="ns-passo-txt">Passo 2 - Nova senha</p>
+      <h1 id="ns-titulo">Crie uma nova <span class="ns-cor"><svg class="ns-fa" viewBox="0 0 60 60" aria-hidden="true" focusable="false"><g stroke="#f28a0c" stroke-width="5" stroke-linecap="round"><path d="M8 30h36M14 12l28 10M14 48l28-10"/></g></svg>senha<svg class="ns-fa ns-fa-d" viewBox="0 0 60 60" aria-hidden="true" focusable="false"><g stroke="#f28a0c" stroke-width="5" stroke-linecap="round"><path d="M8 30h36M14 12l28 10M14 48l28-10"/></g></svg></span></h1>
+      <p class="ns-sub" id="ns-sub">Escolha uma senha com pelo menos<br>6 caracteres.</p>
+    </div>
+
+    <div class="container">
+      <div class="ns-coluna">
+        <form id="passo-2" class="ns-cartao" novalidate hidden aria-labelledby="ns-titulo" aria-describedby="ns-sub">
+          <p class="ns-pilula">Passo 2 - Crie uma nova senha</p>
+          <div class="ns-cadeado" aria-hidden="true">
+            <svg viewBox="0 0 240 180" focusable="false"><circle cx="112" cy="92" r="76" fill="#dfeafc"/><circle cx="120" cy="90" r="68" fill="#cfe0fb"/><use href="#ns-cadeado" x="82" y="52" width="76" height="76" style="color:#1b63e6"/></svg>
+          </div>
           <div class="erro" role="alert" hidden></div>
           <div class="campo">
             <label for="rec-nova">Nova senha *</label>
             <div class="entrada">
+              <span class="ns-ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><use href="#ns-cadeado"/></svg></span>
               <input id="rec-nova" name="nova" type="password" class="com-botao" autocomplete="new-password" minlength="6" maxlength="72" required>
-              <button type="button" class="mostrar" data-alvo="rec-nova">Mostrar</button>
+              <button type="button" class="mostrar" data-alvo="rec-nova" aria-label="Mostrar senha" aria-pressed="false"><span class="ns-oculto"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><use href="#ns-olho-cortado"/></svg></span><span class="ns-visivel"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><use href="#ns-olho"/></svg></span></button>
             </div>
             <div class="forca" aria-hidden="true"><i></i><i></i><i></i></div>
-            <small id="forca-texto">Força da senha: —</small>
+            <small id="forca-texto">Força da senha: <b>—</b></small>
           </div>
           <div class="campo">
             <label for="rec-conf">Confirmar nova senha *</label>
             <div class="entrada">
+              <span class="ns-ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><use href="#ns-cadeado"/></svg></span>
               <input id="rec-conf" name="confirmar" type="password" class="com-botao" autocomplete="new-password" maxlength="72" required>
-              <button type="button" class="mostrar" data-alvo="rec-conf">Mostrar</button>
+              <button type="button" class="mostrar" data-alvo="rec-conf" aria-label="Mostrar senha" aria-pressed="false"><span class="ns-oculto"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><use href="#ns-olho-cortado"/></svg></span><span class="ns-visivel"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><use href="#ns-olho"/></svg></span></button>
             </div>
           </div>
           <button class="btn btn-laranja" type="submit" data-texto="Salvar nova senha">Salvar nova senha</button>
         </form>
+        <p class="ns-seguro"><svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true" focusable="false"><use href="#ns-cadeado" style="color:#1b63e6"/></svg>Ambiente seguro. Seus dados protegidos.</p>
+      </div>
+    </div>
+  </main>
 
-        <!-- PASSO 3: concluído -->
-        <div id="passo-3" class="concluido" hidden>
-          <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
-          <h2>Senha alterada com sucesso!</h2>
-          <p class="sub">Sua senha foi atualizada. Agora você já pode entrar com a nova senha.</p>
+  <!-- PASSO 3: concluído — tela própria (só aparece quando a senha foi alterada; o JS liga body.pg-sucesso) -->
+  <main class="tela-sucesso" id="tela-sucesso">
+    <svg class="defs" aria-hidden="true" focusable="false"><defs>
+      <symbol id="ok-pata" viewBox="0 0 80 72"><ellipse cx="14" cy="30" rx="7" ry="10" transform="rotate(-25 14 30)"/><ellipse cx="30" cy="14" rx="7.5" ry="11" transform="rotate(-8 30 14)"/><ellipse cx="50" cy="14" rx="7.5" ry="11" transform="rotate(8 50 14)"/><ellipse cx="66" cy="30" rx="7" ry="10" transform="rotate(25 66 30)"/><path d="M40 34C52 34 64 48 64 58 64 67 56 68 48 65 44 63.5 36 63.5 32 65 24 68 16 67 16 58 16 48 28 34 40 34Z"/></symbol>
+    </defs></svg>
+
+    <div class="deco" aria-hidden="true">
+      <svg class="d-blob" viewBox="0 0 1010 690" preserveAspectRatio="none"><defs><linearGradient id="ok-blob" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9ddfb"/><stop offset="1" stop-color="#b3cff6"/></linearGradient></defs><path d="M0 150C60 60 220 40 330 110 470 190 600 120 760 200 930 285 1000 430 960 560 930 650 800 690 640 690H0Z" fill="url(#ok-blob)" opacity=".7"/><path d="M0 330C120 250 260 270 380 330 520 400 640 360 760 420 880 480 930 560 900 690H0Z" fill="#fff" opacity=".28"/></svg>
+      <svg class="d-onda-topo" viewBox="0 0 270 170" preserveAspectRatio="none"><path d="M0 0H270C250 40 200 62 150 84 95 110 40 118 0 170Z" fill="#1b63e6" opacity=".1"/></svg>
+      <svg class="d-onda-dir" viewBox="0 0 700 150" preserveAspectRatio="none"><path d="M0 150C60 90 140 40 250 60 360 80 430 20 520 10 600 2 660 50 700 150Z" fill="#cfe1fb" opacity=".6"/></svg>
+      <svg class="d-ondas-base" viewBox="0 0 1920 130" preserveAspectRatio="none"><path d="M0 60C240 10 480 110 760 70 1040 30 1280 120 1560 80 1720 58 1840 70 1920 86V130H0Z" fill="#bcd5f8" opacity=".6"/><path d="M0 95C260 60 520 125 820 100 1120 75 1380 130 1650 105 1770 94 1860 100 1920 108V130H0Z" fill="#9fc2f3" opacity=".5"/></svg>
+      <svg class="d-ledge" viewBox="0 0 1920 220" preserveAspectRatio="none"><defs><linearGradient id="ok-led" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf2ff"/><stop offset="1" stop-color="#cfe1fb"/></linearGradient></defs><path d="M0 0H820C930 0 980 50 1080 84 1280 150 1620 118 1920 150V220H0Z" fill="url(#ok-led)"/></svg>
+
+      <svg class="d-p d-p1" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p2" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p3" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p4" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p5" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p6" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p7" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p8" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p9" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p10" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p11" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-p d-p12" viewBox="0 0 80 72"><use href="#ok-pata"/></svg>
+      <svg class="d-coracao" viewBox="0 0 48 44"><path d="M24 40C10 30 3 22 3 13.5 3 8 7.2 4 12.4 4c4.4 0 8 2.6 11.6 7.2C27.6 6.6 31.2 4 35.6 4 40.8 4 45 8 45 13.5 45 22 38 30 24 40z" fill="none" stroke="#1b63e6" stroke-width="3.4" stroke-linejoin="round"/></svg>
+    </div>
+
+    <div class="ok-pets" aria-hidden="true"><img src="img/login/pets-sucesso.webp" alt="" width="1100" height="945" decoding="async"></div>
+
+    <div class="container">
+      <div class="ok-coluna">
+        <section id="passo-3" class="concluido ok-cartao" aria-labelledby="ok-titulo" hidden>
+          <p class="ok-passo">Passo 3 – Concluído</p>
+          <div class="check ok-check" aria-hidden="true">
+            <svg viewBox="0 0 200 200" focusable="false"><circle cx="92" cy="104" r="88" fill="#cdeeca"/><path d="M52 108l30 30 60-66" fill="none" stroke="#2eb04e" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><g stroke="#2eb04e" stroke-width="7" stroke-linecap="round"><path d="M164 52l16-10"/><path d="M170 76l24-2"/><path d="M164 100l18 12"/></g></svg>
+          </div>
+          <h2 id="ok-titulo" tabindex="-1">Senha alterada com <span>sucesso!</span></h2>
+          <p class="sub">Sua senha foi atualizada.<br>Agora você já pode entrar com a nova senha.</p>
           <a class="btn btn-laranja" href="login.html">Ir para o login</a>
-        </div>
-      </section>
+        </section>
+        <p class="ok-seguro"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg>Ambiente seguro. Seus dados protegidos.</p>
+      </div>
     </div>
   </main>
 

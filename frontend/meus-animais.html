@@ -7,19 +7,41 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/meus-animais.css">
+  <link rel="stylesheet" href="css/praticao-ui.css">
 </head>
-<body>
+<body class="pg-meus-animais">
   <header id="cabecalho"></header>
 
   <main class="pagina">
+    <!-- Decoração de fundo: só visual (aria-hidden), fora das áreas que o JS preenche -->
+    <div class="an-cena" aria-hidden="true">
+      <svg class="an-d-blob" viewBox="0 0 440 420" preserveAspectRatio="none"><defs><linearGradient id="an-g-blob" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa2f7"/><stop offset="1" stop-color="#2f6fe0"/></linearGradient></defs><path d="M0 110C60 40 190 30 270 90 350 150 440 150 440 250 440 340 380 420 300 420H0Z" fill="url(#an-g-blob)"/></svg>
+      <svg class="an-d-onda-topo" viewBox="0 0 270 170" preserveAspectRatio="none"><path d="M0 0H270C250 40 200 62 150 84 95 110 40 118 0 170Z" fill="#1b63e6" opacity=".1"/><path d="M0 0H190C170 30 120 48 80 64 50 76 20 84 0 112Z" fill="#1b63e6" opacity=".09"/></svg>
+      <svg class="an-d-onda-alta" viewBox="0 0 740 150" preserveAspectRatio="none"><path d="M0 150C60 100 140 60 240 80 340 100 400 40 480 20 560 0 660 30 740 90V150Z" fill="#cfe1fb" opacity=".6"/></svg>
+      <svg class="an-d-ondas-base" viewBox="0 0 1600 130" preserveAspectRatio="none"><path d="M0 60C200 10 400 110 630 70 860 30 1070 120 1300 80 1430 58 1530 70 1600 86V130H0Z" fill="#cfe1fb" opacity=".7"/><path d="M0 95C220 60 430 125 680 100 930 75 1150 130 1380 105 1480 94 1550 100 1600 108V130H0Z" fill="#fff" opacity=".7"/></svg>
+      <svg class="an-d-onda-laranja" viewBox="0 0 480 220" preserveAspectRatio="none"><defs><linearGradient id="an-g-lar" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f28a0c"/><stop offset="1" stop-color="#ffc247"/></linearGradient></defs><path d="M0 220C90 200 190 190 290 130 370 82 430 40 480 0V220Z" fill="url(#an-g-lar)"/></svg>
+
+      <span class="pc-d pc-f-pata an-p1"></span>
+      <span class="pc-d pc-f-pata an-p2"></span>
+      <span class="pc-d pc-f-pata an-p3"></span>
+      <span class="pc-d pc-f-pata an-p4"></span>
+      <span class="pc-d pc-f-pata an-p5"></span>
+      <span class="pc-d pc-f-pata an-p6"></span>
+      <span class="pc-d pc-f-pata an-p-onda"></span>
+
+      <span class="an-sombra"></span>
+      <img class="an-pets-img" src="img/animais/pets-animais.webp" alt="" decoding="async">
+    </div>
+
     <div class="container">
       <div class="an-topo">
         <div>
           <p class="selo-op">Área do tutor</p>
-          <h1>Meus Animais</h1>
+          <h1>Meus <span class="an-sem-quebra">Animais</span></h1>
           <p class="sub">Cuide de cada companheiro e acompanhe as informações dos seus pets organizadas.</p>
         </div>
-        <button type="button" class="btn btn-laranja" data-novo>+ Cadastrar Animal</button>
+        <img class="an-pets-mini" src="img/animais/pets-animais.webp" alt="" aria-hidden="true" decoding="async">
+        <button type="button" class="btn btn-laranja an-btn-topo" data-novo><span class="pc-ic pc-f-pata" aria-hidden="true"></span> Cadastrar Animal</button>
       </div>
 
       <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
@@ -32,31 +54,32 @@
       <div id="conteudo">
         <!-- Indicadores (calculados com os dados da API) -->
         <div class="an-indicadores">
-          <button type="button" class="an-ind" data-lista="animais" aria-haspopup="dialog"><span class="pn-ic">🐾</span><div><strong id="ind-animais">–</strong>Animais cadastrados<small>Clique para ver</small></div></button>
-          <button type="button" class="an-ind" data-lista="especies" aria-haspopup="dialog"><span class="pn-ic laranja">🧬</span><div><strong id="ind-especies">–</strong>Espécies diferentes<small>Clique para ver</small></div></button>
-          <a class="an-ind" href="meus-agendamentos.html"><span class="pn-ic verde">📅</span><div><strong id="ind-ativos">–</strong>Agendamentos ativos</div></a>
-          <a class="an-ind" href="meus-agendamentos.html?status=CONCLUIDO"><span class="pn-ic roxo">✅</span><div><strong id="ind-concluidos">–</strong>Serviços concluídos</div></a>
+          <button type="button" class="an-ind" data-lista="animais" aria-haspopup="dialog"><span class="pn-ic"><span class="pc-ic pc-f-pata" aria-hidden="true"></span></span><div><strong id="ind-animais">–</strong>Animais cadastrados<small>Clique para ver</small></div></button>
+          <button type="button" class="an-ind" data-lista="especies" aria-haspopup="dialog"><span class="pn-ic laranja"><span class="pc-ic pc-f-brilho" aria-hidden="true"></span></span><div><strong id="ind-especies">–</strong>Espécies diferentes<small>Clique para ver</small></div></button>
+          <a class="an-ind" href="meus-agendamentos.html"><span class="pn-ic verde"><span class="pc-ic pc-f-calendario" aria-hidden="true"></span></span><div><strong id="ind-ativos">–</strong>Agendamentos ativos</div></a>
+          <a class="an-ind" href="meus-agendamentos.html?status=CONCLUIDO"><span class="pn-ic roxo"><span class="pc-ic pc-f-historico" aria-hidden="true"></span></span><div><strong id="ind-concluidos">–</strong>Serviços concluídos</div></a>
         </div>
 
         <h2 class="an-titulo">Seus companheiros</h2>
         <p class="sub" id="sub-lista"></p>
 
-        <div class="an-lista" id="lista" aria-live="polite"><p class="carregando">Carregando animais...</p></div>
+        <div class="an-grade">
+          <div class="an-lista" id="lista" aria-live="polite"><p class="carregando">Carregando animais...</p></div>
 
-        <!-- Atalhos e banner -->
-        <div class="an-atalhos">
-          <a class="an-atalho" id="atalho-agendar" href="agendamento.html"><span>📅</span>Agendar Serviço</a>
-          <a class="an-atalho" href="meus-agendamentos.html?status=CONCLUIDO"><span>❤️</span>Histórico de Serviços</a>
-          <a class="an-atalho" href="servicos.html"><span>✂️</span>Ver Serviços</a>
-        </div>
+          <div class="an-direita">
+            <!-- Atalhos -->
+            <div class="an-atalhos">
+              <a class="an-atalho az" id="atalho-agendar" href="agendamento.html"><span class="pc-ic pc-f-calendario" aria-hidden="true"></span>Agendar Serviço</a>
+              <a class="an-atalho ro" href="meus-agendamentos.html?status=CONCLUIDO"><span class="pc-ic pc-f-coracao" aria-hidden="true"></span>Histórico de Serviços</a>
+              <a class="an-atalho ro2" href="servicos.html"><span class="pc-ic pc-f-brilho" aria-hidden="true"></span>Ver Serviços</a>
+            </div>
 
-        <section class="an-banner">
-          <div>
-            <h2>Mantenha a saúde do seu pet em dia!</h2>
-            <ul><li>Vacinas e vermífugos</li><li>Banho e tosa</li><li>Consultas e muito mais!</li></ul>
+            <!-- Banner (arte pronta: o banner inteiro leva ao agendamento) -->
+            <a class="an-banner" href="agendamento.html" data-agendar>
+              <img src="img/animais/banner-saude.webp" alt="Mantenha a saúde do seu pet em dia! Vacinas e vermífugos, banho e tosa, consultas e muito mais. Agendar agora" decoding="async">
+            </a>
           </div>
-          <a class="btn btn-laranja" href="agendamento.html" data-agendar>Agendar agora →</a>
-        </section>
+        </div>
 
         <div class="an-rodape">
           <div><strong>Tem outro companheiro?</strong><br><span class="sub">Cadastre outro animal para manter tudo organizado.</span></div>

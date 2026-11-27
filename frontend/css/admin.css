@@ -19,9 +19,10 @@
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* Ilustração dos pets: componente .pc-pets (praticao-ui.css) cuida do fundo, do círculo e da foto.
-   Aqui ficam só o escudo e as posições próprias desta tela. */
+   Aqui ficam só o escudo, a faísca e as posições próprias desta tela. */
 .adm-pets{color:var(--laranja)}
-.adm-pets .escudo{position:absolute;width:72px;height:82px;filter:drop-shadow(0 8px 14px rgba(11,58,158,.28))}
+.adm-pets .escudo{position:absolute;width:72px;height:82px;filter:drop-shadow(0 8px 14px rgba(10,73,184,.28))}
+.adm-pets .faisca{position:absolute;width:32px;height:32px;transform:rotate(-10deg)}
 .adm-pets .pc-pets-trilha{display:none}
 
 /* ===== Título ===== */
@@ -37,7 +38,7 @@
 .bloco-usuarios,.bloco-agendamentos{grid-column:span 10}
 .bloco-status{grid-column:span 9}
 .bloco-agenda{grid-column:span 11}
-.adm-pagina .bloco{position:relative;min-width:0;border-radius:20px;box-shadow:0 8px 26px rgba(11,58,158,.08);padding:20px 22px}
+.adm-pagina .bloco{position:relative;min-width:0;border-radius:20px;box-shadow:0 8px 26px rgba(10,73,184,.08);padding:20px 22px}
 .adm-pagina .bloco h2{display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:800;color:var(--azul)}
 .cab-bloco{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .cab-faixa{background:#eef4ff;margin:-20px -22px 16px;padding:12px 22px;border-radius:20px 20px 0 0;min-height:66px}
@@ -45,13 +46,12 @@
 .bloco-usuarios .num{font-size:.74rem;padding-left:0;padding-right:0;letter-spacing:-.01em}
 .bloco-status{display:flex;flex-direction:column}
 .bloco-status .grafico{flex:1}
-.tit-ic{width:34px;height:34px;border-radius:11px;background:#e2edff;color:#1f6fe5;display:grid;place-items:center;flex:none}
+.tit-ic{width:34px;height:34px;border-radius:11px;background:#e2edff;color:#1b63e6;display:grid;place-items:center;flex:none}
 .cab-faixa .tit-ic{background:#fff}
 .tit-ic svg{width:19px;height:19px;fill:currentColor}
 .pata-canto{position:absolute;top:16px;right:18px;width:30px;height:30px;fill:#cfe0fb}
 .bloco-status h2{padding-right:40px}
 #btn-atualizar{min-height:40px;background:#fff}
-#btn-atualizar:hover{background:#eef4ff}   /* hover igual ao dos outros botões de contorno */
 #btn-atualizar:disabled{opacity:.6;cursor:wait}
 
 /* Números (cada um é um link para a tela filtrada) */
@@ -60,9 +60,9 @@
 .num+.num::before{content:"";position:absolute;left:0;top:14%;bottom:14%;border-left:1px solid #dfe8f6}
 .num:hover{background:#f1f6ff}
 .num strong{display:block;font-size:1.85rem;font-weight:800;color:var(--azul);line-height:1.15}
-.num.cor-pendente,.num.cor-pendente strong{color:#b35c00}
-.num.cor-pendente strong{color:#cc6a00}
-.num.cor-confirmado,.num.cor-confirmado strong{color:#1f5fd0}
+.num.cor-pendente,.num.cor-pendente strong{color:#9c4f00}
+.num.cor-pendente strong{color:#9c4f00}
+.num.cor-confirmado,.num.cor-confirmado strong{color:#1b63e6}
 .num.cor-concluido,.num.cor-concluido strong{color:#1d7a34}
 .num.cor-cancelado,.num.cor-cancelado strong{color:#c62828}
 .nota{font-size:.78rem;color:var(--cinza);margin-top:10px}
@@ -70,8 +70,8 @@
 
 /* ===== Gráfico de rosca (CSS puro: conic-gradient) ===== */
 .grafico{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;min-height:200px}
-.rosca{width:180px;height:180px;border-radius:50%;background:#e3eaf6;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 18px rgba(11,58,158,.12)}
-.rosca .miolo{width:108px;height:108px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--azul);font-weight:700;font-size:.9rem;box-shadow:inset 0 2px 8px rgba(11,58,158,.1)}
+.rosca{width:180px;height:180px;border-radius:50%;background:#e3eaf6;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 18px rgba(10,73,184,.12)}
+.rosca .miolo{width:108px;height:108px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--azul);font-weight:700;font-size:.9rem;box-shadow:inset 0 2px 8px rgba(10,73,184,.1)}
 .rosca .miolo strong{font-size:2.1rem;font-weight:800;color:var(--azul);line-height:1}
 .legenda{list-style:none;display:grid;gap:4px;flex:1 1 160px;min-width:0;max-width:260px}
 .legenda a{display:flex;align-items:center;gap:10px;min-height:40px;padding:6px 10px;border-radius:10px;font-weight:600;color:var(--texto)}
@@ -83,8 +83,7 @@
 .ver-mais{font-size:.9rem;color:var(--azul);font-weight:700;padding:6px 2px}
 .ver-mais:hover{color:var(--laranja-esc)}
 .previa{border:1px solid #e3ebf7;border-radius:14px;overflow:hidden}
-/* Horário e Status em rem: crescem com a letra (A A A), como nas tabelas de Usuários, Agenda e Serviços */
-.previa .cab-prev,.previa .linha-ag{display:grid;grid-template-columns:4.25rem minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.1fr) 7.75rem;gap:8px;align-items:center;padding:10px 14px;text-align:left}
+.previa .cab-prev,.previa .linha-ag{display:grid;grid-template-columns:62px minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr) 128px;gap:10px;align-items:center;padding:10px 14px;text-align:left}
 .previa .cab-prev{background:#eef4ff;color:var(--azul);font-weight:800;font-size:.84rem}
 .previa .linha-ag{width:100%;background:#fff;border:0;border-top:1px solid #edf2fa;font:inherit;font-size:.92rem;color:var(--texto);cursor:pointer;transition:background .12s}
 .previa .linha-ag:hover{background:#f5f9ff}
@@ -93,7 +92,7 @@
 .previa .status{display:inline-flex;align-items:center;justify-content:center;gap:5px;justify-self:start;font-size:.78rem;padding:3px 10px 3px 5px}
 .previa .status .ic{width:15px;height:15px;flex:none}
 .previa .status.pendente .ic{color:#f28a0c}
-.previa .status.confirmado .ic{color:#1f6fe5}
+.previa .status.confirmado .ic{color:#1b63e6}
 .previa .status.concluido .ic{color:#2e9e4f}
 .previa .status.cancelado .ic{color:#e53935}
 .previa>.nota{margin:0;padding:10px 14px;border-top:1px solid #edf2fa;background:#fafcff}
@@ -106,9 +105,9 @@
 
 /* ===== Acesso rápido ===== */
 .atalhos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.atalhos a{display:flex;align-items:center;gap:14px;min-height:84px;padding:14px 16px;background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.08);transition:transform .15s,box-shadow .15s,border-color .15s}
-.atalhos a:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(11,58,158,.13);border-color:var(--laranja)}
-.atalho-ic{width:52px;height:52px;border-radius:50%;background:#eaf2ff;color:#1f5fd0;display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px #d6e5fb}
+.atalhos a{display:flex;align-items:center;gap:14px;min-height:84px;padding:14px 16px;background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:0 6px 18px rgba(10,73,184,.08);transition:transform .15s,box-shadow .15s,border-color .15s}
+.atalhos a:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(10,73,184,.13);border-color:var(--laranja)}
+.atalho-ic{width:52px;height:52px;border-radius:50%;background:#eaf2ff;color:#1b63e6;display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px #d6e5fb}
 .atalho-ic svg{width:26px;height:26px;fill:currentColor}
 .atalho-txt{display:flex;flex-direction:column;min-width:0;line-height:1.2}
 .atalhos strong{color:var(--azul);font-weight:800;font-size:.98rem}
@@ -123,26 +122,21 @@
    alinhados aos cartões, e a parte de cima recebe só o círculo, o escudo e a trilha de patinhas. */
 @media(min-width:1280px){
   .adm-container{max-width:1480px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
-  .adm-pets{align-self:stretch;margin-bottom:130px;--pc-pets-circulo-base:150px}
+  .adm-pets{align-self:stretch;--pc-pets-circulo-base:150px}
   .adm-pets .pc-pets-circulo{width:96%}
   /* círculo: 96% de 300px = 288px, apoiado a 150px da base → topo em 438px */
   .adm-pets .escudo{left:14px;bottom:352px}
+  .adm-pets .faisca{left:82px;bottom:412px}
   .adm-pets .pc-pets-trilha{display:block;top:36px;right:18px;width:96px;height:184px}
   /* a coluna dos pets já tem a trilha: duas patinhas de fundo cairiam em cima dela */
   .pata-deco.p2,.pata-deco.p5{display:none}
-}
-/* Parallax discreto dos pets (js/admin-parallax.js grava --adm-pets-y: 0 a 24px).
-   Move só os filhos (foto, trilha e sombra de chão), nunca o <aside>: um transform no <aside>
-   criaria um grupo isolado e o multiply da foto deixaria de se misturar com o fundo da página.
-   "translate" (e não "transform"): composto à parte das outras transformações; não altera o layout. */
-@media(min-width:1280px) and (prefers-reduced-motion:no-preference){
-  .adm-pets > img,.adm-pets > .pc-pets-trilha,.adm-pets::before{translate:0 var(--adm-pets-y,0px) 0}
 }
 /* 1280–1365px: coluna um pouco menor para os cartões (dados) não perderem largura */
 @media(min-width:1280px) and (max-width:1365px){
   .adm-container{grid-template-columns:270px minmax(0,1fr);gap:24px}
   /* 96% de 270px = 259px, apoiado a 150px → topo em 409px */
   .adm-pets .escudo{left:12px;bottom:323px}
+  .adm-pets .faisca{left:80px;bottom:383px}
   .bloco-usuarios .num{font-size:.7rem}
 }
 @media(min-width:1600px){
@@ -150,12 +144,14 @@
   .adm-pets{--pc-pets-circulo-base:160px}
   /* 96% de 320px = 307px, apoiado a 160px → topo em 467px */
   .adm-pets .escudo{left:16px;bottom:376px}
+  .adm-pets .faisca{left:86px;bottom:438px}
 }
 
 /* ===== Notebook e tablet (700–1279px): pets ao lado do título, sem painel ===== */
 @media(max-width:1279px){
   .adm-pets{position:absolute;top:-6px;right:20px;width:156px;padding:0 0 10px;--pc-pets-circulo-base:18px}
   .adm-pets .escudo{width:44px;height:50px;top:-4px;left:-10px}
+  .adm-pets .faisca{width:22px;height:22px;top:-6px;left:30px}
   .adm-topo{padding-right:190px;min-height:184px;align-content:start}
 }
 @media(max-width:1099px){

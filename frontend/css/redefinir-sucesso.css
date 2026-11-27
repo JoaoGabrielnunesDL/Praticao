@@ -1,0 +1,97 @@
+/* =====================================================================
+   REDEFINIR SENHA — PASSO 3 (senha alterada com sucesso): tela própria no visual do protótipo
+   (degradê, ondas, patinhas, coração e brilho azuis, rottweiler com gatinho, cartão "Passo 3 – Concluído").
+   Os passos 1 e 2 continuam com o visual de login.css/recuperar.css; esta tela só aparece quando o JS liga body.pg-sucesso.
+   Referência: tela cheia 1920x1080 (1u = 1px a 1920 de largura; escala com a janela); a faixa do site (100px) fica acima.
+   ===================================================================== */
+.tela-sucesso{display:none}
+body.pg-sucesso .login-pagina{display:none}
+body.pg-sucesso .tela-sucesso{display:block}
+
+.tela-sucesso{--u:calc(100vw/1920);position:relative;overflow:hidden;isolation:isolate;min-height:calc(100vh - 100px);
+  background:radial-gradient(ellipse 60% 45% at 50% 0%,#fff 0%,rgba(255,255,255,0) 70%),linear-gradient(125deg,#f7faff 0%,#e7f0ff 48%,#d8e7fd 100%)}
+.tela-sucesso .defs{position:absolute;width:0;height:0}
+.tela-sucesso .deco{position:absolute;inset:0;z-index:0;pointer-events:none}
+.tela-sucesso .deco>*{position:absolute;display:block;overflow:visible}
+.tela-sucesso .d-p{fill:#1b63e6;opacity:.22}
+.tela-sucesso .container{position:relative;z-index:2;max-width:none;padding:28px 20px 48px}
+
+/* ---------- Cartão ---------- */
+.ok-coluna{width:min(100%,640px);margin:0 auto}
+.ok-cartao{position:relative;margin-top:24px;padding:64px 28px 32px;border-radius:32px;background:rgba(255,255,255,.98);box-shadow:0 24px 60px rgba(10,42,107,.16),0 2px 6px rgba(10,42,107,.06);text-align:center}
+.ok-cartao[hidden]{display:none}
+.ok-passo{position:absolute;top:-26px;left:50%;transform:translateX(-50%);white-space:nowrap;margin:0;padding:12px 34px;border-radius:999px;background:linear-gradient(180deg,#1b63e6,#0a49b8);color:#fff;font-family:var(--fonte-titulo);font-size:1.25rem;font-weight:800;letter-spacing:0;text-transform:none;box-shadow:0 10px 22px rgba(10,73,184,.35)}
+.ok-cartao .ok-check{display:block;margin:0 auto 8px;line-height:0}
+.ok-cartao .ok-check svg{width:150px;height:150px;stroke:none;stroke-width:0;fill:none}
+.ok-cartao h2{margin:0;font-family:var(--fonte-titulo);font-size:clamp(1.8rem,1.2rem + 2.2vw,2.4rem);font-weight:800;letter-spacing:-.02em;line-height:1.08;color:var(--cor-azul-forte,#0a49b8)}
+.ok-cartao h2:focus{outline:none}
+.ok-cartao h2 span{display:block;font-size:1.4em;line-height:1;color:#ff8a00}
+.ok-cartao .sub{margin:14px 0 26px;font-size:1.15rem;line-height:1.35;color:var(--cor-azul-forte,#0a49b8)}
+.ok-cartao .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:64px;border-radius:999px;font-size:1.35rem;font-weight:800;background:var(--grad-laranja);color:var(--cor-cta-texto);box-shadow:0 12px 24px rgba(242,138,12,.42)}
+.ok-cartao .btn:hover{background:var(--cor-laranja-hover)}
+.ok-seguro{display:flex;align-items:center;justify-content:center;gap:12px;margin:28px auto 0;width:92%;padding:14px 22px;border-radius:999px;background:rgba(207,225,251,.8);color:var(--cor-azul-profundo);font-weight:600}
+.ok-seguro svg{flex:none;width:30px;height:30px}
+.ok-seguro svg rect{fill:#1b63e6}
+.ok-seguro svg path{fill:none;stroke:#1b63e6;stroke-width:2.2;stroke-linecap:round}
+
+/* ---------- Cão e gato ---------- */
+.ok-pets{position:relative;z-index:1;width:min(78vw,420px);margin:0 auto;pointer-events:none}
+.ok-pets img{display:block;width:100%;height:auto;filter:drop-shadow(0 14px 22px rgba(10,42,107,.18))}
+
+/* ---------- Telas largas: composição fiel ao protótipo ---------- */
+@media(min-width:1200px){
+  .tela-sucesso{min-height:calc(var(--u)*980)}
+  .tela-sucesso .container{padding:calc(var(--u)*84) calc(var(--u)*85) calc(var(--u)*60) calc(var(--u)*985)}
+  .ok-coluna{width:calc(var(--u)*850);margin:0}
+  .ok-cartao{margin-top:0;padding:calc(var(--u)*56) calc(var(--u)*60) calc(var(--u)*56);border-radius:calc(var(--u)*46)}
+  .ok-passo{top:calc(var(--u)*-38);padding:0;width:calc(var(--u)*466);height:calc(var(--u)*72);display:flex;align-items:center;justify-content:center;font-size:max(1.1rem,calc(var(--u)*37))}
+  .ok-cartao .ok-check svg{width:max(120px,calc(var(--u)*230));height:max(120px,calc(var(--u)*230))}
+  .ok-cartao .ok-check{margin-bottom:calc(var(--u)*6)}
+  .ok-cartao h2{font-size:max(1.8rem,calc(var(--u)*60))}
+  .ok-cartao .sub{margin:calc(var(--u)*14) 0 calc(var(--u)*30);font-size:max(1.05rem,calc(var(--u)*31))}
+  .ok-cartao .btn{min-height:max(56px,calc(var(--u)*92));font-size:max(1.2rem,calc(var(--u)*37))}
+  .ok-seguro{margin-top:calc(var(--u)*38);padding:calc(var(--u)*17) calc(var(--u)*26);font-size:max(.95rem,calc(var(--u)*25))}
+  .ok-seguro svg{width:max(24px,calc(var(--u)*40));height:max(24px,calc(var(--u)*40))}
+
+  .ok-pets{position:absolute;left:calc(var(--u)*24);top:calc(var(--u)*40);width:auto;height:calc(var(--u)*800);margin:0}
+  .ok-pets img{height:100%;width:auto;max-width:none}
+
+  /* posições exatas (protótipo -> left/top em u) */
+  .d-blob{left:0;top:calc(var(--u)*230);width:calc(var(--u)*700);height:calc(var(--u)*720)}
+  .d-onda-topo{left:0;top:0;width:calc(var(--u)*270);height:calc(var(--u)*150)}
+  .d-onda-dir{right:0;top:0;width:calc(var(--u)*640);height:calc(var(--u)*120);transform:scaleY(-1);opacity:.6}
+  .d-ondas-base{left:0;bottom:0;width:100%;height:calc(var(--u)*130)}
+  .d-ledge{left:0;bottom:0;width:100%;height:calc(var(--u)*202)}
+  .d-p1{left:calc(var(--u)*24);top:calc(var(--u)*28);width:calc(var(--u)*90);transform:rotate(-12deg)}
+  .d-p2{left:calc(var(--u)*18);top:calc(var(--u)*152);width:calc(var(--u)*70);transform:rotate(8deg)}
+  .d-p3{left:calc(var(--u)*14);top:calc(var(--u)*306);width:calc(var(--u)*82);transform:rotate(-10deg)}
+  .d-p4{left:calc(var(--u)*1826);top:calc(var(--u)*730);width:calc(var(--u)*84);transform:rotate(12deg)}
+  .d-p5{left:calc(var(--u)*16);top:calc(var(--u)*552);width:calc(var(--u)*74);transform:rotate(-8deg)}
+  .d-p6{left:calc(var(--u)*30);top:calc(var(--u)*812);width:calc(var(--u)*72);transform:rotate(10deg)}
+  .d-p7{left:calc(var(--u)*700);top:calc(var(--u)*26);width:calc(var(--u)*80);transform:rotate(-8deg)}
+  .d-p8{left:calc(var(--u)*966);top:calc(var(--u)*10);width:calc(var(--u)*72);transform:rotate(10deg)}
+  .d-p9{left:calc(var(--u)*858);top:calc(var(--u)*126);width:calc(var(--u)*82);transform:rotate(-14deg)}
+  .d-p10{left:calc(var(--u)*1812);top:calc(var(--u)*6);width:calc(var(--u)*92);transform:rotate(12deg)}
+  .d-p11{left:calc(var(--u)*1846);top:calc(var(--u)*274);width:calc(var(--u)*82);transform:rotate(-12deg)}
+  .d-p12{left:calc(var(--u)*1838);top:calc(var(--u)*430);width:calc(var(--u)*92);transform:rotate(14deg)}
+  .d-coracao{left:calc(var(--u)*118);top:calc(var(--u)*86);width:calc(var(--u)*72)}
+}
+
+/* ---------- Telas médias e pequenas: pets em cima, cartão embaixo ---------- */
+@media(max-width:1199px){
+  .tela-sucesso .deco>*{display:none!important}
+  .tela-sucesso .deco>.d-ondas-base,.tela-sucesso .deco>.d-p1,.tela-sucesso .deco>.d-p10{display:block!important}
+  .d-ondas-base{left:0;bottom:0;width:100%;height:90px}
+  .d-p1{left:12px;top:14px;width:64px;transform:rotate(-12deg)}
+  .d-p10{right:12px;top:18px;width:74px;transform:rotate(12deg)}
+  .ok-cartao{margin-top:34px}
+}
+@media(max-width:599px){
+  .ok-passo{font-size:1.05rem;padding:10px 22px}
+  .ok-cartao .ok-check svg{width:120px;height:120px}
+  .ok-cartao .sub{font-size:1.05rem}
+  .ok-seguro{font-size:.9rem;width:100%}
+}
+@media(prefers-reduced-motion:reduce){.tela-sucesso *{transition:none!important}}
+@media(forced-colors:active){.tela-sucesso .deco{display:none}}
+@media print{.tela-sucesso .deco,.ok-pets{display:none}}

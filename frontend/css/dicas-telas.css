@@ -1,0 +1,151 @@
+/* =====================================================================
+   TELAS DERIVADAS DE DICAS E CURIOSIDADES — lista "Mais dicas" (body.pg-dicas) e artigo (body.pg-artigo).
+   Mesmo visual de curiosidades.html: degradês, ondas, patinhas, cartões de foto.
+   Usa a camada decorativa (.cu-cena), o topo (.cu-hero) e os cartões (.cu-card) definidos em curiosidades.css.
+   Nenhum ID usado pelo JS foi renomeado.
+   ===================================================================== */
+.pg-dicas,.pg-artigo{background:#eaf3ff}
+.cu-pagina.dc-pagina{--pw:min(34vw,560px)}
+
+/* ---------- Botão Voltar (pílula) ---------- */
+.pg-dicas .dica-voltar,.pg-artigo .dica-voltar{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:8px 18px;border:1.5px solid #1b63e6;border-radius:999px;
+  background:#fff;color:#0a49b8;font-weight:800;font-size:.92rem;box-shadow:0 4px 10px rgba(10,73,184,.1);transition:background-color .2s,color .2s}
+.pg-dicas .dica-voltar:hover,.pg-artigo .dica-voltar:hover{background:#0a49b8;color:#fff}
+
+/* ---------- Lista: topo ---------- */
+.dc-hero .selo-op{text-transform:uppercase;letter-spacing:.04em;font-weight:800;font-size:.9rem;color:#9c4f00}
+.dc-hero h1{font-size:clamp(2rem,3.1vw,3.4rem);white-space:normal;line-height:1.1}
+.dc-hero h1::after{content:"";display:block;width:min(240px,60%);height:12px;margin-top:6px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath d='M3 8C50 2 150 1 237 6' fill='none' stroke='%23f28a0c' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.dc-hero .cu-sub{font-size:clamp(1rem,1.5vw,1.6rem);max-width:24em}
+.dc-hero .cu-hero-texto{padding-bottom:3.4vw}
+
+/* ---------- Lista: painel ---------- */
+.dc-painel{display:block;padding:clamp(18px,2vw,30px)}
+.dc-barra{display:flex;justify-content:space-between;align-items:center;gap:14px 24px;flex-wrap:wrap}
+.pg-dicas .dica-abas{margin:0;gap:10px}
+.pg-dicas .dica-abas button{padding:9px 22px;border:1.5px solid #c9dbf7;border-radius:999px;background:#fff;color:#0a49b8;font-weight:800;box-shadow:0 4px 10px rgba(10,73,184,.07);transition:background-color .2s,transform .2s}
+.pg-dicas .dica-abas button:hover{background:#eef4ff}
+.pg-dicas .dica-abas button.ativa{border-color:#0a49b8;background:linear-gradient(180deg,#2a7af5,#0a49b8);color:#fff;box-shadow:0 8px 16px rgba(10,73,184,.28)}
+.pg-dicas .filtro{display:flex;gap:10px;flex-wrap:wrap;flex:1 1 320px;justify-content:flex-end}
+.pg-dicas .filtro input[type=search]{flex:1 1 280px;max-width:460px;min-width:200px;padding:11px 20px;border:1.5px solid #c9dbf7;border-radius:999px;background:#fff;box-shadow:0 4px 12px rgba(10,73,184,.07)}
+.pg-dicas .filtro input[type=search]:focus{border-color:#1b63e6;outline:none}
+.dc-contagem{margin:14px 4px 14px;color:#0a2a6b;font-size:.95rem}
+.dc-contagem:empty{display:none}
+.dc-grade{grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+.dc-painel .cu-card,.ar-rel .cu-card{flex-direction:row}
+.dc-painel .cu-card-img,.ar-rel .cu-card-img{width:38%;aspect-ratio:1;align-self:center}
+.dc-painel .dica-vazio{background:#f6f9ff;border-radius:18px}
+
+/* ---------- Artigo ---------- */
+.ar-topo{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,min(32%,440px));gap:clamp(18px,3vw,48px);align-items:center;overflow:hidden;
+  padding:clamp(22px,3vw,44px);background:radial-gradient(circle at 92% 18%,#dbe8fb 0,rgba(219,232,251,0) 52%),rgba(255,255,255,.97)}
+.ar-topo::before{content:"";position:absolute;right:-10%;bottom:-40%;width:48%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 20%,#8fbcff,#3f7fe8);opacity:.9}
+.ar-topo::after{content:"";position:absolute;right:0;bottom:0;width:20%;height:34%;background:linear-gradient(135deg,#ffc247,#f28a0c);clip-path:polygon(100% 0,100% 100%,0 100%);opacity:.95}
+.ar-texto,.ar-foto{position:relative;z-index:1}
+.artigo-meta{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap;font-size:.88rem;color:#0a2a6b;margin-bottom:10px}
+.ar-etiqueta{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;background:#e4eeff;color:#0a49b8;font-weight:800}
+.ar-texto h1{font-size:clamp(1.9rem,3.2vw,3.2rem);line-height:1.08;font-weight:800;letter-spacing:-.015em;color:#0a49b8}
+.ar-texto h1::after{content:"";display:block;width:min(200px,50%);height:12px;margin-top:8px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath d='M3 8C50 2 150 1 237 6' fill='none' stroke='%23f28a0c' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.artigo-intro{max-width:32em;margin-top:14px;font-size:clamp(1rem,1.25vw,1.2rem);line-height:1.5;color:#1c2b4a}
+.ar-foto .artigo-img{width:100%;height:auto;aspect-ratio:4/3;border-radius:clamp(22px,2.4vw,36px);overflow:hidden;border:6px solid #fff;box-shadow:0 18px 36px rgba(10,42,107,.25)}
+.ar-foto .artigo-img img{display:block;width:100%;height:100%;object-fit:cover}
+.ar-foto .dica-ph{min-height:0;height:100%}
+
+.ar-topicos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(12px,1.4vw,22px);margin-bottom:clamp(14px,1.7vw,28px)}
+.ar-topico{position:relative;padding:clamp(18px,1.8vw,28px) clamp(18px,1.8vw,28px) clamp(18px,1.8vw,26px);border:1px solid #e3ebf7;border-radius:clamp(18px,1.8vw,28px);
+  background:linear-gradient(180deg,#fff,#f6f9ff);box-shadow:0 8px 22px rgba(10,73,184,.1)}
+.ar-num{display:flex;align-items:center;justify-content:center;width:42px;height:42px;margin-bottom:12px;border-radius:50%;color:#fff;font-weight:800;font-size:1.15rem;
+  background:radial-gradient(circle at 35% 25%,#2a7af5,#0a49b8 75%);box-shadow:0 8px 14px rgba(10,73,184,.26)}
+.ar-topico h2{font-size:clamp(1.1rem,1.4vw,1.4rem);line-height:1.2;font-weight:800;color:#0a49b8;margin-bottom:10px}
+.ar-topico ul{list-style:none;padding:0;display:grid;gap:9px}
+.ar-topico li{position:relative;padding-left:26px;line-height:1.4;color:#1c2b4a}
+.ar-topico li::before{content:"";position:absolute;left:0;top:.18em;width:1.05em;height:1.05em;background-color:#f28a0c;
+  -webkit-mask:var(--pc-forma) center/contain no-repeat;mask:var(--pc-forma) center/contain no-repeat;
+  --pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/%3E%3Cellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/%3E%3Cellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/%3E%3Cellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/%3E%3Cpath d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/%3E%3C/svg%3E")}
+.ar-importante{display:flex;gap:16px;align-items:flex-start;margin-bottom:clamp(14px,1.7vw,28px);padding:clamp(16px,1.8vw,26px);border:1.5px solid #f2c75c;border-radius:clamp(18px,1.8vw,28px);
+  background:linear-gradient(135deg,#fff6e0,#fffaf0);box-shadow:0 8px 20px rgba(242,138,12,.14)}
+.ar-alerta{flex:none;width:44px;height:44px;padding:0;background-color:#f28a0c;color:#f28a0c;font-size:44px}
+.ar-importante strong{display:block;color:#7a3f00;font-size:1.1rem;margin-bottom:4px}
+.ar-importante p{color:#1c2b4a;line-height:1.45}
+.ar-importante .peq{margin-top:8px;font-size:.84rem;color:#5b6b88}
+.ar-rel{display:block;padding:clamp(18px,2vw,30px)}
+.ar-rel .dc-grade{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ar-rel h2{font-size:clamp(1.4rem,2vw,2rem);font-weight:800;color:#0a49b8;margin-bottom:14px}
+.ar-rodape{display:flex;gap:12px 16px;flex-wrap:wrap;justify-content:center;margin:6px 0 10px}
+.ar-voltar-btn{display:inline-flex;align-items:center;padding:7px 20px;border:1.5px solid #1b63e6;border-radius:999px;background:#fff;color:#0a49b8;font-weight:800;box-shadow:0 4px 10px rgba(10,73,184,.1);transition:background-color .2s,color .2s}
+.ar-voltar-btn:hover{background:#0a49b8;color:#fff}
+.ar-rodape .cu-leia{padding:8px 22px}
+.ar-vazio{display:block;text-align:center;padding:30px 20px}
+
+@media(max-width:1000px){
+  .cu-pagina.dc-pagina{--pw:min(70vw,420px)}
+  .dc-hero .cu-hero-texto{padding-bottom:8px}
+  .dc-hero h1::after{margin-left:auto;margin-right:auto}
+  .ar-topo{grid-template-columns:1fr}
+  .ar-foto{max-width:420px;justify-self:center;width:100%}
+  .pg-dicas .filtro{justify-content:flex-start}
+  .ar-texto h1::after{margin-left:0}
+}
+@media(max-width:1100px){.ar-rel .dc-grade{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}}
+@media(max-width:620px){
+  .dc-grade,.ar-rel .dc-grade{grid-template-columns:1fr}
+  .dc-painel .cu-card-img,.ar-rel .cu-card-img{width:38%}
+}
+@media(prefers-reduced-motion:reduce){.pg-dicas .dica-voltar,.pg-artigo .dica-voltar,.ar-voltar-btn,.pg-dicas .dica-abas button{transition:none}}
+
+/* ---------- Artigo: os blocos começam abaixo do topo (cão e gato inteiros, apoiados numa "prateleira") ---------- */
+.ar-pagina .cu-hero{padding-bottom:clamp(24px,2.6vw,52px)}
+.ar-pagina .cu-hero::after{content:"";position:absolute;z-index:0;left:1.2vw;right:1.2vw;bottom:0;height:clamp(24px,2.6vw,52px);border-radius:clamp(20px,2vw,32px) clamp(20px,2vw,32px) 0 0;
+  background:linear-gradient(180deg,#fff,#f1f7ff);box-shadow:0 -6px 18px rgba(10,73,184,.08)}
+.ar-pagina .cu-hero::before{bottom:calc(var(--pw)*-.554 + clamp(24px,2.6vw,52px))}
+.ar-pagina .ar-conteudo{margin-top:clamp(12px,1.4vw,26px)}
+.ar-topo::before{width:42%!important;right:-10%!important}
+.ar-texto{padding-right:2vw}
+@media(max-width:1000px){.ar-pagina .cu-hero::before{bottom:calc(var(--pw)*-.62)}.ar-pagina .cu-hero::after{display:none}.ar-pagina .cu-hero{padding-bottom:0}.ar-pagina .ar-conteudo{margin-top:14px}}
+.ar-pagina .dc-hero h1::after{display:none}
+
+/* ---------- Artigo: PADRÃO de todas as telas de artigo (artigo.html serve todos) ----------
+   O desenho do topo (ondas, cão e gato, círculo azul, prateleira branca) desce até ENCOSTAR no bloco do artigo:
+   o fim do topo coincide com o início do bloco, sem passar dele (sem faixa branca no meio). O texto (Voltar / título / subtítulo) fica no mesmo lugar. */
+@media(min-width:1001px){
+  .ar-pagina{--ar-g:clamp(24px,2.6vw,48px)}
+  .ar-pagina .cu-hero{padding-top:calc(clamp(8px,1.2vw,24px) + var(--ar-g))}
+  .ar-pagina .cu-hero-texto{transform:translateY(calc(var(--ar-g)*-1))}
+  .ar-pagina .ar-conteudo{margin-top:0}
+  /* sem a faixa branca: cão, gato e círculo azul apoiam direto no bloco do artigo */
+  .ar-pagina .cu-hero{padding-bottom:0}
+  .ar-pagina .cu-hero::after{display:none}
+  .ar-pagina .cu-hero::before{bottom:calc(var(--pw)*-.554)}
+  .ar-pagina .cu-onda-hero{top:calc(var(--hh)*.5 + var(--ar-g))}
+  .ar-pagina .cu-onda-esq{top:calc(var(--hh)*.74 + var(--ar-g))}
+  .ar-pagina .cu-onda-lar-dir{top:calc(var(--hh) - 11vw + var(--ar-g))}
+  .ar-pagina .cu-coracao{top:calc(3.6vw + var(--ar-g))}
+  .ar-pagina .cu-p2,.ar-pagina .cu-p3{top:calc(5.4vw + var(--ar-g))}
+  .ar-pagina .cu-p4{top:calc(12.8vw + var(--ar-g))}
+}
+
+/* ---------- Artigo: foto inteira (ração e legumes) ---------- */
+/* Fotos largas aparecem inteiras: a coluna da foto fica um pouco maior (a proporção da moldura vem de cada artigo). */
+@media(min-width:1001px){
+  .ar-topo--larga{grid-template-columns:minmax(0,1fr) minmax(300px,min(40%,560px))}
+}
+
+/* ---------- Artigo: bloco de texto de destaque (entre os cartões numerados e o aviso "Importante") ----------
+   Conteúdo em js/artigos-textos.js. Mesmo visual dos cartões do artigo: borda azul clara, degradê branco, título azul com risco laranja. */
+.ar-destaque{position:relative;overflow:hidden;margin-bottom:clamp(14px,1.7vw,28px);padding:clamp(22px,3vw,44px);border:1px solid #e3ebf7;border-radius:clamp(18px,1.8vw,28px);
+  background:radial-gradient(circle at 6% 10%,#e4eeff 0,rgba(228,238,255,0) 40%),linear-gradient(180deg,#fff,#f6f9ff);box-shadow:0 8px 22px rgba(10,73,184,.1)}
+.ar-destaque::after{content:"";position:absolute;right:0;bottom:0;width:clamp(56px,8%,130px);aspect-ratio:1.2;background:linear-gradient(135deg,#ffc247,#f28a0c);clip-path:polygon(100% 0,100% 100%,0 100%);opacity:.95}
+.ar-destaque-corpo{position:relative;z-index:1;max-width:50rem;margin:0 auto}
+.ar-destaque h2{margin:12px 0 22px;font-size:clamp(1.4rem,2.2vw,2.1rem);line-height:1.15;font-weight:800;letter-spacing:-.01em;color:#0a49b8}
+.ar-destaque h2::after{content:"";display:block;width:min(200px,50%);height:12px;margin-top:8px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath d='M3 8C50 2 150 1 237 6' fill='none' stroke='%23f28a0c' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.ar-destaque p{margin:0 0 14px;font-size:clamp(1rem,1.15vw,1.1rem);line-height:1.7;color:#1c2b4a}
+.ar-destaque h2 + p{font-size:clamp(1.05rem,1.3vw,1.2rem);color:#0a2a6b}
+.ar-destaque .ar-fecho{display:flex;align-items:center;gap:12px;margin:22px 0 0;padding:14px 18px;border-left:5px solid #f28a0c;border-radius:0 16px 16px 0;
+  background:linear-gradient(135deg,#fff6e0,#fffaf0);box-shadow:0 6px 16px rgba(242,138,12,.12);font-size:1.05rem;font-weight:800;line-height:1.4;color:#7a3f00}
+.ar-fecho-pata{flex:none;width:1.5em;height:1.5em;background-color:#f28a0c;
+  -webkit-mask:var(--pc-forma) center/contain no-repeat;mask:var(--pc-forma) center/contain no-repeat;
+  --pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/%3E%3Cellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/%3E%3Cellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/%3E%3Cellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/%3E%3Cpath d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/%3E%3C/svg%3E")}
+@media(max-width:620px){.ar-destaque::after{width:56px}.ar-destaque .ar-fecho{padding:12px 14px}}

@@ -1,289 +1,205 @@
-/* =====================================================================
-   RELATÓRIOS — piloto do padrão visual da área administrativa (tokens de base.css; títulos em Figtree 800)
-   Escopo: tudo vale só para body.pg-relatorios. tabelas.css NÃO é alterado (também atende Serviços e Usuários):
-   o acabamento da tabela daqui é feito aqui, com escopo.
-   Hooks do JS preservados: #filtro-periodo #inicio #fim .campo-data(.invalido) #erro-periodo #btn-gerar [data-atalho](.ativo)
-   #info-periodo #estado #conteudo #kpis .kpi[data-status] #grafico-barras .bv[data-servico] #rosca #rosca-total #legenda
-   .detalhamento #chips [data-tirar] #itens .reg.clicavel [data-pg] [data-recarregar] [data-tentar] #btn-exportar #btn-imprimir
-   #dlg-detalhes #det-conteudo #det-agenda #mensagem.
-   Decoração: só na faixa do cabeçalho e nas margens (≥1200px); aria-hidden + pointer-events:none; some na impressão.
-   ===================================================================== */
-.pg-relatorios{
-  --ic-exportar:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4v11M7 10l5 5 5-5M5 20h14'/%3E%3C/svg%3E");
-  --ic-imprimir:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 8V3.5h10V8M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2'/%3E%3Crect x='7' y='13.5' width='10' height='7' rx='1'/%3E%3C/svg%3E");
-  --ic-alerta:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.5 2.8 19.5h18.4z'/%3E%3Cpath d='M12 10v4.5M12 17.2v.1'/%3E%3C/svg%3E");
-  --ic-info:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v5.5M12 7.8v.1'/%3E%3C/svg%3E");
-  --ic-calendario:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2.5'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E");
-  --ic-check:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E");
-}
-.pg-relatorios .rel-pagina .sub{color:var(--cor-texto-2)}                                    /* 6,36:1 (o cinza de base.css ficava no limite) */
+/* Relatórios do Sistema. Complementa base.css e tabelas.css.
+   Tudo aqui vale só para esta tela (as classes .rel-* e os blocos de relatório só existem em relatorios.html). */
 
-/* Ícone desenhado por máscara (cor = currentColor), usado em botões e estados */
-.pg-relatorios :is(#btn-exportar,#btn-imprimir,.erro-periodo,.aviso.info,.mensagem)::before{content:"";flex:none;width:18px;height:18px;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+/* ===== Página, fundo e decoração ===== */
+.rel-pagina{position:relative;overflow-x:clip;background:radial-gradient(1200px 500px at 70% -10%,#dcebff 0%,transparent 60%),linear-gradient(180deg,#eaf3ff 0%,#f5f9ff 45%,#eef5ff 100%);padding:30px 0 90px}
+.rel-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.pata-deco{position:absolute;fill:#c7dbfb;opacity:.55}
+.pata-deco.p1{top:34px;left:3%;width:52px;height:52px;transform:rotate(-18deg)}
+.pata-deco.p2{top:150px;left:10%;width:40px;height:40px;transform:rotate(12deg)}
+.pata-deco.p3{top:90px;right:36%;width:42px;height:42px;transform:rotate(10deg)}
+.pata-deco.p4{top:30px;right:12%;width:84px;height:84px;transform:rotate(-12deg)}
+.pata-deco.p5{top:150px;right:3%;width:44px;height:44px;transform:rotate(16deg)}
+.rel-deco .onda{position:absolute;right:0;bottom:0;width:min(440px,62vw);height:150px}
+.pata-onda{position:absolute;right:26px;bottom:20px;width:56px;height:56px;fill:#fff;opacity:.9;transform:rotate(-14deg)}
+/* Sem z-index: o conteúdo já fica acima da decoração pela ordem do HTML, e assim a foto dos pets
+   (multiply) se mistura direto com o fundo da página, sem painel atrás */
+.rel-container{position:relative}
+.rel-conteudo{position:relative;min-width:0}
 
-/* Foco: anel azul do sistema em tudo que é interativo (conteúdo e janela de detalhes) */
-/* contorno transparente (e não outline:none): invisível no modo normal, vira o indicador de foco no alto contraste, onde a sombra some */
-.pg-relatorios :is(main,dialog) :is(a,button,input,[tabindex]):focus-visible{outline:3px solid transparent;outline-offset:2px;box-shadow:var(--anel-foco)}
-.pg-relatorios .t-itens .reg.clicavel:focus-visible{box-shadow:inset 0 0 0 3px var(--cor-foco)}
-
-/* ===== Página e faixa do cabeçalho ===== */
-.pg-relatorios .rel-pagina{position:relative;overflow-x:clip;background:var(--grad-fundo);padding:0 0 calc(var(--esp-16) + 16px);min-height:70vh} /* reserva a onda do rodapé */
-.pg-relatorios .rel-container{max-width:1240px}
-/* Pets à esquerda, título à direita (só visual: no HTML o título continua antes dos pets, então leitor de tela e teclado mantêm a ordem) */
-.rel-faixa{position:relative;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);grid-template-areas:"pets topo";gap:var(--esp-8);align-items:end;padding:var(--esp-6) 0 var(--esp-6)}
-/* Camada decorativa: ocupa a largura da janela (as margens), atrás do conteúdo, sem z-index (o multiply da foto continua valendo) */
-.rel-deco{position:absolute;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);overflow:hidden;pointer-events:none}
-.rel-blob{position:absolute;border-radius:50%;filter:blur(2px)}
-.rel-blob.b1{width:440px;height:440px;left:calc(50vw - 600px - 70px);top:-150px;background:radial-gradient(closest-side,rgba(42,122,245,.18),rgba(42,122,245,0))}
-.rel-blob.b2{width:360px;height:360px;right:-120px;top:-170px;background:radial-gradient(closest-side,rgba(27,99,230,.12),rgba(27,99,230,0))}
-.rel-onda{position:absolute;left:0;right:0;bottom:0;width:100%;height:64px;fill:rgba(27,99,230,.07)}
-.rel-pata{position:absolute;fill:var(--cor-azul-superficie);--margem:calc(50vw - 600px)} /* --margem = faixa livre ao lado do conteúdo (1200px): as patinhas ficam sempre dentro dela */
-.rel-pata.pa1{left:calc(var(--margem) * .18);top:40px;width:44px;height:44px;rotate:-18deg}
-.rel-pata.pa2{left:calc(var(--margem) * .42);top:112px;width:30px;height:30px;rotate:14deg;opacity:.8}
-.rel-pata.pa3{right:calc(var(--margem) * .22);top:32px;width:56px;height:56px;rotate:12deg}
-/* Brilhos: ficam junto dos pets (canto superior esquerdo da foto), longe do título */
-.rel-brilho{position:absolute;fill:var(--cor-laranja);pointer-events:none}                       /* decoração: não é texto */
-.rel-brilho.br1{width:26px;height:26px;left:2px;top:-14px;rotate:-8deg}
-.rel-brilho.br2{width:15px;height:15px;left:-14px;top:22px;fill:var(--cor-laranja-claro)}
-
-/* Título */
-.rel-topo{grid-area:topo;position:relative;padding-bottom:var(--esp-2)}
-.pg-relatorios .rel-topo .selo-op{margin-bottom:var(--esp-2);font-size:var(--texto-12);font-weight:var(--peso-forte);letter-spacing:var(--espaco-letra-rotulo);text-transform:uppercase;color:var(--cor-laranja-texto)} /* 5,0:1 no fundo claro */
-.pg-relatorios .rel-topo h1{font-family:var(--fonte-titulo);font-size:clamp(2rem,1.4rem + 1.6vw,2.75rem);font-weight:var(--peso-titulo-marca);line-height:1.08;letter-spacing:-.025em;color:var(--cor-titulo)}
-.sem-quebra{white-space:nowrap}
-.pg-relatorios .rel-topo .sub{margin-top:var(--esp-2);font-size:var(--texto-18);line-height:var(--altura-linha-texto);max-width:48ch}
-
-/* Pets: foto inteira direto sobre o fundo (multiply), sem moldura; só em telas ≥1200px */
-.rel-pets{grid-area:pets;position:relative;align-self:end;margin-bottom:-8px}
+/* Ilustração dos pets: cachorro e gato direto sobre o fundo (sem painel, círculo ou moldura).
+   brightness: o fundo cinza-claro da foto vira branco e some no multiply. A proporção original é mantida. */
+.rel-pets{position:relative;color:var(--laranja)}
 .rel-pets img{display:block;width:100%;height:auto;mix-blend-mode:multiply;filter:brightness(1.07)}
+.rel-pets .faisca{position:absolute;top:-18px;left:8px;width:40px;height:40px;transform:rotate(-30deg)}
+/* sombra de chão bem leve sob as patas (::before é pintado antes da foto) */
+.rel-pets::before{content:"";position:absolute;left:10%;right:10%;bottom:-6px;height:18px;border-radius:50%;background:radial-gradient(closest-side,rgba(10,73,184,.16),rgba(10,73,184,0))}
 
-/* ===== Filtro de período (um cartão) ===== */
-.filtro-rel{display:grid;gap:var(--esp-4);padding:var(--esp-6);background:var(--cor-superficie);border:1px solid var(--cor-borda);border-radius:var(--raio-cartao);box-shadow:var(--sombra-cartao)}
-.filtro-campos{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--esp-4)}
-.campo-data{display:flex;flex-direction:column;gap:6px;flex:1 1 200px;max-width:260px;min-width:0}
-.campo-data label{font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-texto)}
-.campo-data input{min-height:var(--altura-botao-g);width:100%;padding:0 var(--esp-3);border:1.5px solid var(--cor-borda-controle);border-radius:var(--raio-m);background:var(--cor-superficie);font:inherit;font-size:var(--texto-16);color:var(--cor-texto);transition:border-color var(--transicao)} /* borda 3,39:1 */
-.campo-data input:hover{border-color:var(--cor-texto-2)}
-/* :focus (e não :focus-visible): o campo de data nativo tem paradas internas (dia, mês, ano, calendário) e todas precisam do anel */
-.pg-relatorios .campo-data input:focus,.pg-relatorios .campo-data:focus-within input{outline:3px solid transparent;outline-offset:2px;border-color:var(--cor-foco);box-shadow:var(--anel-foco)}
-.obrig{color:var(--cor-erro)}
-.campo-data.invalido label{color:var(--cor-erro)}
-.campo-data.invalido input{border-color:var(--cor-erro);background:var(--cor-erro-fundo)}
+/* ===== Título ===== */
+.rel-topo .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
+.rel-topo h1{font-size:2.4rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
+.sem-quebra{white-space:nowrap}
+.faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:var(--laranja)}
+.rel-topo .sub{font-size:1.02rem}
 
-/* Botões da página: principal laranja (degradê, texto azul-profundo) e secundário branco com borda azul */
-.pg-relatorios :is(main,dialog) .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--esp-2);min-height:var(--altura-botao);padding:0 var(--esp-6);border-radius:var(--raio-m);font:inherit;font-size:var(--texto-16);font-weight:var(--peso-forte);line-height:1.2;transition:background var(--transicao),color var(--transicao),border-color var(--transicao)}
-.pg-relatorios :is(main,dialog) .btn-laranja{background:var(--grad-laranja);color:var(--cor-cta-texto);box-shadow:var(--sombra-cta)} /* 7,7:1 → 5,4:1 */
-.pg-relatorios :is(main,dialog) .btn-laranja:hover{background:linear-gradient(180deg,#ffc25c,var(--cor-laranja-hover))} /* ≥ 6,4:1 */
-.pg-relatorios :is(main,dialog) .btn-contorno{background:var(--cor-superficie);color:var(--cor-azul-principal);border:1.5px solid var(--cor-azul-principal)} /* 5,28:1 */
-.pg-relatorios :is(main,dialog) .btn-contorno:hover{background:var(--cor-azul-claro);color:var(--cor-azul-intenso);border-color:var(--cor-azul-intenso)}
-.pg-relatorios :is(main,dialog) .btn-pequeno{min-height:40px;padding:0 var(--esp-4);font-size:var(--texto-14);font-weight:var(--peso-medio)}
-.pg-relatorios :is(main,dialog) .btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
-#btn-gerar{min-height:var(--altura-botao-g);padding:0 var(--esp-8)}
-.btn-ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
-#btn-exportar{--ic:var(--ic-exportar)}
-#btn-imprimir{--ic:var(--ic-imprimir)}
+/* ===== Filtro de período ===== */
+.filtro-rel{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:22px 0 6px}
+.campo-data{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--borda);border-radius:16px;box-shadow:0 4px 14px rgba(10,73,184,.07);padding:7px 12px 7px 9px;flex:0 1 196px;min-width:178px;min-height:58px;transition:border-color .15s,box-shadow .15s}
+.campo-data:focus-within{border-color:#1b63e6;box-shadow:0 0 0 3px rgba(27,99,230,.16)}
+.campo-ic{width:38px;height:38px;border-radius:11px;background:#eaf2ff;color:#1b63e6;display:grid;place-items:center;flex:none}
+.campo-ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.campo-txt{display:flex;flex-direction:column;flex:1;min-width:0}
+.campo-data label{display:block;font-size:.74rem;font-weight:700;color:var(--azul)}
+.campo-data input{border:0;font:inherit;font-weight:600;color:var(--texto);background:none;width:100%;padding:0;min-height:26px}
+.campo-data input:focus-visible{outline:none}
+.obrig{color:#d93025}
+#btn-gerar{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 26px;box-shadow:0 6px 16px rgba(242,138,12,.32)}
+#btn-gerar:disabled{opacity:.6;cursor:not-allowed;box-shadow:none}
+.btn-ic{width:19px;height:19px;flex:none;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round}
+.atalhos-periodo{display:flex;gap:8px;flex-wrap:wrap}
+.atalhos-periodo .btn{min-height:46px;padding:8px 16px;font-size:.93rem;box-shadow:0 2px 8px rgba(10,73,184,.06)}
+.atalhos-periodo .ativo{background:var(--azul);color:#fff;border-color:var(--azul)}
+.info-periodo{font-size:.85rem;margin:6px 0 16px}
 
-/* Atalhos de período: botões de alternância (aria-pressed) */
-.atalhos-periodo{display:flex;flex-wrap:wrap;gap:var(--esp-2)}
-.pg-relatorios .atalhos-periodo .btn{font-weight:var(--peso-forte)}                             /* 700, como os demais botões das 5 telas */
-.pg-relatorios .atalhos-periodo .ativo{background:var(--cor-azul-principal);color:var(--cor-branco);border-color:var(--cor-azul-principal)} /* 5,28:1 */
-.info-periodo{margin:var(--esp-3) 0 var(--esp-6);font-size:var(--texto-14)}
-
-/* Aviso de período inválido */
-.erro-periodo{--ic:var(--ic-alerta);display:flex;align-items:center;gap:var(--esp-2);margin:var(--esp-3) 0 0;padding:var(--esp-3) var(--esp-4);border:1px solid #f3cf9b;border-radius:var(--raio-m);background:var(--cor-alerta-fundo);color:var(--cor-alerta);font-size:var(--texto-14);font-weight:var(--peso-medio)} /* 6,5:1 */
-.erro-periodo[hidden]{display:none}
-
-/* ===== Indicadores (chip pastel com ícone; clicar filtra a tabela) ===== */
-.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--esp-4);margin-bottom:var(--esp-6)}
-.kpi{display:flex;align-items:center;gap:var(--esp-3);min-width:0;min-height:96px;padding:var(--esp-4) var(--esp-4);background:var(--cor-superficie);border:1px solid var(--cor-borda);border-radius:var(--raio-cartao);box-shadow:var(--sombra-cartao);font:inherit;text-align:left;color:var(--cor-texto-2);cursor:pointer;transition:transform var(--transicao),box-shadow var(--transicao),border-color var(--transicao)}
-.kpi:hover{border-color:var(--cor-azul-superficie);transform:translateY(-2px)}
-.kpi[aria-pressed=true]{border-color:var(--cor-azul-principal);box-shadow:inset 0 0 0 1px var(--cor-azul-principal),var(--sombra-cartao);background:#f6f9ff}
-.kpi-icone{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:16px;background:var(--cor-azul-claro);color:var(--cor-azul-principal)}
-.kpi-icone .ic{width:26px;height:26px}
-.kpi.AGENDADO .kpi-icone{background:var(--cor-alerta-fundo);color:#c26a00}
-.kpi.CONFIRMADO .kpi-icone{background:var(--cor-info-fundo);color:var(--cor-azul-principal)}
-.kpi.CONCLUIDO .kpi-icone{background:var(--cor-sucesso-fundo);color:#2e9e4f}
-.kpi.CANCELADO .kpi-icone{background:var(--cor-erro-fundo);color:#d93025}
-.kpi-texto{min-width:0;font-size:var(--texto-14);font-weight:var(--peso-medio);line-height:1.25;overflow-wrap:break-word}     /* 6,36:1; só quebra palavra se ela não couber inteira */
-.kpi-texto strong{display:block;font-family:var(--fonte-titulo);font-size:1.875rem;font-weight:var(--peso-titulo-marca);letter-spacing:-.02em;line-height:1.05;color:var(--cor-titulo)}
+/* ===== Cartões de indicadores (clicáveis) ===== */
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.kpi{display:flex;align-items:center;gap:14px;min-width:0;min-height:84px;background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:0 6px 18px rgba(10,73,184,.08);padding:14px 16px;text-align:left;font:inherit;color:var(--cinza);cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s}
+.kpi:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(10,73,184,.13)}
+.kpi[aria-pressed=true]{border-color:var(--laranja);background:#fffaf2}
+.kpi-icone{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;flex:none;background:#e6eefc;color:#1b63e6}
+.kpi-icone .ic{width:27px;height:27px}
+.kpi.AGENDADO .kpi-icone{background:#fff0dc;color:#f28a0c}
+.kpi.CONFIRMADO .kpi-icone{background:#e2edff;color:#1b63e6}
+.kpi.CONCLUIDO .kpi-icone{background:#dcf5e3;color:#2e9e4f}
+.kpi.CANCELADO .kpi-icone{background:#fde3e1;color:#e53935}
+.kpi-texto{font-size:.9rem;line-height:1.2;min-width:0}
+.kpi-texto strong{display:block;font-size:1.8rem;font-weight:800;color:var(--azul);line-height:1.1}
 
 /* ===== Cartões (gráficos e detalhamento) ===== */
-.pg-relatorios .rel-pagina .bloco{position:relative;padding:var(--esp-6) var(--esp-8) var(--esp-8);background:var(--cor-superficie);border:1px solid var(--cor-borda);border-radius:var(--raio-cartao);box-shadow:var(--sombra-cartao)}
-.pg-relatorios .rel-pagina .bloco h2{font-family:var(--fonte-titulo);font-size:1.25rem;font-weight:var(--peso-titulo-marca);letter-spacing:-.01em;line-height:1.25;color:var(--cor-titulo)}
-.dica{margin:var(--esp-1) 0 var(--esp-4);font-size:var(--texto-14);color:var(--cor-texto-2)}
+.rel-pagina .bloco{position:relative;border-radius:20px;box-shadow:0 8px 26px rgba(10,73,184,.08);padding:20px 22px}
+.rel-pagina .bloco h2{display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:800;color:var(--azul)}
+.cartao-grafico h2{padding-right:40px}
+.tit-ic{width:34px;height:34px;border-radius:11px;background:#eaf2ff;color:#1b63e6;display:grid;place-items:center;flex:none}
+.tit-ic svg{width:19px;height:19px;fill:currentColor}
+.pata-canto{position:absolute;top:16px;right:18px;width:30px;height:30px;fill:#cfe0fb}
+.dica{font-size:.8rem;color:var(--cinza);margin:4px 0 14px}
 
 /* ===== Gráficos ===== */
-.graficos{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--esp-6);margin-bottom:var(--esp-6)}
+.graficos{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;margin-bottom:20px}
 
-/* Barras: a escala (linhas e números do eixo) usa a mesma altura das colunas (196px = 170 + espaço do valor; ver ALTURA_BARRA no JS) */
-.barras-graf{position:relative;padding-left:36px}
+/* Barras: a escala (linhas e números do eixo) usa a mesma altura das colunas (196px = 170 + espaço do valor) */
+.barras-graf{position:relative;padding-left:30px}
 .barras-grade{position:absolute;left:0;right:0;top:2px;height:196px;pointer-events:none}
-.barras-grade span{position:absolute;left:36px;right:0;height:0;border-top:1px solid var(--cor-borda)}
-.barras-grade span:first-child{border-top:2px solid var(--cor-azul-superficie)}
-.barras-grade b{position:absolute;left:-36px;width:28px;text-align:right;transform:translateY(-50%);font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-texto-2)}
-.barras-v{position:relative;display:flex;align-items:flex-start;gap:var(--esp-3);padding:0 4px}
-.bv{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:var(--esp-2);padding:0 2px 6px;background:none;border:2px solid transparent;border-radius:var(--raio-m);font:inherit;cursor:pointer;transition:background var(--transicao)}
+.barras-grade span{position:absolute;left:30px;right:0;height:0;border-top:1px solid #e3ebf7}
+.barras-grade span:first-child{border-top:2px solid #c9d8ef}
+.barras-grade b{position:absolute;left:-30px;width:22px;text-align:right;transform:translateY(-50%);font-size:.75rem;font-weight:600;color:var(--cinza)}
+.barras-v{position:relative;display:flex;align-items:flex-start;gap:12px;padding:0 4px}
+.bv{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:2px solid transparent;border-radius:12px;font:inherit;cursor:pointer;padding:0 2px 6px;transition:background .15s}
 .bv-plot{height:196px;width:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
-.bv:hover{background:rgba(238,244,255,.7)}
-.bv[aria-pressed=true]{border-color:var(--cor-azul-principal);background:var(--cor-azul-claro)}
-.bv .valor{margin-bottom:4px;font-family:var(--fonte-titulo);font-size:var(--texto-16);font-weight:var(--peso-titulo-marca);line-height:1.2;color:var(--cor-titulo)}
-.bv .coluna{display:block;width:100%;max-width:72px;border-radius:12px 12px 4px 4px;background:var(--cor);background:linear-gradient(180deg,color-mix(in srgb,var(--cor) 80%,#fff),var(--cor))}
-.bv .nome{min-height:2.3em;font-size:var(--texto-14);font-weight:var(--peso-medio);line-height:1.2;color:var(--cor-texto);text-align:center;word-break:normal;overflow-wrap:normal}
-/* Cartão estreito, SÓ abaixo de 1200px (tablet, celular): barras horizontais. No desktop o gráfico é sempre vertical. */
-/* (antes:) Cartão estreito (tablet, celular): barras horizontais, com o nome inteiro em cima de cada barra */
+.bv:hover{background:rgba(234,242,255,.6)}
+.bv[aria-pressed=true]{border-color:var(--laranja);background:rgba(255,246,232,.75)}
+.bv .valor{font-weight:800;color:var(--azul);margin-bottom:4px;line-height:1.2}
+.bv .coluna{display:block;width:100%;max-width:76px;border-radius:10px 10px 3px 3px;background:var(--cor);background:linear-gradient(180deg,color-mix(in srgb,var(--cor) 78%,#fff),var(--cor));box-shadow:0 4px 10px rgba(10,73,184,.12)}
+.bv .nome{font-size:.82rem;font-weight:600;color:var(--texto);text-align:center;word-break:break-word;line-height:1.15;min-height:2.3em}
+.bv .nome{word-break:normal;overflow-wrap:normal}
+/* Card estreito (tablet, celular): as barras ficam horizontais, com o nome inteiro em cima de cada barra */
 .cartao-grafico{container-type:inline-size}
-@media(max-width:1199px){
-  @container (max-width:560px){
-    .barras-graf{padding-left:0}
-    .barras-grade{display:none}
-    .barras-v{flex-direction:column;align-items:stretch;gap:4px;padding:0}
-    .bv{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"nome valor" "barra barra";align-items:center;gap:4px 10px;padding:8px 10px;text-align:left}
-    .bv-plot{display:contents}
-    .bv .nome{grid-area:nome;min-height:0;text-align:left;font-size:var(--texto-14);overflow-wrap:anywhere}
-    .bv .valor{grid-area:valor;margin:0}
-    .bv .coluna{grid-area:barra;height:14px!important;width:var(--pct);min-width:8px;max-width:none;border-radius:999px;background:var(--cor);background:linear-gradient(90deg,color-mix(in srgb,var(--cor) 80%,#fff),var(--cor))}
-  }
+@container (max-width:560px){
+  .barras-graf{padding-left:0}
+  .barras-grade{display:none}
+  .barras-v{flex-direction:column;align-items:stretch;gap:4px;padding:0}
+  .bv{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"nome valor" "barra barra";align-items:center;gap:4px 10px;padding:8px 10px;text-align:left}
+  .bv-plot{display:contents}
+  .bv .nome{grid-area:nome;text-align:left;min-height:0;font-size:.88rem;overflow-wrap:anywhere}
+  .bv .valor{grid-area:valor;margin:0}
+  .bv .coluna{grid-area:barra;height:14px!important;width:var(--pct);min-width:8px;max-width:none;border-radius:999px;background:var(--cor);background:linear-gradient(90deg,color-mix(in srgb,var(--cor) 78%,#fff),var(--cor))}
 }
-.vazio-grafico{padding:40px 10px;text-align:center;font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-texto-2)}
+.vazio-grafico{padding:40px 10px;text-align:center;color:var(--cinza);font-weight:600}
 
 /* Rosca */
-.rosca-area{display:flex;align-items:center;justify-content:center;gap:var(--esp-6);flex-wrap:wrap;min-height:230px}
-.rosca{display:flex;align-items:center;justify-content:center;flex:none;width:196px;height:196px;border-radius:50%;background:var(--cor-azul-superficie)}
-.rosca .miolo{display:flex;flex-direction:column;align-items:center;justify-content:center;width:120px;height:120px;border-radius:50%;background:var(--cor-superficie);font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-texto-2)}
-.rosca .miolo strong{font-family:var(--fonte-titulo);font-size:2.25rem;font-weight:var(--peso-titulo-marca);line-height:1;color:var(--cor-titulo)}
-.legenda{list-style:none;display:grid;gap:4px;flex:1 1 180px;min-width:0;max-width:300px}
-.legenda button{display:flex;align-items:center;gap:var(--esp-3);width:100%;min-height:44px;padding:6px var(--esp-3);border:2px solid transparent;border-radius:var(--raio-m);background:none;font:inherit;font-size:.9375rem;font-weight:var(--peso-medio);color:var(--cor-texto);text-align:left;cursor:pointer}
-.legenda button:hover{background:var(--cor-azul-claro)}
-.legenda button[aria-pressed=true]{border-color:var(--cor-azul-principal);background:var(--cor-azul-claro)}
-.legenda i{flex:none;width:14px;height:14px;border-radius:50%}
-.legenda .pct{margin-left:auto;font-weight:var(--peso-forte);color:var(--cor-titulo)}
+.rosca-area{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;min-height:230px}
+.rosca{width:196px;height:196px;border-radius:50%;background:#e3eaf6;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 18px rgba(10,73,184,.12)}
+.rosca .miolo{width:116px;height:116px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--azul);font-weight:700;font-size:.92rem;box-shadow:inset 0 2px 8px rgba(10,73,184,.1)}
+.rosca .miolo strong{font-size:2.2rem;font-weight:800;color:var(--azul);line-height:1}
+.legenda{list-style:none;display:grid;gap:4px;flex:1 1 170px;min-width:0;max-width:290px}
+.legenda button{display:flex;align-items:center;gap:10px;width:100%;min-height:42px;padding:6px 10px;border-radius:10px;border:2px solid transparent;background:none;font:inherit;font-weight:600;color:var(--texto);cursor:pointer;text-align:left}
+.legenda button:hover{background:#f1f6ff}
+.legenda button[aria-pressed=true]{border-color:var(--laranja);background:#fffaf2}
+.legenda i{width:14px;height:14px;border-radius:50%;flex:none}
+.legenda .pct{margin-left:auto;font-weight:700;color:var(--azul)}
 
-/* ===== Detalhamento (tabela) ===== */
-.cab-detalhe{display:flex;justify-content:space-between;align-items:center;gap:var(--esp-3);flex-wrap:wrap}
-.cab-detalhe .acoes{gap:var(--esp-2)}
-.pg-relatorios .detalhamento .tabela{margin-top:var(--esp-4);border:1px solid var(--cor-borda);border-radius:16px;box-shadow:none}
-.pg-relatorios .t-itens .cab,.pg-relatorios .t-itens .reg{grid-template-columns:105px 75px minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.2fr) 150px;padding:var(--esp-3) var(--esp-4)}
-.pg-relatorios .t-itens .cab{background:var(--cor-azul-claro);font-size:var(--texto-12);font-weight:var(--peso-forte);letter-spacing:var(--espaco-letra-rotulo);text-transform:uppercase;color:var(--cor-texto-2)} /* 5,76:1 */
-.pg-relatorios .t-itens .reg{border-top:1px solid var(--cor-borda);font-size:.9375rem;color:var(--cor-texto);transition:background var(--transicao)}
-.pg-relatorios .t-itens .reg:hover{background:#f6f9ff}
-.pg-relatorios .t-itens .reg strong{font-weight:var(--peso-medio);color:var(--cor-titulo)}
-.pg-relatorios .tabela .rot{color:var(--cor-texto-2);font-size:var(--texto-14)}
-.pg-relatorios .tabela .peq{font-size:var(--texto-14);color:var(--cor-texto-2)}              /* tabelas.css usa .85rem: aqui o mínimo de leitura é 14px */
-.pg-relatorios .status{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 6px;border-radius:var(--raio-pill);font-size:var(--texto-14);font-weight:var(--peso-forte)}
-.pg-relatorios .status.confirmado{background:var(--cor-info-fundo);color:var(--cor-info)}   /* 6,73:1 */
-.pg-relatorios .status .ic{width:16px;height:16px;flex:none;color:currentColor}
-.chips{display:flex;flex-wrap:wrap;align-items:center;gap:var(--esp-2);margin:var(--esp-3) 0 0}
+/* ===== Tabela de detalhamento ===== */
+.cab-detalhe{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.cab-detalhe .acoes{gap:8px}
+.cab-detalhe .acoes .btn{min-height:42px}
+.detalhamento .tabela{box-shadow:none;border:1px solid #e3ebf7;border-radius:14px;margin-top:12px}
+.rel-pagina .t-itens .cab,.rel-pagina .t-itens .reg{grid-template-columns:105px 75px minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.2fr) 150px;padding:12px 18px}
+.rel-pagina .t-itens .cab{background:#eef4ff;font-weight:800;font-size:.88rem}
+.rel-pagina .t-itens .reg{border-top:1px solid #edf2fa;font-size:.93rem;transition:background .12s}
+.rel-pagina .t-itens .reg:hover{background:#f5f9ff}
+.rel-pagina .t-itens .reg strong{color:var(--texto);font-weight:600}
+.t-itens .status{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 6px;font-size:.8rem}
+.t-itens .status .ic{width:16px;height:16px;flex:none}
+.t-itens .status.pendente .ic{color:#f28a0c}
+.t-itens .status.confirmado .ic{color:#1b63e6}
+.t-itens .status.concluido .ic{color:#2e9e4f}
+.t-itens .status.cancelado .ic{color:#e53935}
+.chips{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 2px}
 .chips:empty{display:none}
-.chip{display:inline-flex;align-items:center;gap:6px;padding:2px 4px 2px var(--esp-3);border:1px solid var(--cor-azul-superficie);border-radius:var(--raio-pill);background:var(--cor-azul-claro);font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-azul-intenso)} /* 7,4:1 */
-.chip button{display:grid;place-items:center;min-width:32px;min-height:32px;border:0;border-radius:50%;background:none;font-size:1.15rem;line-height:1;color:inherit;cursor:pointer}
-.chip button:hover{background:var(--cor-azul-superficie)}
-.pg-relatorios .chips .link{min-height:32px;padding:0 var(--esp-1);color:var(--cor-azul-principal);font-weight:var(--peso-medio);font-size:var(--texto-14);text-underline-offset:3px}
-.rodape-tabela{display:flex;justify-content:space-between;align-items:center;gap:var(--esp-3);flex-wrap:wrap;margin-top:var(--esp-4);font-size:var(--texto-14)}
-.paginacao{display:flex;flex-wrap:wrap;gap:6px}
-.paginacao button{min-width:40px;height:40px;border:1.5px solid var(--cor-borda-controle);border-radius:var(--raio-m);background:var(--cor-superficie);font:inherit;font-weight:var(--peso-forte);color:var(--cor-azul-principal);cursor:pointer}
-.paginacao button:hover:not(:disabled){background:var(--cor-azul-claro)}
-.paginacao button.atual{background:var(--cor-azul-principal);border-color:var(--cor-azul-principal);color:var(--cor-branco)} /* 5,28:1 */
+.chip{display:inline-flex;align-items:center;gap:6px;background:#eaf1fd;color:var(--azul);border-radius:999px;padding:4px 6px 4px 12px;font-weight:600;font-size:.85rem}
+.chip button{background:none;border:0;cursor:pointer;font-size:1.1rem;line-height:1;color:inherit;min-width:28px;min-height:28px}
+.rodape-tabela{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;font-size:.85rem}
+.paginacao{display:flex;gap:6px;flex-wrap:wrap}
+.paginacao button{min-width:38px;height:38px;border-radius:10px;border:1.5px solid var(--borda);background:#fff;color:var(--azul);font:inherit;font-weight:700;cursor:pointer}
+.paginacao button:hover:not(:disabled){background:#eef4ff}
+.paginacao button.atual{background:#1b63e6;border-color:#1b63e6;color:#fff;box-shadow:0 4px 10px rgba(27,99,230,.3)}
 .paginacao button:disabled{opacity:.45;cursor:not-allowed}
+.vazio .btn{margin-top:12px}
+.vazio .sub{font-weight:400;margin-top:4px}
 
-/* ===== Estados: carregando, vazio, erro, sem dados, sucesso — mesma família ===== */
-.pg-relatorios #estado>:is(.carregando,.vazio,.aviso){margin:0 0 var(--esp-6)}
-.pg-relatorios :is(#estado,#itens)>:is(.carregando,.vazio){display:grid;justify-items:center;gap:var(--esp-2);padding:var(--esp-12) var(--esp-6);background:var(--cor-superficie);border:1px solid var(--cor-borda);border-radius:var(--raio-cartao);box-shadow:var(--sombra-cartao);text-align:center;font-size:.9375rem;font-weight:var(--peso-medio);color:var(--cor-texto)}
-.pg-relatorios #itens>:is(.carregando,.vazio){margin-top:var(--esp-4);box-shadow:none}
-.pg-relatorios .carregando{color:var(--cor-texto-2)}
-.pg-relatorios .carregando::before{border-color:var(--cor-azul-superficie);border-top-color:var(--cor-azul-principal);margin-bottom:var(--esp-1)}
-/* O 1º span do .vazio traz um emoji vindo do JS (estados.js / relatorios.js, fora do escopo desta etapa):
-   aqui ele vira um chip pastel com ícone de traço (o texto do emoji fica oculto visualmente). */
-.pg-relatorios .vazio>span:first-child{position:relative;display:block;width:64px;height:64px;margin-bottom:var(--esp-2);border-radius:20px;background:var(--cor-azul-claro);font-size:0;color:transparent}
-.pg-relatorios .vazio>span:first-child::after{content:"";position:absolute;inset:18px;background:var(--cor-azul-principal);-webkit-mask:var(--ic-calendario) center/contain no-repeat;mask:var(--ic-calendario) center/contain no-repeat}
-.pg-relatorios .vazio:has([data-tentar],[data-recarregar])>span:first-child{background:var(--cor-erro-fundo)}
-.pg-relatorios .vazio:has([data-tentar],[data-recarregar])>span:first-child::after{background:var(--cor-erro);-webkit-mask-image:var(--ic-alerta);mask-image:var(--ic-alerta)}
-.pg-relatorios .vazio .titulo-estado{font-family:var(--fonte-titulo);font-size:1.125rem;font-weight:var(--peso-titulo-marca);color:var(--cor-titulo)}
-.pg-relatorios .vazio .texto-estado{font-size:.9375rem;font-weight:var(--peso-normal);color:var(--cor-texto-2);margin:0}
-.pg-relatorios .vazio .btn{margin-top:var(--esp-3)}
-/* Período válido sem registros (aviso informativo) */
-.pg-relatorios .aviso.info{--ic:var(--ic-info);display:flex;align-items:flex-start;gap:var(--esp-3);padding:var(--esp-4) var(--esp-6);background:var(--cor-superficie);border:1px solid var(--cor-borda);border-radius:var(--raio-cartao);box-shadow:var(--sombra-cartao);font-size:.9375rem;font-weight:var(--peso-forte);color:var(--cor-titulo)}
-.pg-relatorios .aviso.info::before{width:22px;height:22px;margin-top:1px;background:var(--cor-azul-principal)}
-.pg-relatorios .aviso small{display:block;margin-top:2px;font-size:var(--texto-14);font-weight:var(--peso-normal);color:var(--cor-texto-2)}
-/* Mensagem de sucesso/erro (ex.: exportação) com ícone de traço no lugar do símbolo de base.css */
-.pg-relatorios .mensagem{gap:var(--esp-3);margin:0 0 var(--esp-4);border-radius:var(--raio-m);font-size:.9375rem}
-.pg-relatorios .mensagem.sucesso{--ic:var(--ic-check);background:var(--cor-sucesso-fundo);color:var(--cor-sucesso);border-color:#b7e2bd}  /* 6,3:1 */
-.pg-relatorios .mensagem.erro{--ic:var(--ic-alerta);background:var(--cor-erro-fundo);color:var(--cor-erro)}
-.pg-relatorios .mensagem::before{font-size:0}
-.pg-relatorios .mensagem button{min-width:32px;min-height:32px;border-radius:50%}
+/* ===== Estados (carregando, erro, sem dados) ===== */
+#estado>.carregando,#estado>.vazio{background:#fff;border-radius:20px;box-shadow:0 8px 26px rgba(10,73,184,.08);margin:6px 0 20px}
+#itens>.carregando{padding:40px 20px}
+/* base.css aumenta todo "span" dentro de .vazio (feito para o ícone); aqui o texto volta ao tamanho normal */
+.rel-pagina .vazio .texto-estado{font-size:1rem;margin-top:4px}
 
-/* ===== Janela de detalhes ===== */
-.pg-relatorios #dlg-detalhes{padding:var(--esp-8) var(--esp-6)}
-.pg-relatorios #dlg-detalhes h2{font-family:var(--fonte-titulo);font-size:1.375rem;font-weight:var(--peso-titulo-marca);color:var(--cor-titulo);margin-bottom:var(--esp-4)}
-#dlg-detalhes .dados{gap:0 var(--esp-4);margin:0}
-#dlg-detalhes .dados dt,#dlg-detalhes .dados dd{padding:10px 0;border-bottom:1px solid var(--cor-borda);font-size:.9375rem}
-#dlg-detalhes .dados dt{color:var(--cor-texto-2);font-weight:var(--peso-medio)}
-#dlg-detalhes .dados dd{color:var(--cor-texto);overflow-wrap:anywhere}
+/* Validação do período e avisos */
+.campo-data.invalido{border-color:#d93025;box-shadow:0 0 0 2px rgba(217,48,37,.35)}
+.erro-periodo{display:flex;align-items:center;gap:8px;background:#fff6dd;color:#8a5a00;border:1px solid #f2d27a;border-radius:14px;padding:10px 14px;font-weight:600;margin:8px 0 6px}
+.erro-periodo::before{content:"⚠️"}
+.aviso{display:flex;gap:10px;align-items:flex-start;border-radius:16px;padding:14px 18px;margin:10px 0 18px;font-weight:600}
+.aviso.info{background:#fff;color:var(--azul);border:1px solid #b9d3fb;box-shadow:0 6px 18px rgba(10,73,184,.06)}
+.aviso.info::before{content:"ℹ️"}
+.aviso small{display:block;font-weight:400;color:var(--cinza)}
 
-/* ===== Responsivo ===== */
-/* Margem livre estreita (< 1300px): as patinhas não cabem ao lado do conteúdo */
-/* Patinha da margem direita: só quando há margem livre suficiente */
-@media(max-width:1599px){.rel-pata.pa3{display:none}}
-/* ===== Desktop (≥1200px): coluna de pets grandes à ESQUERDA + todo o conteúdo de Relatórios à DIREITA =====
-   A faixa vira display:contents, então título e pets entram direto na grade da página (o HTML e os hooks não mudam;
-   no HTML o título continua antes dos pets, então leitor de tela e teclado mantêm a ordem).
-   Sem sticky/z-index/transform: o multiply da foto continua misturando direto com o fundo. */
-@media(min-width:1200px){
-  /* Página larga: sem caixa central. Pets junto da borda esquerda (--x0) e o conteúdo ocupa todo o resto até o respiro direito (--xd). */
-  .pg-relatorios .rel-container{--col-pets:300px;--x0:16px;--xd:24px;position:relative;display:grid;max-width:none;margin:0;padding:0 var(--xd) 0 var(--x0);grid-template-columns:minmax(0,var(--col-pets)) minmax(0,1fr);grid-template-areas:"pets topo" "pets conteudo";column-gap:var(--esp-8);align-items:start}
-  .rel-faixa{display:contents}
-  .rel-topo{grid-area:topo;padding:var(--esp-8) 0 var(--esp-6)}
-  .rel-conteudo{grid-area:conteudo;min-width:0}
-  /* Pets acompanham a rolagem (sticky), abaixo do cabeçalho fixo (64px) e sempre dentro da coluna esquerda.
-     sticky cria um contexto de empilhamento próprio: o multiply passaria a misturar só com o fundo DESTE bloco.
-     Por isso o bloco recebe o MESMO degradê da página, preso à janela (fixed) — os pixels coincidem e a mistura continua invisível —
-     e leva junto a mancha azul que fica atrás dos pets (some nas bordas: closest-side). */
-  .pg-relatorios .rel-pagina{background-attachment:fixed}
-  .rel-pets{grid-area:pets;align-self:start;position:sticky;top:88px;margin:150px 0 0;background:radial-gradient(closest-side,rgba(42,122,245,.16),rgba(42,122,245,0)) center/100% 100% no-repeat scroll,var(--grad-fundo) fixed}
-  .rel-blob.b1{display:none}
-  /* gráfico de barras: cartão mais largo e barras verticais sempre (nomes longos quebram por sílaba, sem invadir a barra vizinha) */
-  .graficos{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
-  /* 5 ou 6 serviços: o gráfico de barras ocupa a linha toda (a rosca desce) para cada nome caber inteiro sob a sua barra */
-  .graficos:has(.barras-v > .bv:nth-child(5)){grid-template-columns:minmax(0,1fr)}
-  .barras-v{gap:var(--esp-2)}
-  .bv .nome{-webkit-hyphens:auto;hyphens:auto;overflow-wrap:break-word}
-  /* camada decorativa: alto da página, larga como a janela; posições contadas a partir da borda do conteúdo (--x0) */
-  .rel-deco{bottom:auto;height:720px}
-  .rel-onda{display:none}
-  .rel-blob.b1{left:calc(var(--x0) - 150px);top:70px;width:580px;height:580px}
-  .rel-pata.pa1{left:calc(var(--x0) + 18px);top:30px}
-  .rel-pata.pa2{left:calc(var(--x0) + 128px);top:92px}
-  .rel-pata.pa3{right:calc((50vw - 700px) * .3)}
-  /* coluna de conteúdo mais estreita: indicadores compactos para os rótulos caberem inteiros */
-  .kpi{gap:var(--esp-2);padding:var(--esp-3) 10px}
-  .kpi-icone{width:40px;height:40px;border-radius:13px}
-  .kpi-icone .ic{width:22px;height:22px}
-  .kpi-texto strong{font-size:1.625rem}
+/* Janela de detalhes */
+#dlg-detalhes .dados{gap:0 14px}
+#dlg-detalhes .dados dt,#dlg-detalhes .dados dd{padding:8px 0;border-bottom:1px solid #edf2fa}
+
+/* ===== Telas largas (≥ 1280px): pets em coluna lateral, como na referência ===== */
+/* Os pets começam na altura dos filtros (117px abaixo do título) e ficam ao lado de filtros, indicadores e gráficos.
+   Sem "sticky": ele isolaria o multiply e a foto voltaria a parecer um recorte. */
+@media(min-width:1280px){
+  .rel-container{max-width:1480px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
+  .rel-pets{margin-top:112px}
 }
-@media(min-width:1366px){
-  .pg-relatorios .rel-container{--col-pets:340px}
-}
-@media(min-width:1440px){
-  .pg-relatorios .rel-container{--col-pets:380px;--xd:32px}
-  .kpi{gap:var(--esp-3);padding:var(--esp-4) var(--esp-4)}
-  .kpi-icone{width:48px;height:48px;border-radius:16px}
-  .kpi-icone .ic{width:26px;height:26px}
-  .kpi-texto strong{font-size:1.875rem}
+/* 1280–1439px: coluna mais estreita para os gráficos manterem a mesma largura de antes
+   (abaixo de 560px o cartão do gráfico muda para o modo compacto). Os pets avançam 14px
+   sobre a margem livre à esquerda para ganhar tamanho sem tirar espaço do conteúdo. */
+@media(min-width:1280px) and (max-width:1439px){
+  .rel-container{grid-template-columns:256px minmax(0,1fr);gap:24px}
+  .rel-pets{width:calc(100% + 14px);margin-left:-14px}
 }
 @media(min-width:1600px){
-  .pg-relatorios .rel-container{--col-pets:420px}
-  /* (o conteúdo agora passa de 1100px aqui: os indicadores ficam no tamanho normal, como em 1440px) */
+  .rel-container{max-width:1580px;grid-template-columns:320px minmax(0,1fr);gap:36px}
 }
-/* Abaixo de 1200px: sem pets e sem patinhas/brilhos; fica só um fundo suave com onda */
-@media(max-width:1199px){
-  .rel-faixa{grid-template-columns:minmax(0,1fr);grid-template-areas:"topo";padding:var(--esp-6) 0 var(--esp-6)}
-  .rel-pets,.rel-pata,.rel-brilho{display:none}
-  .rel-blob.b1{left:auto;right:-140px;opacity:.7}
+/* Telas bem largas: há margem livre à esquerda, então os pets crescem para dentro dela (sem tocar no conteúdo) */
+@media(min-width:1800px){
+  .rel-pets{width:calc(100% + 70px);margin-left:-70px}
+}
+
+/* ===== Notebook e tablet (700–1279px): pets pequenos ao lado do título ===== */
+@media(max-width:1279px){
+  .rel-pets{position:absolute;top:-6px;right:20px;width:140px;pointer-events:none}
+  .rel-pets .faisca{width:30px;height:30px;left:-16px}
+  .rel-topo{padding-right:150px}
 }
 @media(max-width:1100px){
-  .kpi{gap:var(--esp-2);padding:var(--esp-3)}
-  .kpi-icone{width:42px;height:42px;border-radius:14px}
-  .kpi-icone .ic{width:22px;height:22px}
-  .kpi-texto strong{font-size:1.5rem}
+  .kpi{gap:10px;padding:12px}
+  .kpi-icone{width:42px;height:42px;border-radius:13px}
+  .kpi-icone .ic{width:23px;height:23px}
+  .kpi-texto strong{font-size:1.55rem}
+  .graficos{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 }
 @media(max-width:900px){
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -291,168 +207,53 @@
   .graficos{grid-template-columns:minmax(0,1fr)}
 }
 @media(max-width:800px){
+  .campo-data{flex:1 1 calc(50% - 6px);min-width:0}
+  .filtro-rel>.btn-laranja{flex:1 1 100%}
+  .atalhos-periodo{flex:1 1 100%}
+  .atalhos-periodo .btn{flex:1 1 auto}
   .rodape-tabela{justify-content:center}
   /* tabelas.css transforma as linhas em cartões: aqui só o acabamento */
-  .pg-relatorios .detalhamento .tabela{border:0;background:none;overflow:visible}
-  .pg-relatorios .t-itens .reg{grid-template-columns:1fr 1fr;margin-top:var(--esp-2);padding:var(--esp-3) var(--esp-4);border:1px solid var(--cor-borda);border-radius:16px;background:var(--cor-superficie)}
-  .pg-relatorios .t-itens .reg>:last-child{grid-column:1/-1}
-  .pg-relatorios .rel-pagina .bloco{padding:var(--esp-6)}
+  .detalhamento .tabela{border:0;background:none;overflow:visible}
+  .rel-pagina .t-itens .reg{grid-template-columns:1fr 1fr;border:1px solid #e3ebf7;border-radius:14px;background:#fff;margin-top:10px;padding:12px 14px}
+  .rel-pagina .t-itens .reg>:last-child{grid-column:1/-1}
 }
-@media(max-width:599px){
-  .pg-relatorios .rel-pagina{padding-bottom:calc(var(--esp-12) + 8px)}
-  .rel-faixa{padding:var(--esp-6) 0 var(--esp-4)}
-  .rel-blob.b2,.rel-onda{display:none}
-  .pg-relatorios .rel-topo .sub{font-size:var(--texto-16)}
-  .filtro-rel{padding:var(--esp-4)}
-  .campo-data{flex:1 1 100%;max-width:none}
-  #btn-gerar{flex:1 1 100%}
+
+/* ===== Celular ===== */
+@media(max-width:699px){
+  .rel-pets{display:none}
+  .rel-topo{padding-right:0}
+  .rel-topo h1{font-size:1.9rem}
+  .pata-deco.p1,.pata-deco.p2,.pata-deco.p3{display:none}
+  .pata-deco.p4{top:20px;right:4%;width:56px;height:56px}
+  .pata-deco.p5{top:110px}
+  .rel-deco .onda{height:110px}
+  .pata-onda{width:42px;height:42px}
+}
+@media(max-width:600px){
+  .rel-pagina{padding-top:22px}
+  .campo-data{flex:1 1 100%}
+  .kpis{grid-template-columns:minmax(0,1fr);gap:10px}
+  .kpi{min-height:70px}
+  .rel-pagina .bloco{padding:16px 14px;border-radius:18px}
   .atalhos-periodo .btn{flex:1 1 calc(50% - 4px)}
-  .kpis{gap:var(--esp-3)}
-  .kpi{min-height:80px;gap:var(--esp-2);padding:var(--esp-3) 10px}
-  .kpi-icone{width:36px;height:36px;border-radius:12px}
-  .kpi-icone .ic{width:20px;height:20px}
-  .pg-relatorios .rel-pagina .bloco{padding:var(--esp-4) var(--esp-4) var(--esp-6);border-radius:20px}
-  .rosca{width:172px;height:172px}
-  .rosca .miolo{width:104px;height:104px}
+  .paginacao{gap:4px}
+  .paginacao button{min-width:34px}
+  .rosca{width:170px;height:170px}
+  .rosca .miolo{width:102px;height:102px}
   .legenda{flex-basis:100%;max-width:none}
   .cab-detalhe .acoes{width:100%}
   .cab-detalhe .acoes .btn{flex:1 1 auto}
-  .paginacao{gap:4px}
-}
-@media(max-width:339px){
-  .kpis{grid-template-columns:minmax(0,1fr)}
-}
-/* =====================================================================
-   COMPOSIÇÃO AMPLIADA (direção da referência visual): fundo com profundidade, patinhas visíveis,
-   ondas no fim da página, ícones nos títulos dos cartões, pets com "chão" e trilha.
-   Só visual: nada aqui muda IDs, classes usadas pelo JS, textos ou comportamento.
-   ===================================================================== */
-.pg-relatorios{
-  --ic-pata:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/%3E%3Cellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/%3E%3Cellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/%3E%3Cellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/%3E%3Cpath d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/%3E%3C/svg%3E");
-  /* ícones (já coloridos) das pastilhas dos títulos e do campo de data */
-  --ic-barras-az:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231b63e6' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M5 20V12M10 20V5M15 20v-8M20 20V8'/%3E%3C/svg%3E");
-  --ic-rosca-az:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='7.5' fill='none' stroke='%231b63e6' stroke-width='3'/%3E%3Cpath d='M12 3a9 9 0 0 1 9 9h-5.2A3.8 3.8 0 0 0 12 8.2z' fill='%23f28a0c'/%3E%3C/svg%3E");
-  --ic-lista-az:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231b63e6' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M9 6.5h11M9 12h11M9 17.5h11M4.5 6.5h.01M4.5 12h.01M4.5 17.5h.01'/%3E%3C/svg%3E");
-  --ic-calendario-az:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231b63e6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2.5'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E");
-  /* ondas do fim da página: duas camadas azuis + onda laranja à direita com patinha branca (mesma linguagem do Painel do Administrador) */
-  --onda-azul:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cpath d='M0 64C240 18 480 108 760 66S1200 8 1440 48V160H0Z' fill='%232a7af5' fill-opacity='.10'/%3E%3Cpath d='M0 108C300 66 560 140 860 102S1260 58 1440 88V160H0Z' fill='%231b63e6' fill-opacity='.13'/%3E%3C/svg%3E");
-  --onda-laranja:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23f7931e'/%3E%3Cstop offset='1' stop-color='%23ffb347'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 160C90 150 150 120 210 80S330 10 400 0V160Z' fill='url(%23g)'/%3E%3C/svg%3E");
-  --pata-branca:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%23fff'%3E%3Cellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/%3E%3Cellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/%3E%3Cellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/%3E%3Cellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/%3E%3Cpath d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/%3E%3C/svg%3E");
-  /* fundo com profundidade: luz azul no alto à direita e à esquerda, sobre o degradê de base.css */
-  --fundo-rel:radial-gradient(900px 560px at 88% 6%,rgba(42,122,245,.16),rgba(42,122,245,0) 70%),radial-gradient(760px 640px at 4% 62%,rgba(27,99,230,.10),rgba(27,99,230,0) 70%),var(--grad-fundo);
-}
-.pg-relatorios .rel-pagina{background:var(--fundo-rel);padding-bottom:150px}
-.pg-relatorios .rel-container{position:relative}
-/* Ondas: atrás do conteúdo (o container vem depois no HTML e é posicionado), dentro do espaço reservado no fim da página */
-.pg-relatorios .rel-pagina::before{content:"";position:absolute;left:0;right:0;bottom:0;height:170px;pointer-events:none;
-  background:var(--pata-branca) right 30px bottom 52px/50px 50px no-repeat,var(--onda-laranja) right bottom/min(440px,40vw) 150px no-repeat,var(--onda-azul) 0 100%/100% 100% no-repeat}
-
-/* Patinhas: mais presença (três tons e opacidades), composição assimétrica */
-.rel-pata{fill:#b9d1f9}
-.rel-pata.pa1{fill:#aac7f7}
-.rel-pata.pa2{fill:#c2d7fa;opacity:1}
-.rel-pata.pa4,.rel-pata.pa5,.rel-pata.pa6,.rel-pata.pa7,.rel-pata.pa8,.rel-brilho.br3,.rel-brilho.br4,.rel-blob.b3,.rel-blob.b4{display:none}
-.rel-blob.b3{width:560px;height:560px;right:-200px;top:520px;background:radial-gradient(closest-side,rgba(42,122,245,.14),rgba(42,122,245,0))}
-.rel-blob.b4{width:480px;height:480px;right:calc(var(--xd,20px) + 160px);bottom:20px;top:auto;background:radial-gradient(closest-side,rgba(27,99,230,.10),rgba(27,99,230,0))}
-
-/* Cartões: pastilha com ícone no título; patinha d'água no canto dos gráficos */
-.pg-relatorios .rel-pagina .bloco h2{display:flex;align-items:center;gap:var(--esp-3)}
-.pg-relatorios .rel-pagina .bloco h2::before{content:"";flex:none;width:40px;height:40px;border-radius:13px;background:var(--ic-barras-az) center/22px 22px no-repeat,var(--cor-azul-claro);box-shadow:inset 0 0 0 1px var(--cor-azul-superficie)}
-.pg-relatorios #t-status::before{background-image:var(--ic-rosca-az)}
-.pg-relatorios #t-detalhe::before{background-image:var(--ic-lista-az)}
-.pg-relatorios .cartao-grafico{overflow:hidden}
-.pg-relatorios .cartao-grafico h2{padding-right:36px}
-.pg-relatorios .cartao-grafico::after{content:"";position:absolute;top:18px;right:18px;width:34px;height:34px;background:#c6daf9;-webkit-mask:var(--ic-pata) center/contain no-repeat;mask:var(--ic-pata) center/contain no-repeat;rotate:16deg;pointer-events:none}
-.pg-relatorios .detalhamento{background:linear-gradient(180deg,#fbfdff,var(--cor-superficie) 120px)}
-/* Rosca com halo suave (mais presença, mesma informação) */
-.rosca{box-shadow:0 0 0 10px #f1f6ff,0 14px 30px rgba(10,73,184,.14)}
-/* Campos de data: ícone de calendário dentro do campo (o seletor nativo continua à direita) */
-.pg-relatorios .campo-data input{padding-left:44px;background:var(--ic-calendario-az) 14px 50%/20px 20px no-repeat,var(--cor-superficie)}
-.pg-relatorios .campo-data.invalido input{background:var(--ic-calendario-az) 14px 50%/20px 20px no-repeat,var(--cor-erro-fundo)}
-
-/* Pets: "chão" e trilha de patinhas sob a foto */
-.rel-trilha{display:block;width:62%;height:auto;margin:-4px 0 0 18%;fill:#a9c6f6;overflow:visible;
-  background:radial-gradient(48% 16px at 50% 0,rgba(11,58,158,.16),rgba(11,58,158,0)) 0 0/100% 40px no-repeat}
-.rel-trilha use:nth-child(2){opacity:.8}
-.rel-trilha use:nth-child(3){opacity:.62}
-.rel-trilha use:nth-child(4){opacity:.46}
-.rel-trilha use:nth-child(5){opacity:.32}
-
-@media(min-width:1200px){
-  /* o bloco fixo dos pets repete o MESMO fundo da página (preso à janela), camada por camada, para a mistura continuar invisível */
-  .pg-relatorios .rel-pagina{background-attachment:fixed}
-  .rel-pets{background-image:radial-gradient(closest-side,rgba(42,122,245,.16),rgba(42,122,245,0)),var(--fundo-rel);
-    background-attachment:scroll,fixed,fixed,fixed;background-size:100% 100%,auto,auto,auto;background-position:center,0 0,0 0,0 0;background-repeat:no-repeat}
-  /* camada decorativa da altura da página inteira */
-  .rel-deco{bottom:0;height:auto}
-  .rel-pata.pa4,.rel-pata.pa5,.rel-pata.pa6,.rel-brilho.br3,.rel-brilho.br4,.rel-blob.b3,.rel-blob.b4{display:block}
-  /* faixa do título, à direita (longe do texto): uma patinha grande, uma média, uma pequena e dois brilhos */
-  .rel-pata.pa4{width:96px;height:96px;right:calc(var(--xd) + 60px);top:46px;rotate:14deg;fill:#b3cdf9}
-  .rel-pata.pa5{width:46px;height:46px;right:calc(var(--xd) + 236px);top:116px;rotate:-16deg;fill:#c4d8fa}
-  .rel-pata.pa6{width:30px;height:30px;right:calc(var(--xd) + 200px);top:34px;rotate:24deg;fill:#cfe0fc}
-  .rel-brilho.br3{width:22px;height:22px;right:calc(var(--xd) + 30px);top:140px;rotate:10deg}
-  /* a caixa do título fica do tamanho do texto: a decoração da faixa mora à direita dela, sem encostar */
-  .rel-topo{justify-self:start}
-  .rel-brilho.br4{width:14px;height:14px;right:calc(var(--xd) + 176px);top:104px;fill:var(--cor-laranja-claro)}
-  /* sem margens laterais vazias: as patinhas que moravam nelas (pa3, pa7, pa8) saem */
-  .rel-pata.pa3,.rel-pata.pa7,.rel-pata.pa8{display:none}
-}
-/* ≥1366px: com até 5 serviços, barras e rosca lado a lado (como na referência); 6 ou mais, as barras ocupam a linha toda */
-@media(min-width:1366px){
-  /* lado a lado: a rosca fica um pouco menor e a legenda cabe AO LADO dela (os dois cartões ficam com alturas parecidas) */
-  .graficos,.graficos:has(.barras-v > .bv:nth-child(5)){grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
-  .graficos:not(:has(.barras-v > .bv:nth-child(6))) .rosca-area{flex-wrap:nowrap;gap:var(--esp-4);min-height:0;padding-top:var(--esp-2)}
-  .graficos:not(:has(.barras-v > .bv:nth-child(6))) .rosca{width:164px;height:164px}
-  .graficos:not(:has(.barras-v > .bv:nth-child(6))) .rosca .miolo{width:100px;height:100px}
-  .graficos:not(:has(.barras-v > .bv:nth-child(6))) .legenda{flex:1 1 150px}
-  .graficos:not(:has(.barras-v > .bv:nth-child(6))) .legenda button{padding:6px var(--esp-2);gap:var(--esp-2)}
-  .graficos:has(.barras-v > .bv:nth-child(6)){grid-template-columns:minmax(0,1fr)}
-}
-@media(min-width:1200px) and (max-width:1365px){
-  .rel-pata.pa5,.rel-brilho.br4{display:none}
-  .rel-pata.pa4{width:80px;height:80px;right:calc(var(--xd) + 40px)}
-}
-/* ≥1600px: o cartão da rosca ficou largo o bastante para a rosca no tamanho normal, com a legenda ao lado */
-@media(min-width:1600px){
-  .graficos:not(:has(.barras-v > .bv:nth-child(6))) .rosca{width:196px;height:196px}
-  .graficos:not(:has(.barras-v > .bv:nth-child(6))) .rosca .miolo{width:120px;height:120px}
-}
-/* Tablet (700–1199px): pets ocultos (decisão aprovada) — vale a regra de "Abaixo de 1200px" mais acima */
-/* Celular: pets ocultos; patinhas e brilho numa coluna à direita do título, ondas menores */
-@media(max-width:699px){
-  .pg-relatorios .rel-pagina{padding-bottom:120px}
-  .pg-relatorios .rel-pagina::before{height:120px;background-size:36px 36px,min(260px,62vw) 104px,100% 100%;background-position:right 18px bottom 40px,right bottom,0 100%}
-  .rel-topo{padding-right:60px}
-  .rel-pata.pa4,.rel-pata.pa5,.rel-brilho.br3{display:block}
-  .rel-pata.pa4{width:46px;height:46px;right:0;left:auto;top:34px;rotate:14deg}
-  .rel-pata.pa5{width:26px;height:26px;right:30px;left:auto;top:96px;rotate:-16deg;fill:#c4d8fa}
-  .rel-brilho.br3{width:16px;height:16px;right:8px;left:auto;top:134px;rotate:10deg}
 }
 
-@media(prefers-reduced-motion:reduce){
-  .pg-relatorios *{transition:none!important}
-  .kpi:hover{transform:none}
-}
-/* Alto contraste do sistema: contornos visíveis, estados marcados com o realce do sistema, cores dos gráficos mantidas */
-@media(forced-colors:active){
-  .rel-deco,.rel-pets{display:none}
-  .pg-relatorios .rel-pagina::before,.pg-relatorios .cartao-grafico::after{display:none}
-  .pg-relatorios :is(.kpi,.bloco,.filtro-rel,.tabela,.aviso,.vazio,.carregando){border:1px solid CanvasText}
-  .pg-relatorios :is(.kpi,.bv,.legenda button,.atalhos-periodo .btn)[aria-pressed=true]{outline:3px solid Highlight;outline-offset:2px}
-  .paginacao button.atual{outline:3px solid Highlight}
-  .rosca,.legenda i,.bv .coluna{forced-color-adjust:none}
-  .pg-relatorios :is(#btn-exportar,#btn-imprimir,.erro-periodo,.aviso.info,.mensagem)::before,.pg-relatorios .vazio>span:first-child::after{background:CanvasText}
-}
-
-/* Imprimir / salvar como PDF: só o relatório, sem menus, botões e decoração */
+/* Imprimir / salvar como PDF: só o relatório, sem menus e botões */
 @media print{
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   header,footer,.rodape,.filtro-rel,.erro-periodo,#mensagem,.cab-detalhe .acoes,.paginacao,.dica,dialog{display:none!important}
-  .rel-deco,.rel-pets{display:none!important}
-  .pg-relatorios .rel-pagina::before,.pg-relatorios .cartao-grafico::after{display:none!important}
-  .pg-relatorios .rel-pagina{background:#fff;padding:0}
-  .rel-faixa{display:block;padding:0 0 12px}
-  .pg-relatorios .rel-pagina .bloco,.kpi{box-shadow:none;border:1px solid var(--cor-borda)}
+  .rel-deco,.rel-pets,.faisca-titulo,.pata-canto{display:none!important}
+  .pagina{background:#fff;padding:0}
+  .rel-container{display:block;max-width:none}
+  .rel-topo{padding-right:0}
+  .rel-pagina .bloco,.kpi{box-shadow:none;border:1px solid var(--borda)}
   .graficos{grid-template-columns:1fr 1fr}
   .kpis{grid-template-columns:repeat(5,1fr)}
   .kpi.TOTAL{grid-column:auto}

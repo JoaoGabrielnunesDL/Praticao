@@ -31,14 +31,28 @@ function filtrados() {
 }
 
 // ---------- desenho ----------
+// Fotos ilustrativas por espécie (a API não guarda foto do animal): cão alterna entre duas fotos, gato tem a sua.
+const FOTOS_CAO = ['img/agendamentos/foto-cao1.webp', 'img/agendamentos/foto-cao2.webp'];
+const FOTO_GATO = 'img/agendamentos/foto-gato.webp';
+function fotoPet(ag) {
+  const e = normalizar(especieDe(ag));
+  const src = e === 'gato' ? FOTO_GATO : e === 'cao' ? FOTOS_CAO[Math.abs(Number(ag.animal_id) || 0) % 2] : '';
+  return src ? `<span class="ma-foto com-foto" aria-hidden="true"><img src="${src}" alt="" loading="lazy" decoding="async"></span>`
+             : `<span class="ma-foto" aria-hidden="true">${iconeAnimal(especieDe(ag))}</span>`;
+}
+// Ícone e cor de cada serviço (procura pelo nome, como antes).
+const SVC = [['banho', 'banho', 'azul'], ['tosa', 'tesoura', 'rosa'], ['hidrat', 'brilho', 'laranja'], ['unha', 'pata', 'rosa'], ['consulta', 'coracao', 'vermelho'], ['vacin', 'seringa', 'roxo']];
+const svcDe = nome => { const n = normalizar(nome); return SVC.find(([k]) => n.includes(k)) || ['', 'brilho', 'laranja']; };
+
 function itemHTML(ag) {
   const st = STATUS[ag.status];
+  const [, forma, cor] = svcDe(ag.servico_nome);
   return `<article class="ma-item">
-    <div class="ma-pet"><span class="ma-foto" aria-hidden="true">${iconeAnimal(especieDe(ag))}</span><div><strong>${esc(ag.animal_nome)}</strong><small>${esc(especieDe(ag))}</small></div></div>
-    <div class="ma-serv"><span class="ma-serv-ic ma-foto" aria-hidden="true">${iconeServico(ag.servico_nome)}</span>
-      <div><strong>${esc(ag.servico_nome)}</strong><small>📅 ${diaSemana(ag)}, ${dataBR(ag)} às ${hora(ag)}</small><small>⏱ Duração: ~ ${duracao(ag.servico_duracao_min)}</small></div></div>
+    <div class="ma-pet">${fotoPet(ag)}<div><strong>${esc(ag.animal_nome)}</strong><small><span class="pc-ic pc-f-pata" aria-hidden="true"></span> ${esc(especieDe(ag))}</small></div></div>
+    <div class="ma-serv"><span class="ma-serv-ic ma-t-${cor}" aria-hidden="true"><span class="pc-ic pc-f-${forma}"></span></span>
+      <div><strong>${esc(ag.servico_nome)}</strong><small><span class="pc-ic pc-f-calendario" aria-hidden="true"></span> ${diaSemana(ag)}, ${dataBR(ag)} às ${hora(ag)}</small><small><span class="pc-ic pc-f-relogio" aria-hidden="true"></span> Duração: ~ ${duracao(ag.servico_duracao_min)}</small></div></div>
     <span class="status ${st.classe}">${st.texto}</span>
-    <button type="button" class="btn btn-contorno btn-pequeno" data-id="${ag.id}">👁 Ver detalhes</button>
+    <button type="button" class="btn btn-contorno btn-pequeno" data-id="${ag.id}"><span class="pc-ic pc-f-olho" aria-hidden="true"></span> Ver detalhes</button>
   </article>`;
 }
 
@@ -54,9 +68,9 @@ function render() {
   const lista = filtrados();
   if (lista.length) { $('lista').innerHTML = lista.map(itemHTML).join(''); return; }
   if (!agendamentos.length) {
-    $('lista').innerHTML = '<div class="vazio"><span>📅</span>Você ainda não tem agendamentos!<p>Que tal agendar o próximo cuidado do seu companheiro?</p><a class="btn btn-laranja btn-pequeno" href="agendamento.html">+ Novo Agendamento</a></div>';
+    $('lista').innerHTML = '<div class="vazio"><span class="pc-ic pc-f-calendario" aria-hidden="true"></span>Você ainda não tem agendamentos!<p>Que tal agendar o próximo cuidado do seu companheiro?</p><a class="btn btn-laranja btn-pequeno" href="agendamento.html">+ Novo Agendamento</a></div>';
   } else {
-    $('lista').innerHTML = '<div class="vazio"><span>🔍</span>Nenhum agendamento encontrado<p>Nenhum atendimento corresponde à pesquisa ou ao filtro.</p><button type="button" class="btn btn-laranja btn-pequeno" data-limpar>Limpar pesquisa e filtro</button></div>';
+    $('lista').innerHTML = '<div class="vazio"><span class="pc-ic pc-f-busca" aria-hidden="true"></span>Nenhum agendamento encontrado<p>Nenhum atendimento corresponde à pesquisa ou ao filtro.</p><button type="button" class="btn btn-laranja btn-pequeno" data-limpar>Limpar pesquisa e filtro</button></div>';
   }
 }
 

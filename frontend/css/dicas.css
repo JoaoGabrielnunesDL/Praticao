@@ -7,14 +7,14 @@
 .cur-hero h1{font-size:2.8rem;line-height:1.1;color:var(--azul)}
 .cur-hero h1 span{color:var(--laranja)}
 .cur-hero p{color:var(--azul);font-size:1.15rem;margin:8px 0 18px;font-weight:600}
-.cur-banner{width:100%;max-width:560px;justify-self:end;border-radius:28px;box-shadow:0 10px 30px rgba(11,58,158,.18)}
+.cur-banner{width:100%;max-width:560px;justify-self:end;border-radius:28px;box-shadow:0 10px 30px rgba(10,73,184,.18)}
 .cur-busca{display:flex;gap:10px;flex-wrap:wrap;max-width:520px}
 .cur-busca input,.filtro input[type=search]{flex:1;min-width:220px;padding:12px 18px;border:1.5px solid var(--borda);border-radius:999px;font:inherit;background:#fff}
 .cur-busca input:focus,.filtro input:focus{border-color:var(--azul);outline:none}
 
 /* Categorias da página principal */
 .cur-conteudo{background:linear-gradient(180deg,#f7fbff,#eaf3ff);padding:26px 0 40px}
-.cur-secao{background:#fff;border-radius:20px;box-shadow:0 6px 20px rgba(11,58,158,.1);padding:20px 22px 22px;margin-bottom:20px}
+.cur-secao{background:#fff;border-radius:20px;box-shadow:0 6px 20px rgba(10,73,184,.1);padding:20px 22px 22px;margin-bottom:20px}
 .cur-secao-info{display:flex;align-items:center;gap:16px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--borda)}
 .cur-icone{display:flex;align-items:center;justify-content:center;flex:none;width:64px;height:64px;border-radius:50%;background:var(--azul);font-size:1.9rem}
 .cur-secao-info h2{color:var(--azul);font-size:1.6rem;line-height:1.1}
@@ -29,7 +29,7 @@
 
 /* Cartões de artigo (iguais na página principal, na listagem e nos relacionados) */
 .dica-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;clear:both}
-.dica-card{display:flex;gap:12px;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:12px;box-shadow:0 2px 8px rgba(11,58,158,.06);transition:transform .2s}
+.dica-card{display:flex;gap:12px;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:12px;box-shadow:0 2px 8px rgba(10,73,184,.06);transition:transform .2s}
 .dica-card:hover{transform:translateY(-3px)}
 .dica-img{flex:none;width:112px;height:112px;border-radius:10px;overflow:hidden}
 .dica-img img{width:100%;height:100%;object-fit:cover;display:block}

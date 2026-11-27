@@ -7,46 +7,103 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/meus-agendamentos.css">
+  <link rel="stylesheet" href="css/praticao-ui.css">
 </head>
-<body>
+<body class="pg-ma">
   <header id="cabecalho"></header>
 
   <main class="pagina">
+    <!-- Decoração de fundo: só visual (aria-hidden), fora das áreas que o JS preenche -->
+    <div class="ma-cena" aria-hidden="true">
+      <svg class="ma-d-blob" viewBox="0 0 470 460" preserveAspectRatio="none"><defs><linearGradient id="ma-g-blob" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d3e4fc"/><stop offset="1" stop-color="#a9c9f7"/></linearGradient></defs><path d="M0 120C60 50 190 30 275 95 355 155 470 150 470 255 470 350 400 460 310 460H0Z" fill="url(#ma-g-blob)"/></svg>
+      <svg class="ma-d-onda-topo" viewBox="0 0 270 170" preserveAspectRatio="none"><path d="M0 0H270C250 40 200 62 150 84 95 110 40 118 0 170Z" fill="#1b63e6" opacity=".1"/><path d="M0 0H190C170 30 120 48 80 64 50 76 20 84 0 112Z" fill="#1b63e6" opacity=".09"/></svg>
+      <svg class="ma-d-ondas-base" viewBox="0 0 1600 130" preserveAspectRatio="none"><path d="M0 60C200 10 400 110 630 70 860 30 1070 120 1300 80 1430 58 1530 70 1600 86V130H0Z" fill="#cfe1fb" opacity=".7"/><path d="M0 95C220 60 430 125 680 100 930 75 1150 130 1380 105 1480 94 1550 100 1600 108V130H0Z" fill="#fff" opacity=".7"/></svg>
+      <svg class="ma-d-onda-laranja" viewBox="0 0 480 220" preserveAspectRatio="none"><defs><linearGradient id="ma-g-lar" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f28a0c"/><stop offset="1" stop-color="#ffc247"/></linearGradient></defs><path d="M0 220C90 200 190 190 290 130 370 82 430 40 480 0V220Z" fill="url(#ma-g-lar)"/></svg>
+
+      <span class="pc-d pc-f-pata ma-p1"></span>
+      <span class="pc-d pc-f-pata ma-p2"></span>
+      <span class="pc-d pc-f-pata ma-p3"></span>
+      <span class="pc-d pc-f-pata ma-p4"></span>
+      <span class="pc-d pc-f-pata ma-p5"></span>
+      <span class="pc-d pc-f-pata ma-p6"></span>
+      <span class="pc-d pc-f-pata ma-p-onda"></span>
+
+      <span class="ma-sombra"></span>
+      <img class="ma-pets-img" src="img/agendamentos/pets-agendamentos.webp" alt="" decoding="async">
+    </div>
+
     <div class="container">
       <div class="ma-topo">
-        <div>
+        <div class="ma-topo-txt">
           <p class="selo-op">Minha rotina</p>
-          <h1>Meus Agendamentos</h1>
+          <h1>Meus <span class="ma-laranja">Agendamentos</span></h1>
           <p class="sub">Acompanhe, gerencie e consulte todos os seus agendamentos.</p>
         </div>
-        <button type="button" class="btn btn-contorno btn-pequeno" id="atualizar">↻ Atualizar</button>
+        <div class="ma-topo-dir">
+          <button type="button" class="btn btn-contorno btn-pequeno" id="atualizar"><span class="pc-ic pc-f-atualizar" aria-hidden="true"></span> Atualizar</button>
+          <svg class="ma-arte-cal" viewBox="0 0 250 190" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="ma-g-cal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f7bf0"/><stop offset="1" stop-color="#1450c8"/></linearGradient>
+              <linearGradient id="ma-g-rel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb23a"/><stop offset="1" stop-color="#f28a0c"/></linearGradient>
+            </defs>
+            <!-- faíscas laranja à esquerda -->
+            <g fill="none" stroke="#f28a0c" stroke-width="5" stroke-linecap="round"><path d="M12 92l15 5"/><path d="M22 74l10 11"/><path d="M12 112l15-3"/></g>
+            <g transform="rotate(7 125 98)">
+              <!-- borda grossa (volume) -->
+              <rect x="38" y="46" width="172" height="118" rx="15" fill="#1347b8"/>
+              <!-- moldura -->
+              <rect x="34" y="40" width="172" height="116" rx="15" fill="url(#ma-g-cal)"/>
+              <rect x="34" y="40" width="172" height="26" rx="15" fill="#1b63e6"/>
+              <!-- folha branca -->
+              <rect x="42" y="64" width="156" height="82" rx="6" fill="#fff"/>
+              <!-- grade azul clara -->
+              <g stroke="#bcd5f8" stroke-width="3" stroke-linecap="round"><path d="M76 70v70"/><path d="M110 70v70"/><path d="M144 70v70"/><path d="M176 70v70"/><path d="M48 92h144"/><path d="M48 118h144"/></g>
+              <g fill="#e3eefc"><rect x="50" y="72" width="18" height="14" rx="3"/><rect x="50" y="98" width="18" height="14" rx="3"/><rect x="50" y="124" width="18" height="14" rx="3"/></g>
+              <!-- quadro com a patinha -->
+              <rect x="88" y="80" width="46" height="42" rx="11" fill="#1b63e6"/>
+              <g fill="#fff"><ellipse cx="111" cy="108" rx="11.5" ry="9"/><ellipse cx="97" cy="98" rx="4" ry="5.5" transform="rotate(-25 97 98)"/><ellipse cx="106" cy="91" rx="4" ry="5.8" transform="rotate(-8 106 91)"/><ellipse cx="117" cy="91" rx="4" ry="5.8" transform="rotate(8 117 91)"/><ellipse cx="126" cy="98" rx="4" ry="5.5" transform="rotate(25 126 98)"/></g>
+              <!-- argolas -->
+              <g fill="none" stroke="#7f9fd8" stroke-width="5" stroke-linecap="round"><rect x="56" y="22" width="12" height="32" rx="6"/><rect x="102" y="22" width="12" height="32" rx="6"/><rect x="148" y="22" width="12" height="32" rx="6"/></g>
+              <g fill="#0e3a9a"><ellipse cx="62" cy="50" rx="5.5" ry="3.2"/><ellipse cx="108" cy="50" rx="5.5" ry="3.2"/><ellipse cx="154" cy="50" rx="5.5" ry="3.2"/></g>
+            </g>
+            <!-- relógio laranja -->
+            <circle cx="196" cy="135" r="37" fill="#d9760a" opacity=".35" transform="translate(0 5)"/>
+            <circle cx="196" cy="135" r="37" fill="url(#ma-g-rel)"/>
+            <circle cx="196" cy="135" r="29" fill="none" stroke="#fff" stroke-width="2.6"/>
+            <g stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M196 109v4"/><path d="M196 157v4"/><path d="M170 135h4"/><path d="M218 135h4"/></g>
+            <path d="M196 135v-18" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+            <path d="M196 135l11 11" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
       </div>
 
       <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
 
       <div id="erro-tela" class="vazio" hidden>
-        <span>⚠️</span><p id="erro-texto"></p>
+        <span class="pc-ic pc-f-alerta" aria-hidden="true"></span><p id="erro-texto"></p>
         <button type="button" class="btn btn-laranja btn-pequeno" id="tentar">Tentar novamente</button>
       </div>
 
       <div id="conteudo">
         <!-- Indicadores: também funcionam como filtro rápido -->
         <div class="ma-indicadores" id="indicadores" role="group" aria-label="Filtrar por situação">
-          <button type="button" class="ma-ind" data-status="TODOS"><span class="pn-ic">📅</span><div><strong id="n-TODOS">–</strong>Agendamentos</div></button>
-          <button type="button" class="ma-ind" data-status="AGENDADO"><span class="pn-ic laranja">⏳</span><div><strong id="n-AGENDADO">–</strong>Pendente</div></button>
-          <button type="button" class="ma-ind" data-status="CONFIRMADO"><span class="pn-ic azul">👍</span><div><strong id="n-CONFIRMADO">–</strong>Confirmado</div></button>
-          <button type="button" class="ma-ind" data-status="CONCLUIDO"><span class="pn-ic verde">✅</span><div><strong id="n-CONCLUIDO">–</strong>Concluído</div></button>
-          <button type="button" class="ma-ind" data-status="CANCELADO"><span class="pn-ic roxo">❌</span><div><strong id="n-CANCELADO">–</strong>Cancelado</div></button>
+          <button type="button" class="ma-ind" data-status="TODOS"><span class="pn-ic azul"><span class="pc-ic pc-f-calendario" aria-hidden="true"></span></span><div><strong id="n-TODOS">–</strong>Agendamentos</div></button>
+          <button type="button" class="ma-ind" data-status="AGENDADO"><span class="pn-ic laranja"><span class="pc-ic pc-f-relogio" aria-hidden="true"></span></span><div><strong id="n-AGENDADO">–</strong>Pendente</div></button>
+          <button type="button" class="ma-ind" data-status="CONFIRMADO"><span class="pn-ic azul2"><span class="pc-ic pc-f-polegar" aria-hidden="true"></span></span><div><strong id="n-CONFIRMADO">–</strong>Confirmado</div></button>
+          <button type="button" class="ma-ind" data-status="CONCLUIDO"><span class="pn-ic verde"><span class="pc-ic pc-f-ok" aria-hidden="true"></span></span><div><strong id="n-CONCLUIDO">–</strong>Concluído</div></button>
+          <button type="button" class="ma-ind" data-status="CANCELADO"><span class="pn-ic roxo"><span class="pc-ic pc-f-nao" aria-hidden="true"></span></span><div><strong id="n-CANCELADO">–</strong>Cancelado</div></button>
         </div>
 
         <section class="bloco">
           <div class="ma-ferramentas">
             <div class="ma-busca">
+              <span class="pc-ic pc-f-busca ma-ic-busca" aria-hidden="true"></span>
               <label for="busca" class="so-leitor">Buscar agendamento</label>
               <input id="busca" type="search" placeholder="Buscar por animal, serviço, data ou número..." autocomplete="off">
               <button type="button" id="limpar-busca" class="ma-x" aria-label="Limpar pesquisa" hidden>×</button>
             </div>
-            <div>
+            <div class="ma-filtro">
+              <span class="pc-ic pc-f-filtro ma-ic-filtro" aria-hidden="true"></span>
               <label for="filtro" class="so-leitor">Filtrar por status</label>
               <select id="filtro">
                 <option value="TODOS">Todos os status</option>
@@ -61,13 +118,13 @@
         </section>
 
         <section class="ma-banner">
-          <div class="ma-banner-titulo"><span aria-hidden="true">📅</span><h2>Organize a rotina<br><strong>do seu pet com a gente!</strong></h2></div>
+          <div class="ma-banner-titulo"><span class="ma-banner-ic" aria-hidden="true"><span class="pc-ic pc-f-calendario"></span></span><h2>Organize a rotina<br><strong>do seu pet com a gente!</strong></h2></div>
           <ul>
             <li>Seus agendamentos em um só lugar</li>
             <li>Acompanhe o status</li>
             <li>Agende novamente com praticidade</li>
           </ul>
-          <a class="btn btn-laranja" href="agendamento.html">+ Novo Agendamento</a>
+          <a class="btn btn-laranja" href="agendamento.html"><span class="pc-ic pc-f-calendario" aria-hidden="true"></span> Novo Agendamento</a>
         </section>
       </div>
     </div>

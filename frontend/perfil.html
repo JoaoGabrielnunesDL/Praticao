@@ -11,42 +11,121 @@
 <body>
   <header id="cabecalho"></header>
 
-  <main class="pagina">
+  <main class="pagina tela-perfil">
+    <svg class="defs" aria-hidden="true" focusable="false"><defs>
+      <symbol id="pata" viewBox="0 0 80 72"><ellipse cx="14" cy="30" rx="7" ry="10" transform="rotate(-25 14 30)"/><ellipse cx="30" cy="14" rx="7.5" ry="11" transform="rotate(-8 30 14)"/><ellipse cx="50" cy="14" rx="7.5" ry="11" transform="rotate(8 50 14)"/><ellipse cx="66" cy="30" rx="7" ry="10" transform="rotate(25 66 30)"/><path d="M40 34C52 34 64 48 64 58 64 67 56 68 48 65 44 63.5 36 63.5 32 65 24 68 16 67 16 58 16 48 28 34 40 34Z"/></symbol>
+      <!-- ícones de interface (traço) -->
+      <symbol id="i-usuario" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.6-4 3.8-6 7.5-6s6.9 2 7.5 6"/></g></symbol>
+      <symbol id="i-cartao" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16c.5-1.6 1.7-2.4 3.2-2.4s2.7.8 3.2 2.4M14.5 10h4M14.5 13.5h3"/></g></symbol>
+      <symbol id="i-email" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7.5l8 6 8-6"/></g></symbol>
+      <symbol id="i-telefone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3.5l1.7 4.2-2.2 1.4a11 11 0 0 0 6.4 6.4l1.4-2.2L20 15.5V19a1.5 1.5 0 0 1-1.6 1.5C10.5 20 4 13.5 3.5 5.6A1.5 1.5 0 0 1 5 4z"/></g></symbol>
+      <symbol id="i-capelo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5L12 5l9.5 4.5L12 14z"/><path d="M6.5 11.6v4.2c0 1.2 2.5 2.7 5.5 2.7s5.5-1.5 5.5-2.7v-4.2M21.5 9.5v6"/></g></symbol>
+      <symbol id="i-escudo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 2.8v5.6c0 4.6-3.1 8.1-7.5 9.6-4.4-1.5-7.5-5-7.5-9.6V5.8z"/><path d="M8.8 12l2.3 2.3 4.2-4.6"/></g></symbol>
+      <symbol id="i-cadeado" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.8"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/><path d="M12 14.5v2.5"/></g></symbol>
+      <symbol id="i-casa" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11L12 4l8.5 7"/><path d="M5.5 9.8V20h13V9.8"/><path d="M10 20v-5.5h4V20"/></g></symbol>
+      <symbol id="i-calendario" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10H20.5"/><path d="M8 14h2M12 14h2M8 17.5h2" stroke-width="2.2"/></g></symbol>
+      <symbol id="i-lista" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="17" rx="3"/><path d="M8 9h8M8 13h8M8 17h5"/></g></symbol>
+      <symbol id="i-grafico" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></symbol>
+      <symbol id="i-tesoura" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6.5" r="2.8"/><circle cx="6" cy="17.5" r="2.8"/><path d="M8.5 8l11 9M8.5 16l11-9"/></g></symbol>
+      <symbol id="i-lapis" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4.5L16.5 4a2.1 2.1 0 0 1 3 3L8 18.5z"/><path d="M14.5 6l3.5 3.5"/></g></symbol>
+      <symbol id="i-voltar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7L4 12l5 5"/><path d="M4.5 12H15a5 5 0 0 1 5 5v1"/></g></symbol>
+      <symbol id="i-atualizar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14-4.5L4 9"/><path d="M4 4v5h5"/><path d="M4 13a8 8 0 0 0 14 4.5L20 15"/><path d="M20 20v-5h-5"/></g></symbol>
+      <symbol id="i-sino" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/><path d="M10 21.5h4"/></g></symbol>
+      <symbol id="i-sair" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M15 8l4 4-4 4M19 12H9"/></g></symbol>
+      <symbol id="i-usuario-ok" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="4"/><path d="M3.5 20.5c.5-3.8 3.2-5.8 6.5-5.8 1.2 0 2.2.2 3.1.7"/><circle cx="18" cy="17.5" r="3.6" fill="currentColor" stroke="none"/><path d="M16.3 17.6l1.2 1.2 2.2-2.4" stroke="#fff" stroke-width="1.8"/></g></symbol>
+    </defs></svg>
+
+    <!-- Decoração de fundo: só visual (aria-hidden) -->
+    <div class="deco" aria-hidden="true">
+      <svg class="d-blob" viewBox="0 0 1010 690" preserveAspectRatio="none"><defs><linearGradient id="pf-blob" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9ddfb"/><stop offset="1" stop-color="#b3cff6"/></linearGradient></defs><path d="M0 150C60 60 220 40 330 110 470 190 600 120 760 200 930 285 1000 430 960 560 930 650 800 690 640 690H0Z" fill="url(#pf-blob)" opacity=".7"/><path d="M0 330C120 250 260 270 380 330 520 400 640 360 760 420 880 480 930 560 900 690H0Z" fill="#fff" opacity=".28"/></svg>
+      <svg class="d-onda-topo" viewBox="0 0 270 170" preserveAspectRatio="none"><path d="M0 0H270C250 40 200 62 150 84 95 110 40 118 0 170Z" fill="#1b63e6" opacity=".12"/><path d="M0 0H190C170 30 120 48 80 64 50 76 20 84 0 112Z" fill="#1b63e6" opacity=".1"/></svg>
+      <svg class="d-onda-alta" viewBox="0 0 700 150" preserveAspectRatio="none"><path d="M0 150C60 90 140 40 250 60 360 80 430 20 520 10 600 2 660 50 700 150Z" fill="#cfe1fb" opacity=".6"/></svg>
+      <svg class="d-ondas-base" viewBox="0 0 1920 130" preserveAspectRatio="none"><path d="M0 60C240 10 480 110 760 70 1040 30 1280 120 1560 80 1720 58 1840 70 1920 86V130H0Z" fill="#bcd5f8" opacity=".6"/><path d="M0 95C260 60 520 125 820 100 1120 75 1380 130 1650 105 1770 94 1860 100 1920 108V130H0Z" fill="#9fc2f3" opacity=".5"/></svg>
+      <svg class="d-onda-laranja" viewBox="0 0 480 190" preserveAspectRatio="none"><path d="M60 190C140 130 260 120 350 70 410 36 450 14 480 0V190Z" fill="#ffb23a" opacity=".85"/><path d="M170 190C260 150 340 140 400 100 430 80 455 62 480 48V190Z" fill="#f28a0c"/></svg>
+
+      <svg class="d-pata-1 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-2 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-3 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-4 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-6 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-7 pata" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-pata-5 pata-contorno" viewBox="0 0 80 72"><use href="#pata"/></svg>
+      <svg class="d-coracao" viewBox="0 0 48 44"><path d="M24 40C10 30 3 22 3 13.5 3 8 7.2 4 12.4 4c4.4 0 8 2.6 11.6 7.2C27.600 6.6 31.200 4 35.600 4 40.800 4 45 8 45 13.500 45 22 38 30 24 40z" fill="none" stroke="#1b63e6" stroke-width="3.2" stroke-linejoin="round"/></svg>
+
+    </div>
+
+    <!-- Cão e gato (à esquerda; o menu passa por cima) -->
+    <div class="pf-pets" aria-hidden="true"><img src="img/perfil/pets-perfil.webp" alt="" width="1100" height="853" decoding="async"></div>
+
     <div class="container">
-      <h1>Meu Perfil</h1>
-      <p class="sub">Consulte e atualize seus dados pessoais.</p>
+      <div class="pf-layout">
+        <!-- Menu "Minha área": links montados pelo perfil.js conforme o tipo de conta -->
+        <nav class="pf-menu" aria-labelledby="pf-menu-t">
+          <h2 id="pf-menu-t"><span class="pf-menu-ic"><svg class="ic" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><use href="#i-usuario"/></svg></span>Minha área</h2>
+          <ul id="pf-links"></ul>
+        </nav>
 
-      <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+        <div class="pf-principal">
+          <header class="pf-cab">
+            <span class="pf-avatar" id="avatar" aria-hidden="true">?</span>
+            <div>
+              <p class="selo-op" id="ola">Olá!</p>
+              <h1>Meu <span>Perfil</span></h1>
+              <p class="sub">Consulte e atualize seus dados pessoais.</p>
+            </div>
+          </header>
 
-      <div id="erro-tela" class="vazio" hidden>
-        <span>⚠️</span><p id="erro-texto"></p>
-        <button type="button" class="btn btn-laranja btn-pequeno" id="tentar">Tentar novamente</button>
+          <div id="mensagem" class="mensagem" aria-live="polite" hidden></div>
+
+          <div id="erro-tela" class="vazio" hidden>
+            <span>⚠️</span><p id="erro-texto"></p>
+            <button type="button" class="btn btn-laranja btn-pequeno" id="tentar">Tentar novamente</button>
+          </div>
+
+          <div id="conteudo">
+            <div class="pf-painel">
+              <section class="pf-card" aria-labelledby="t-dados">
+                <h2 id="t-dados"><svg class="ic" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><use href="#i-cartao"/></svg>Dados pessoais</h2>
+                <dl class="pf-campos">
+                  <div class="pf-campo"><dt><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#i-usuario"/></svg>Nome completo</dt><dd id="v-nome"><span class="carregando">Carregando...</span></dd></div>
+                  <div class="pf-campo"><dt><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#i-email"/></svg>E-mail</dt><dd id="v-email">–</dd></div>
+                  <div class="pf-campo"><dt><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#i-telefone"/></svg>Telefone / WhatsApp</dt><dd id="v-tel">–</dd></div>
+                  <div class="pf-campo"><dt><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#i-capelo"/></svg>Tipo de conta</dt><dd><span class="etiqueta" id="v-tipo">–</span></dd></div>
+                  <div class="pf-campo"><dt><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#i-escudo"/></svg>Status</dt><dd><span class="status" id="v-status">–</span></dd></div>
+                </dl>
+                <div class="acoes">
+                  <button type="button" class="btn btn-laranja" id="editar"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><use href="#i-lapis"/></svg> Editar dados</button>
+                  <a class="btn btn-contorno" id="voltar" href="painel.html"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><use href="#i-voltar"/></svg> Voltar</a>
+                </div>
+              </section>
+
+              <section class="pf-card pf-senha" aria-labelledby="t-senha">
+                <h2 id="t-senha"><svg class="ic" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><use href="#i-cadeado"/></svg>Alterar senha</h2>
+                <div class="pf-senha-corpo">
+                  <span class="pf-senha-ic" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" width="52" height="52" aria-hidden="true"><use href="#i-cadeado"/></svg></span>
+                  <p>Para trocar a senha, saia da conta e use <strong>“Esqueci minha senha”</strong> na tela de login.</p>
+                  <ol class="pf-passos">
+                    <li>Informe o e-mail da sua conta.</li>
+                    <li>Receba o link de recuperação.</li>
+                    <li>Crie uma nova senha.</li>
+                  </ol>
+                </div>
+                <div class="acoes">
+                  <button type="button" class="btn btn-laranja" id="trocar-senha"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><use href="#i-atualizar"/></svg> Redefinir senha</button>
+                </div>
+              </section>
+            </div>
+
+            <div class="pf-info">
+              <div class="pf-info-item"><span class="pf-info-ic"><svg class="ic" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><use href="#i-escudo"/></svg></span><div><strong>Seus dados</strong><p>Você pode editar nome e telefone. O e-mail é só para consulta.</p></div></div>
+              <div class="pf-info-item"><span class="pf-info-ic"><svg class="ic" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><use href="#i-sino"/></svg></span><div><strong>Mantenha atualizado</strong><p>Atualize seus dados sempre que houver alguma alteração.</p></div></div>
+              <div class="pf-info-item"><span class="pf-info-ic"><svg class="ic" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><use href="#i-usuario-ok"/></svg></span><div><strong id="info-conta-t">Sua conta</strong><p id="info-conta-p">Você está logado no PratiCão.</p></div></div>
+            </div>
+          </div>
+
+          <p class="pf-sair"><button type="button" class="link" id="sair"><svg class="ic" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><use href="#i-sair"/></svg> Sair da conta</button></p>
+        </div>
       </div>
-
-      <section class="bloco pf-card" id="conteudo" aria-labelledby="t-dados">
-        <h2 id="t-dados">🪪 Dados pessoais</h2>
-        <div class="pf-corpo">
-          <aside class="pf-resumo" aria-hidden="true">
-            <span class="pf-avatar" id="avatar">👤</span>
-            <strong id="ola">Olá!</strong>
-            <span class="pf-resumo-sub">Seus dados no PratiCão</span>
-          </aside>
-          <dl class="pf-campos">
-            <div class="pf-campo pf-larga"><dt>👤 Nome completo</dt><dd id="v-nome"><span class="carregando">Carregando...</span></dd></div>
-            <div class="pf-campo"><dt>✉️ E-mail</dt><dd id="v-email">–</dd></div>
-            <div class="pf-campo"><dt>📱 Telefone / WhatsApp</dt><dd id="v-tel">–</dd></div>
-            <div class="pf-campo"><dt>🎓 Tipo de conta</dt><dd><span class="etiqueta" id="v-tipo">–</span></dd></div>
-            <div class="pf-campo"><dt>🛡️ Status</dt><dd><span class="status" id="v-status">–</span></dd></div>
-          </dl>
-        </div>
-        <p class="pf-dica">🔒 Para trocar a senha, saia da conta e use “Esqueci minha senha” na tela de login.</p>
-        <div class="acoes">
-          <button type="button" class="btn btn-laranja" id="editar">✏️ Editar dados</button>
-          <a class="btn btn-contorno" id="voltar" href="painel.html">↩ Voltar ao painel</a>
-        </div>
-      </section>
-
-      <p class="pf-sair"><button type="button" class="link" id="sair">↪ Sair da conta</button></p>
     </div>
   </main>
 

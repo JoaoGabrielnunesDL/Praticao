@@ -6,6 +6,8 @@ const API_URL = 'http://localhost:8000';
 const CONTATO = {
   telefone: '(11) 98765-4321',
   email: 'contato@praticao.com.br',
+  // Links das redes sociais do rodapé (troque pelos perfis reais do PratiCão).
+  redes: { facebook: 'https://www.facebook.com/', whatsapp: 'https://wa.me/5511987654321', instagram: 'https://www.instagram.com/', twitter: 'https://twitter.com/' },
   endereco: ['Rua das Flores, 123 - Centro', 'São Paulo - SP - CEP 01001-000'],
   horarios: ['Segunda a Sexta: 8h às 18h', 'Sábados: 8h às 14h', 'Domingos: 8h às 12h'],
 };

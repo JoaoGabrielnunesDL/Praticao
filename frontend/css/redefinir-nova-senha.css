@@ -1,0 +1,131 @@
+/* =====================================================================
+   REDEFINIR SENHA — PASSO 2 (digitar a nova senha): tela própria no visual do protótipo
+   (título grande à esquerda, beagle e gato, cartão "Passo 2 – Crie uma nova senha" com cadeado, campos em pílula,
+   barra de força da senha, botão laranja e faixa "Ambiente seguro").
+   Os passos 1 e 3 têm telas diferentes; esta só aparece quando o JS liga body.pg-nova.
+   Referência: tela cheia 1920x1080 (1u = 1px a 1920 de largura; escala com a janela); a faixa do site (100px) fica acima.
+   ===================================================================== */
+.tela-nova{display:none}
+body.pg-nova .login-pagina{display:none}
+body.pg-nova .tela-nova{display:block}
+
+.tela-nova{--u:calc(100vw/1920);position:relative;overflow:hidden;isolation:isolate;min-height:calc(100vh - 100px);
+  background:radial-gradient(ellipse 60% 45% at 50% 0%,#fff 0%,rgba(255,255,255,0) 70%),linear-gradient(125deg,#f7faff 0%,#e7f0ff 48%,#d8e7fd 100%)}
+.tela-nova .defs{position:absolute;width:0;height:0}
+.tela-nova .deco{position:absolute;inset:0;z-index:0;pointer-events:none}
+.tela-nova .deco>*{position:absolute;display:block;overflow:visible}
+.tela-nova .d-p{fill:#1b63e6;opacity:.22}
+.tela-nova .container{position:relative;z-index:3;max-width:none;padding:0 20px 44px}
+
+/* ---------- Título (esquerda) ---------- */
+.ns-hero{position:relative;z-index:2;padding:28px 20px 0;text-align:center}
+.ns-passo-txt{margin:0;font-size:1rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:#0a49b8}
+.tela-nova h1{margin:4px 0 0;font-family:var(--fonte-titulo);font-size:clamp(2.6rem,1.6rem + 4vw,4rem);font-weight:800;letter-spacing:-.03em;line-height:1;color:#0a49b8}
+.ns-cor{display:block;margin-top:2px;font-size:1.12em;line-height:1;color:#ff8a00}
+.ns-fa{display:inline-block;width:.55em;height:.55em;margin:0 .18em;vertical-align:middle;overflow:visible}
+.ns-fa-d{transform:scaleX(-1)}
+.ns-sub{margin:10px auto 0;max-width:30ch;font-size:1.2rem;font-weight:600;line-height:1.25;color:#0a49b8}
+
+/* ---------- Cão e gato ---------- */
+.ns-pets{position:relative;z-index:1;margin:6px auto 0;width:min(100%,760px);pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 10%),linear-gradient(to right,transparent 0,#000 6%,#000 94%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0,#000 10%),linear-gradient(to right,transparent 0,#000 6%,#000 94%,transparent 100%);mask-composite:intersect}
+.ns-pets img{display:block;width:100%;height:auto}
+
+/* ---------- Cartão ---------- */
+.ns-coluna{width:min(100%,560px);margin:18px auto 0}
+.ns-cartao{position:relative;margin-top:26px;padding:56px 24px 26px;border-radius:30px;background:rgba(255,255,255,.98);box-shadow:0 24px 60px rgba(10,42,107,.16),0 2px 6px rgba(10,42,107,.06)}
+.ns-cartao[hidden]{display:none}
+.ns-pilula{position:absolute;top:-24px;left:50%;transform:translateX(-50%);white-space:nowrap;margin:0;padding:11px 28px;border-radius:999px;background:linear-gradient(180deg,#1b63e6,#0a49b8);color:#fff;font-family:var(--fonte-titulo);font-size:1.1rem;font-weight:700;box-shadow:0 10px 22px rgba(10,73,184,.35)}
+.ns-cadeado{display:block;margin:0 auto 6px;width:170px;line-height:0}
+.ns-cadeado svg{width:100%;height:auto;overflow:visible}
+.ns-cartao .erro{margin:0 0 12px;padding:10px 16px;border-radius:16px;background:#fdecea;color:#b3261e;font-weight:600;font-size:.95rem}
+.ns-cartao .erro[hidden]{display:none}
+.ns-cartao .campo{margin:0 0 14px}
+.ns-cartao label{display:block;margin:0 0 6px 4px;font-family:var(--fonte-titulo);font-size:1.15rem;font-weight:700;color:#0a49b8}
+.ns-cartao .entrada{position:relative}
+.ns-ic{position:absolute;left:18px;top:50%;transform:translateY(-50%);display:inline-flex;color:#1b63e6;pointer-events:none}
+.ns-cartao input{width:100%;min-height:56px;padding:0 60px 0 58px;border:2px solid #d3e2fa;border-radius:999px;background:#fff;box-shadow:inset 0 1px 3px rgba(10,42,107,.06);font:inherit;font-size:1.05rem;color:var(--cor-texto)}
+.ns-cartao input:focus{outline:none;border-color:#1b63e6;box-shadow:0 0 0 4px rgba(27,99,230,.22)}
+.ns-cartao .mostrar{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;border-radius:50%;background:none;color:#0a49b8;cursor:pointer}
+.ns-cartao .mostrar:hover{background:#eef4ff}
+.ns-cartao .mostrar:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(27,99,230,.4)}
+.ns-visivel{display:none}
+.ns-cartao .mostrar[aria-pressed="true"] .ns-oculto{display:none}
+.ns-cartao .mostrar[aria-pressed="true"] .ns-visivel{display:inline-flex}
+.ns-oculto,.ns-visivel{line-height:0}
+
+/* Força da senha: 3 barras (cores pelo nível que o JS aplica) + texto colorido */
+.ns-cartao .forca{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 10px 0}
+.ns-cartao .forca i{height:8px;border-radius:999px;background:#e3e7ee}
+.ns-cartao .forca.nivel-1 i:nth-child(1){background:#d93025}
+.ns-cartao .forca.nivel-2 i:nth-child(-n+2){background:#f5b400}
+.ns-cartao .forca.nivel-3 i{background:#2eaa52}
+.ns-cartao #forca-texto{display:block;margin-top:6px;text-align:center;font-size:.95rem;font-weight:600;color:#0a49b8}
+.ns-cartao #forca-texto b{font-family:var(--fonte-titulo);font-size:1.2em;font-weight:700;color:#5b6b88}
+.ns-cartao #forca-texto[data-nivel="1"] b{color:#d93025}
+.ns-cartao #forca-texto[data-nivel="2"] b{color:#e8900c}
+.ns-cartao #forca-texto[data-nivel="3"] b{color:#2e9e4f}
+.ns-cartao .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:62px;margin-top:6px;border-radius:999px;font-family:var(--fonte-titulo);font-size:1.3rem;font-weight:700;background:var(--grad-laranja);color:var(--cor-cta-texto);box-shadow:0 12px 24px rgba(242,138,12,.42)}
+.ns-cartao .btn:hover{background:var(--cor-laranja-hover)}
+.ns-cartao .btn:disabled{opacity:.7;cursor:wait}
+.ns-seguro{display:flex;align-items:center;justify-content:center;gap:12px;margin:26px auto 0;width:94%;padding:12px 20px;border-radius:999px;background:rgba(207,225,251,.85);color:#0a49b8;font-weight:600}
+.ns-seguro svg{flex:none}
+
+/* ---------- Telas largas: composição fiel ao protótipo ---------- */
+@media(min-width:1200px){
+  .tela-nova{min-height:calc(var(--u)*980)}
+  .tela-nova .container{padding:calc(var(--u)*83) calc(var(--u)*92) calc(var(--u)*40) calc(var(--u)*1105)}
+  .ns-coluna{width:calc(var(--u)*723);margin:0}
+  .ns-hero{position:absolute;left:calc(var(--u)*195);top:calc(var(--u)*30);width:calc(var(--u)*745);padding:0}
+  .ns-passo-txt{font-size:max(.95rem,calc(var(--u)*27));text-align:left;margin-left:calc(var(--u)*2)}
+  .tela-nova h1{margin-top:calc(var(--u)*0);font-size:max(2.6rem,calc(var(--u)*118));line-height:.9}
+  .ns-cor{margin-top:calc(var(--u)*-2);font-size:1.08em;line-height:.9}
+  .ns-sub{margin:calc(var(--u)*6) auto 0;max-width:none;font-size:max(1.1rem,calc(var(--u)*35));line-height:1.15}
+  .ns-pets{position:absolute;left:calc(var(--u)*-14);top:calc(var(--u)*312);width:calc(var(--u)*1205);margin:0}
+  .ns-cartao{margin-top:0;padding:calc(var(--u)*58) calc(var(--u)*50) calc(var(--u)*50);border-radius:calc(var(--u)*46)}
+  .ns-pilula{top:calc(var(--u)*-41);width:calc(var(--u)*480);height:calc(var(--u)*70);display:flex;align-items:center;justify-content:center;padding:0;font-size:max(1rem,calc(var(--u)*30))}
+  .ns-cadeado{width:max(130px,calc(var(--u)*240));margin-bottom:calc(var(--u)*8)}
+  .ns-cartao .campo{margin-bottom:calc(var(--u)*16)}
+  .ns-cartao label{font-size:max(1rem,calc(var(--u)*29))}
+  .ns-cartao input{min-height:max(48px,calc(var(--u)*72));padding-left:calc(var(--u)*72);padding-right:calc(var(--u)*78);font-size:max(1rem,calc(var(--u)*26));border-width:calc(var(--u)*2.5)}
+  .ns-ic{left:calc(var(--u)*24)}
+  .ns-ic svg{width:max(22px,calc(var(--u)*40));height:max(22px,calc(var(--u)*40))}
+  .ns-cartao .mostrar{right:calc(var(--u)*14);width:max(40px,calc(var(--u)*58));height:max(40px,calc(var(--u)*58))}
+  .ns-cartao .mostrar svg{width:max(22px,calc(var(--u)*40));height:max(22px,calc(var(--u)*40))}
+  .ns-cartao .forca{margin:calc(var(--u)*16) calc(var(--u)*22) 0;gap:calc(var(--u)*16)}
+  .ns-cartao .forca i{height:calc(var(--u)*11)}
+  .ns-cartao #forca-texto{margin-top:calc(var(--u)*8);font-size:max(.9rem,calc(var(--u)*23))}
+  .ns-cartao .btn{min-height:max(54px,calc(var(--u)*84));margin-top:calc(var(--u)*10);font-size:max(1.15rem,calc(var(--u)*34))}
+  .ns-seguro{margin-top:calc(var(--u)*26);width:calc(var(--u)*680);padding:calc(var(--u)*15) calc(var(--u)*24);font-size:max(.9rem,calc(var(--u)*24))}
+  .ns-seguro svg{width:max(26px,calc(var(--u)*40));height:max(26px,calc(var(--u)*40))}
+
+  /* patinhas e ondas (posições do protótipo em u) */
+  .d-onda-topo{left:0;top:0;width:calc(var(--u)*260);height:calc(var(--u)*140)}
+  .d-onda-dir{right:0;top:0;width:calc(var(--u)*640);height:calc(var(--u)*110);transform:scaleY(-1);opacity:.6}
+  .d-p1{left:calc(var(--u)*30);top:calc(var(--u)*24);width:calc(var(--u)*90);transform:rotate(-14deg)}
+  .d-p2{left:calc(var(--u)*970);top:calc(var(--u)*8);width:calc(var(--u)*72);transform:rotate(10deg)}
+  .d-p4{left:calc(var(--u)*1010);top:calc(var(--u)*262);width:calc(var(--u)*84);transform:rotate(12deg)}
+  .d-p5{left:calc(var(--u)*1820);top:calc(var(--u)*10);width:calc(var(--u)*92);transform:rotate(12deg)}
+  .d-p6{left:calc(var(--u)*1842);top:calc(var(--u)*370);width:calc(var(--u)*84);transform:rotate(-12deg)}
+  .d-p7{left:calc(var(--u)*1842);top:calc(var(--u)*650);width:calc(var(--u)*76);transform:rotate(12deg)}
+  .d-p8{left:calc(var(--u)*1834);top:calc(var(--u)*810);width:calc(var(--u)*78);transform:rotate(-10deg)}
+}
+
+/* ---------- Telas médias e pequenas: título, pets e cartão em coluna ---------- */
+@media(max-width:1199px){
+  body.pg-nova .tela-nova{display:flex;flex-direction:column}
+  .ns-hero{order:1}.ns-pets{order:2}.tela-nova .container{order:3}
+  .tela-nova .deco>*{display:none!important}
+  .tela-nova .deco>.d-p1,.tela-nova .deco>.d-p5{display:block!important}
+  .d-p1{left:12px;top:14px;width:64px;transform:rotate(-12deg)}
+  .d-p5{right:12px;top:18px;width:74px;transform:rotate(12deg)}
+}
+@media(max-width:599px){
+  .ns-pilula{font-size:.95rem;padding:10px 20px}
+  .ns-cadeado{width:140px}
+  .ns-sub{font-size:1.05rem}
+}
+@media(prefers-reduced-motion:reduce){.tela-nova *{transition:none!important}}
+@media(forced-colors:active){.tela-nova .deco{display:none}}
+@media print{.tela-nova .deco,.ns-pets{display:none}}

@@ -1,7 +1,7 @@
 /* Meus Animais. Usa as cores e componentes de base.css. */
 .an-topo{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
 .an-indicadores{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0 8px}
-.an-ind{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:14px;box-shadow:0 2px 8px rgba(11,58,158,.08);color:var(--cinza);font-size:.9rem}
+.an-ind{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:14px;box-shadow:0 2px 8px rgba(10,73,184,.08);color:var(--cinza);font-size:.9rem}
 a.an-ind,button.an-ind{transition:transform .2s}a.an-ind:hover,button.an-ind:hover{transform:translateY(-3px)}
 button.an-ind{font:inherit;text-align:left;cursor:pointer;width:100%}
 .an-ind small{display:block;font-size:.72rem;color:var(--laranja-esc)}
@@ -13,7 +13,7 @@ button.an-ind{font:inherit;text-align:left;cursor:pointer;width:100%}
 .an-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin:14px 0 22px}
 .an-lista .vazio,.an-lista .carregando{grid-column:1/-1}
 .an-lista .vazio p{font-weight:400;color:var(--cinza);margin:6px 0 14px}
-.an-card{background:#fff;border:1px solid var(--borda);border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(11,58,158,.08)}
+.an-card{background:#fff;border:1px solid var(--borda);border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(10,73,184,.08)}
 .an-foto{display:flex;align-items:center;justify-content:center;height:130px;font-size:3.6rem;background:linear-gradient(135deg,#cfe3ff,#eaf3ff)}
 .an-card .corpo{padding:14px;display:grid;gap:8px}
 .an-card h3{color:var(--azul);font-size:1.2rem;overflow-wrap:anywhere}
@@ -22,11 +22,11 @@ button.an-ind{font:inherit;text-align:left;cursor:pointer;width:100%}
 .an-card .agendar{font-size:.85rem;color:var(--laranja-esc);font-weight:700}
 
 .an-atalhos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.an-atalho{display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:16px;font-weight:700;color:var(--azul);box-shadow:0 2px 8px rgba(11,58,158,.08);transition:transform .2s}
+.an-atalho{display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:16px;font-weight:700;color:var(--azul);box-shadow:0 2px 8px rgba(10,73,184,.08);transition:transform .2s}
 .an-atalho:hover{transform:translateY(-3px)}
 .an-atalho span{font-size:1.8rem}
 
-.an-banner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:20px;padding:22px 28px;border-radius:20px;color:#fff;background:linear-gradient(100deg,var(--azul),#1f5ed8)}
+.an-banner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:20px;padding:22px 28px;border-radius:20px;color:#fff;background:linear-gradient(100deg,var(--azul),#1b63e6)}
 .an-banner h2{font-size:1.5rem;margin-bottom:8px}
 .an-banner ul{list-style:none;display:grid;gap:3px;font-size:.92rem}
 .an-banner li::before{content:"✔ ";color:#9be19b}
@@ -49,3 +49,144 @@ button.an-ind{font:inherit;text-align:left;cursor:pointer;width:100%}
 .lista-foto{display:flex;align-items:center;justify-content:center;flex:none;width:48px;height:48px;border-radius:50%;font-size:1.6rem;background:linear-gradient(135deg,#cfe3ff,#eaf3ff)}
 .lista-item strong{display:block;color:var(--azul);overflow-wrap:anywhere}
 .lista-item small{color:var(--cinza)}
+
+/* =====================================================================
+   MEUS ANIMAIS — visual do protótipo (degradê, ondas, patinhas, tracinhos, cão e gato à esquerda).
+   Mesma técnica do Painel do Tutor: em telas largas (>= 1200px) tudo é medido em "u"
+   (1u = 1px a 1600 de largura) e escala junto com a janela. Nenhuma classe/ID usado pelo JS foi renomeado.
+   Só vale para body.pg-meus-animais.
+   ===================================================================== */
+.pg-meus-animais{--u:calc(100vw/1600)}
+
+/* ---------- Página e fundo ---------- */
+.pg-meus-animais .pagina{position:relative;overflow-x:clip;padding:30px 0 120px;
+  background:radial-gradient(ellipse 60% 40% at 55% 0%,#fff 0%,rgba(255,255,255,0) 70%),linear-gradient(125deg,#f4f8ff 0%,#e8f1ff 48%,#d9e8fd 100%)}
+.pg-meus-animais .pagina>.container{position:relative;z-index:2}
+
+/* ---------- Camada decorativa ---------- */
+.an-cena{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.an-cena>*{position:absolute;display:block}
+.an-cena .pc-d{background-color:#b3cdf6;opacity:.55}
+.an-cena .an-trc{overflow:visible}
+.an-pets-img,.an-sombra,.an-d-blob,.an-d-onda-alta,.an-p3,.an-p4,.an-p5,.an-p6{display:none}
+.an-d-onda-topo{left:0;top:0;width:150px;height:96px}
+.an-d-ondas-base{left:0;bottom:0;width:100%;height:80px}
+.an-d-onda-laranja{right:0;bottom:0;width:min(440px,62vw);height:120px}
+.an-p1{left:16px;top:20px;width:46px;height:46px;rotate:-15deg}
+.an-p2{right:16px;top:30px;width:52px;height:52px;rotate:14deg}
+.an-p-onda{right:16px;bottom:12px;width:44px;height:44px;background-color:#fff!important;opacity:.92!important;rotate:-14deg}
+.an-sem-quebra{white-space:nowrap}
+
+/* ---------- Topo ---------- */
+.pg-meus-animais .an-topo{align-items:center;margin-bottom:6px}
+.pg-meus-animais .selo-op{text-transform:uppercase;letter-spacing:.04em;font-weight:800;font-size:.9rem;color:#e07a00}
+.pg-meus-animais h1{font-size:2.4rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px;color:#0a49b8}
+.pg-meus-animais .an-topo .sub{color:#0a2a6b}
+.an-pets-mini{width:210px;height:auto;margin:-10px 0 -14px auto;filter:drop-shadow(0 10px 16px rgba(10,42,107,.16))}
+.pg-meus-animais .btn-laranja{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#ff9f1c,#f28a0c);box-shadow:0 8px 18px rgba(242,138,12,.32)}
+.pg-meus-animais .btn-contorno .pc-ic{margin-right:6px}
+
+/* ---------- Indicadores ---------- */
+.pg-meus-animais .an-ind{border-color:#e3ebf7;border-radius:18px;background:rgba(255,255,255,.96);box-shadow:0 6px 18px rgba(10,73,184,.07);color:#0a2a6b}
+.pg-meus-animais .an-ind strong{color:#0a2a6b}
+.pg-meus-animais .an-ind small{color:#d97500}
+.pg-meus-animais .pn-ic{border-radius:50%;font-size:1.35rem;background:#e4eeff;color:#1b63e6}
+.pg-meus-animais .pn-ic.laranja{background:#ffeedb;color:#f28a0c}
+.pg-meus-animais .pn-ic.verde{background:#dff5e5;color:#2e9c4f}
+.pg-meus-animais .pn-ic.roxo{background:#efe6fb;color:#6d3fd0}
+.pg-meus-animais .an-titulo{color:#0a49b8;font-weight:800}
+
+/* ---------- Lista de animais + atalhos/banner ---------- */
+.an-grade{display:block}
+.pg-meus-animais .an-lista{margin:14px 0 18px}
+.an-direita{display:grid;gap:16px;align-content:start}
+.pg-meus-animais .an-card{border:0;border-radius:20px;background:rgba(255,255,255,.98);box-shadow:0 10px 26px rgba(10,73,184,.12),0 1px 3px rgba(10,73,184,.05)}
+.pg-meus-animais .an-foto{height:150px;font-size:3.6rem}
+.an-foto.com-foto{position:relative;padding:0;background:#dbe8fb}
+.an-foto.com-foto img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.an-ilustrativa{position:absolute;left:8px;bottom:8px;padding:3px 10px;border-radius:999px;background:rgba(10,42,107,.55);color:#fff;font-size:.72rem;font-weight:600;backdrop-filter:blur(2px)}
+.pg-meus-animais .an-card h3{color:#0a49b8;font-weight:800}
+.pg-meus-animais .an-card .etiqueta{display:inline-flex;align-items:center;gap:6px;background:#eaf1fd;color:#0a49b8}
+.pg-meus-animais .an-card .etiqueta .pc-ic{color:#f28a0c}
+.pg-meus-animais .an-card .agendar{display:inline-flex;align-items:center;gap:6px}
+.pg-meus-animais .an-card .acoes{flex-wrap:nowrap}
+.pg-meus-animais .an-card .acao{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1 1 0;padding:7px 10px;border-radius:12px}
+.pg-meus-animais .an-lista .vazio{background:rgba(255,255,255,.96);border-radius:20px;box-shadow:0 10px 26px rgba(10,73,184,.1);padding:34px 18px}
+.pg-meus-animais .an-lista .vazio>.pc-ic{display:block;margin:0 auto 8px;font-size:3rem;color:#b3cdf6}
+
+.pg-meus-animais .an-atalhos{grid-template-columns:repeat(3,1fr)}
+.pg-meus-animais .an-atalho{gap:8px;padding:16px 10px;border-radius:18px;border:1px solid #e3ebf7;text-align:center;line-height:1.2;box-shadow:0 6px 18px rgba(10,73,184,.08)}
+.pg-meus-animais .an-atalho .pc-ic{font-size:2rem}
+.pg-meus-animais .an-atalho.az{background:linear-gradient(180deg,#fff,#e4eeff);color:#0a49b8}
+.pg-meus-animais .an-atalho.az .pc-ic{color:#1b63e6}
+.pg-meus-animais .an-atalho.ro{background:linear-gradient(180deg,#fff,#ffe8ee);color:#0a49b8}
+.pg-meus-animais .an-atalho.ro .pc-ic{color:#e8364f}
+.pg-meus-animais .an-atalho.ro2{background:linear-gradient(180deg,#fff,#f1e8ff);color:#0a49b8}
+.pg-meus-animais .an-atalho.ro2 .pc-ic{color:#f28a0c}
+
+.pg-meus-animais .an-banner{display:block;margin:0;padding:0;border-radius:24px;overflow:hidden;background:none;box-shadow:0 14px 30px rgba(10,73,184,.22);transition:transform .2s}
+.pg-meus-animais .an-banner:hover{transform:translateY(-3px)}
+.pg-meus-animais .an-banner img{display:block;width:100%;height:auto}
+.pg-meus-animais .an-rodape{border-color:#e3ebf7;border-radius:18px;background:rgba(255,255,255,.9);box-shadow:0 6px 18px rgba(10,73,184,.06)}
+.pg-meus-animais .an-rodape strong{color:#0a2a6b}
+.pg-meus-animais .an-rodape .btn-contorno{border-radius:999px;font-weight:800}
+
+/* ---------- Telas largas: composição completa (cão e gato grandes à esquerda) ---------- */
+@media(min-width:1200px){
+  .pg-meus-animais .pagina{padding:calc(var(--u)*34) 0 calc(var(--u)*150);min-height:calc(var(--u)*920)}
+  .pg-meus-animais .pagina>.container{max-width:none;margin:0 calc(var(--u)*290) 0 calc(var(--u)*400);padding:0}
+
+  .an-pets-mini{display:none}
+  .pg-meus-animais .an-topo{flex-wrap:nowrap;gap:calc(var(--u)*24)}
+  .pg-meus-animais .an-topo>div{flex:1 1 0;min-width:0}
+  .pg-meus-animais .an-btn-topo{flex:none;white-space:nowrap}
+  .pg-meus-animais .selo-op{font-size:max(.85rem,calc(var(--u)*18))}
+  .pg-meus-animais h1{font-size:max(2.2rem,calc(var(--u)*46));margin:calc(var(--u)*2) 0 calc(var(--u)*8)}
+  .pg-meus-animais .an-topo .sub{font-size:max(.9rem,calc(var(--u)*18))}
+  .pg-meus-animais .btn-laranja{font-size:max(.95rem,calc(var(--u)*19));padding:calc(var(--u)*13) calc(var(--u)*26)}
+
+  .pg-meus-animais .an-indicadores{gap:calc(var(--u)*14);margin:calc(var(--u)*18) 0 calc(var(--u)*8)}
+  .pg-meus-animais .an-ind{padding:calc(var(--u)*14) calc(var(--u)*16);gap:calc(var(--u)*12);border-radius:calc(var(--u)*20);font-size:max(.8rem,calc(var(--u)*16))}
+  .pg-meus-animais .an-ind strong{font-size:max(1.4rem,calc(var(--u)*30))}
+  .pg-meus-animais .pn-ic{width:max(40px,calc(var(--u)*52));height:max(40px,calc(var(--u)*52));font-size:max(1.2rem,calc(var(--u)*26))}
+  .pg-meus-animais .an-titulo{margin-top:calc(var(--u)*20);font-size:max(1.3rem,calc(var(--u)*30))}
+
+  .an-grade{display:grid;grid-template-columns:calc(var(--u)*252) minmax(0,1fr);gap:calc(var(--u)*16);align-items:start}
+  .pg-meus-animais .an-lista{grid-template-columns:1fr;margin:calc(var(--u)*12) 0 calc(var(--u)*18);gap:calc(var(--u)*14)}
+  .pg-meus-animais .an-foto{height:max(120px,calc(var(--u)*160))}
+  .pg-meus-animais .an-card h3{font-size:max(1.05rem,calc(var(--u)*22))}
+  .an-direita{margin-top:calc(var(--u)*12);gap:calc(var(--u)*16)}
+  .pg-meus-animais .an-atalho{font-size:max(.85rem,calc(var(--u)*17));padding:calc(var(--u)*16) calc(var(--u)*8)}
+  .pg-meus-animais .an-atalho .pc-ic{font-size:max(1.6rem,calc(var(--u)*38))}
+  .pg-meus-animais .an-rodape{margin-top:calc(var(--u)*6)}
+
+  /* cena */
+  .an-d-blob{display:block;left:calc(var(--u)*-90);top:calc(var(--u)*300);width:calc(var(--u)*540);height:calc(var(--u)*520)}
+  .an-d-onda-topo{width:calc(var(--u)*270);height:calc(var(--u)*170)}
+  .an-d-ondas-base{height:calc(var(--u)*130)}
+  .an-d-onda-laranja{width:calc(var(--u)*480);height:calc(var(--u)*220)}
+  .an-p1{left:calc(var(--u)*150);top:calc(var(--u)*135);width:calc(var(--u)*165);height:calc(var(--u)*165);rotate:-12deg}
+  .an-p2{left:calc(var(--u)*830);right:auto;top:calc(var(--u)*62);width:calc(var(--u)*44);height:calc(var(--u)*44);rotate:12deg}
+  .an-p3{display:block;left:calc(var(--u)*1395);top:calc(var(--u)*40);width:calc(var(--u)*200);height:calc(var(--u)*200);rotate:12deg;opacity:.7}
+  .an-p4{display:block;left:calc(var(--u)*1476);top:calc(var(--u)*330);width:calc(var(--u)*56);height:calc(var(--u)*56);rotate:-12deg}
+  .an-p5{display:block;left:calc(var(--u)*1400);top:calc(var(--u)*430);width:calc(var(--u)*66);height:calc(var(--u)*66);rotate:10deg}
+  .an-p6{display:block;left:calc(var(--u)*1010);top:calc(var(--u)*34);width:calc(var(--u)*50);height:calc(var(--u)*50);rotate:-8deg;opacity:.4}
+  .an-p-onda{right:calc(var(--u)*26);bottom:calc(var(--u)*24);width:calc(var(--u)*96);height:calc(var(--u)*96)}
+
+  .an-pets-img{display:block;left:calc(var(--u)*-116);top:calc(var(--u)*305);width:calc(var(--u)*500);height:auto;filter:drop-shadow(0 12px 16px rgba(10,42,107,.2))}
+  .an-sombra{display:block;left:calc(var(--u)*-20);top:calc(var(--u)*730);width:calc(var(--u)*400);height:calc(var(--u)*44);background:radial-gradient(closest-side,rgba(10,42,107,.24),rgba(10,42,107,0))}
+}
+
+@media(max-width:1199px){
+  .an-cena .an-d-blob,.an-p3{display:none}
+  .an-grade{display:block}
+}
+@media(max-width:599px){
+  .an-pets-mini{display:none}
+  .pg-meus-animais h1{font-size:1.9rem}
+  .pg-meus-animais .pagina{padding-bottom:110px}
+  .pg-meus-animais .an-atalhos{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){.pg-meus-animais .an-banner,.pg-meus-animais .an-banner:hover,.pg-meus-animais a.an-ind,.pg-meus-animais .an-atalho,.pg-meus-animais .an-atalho:hover{transition:none;transform:none}}
+@media(forced-colors:active){.an-cena{display:none}}
+@media print{.an-cena{display:none}}

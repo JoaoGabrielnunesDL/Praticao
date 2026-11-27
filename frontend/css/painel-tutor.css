@@ -21,13 +21,13 @@
 .pn-titulo{margin:30px 0 12px;font-size:1.6rem;color:var(--azul)}
 .pn-titulo small{display:block;font-size:.85rem;font-weight:400;color:var(--cinza)}
 .pn-acoes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.pn-acao{display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:14px;font:inherit;color:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(11,58,158,.08);transition:transform .2s}
+.pn-acao{display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:14px;font:inherit;color:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(10,73,184,.08);transition:transform .2s}
 .pn-acao:hover{transform:translateY(-3px)}
 .pn-acao strong{display:block;color:var(--azul)}
 .pn-acao small{display:block;color:var(--cinza);font-size:.78rem}
 .pn-acao i{margin-left:auto;font-style:normal;font-size:1.5rem;color:var(--laranja)}
 
-.pn-banner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:28px;padding:22px 28px;border-radius:20px;color:#fff;background:linear-gradient(100deg,var(--azul),#1f5ed8)}
+.pn-banner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:28px;padding:22px 28px;border-radius:20px;color:#fff;background:linear-gradient(100deg,var(--azul),#1b63e6)}
 .pn-banner-titulo{display:flex;align-items:center;gap:14px}
 .pn-banner-titulo span{font-size:2.4rem}
 .pn-banner h2{font-size:1.5rem;line-height:1.2}
@@ -44,74 +44,167 @@
 @media(max-width:560px){.pn-acoes{grid-template-columns:1fr}.pn-banner{justify-content:center;text-align:center}}
 
 /* =====================================================================
-   PILOTO: kit pet shop (praticao-ui.css) no Painel do Tutor.
-   Tudo abaixo vale só para body.pg-painel-tutor. Nenhuma classe/ID usado pelo JS foi renomeado.
-   Importante: nada entre a foto dos pets e o fundo da página pode ter z-index/isolation/opacity/transform,
-   senão o multiply para de funcionar (o branco da foto apareceria).
+   PAINEL DO TUTOR — visual do protótipo (degradê, ondas, patinhas, tracinhos, cão e gato grandes).
+   Referência: tela de 1600px de largura. Em telas largas (>= 1200px) tudo é medido em "u"
+   (1u = 1px a 1600 de largura) e escala junto com a janela. Nenhuma classe/ID usado pelo JS foi renomeado.
+   Só vale para body.pg-painel-tutor.
    ===================================================================== */
+.pg-painel-tutor{--u:calc(100vw/1600)}
 
-/* ---------- Página e fundo (mesma identidade das telas redesenhadas) ---------- */
-.pg-painel-tutor .pagina{position:relative;overflow-x:clip;padding:30px 0 130px;background:radial-gradient(1200px 500px at 70% -10%,#dcebff 0%,transparent 60%),linear-gradient(180deg,#eaf3ff 0%,#f5f9ff 45%,#eef5ff 100%)}
-.pg-painel-tutor .pagina>.container{position:relative}
+/* ---------- Página e fundo ---------- */
+.pg-painel-tutor .pagina{position:relative;overflow-x:clip;padding:30px 0 120px;
+  background:radial-gradient(ellipse 60% 40% at 55% 0%,#fff 0%,rgba(255,255,255,0) 70%),linear-gradient(125deg,#f4f8ff 0%,#e8f1ff 48%,#d9e8fd 100%)}
+.pg-painel-tutor .pagina>.container{position:relative;z-index:2}
 
-/* ---------- Topo: título à esquerda, cachorro e gato à direita, "sentados" sobre os cartões ---------- */
+/* ---------- Camada decorativa ---------- */
+.pn-cena{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.pn-cena>*{position:absolute;display:block}
+.pn-cena .pc-d{background-color:#b3cdf6;opacity:.55}
+.pn-cena .pn-trc{overflow:visible}
+.pn-pets-img,.pn-sombra{display:none}
+.pn-d-blob,.pn-d-onda-alta,.pn-p4,.pn-p5,.pn-p6,.pn-trc-pets,.pn-trc-acoes,.pn-trc-anel,.pn-trc-titulo,.pn-trc-cao,.pn-trc-cal-amarelo{display:none}
+.pn-d-onda-topo{left:0;top:0;width:150px;height:96px}
+.pn-d-ondas-base{left:0;bottom:0;width:100%;height:80px}
+.pn-d-onda-laranja{right:0;bottom:0;width:min(440px,62vw);height:120px;transform:none}
+.pn-p1{left:16px;top:20px;width:46px;height:46px;rotate:-15deg}
+.pn-p2{right:16px;top:30px;width:52px;height:52px;rotate:14deg}
+.pn-p-onda{right:16px;bottom:12px;width:44px;height:44px;background-color:#fff!important;opacity:.92!important;rotate:-14deg}
+.pn-trc-inline{display:inline-block;width:30px;height:32px;margin-left:6px;vertical-align:middle;position:relative;top:-.08em;overflow:visible}
+
+/* ---------- Topo ---------- */
 .pn-topo{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:24px;align-items:center;margin-bottom:22px}
-.pg-painel-tutor .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
-.pg-painel-tutor h1{font-size:2.4rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
+.pg-painel-tutor .selo-op{text-transform:uppercase;letter-spacing:.04em;font-weight:800;font-size:.9rem;color:#e07a00}
+.pg-painel-tutor h1{font-size:2.4rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px;color:#0a49b8}
 .pn-sem-quebra{white-space:nowrap}
-.pn-faisca{width:34px;height:34px;margin-left:6px;vertical-align:top;color:var(--laranja)}
-.pg-painel-tutor .ola{margin:0;color:#183b8c;font-size:1.02rem}
-.pn-pets{align-self:end;width:360px;padding:0;margin-bottom:-22px;--pc-pets-proporcao:1290/880;--pc-pets-foco:40% 50%}
-.pn-pets img{filter:brightness(1.07)} /* fundo cinza-claro da foto vira branco e some no multiply */
-.pn-pets::before{bottom:-6px;height:18px}
-.pn-d-coracao{top:14%;left:69%;width:20px;height:20px;background-color:var(--pc-deco-forte);rotate:12deg}
-.pn-d-brilho{top:4%;right:2%;width:18px;height:18px;background-color:var(--pc-deco-forte)}
+.pg-painel-tutor .ola{margin:0;color:#0a2a6b;font-size:1.02rem}
+.pg-painel-tutor .ola strong{color:#0a2a6b}
+.pn-pets-mini{width:300px;height:auto;align-self:end;margin-bottom:-18px;filter:drop-shadow(0 12px 18px rgba(10,42,107,.16))}
 
-/* ---------- Cartões e ícones (emojis trocados por ícones SVG do kit) ---------- */
-.pg-painel-tutor .pn-card{border-radius:20px;box-shadow:0 8px 26px rgba(11,58,158,.08)}
+/* ---------- Cartões ---------- */
+.pg-painel-tutor .pn-card{position:relative;overflow:hidden;border-radius:24px;background:rgba(255,255,255,.96);box-shadow:0 10px 30px rgba(10,73,184,.1),0 1px 3px rgba(10,73,184,.05)}
+.pg-painel-tutor .pn-card>*{position:relative;z-index:1}
+.pg-painel-tutor .pn-card>.pn-card-pata,.pg-painel-tutor .pn-card>.pn-trc-cal,.pg-painel-tutor .pn-card>.pn-trc-cal-amarelo,.pg-painel-tutor .pn-card>.pn-cal{position:absolute}
+.pg-painel-tutor .pn-card h2{color:#0a2a6b;font-weight:800}
 .pg-painel-tutor .pn-icone,
-.pg-painel-tutor .pn-icone.azul,.pg-painel-tutor .pn-icone.laranja,.pg-painel-tutor .pn-icone.roxo,.pg-painel-tutor .pn-icone.verde{background:var(--pc-ic-fundo);color:var(--pc-ic-cor);font-size:20px;border-radius:12px}
-.pg-painel-tutor .pn-acao{border-color:#e3ebf7;border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.06)}
-.pg-painel-tutor .pn-acao:hover{box-shadow:0 10px 24px rgba(11,58,158,.12)}
+.pg-painel-tutor .pn-icone.azul,.pg-painel-tutor .pn-icone.laranja,.pg-painel-tutor .pn-icone.roxo,.pg-painel-tutor .pn-icone.verde{border-radius:50%;font-size:20px;background:#e4eeff;color:#1b63e6}
+.pg-painel-tutor .pn-icone.laranja{background:#ffeedb;color:#f28a0c}
+.pg-painel-tutor .pn-icone.roxo{background:#efe6fb;color:#6d3fd0}
+.pg-painel-tutor .pn-icone.verde{background:#dff5e5;color:#2e9c4f}
+.pg-painel-tutor .pn-numero{color:#0a49b8}
+.pg-painel-tutor .pn-card .btn{display:inline-flex;align-items:center;gap:10px}
+.pg-painel-tutor .pn-card .btn-azul{background:#0a49b8;box-shadow:0 6px 14px rgba(10,73,184,.25)}
+.pg-painel-tutor .pn-card .btn-laranja{background:linear-gradient(180deg,#ff9f1c,#f28a0c);box-shadow:0 8px 18px rgba(242,138,12,.32)}
+#btn-animais::before{content:"";width:1.15em;height:1.15em;background:#fff;-webkit-mask:var(--pc-forma) center/contain no-repeat;mask:var(--pc-forma) center/contain no-repeat;--pc-forma:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='13' cy='29' rx='6' ry='8' transform='rotate(-20 13 29)'/%3E%3Cellipse cx='24' cy='15' rx='6.5' ry='8.5' transform='rotate(-8 24 15)'/%3E%3Cellipse cx='40' cy='15' rx='6.5' ry='8.5' transform='rotate(8 40 15)'/%3E%3Cellipse cx='51' cy='29' rx='6' ry='8' transform='rotate(20 51 29)'/%3E%3Cpath d='M32 31c-9.5 0-18 10.5-18 19 0 6 4.6 8.5 9 8.5 4.2 0 5.8-2.3 9-2.3s4.8 2.3 9 2.3c4.4 0 9-2.5 9-8.5 0-8.5-8.5-19-18-19z'/%3E%3C/svg%3E")}
+.pn-card-pata{right:-8px;top:14px;width:150px;height:150px;rotate:-8deg;background-color:#dbe8fb!important;opacity:.8!important;z-index:0!important;display:block}
+.pn-cal{position:absolute!important;right:34px;top:34px;width:104px;height:104px;border:7px solid #2a6ee8;border-radius:22px;background:#fff;rotate:8deg;display:flex;align-items:center;justify-content:center;font-size:46px;color:#1b63e6;box-shadow:0 10px 20px rgba(10,73,184,.18)}
+.pn-cal::before{content:"";position:absolute;left:0;right:0;top:0;height:22px;background:#2a6ee8;border-radius:12px 12px 0 0;margin:-1px}
+.pn-cal .pc-ic{margin-top:14px}
+.pn-trc-cal{right:12px;top:16px;width:34px;height:36px;z-index:0}
+
+/* ---------- Ações rápidas ---------- */
+.pg-painel-tutor .pn-titulo{color:#0a2a6b;font-weight:800}
+.pg-painel-tutor .pn-titulo small{color:#0a2a6b;font-weight:500}
+.pg-painel-tutor .pn-acao{border-color:#e3ebf7;border-radius:18px;background:rgba(255,255,255,.96);box-shadow:0 6px 18px rgba(10,73,184,.07)}
+.pg-painel-tutor .pn-acao:hover{box-shadow:0 12px 26px rgba(10,73,184,.14)}
+.pg-painel-tutor .pn-acao strong{color:#0a2a6b}
+.pg-painel-tutor .pn-acao i{color:#1b63e6;font-weight:700}
 .pg-painel-tutor .vazio>.pc-ic{display:block;margin:0 auto 8px;font-size:2.6rem;color:#d93025}
-@media(prefers-reduced-motion:reduce){.pg-painel-tutor .pn-acao,.pg-painel-tutor .pn-acao:hover{transition:none;transform:none}}
 
-/* ---------- Banner: onda clara por dentro, coração e casinha em SVG, orelhas de gato espiando ---------- */
-.pg-painel-tutor .pn-banner{position:relative;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160' preserveAspectRatio='none'%3E%3Cpath d='M0 160C90 150 150 120 210 80S330 10 400 0V160Z' fill='%23fff' fill-opacity='.07'/%3E%3C/svg%3E") right bottom/58% 100% no-repeat,linear-gradient(100deg,var(--azul),#1f5ed8)}
-.pg-painel-tutor .pn-banner-titulo .pc-ic{color:#9cc3ff}
-.pg-painel-tutor .pn-casinha{color:#fff;opacity:.92;line-height:1}
-.pn-gato{top:-25px;right:150px;width:46px;height:28px;background-color:var(--pc-deco-forte)}
+/* ---------- Banner ---------- */
+.pg-painel-tutor .pn-banner{position:relative;flex-wrap:nowrap;border-radius:24px;box-shadow:0 14px 30px rgba(10,73,184,.22);
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160' preserveAspectRatio='none'%3E%3Cpath d='M0 160C90 150 150 120 210 80S330 10 400 0V160Z' fill='%23fff' fill-opacity='.08'/%3E%3C/svg%3E") right bottom/58% 100% no-repeat,linear-gradient(100deg,#0a49b8,#1f6cf0)}
+.pn-banner-titulo>span.pn-coracao{position:relative;flex:none;display:block;width:64px;height:58px;font-size:inherit}
+.pn-coracao .pc-ic:first-child{position:absolute;inset:0;width:100%;height:100%;background-color:#fff}
+.pn-coracao .pc-ic:first-child::after{content:"";position:absolute;inset:11%;background:#1b4fc9;-webkit-mask:inherit;mask:inherit;-webkit-mask-size:contain;mask-size:contain}
+.pn-coracao .pc-ic:last-child{position:absolute;left:50%;top:48%;width:46%;height:46%;translate:-50% -50%;background-color:#fff;z-index:1}
+.pn-banner h2 em{font-style:normal;color:#ffb23a}
+.pg-painel-tutor .pn-banner ul{padding-left:28px;border-left:1px solid rgba(255,255,255,.35)}
+.pg-painel-tutor .pn-banner li{display:flex;align-items:center;gap:10px}
+.pg-painel-tutor .pn-banner li::before{content:"✓";flex:none;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1b63e6;font-size:.8rem;font-weight:800}
+.pn-casinha{flex:none;width:150px;height:auto;margin:-34px 14px -6px 0;overflow:visible}
+.pn-trc-casa{display:none}
 
-/* ---------- Enfeites de fundo (só nas margens; somem quando não há margem) ----------
-   --margem = largura livre ao lado do container de 1100px; as posições laterais são frações dela,
-   então os enfeites nunca invadem o título, os cartões ou o banner. */
-.pn-cena{--margem:calc((100% - 1100px) / 2)}
-.pn-cena .pc-d{opacity:.7}
-.pn-d-trilha1{top:64px;left:calc(var(--margem) * .22);width:22px;height:22px;rotate:-20deg}
-.pn-d-trilha2{top:112px;left:calc(var(--margem) * .5);width:26px;height:26px;rotate:10deg}
-.pn-d-trilha3{top:166px;left:calc(var(--margem) * .28);width:30px;height:30px;rotate:-12deg}
-.pn-d-pata{top:28px;right:calc(var(--margem) * .3);width:64px;height:64px;rotate:-12deg;opacity:.55}
-.pn-d-osso{top:52%;right:-12px;width:72px;height:72px;rotate:-28deg;opacity:.6}
-.pn-d-pote{bottom:230px;left:calc(var(--margem) * .14);width:56px;height:56px;opacity:.65}
-.pn-d-bolinha{bottom:196px;left:calc(var(--margem) * .55);width:26px;height:26px;background-color:var(--pc-deco-forte);opacity:.6}
-.pn-cena .pn-d-pata-onda{right:26px;bottom:20px;width:56px;height:56px;background-color:#fff;opacity:.9;rotate:-14deg}
+/* ---------- Telas largas: composição completa (cachorro e gato grandes à esquerda) ---------- */
+@media(min-width:1200px){
+  .pg-painel-tutor .pagina{padding:calc(var(--u)*34) 0 calc(var(--u)*130);min-height:calc(var(--u)*812)}
+  .pg-painel-tutor .pagina>.container{max-width:none;margin:0 calc(var(--u)*35) 0 calc(var(--u)*432);padding:0}
 
-@media(max-width:1279px){
-  .pn-d-trilha1,.pn-d-trilha2,.pn-d-trilha3,.pn-d-pata,.pn-d-osso,.pn-d-pote,.pn-d-bolinha{display:none}
+  .pn-topo{display:block;margin-bottom:calc(var(--u)*14)}
+  .pn-pets-mini{display:none}
+  .pg-painel-tutor .selo-op{font-size:max(.85rem,calc(var(--u)*20))}
+  .pg-painel-tutor h1{font-size:max(2.2rem,calc(var(--u)*46));margin:calc(var(--u)*2) 0 calc(var(--u)*8)}
+  .pg-painel-tutor .ola{font-size:max(1rem,calc(var(--u)*20));line-height:1.3}
+  .pg-painel-tutor .ola strong{font-size:max(1.05rem,calc(var(--u)*22))}
+
+  .pn-cartoes{grid-template-columns:493fr 623fr;gap:calc(var(--u)*16)}
+  .pg-painel-tutor .pn-card{padding:calc(var(--u)*24) calc(var(--u)*26);border-radius:calc(var(--u)*26);min-height:calc(var(--u)*213)}
+  .pg-painel-tutor .pn-card h2{font-size:max(1.1rem,calc(var(--u)*22));gap:calc(var(--u)*14);margin-bottom:calc(var(--u)*8)}
+  .pg-painel-tutor .pn-icone{width:max(40px,calc(var(--u)*50));height:max(40px,calc(var(--u)*50));font-size:max(20px,calc(var(--u)*24))}
+  .pg-painel-tutor .pn-numero{font-size:max(2rem,calc(var(--u)*42));margin-top:calc(var(--u)*8)}
+  .pg-painel-tutor .pn-card .sub,.pg-painel-tutor .pn-card p.vazio-txt{font-size:max(.95rem,calc(var(--u)*18));margin-bottom:calc(var(--u)*12)}
+  .pg-painel-tutor .pn-card .btn{font-size:max(.95rem,calc(var(--u)*19));padding:calc(var(--u)*13) calc(var(--u)*26)}
+  .pn-card-pata{right:calc(var(--u)*-14);top:calc(var(--u)*10);width:calc(var(--u)*190);height:calc(var(--u)*190)}
+  .pn-cal{right:calc(var(--u)*44);top:calc(var(--u)*30);width:calc(var(--u)*128);height:calc(var(--u)*128);font-size:calc(var(--u)*56)}
+  .pn-trc-cal{right:calc(var(--u)*182);top:calc(var(--u)*3);width:calc(var(--u)*44);height:calc(var(--u)*46)}
+
+  .pg-painel-tutor .pn-titulo{margin:calc(var(--u)*16) 0 calc(var(--u)*10);font-size:max(1.4rem,calc(var(--u)*32))}
+  .pg-painel-tutor .pn-titulo small{font-size:max(.9rem,calc(var(--u)*19))}
+  .pn-acoes{gap:calc(var(--u)*14)}
+  .pg-painel-tutor .pn-acao{padding:calc(var(--u)*13) calc(var(--u)*16);gap:calc(var(--u)*12);min-height:calc(var(--u)*74)}
+  .pg-painel-tutor .pn-acao strong{font-size:max(.9rem,calc(var(--u)*17))}
+  .pg-painel-tutor .pn-acao small{font-size:max(.75rem,calc(var(--u)*14))}
+
+  .pg-painel-tutor .pn-banner{margin-top:calc(var(--u)*24);padding:calc(var(--u)*22) calc(var(--u)*30) calc(var(--u)*22) calc(var(--u)*40);min-height:calc(var(--u)*130);gap:calc(var(--u)*34)}
+  .pn-banner-titulo{gap:calc(var(--u)*22)}
+  .pn-banner-titulo>span.pn-coracao{width:calc(var(--u)*92);height:calc(var(--u)*84)}
+  .pn-banner h2{font-size:max(1.3rem,calc(var(--u)*32));line-height:1.18}
+  .pg-painel-tutor .pn-banner ul{font-size:max(.9rem,calc(var(--u)*17));gap:calc(var(--u)*8);margin-left:auto}
+  .pn-casinha{width:calc(var(--u)*210);margin:calc(var(--u)*-44) calc(var(--u)*10) calc(var(--u)*-14) calc(var(--u)*20)}
+
+  /* cena */
+  .pn-d-blob{display:block;left:calc(var(--u)*-40);bottom:calc(var(--u)*40);width:calc(var(--u)*560);height:calc(var(--u)*700)}
+  .pn-d-onda-topo{width:calc(var(--u)*270);height:calc(var(--u)*170)}
+  .pn-d-onda-alta{display:block;left:calc(var(--u)*860);top:calc(var(--u)*130);width:calc(var(--u)*740);height:calc(var(--u)*150)}
+  .pn-d-ondas-base{height:calc(var(--u)*130)}
+  .pn-d-onda-laranja{width:calc(var(--u)*500);height:calc(var(--u)*150)}
+  .pn-p1{left:calc(var(--u)*310);top:calc(var(--u)*100);width:calc(var(--u)*88);height:calc(var(--u)*88);rotate:-12deg;opacity:.7}
+  .pn-p2{left:calc(var(--u)*931);right:auto;top:calc(var(--u)*62);width:calc(var(--u)*58);height:calc(var(--u)*58);rotate:-8deg}
+  .pn-p3{left:calc(var(--u)*1178);top:calc(var(--u)*20);width:calc(var(--u)*70);height:calc(var(--u)*70);rotate:12deg}
+  .pn-p4{display:block;left:calc(var(--u)*1458);top:calc(var(--u)*46);width:calc(var(--u)*92);height:calc(var(--u)*92);rotate:-14deg}
+  .pn-p5{display:block;left:calc(var(--u)*1278);top:calc(var(--u)*463);width:calc(var(--u)*66);height:calc(var(--u)*66);rotate:14deg}
+  .pn-p6{display:block;left:calc(var(--u)*946);bottom:calc(var(--u)*34);width:calc(var(--u)*62);height:calc(var(--u)*62);rotate:-6deg}
+  .pn-p-onda{right:calc(var(--u)*22);bottom:calc(var(--u)*14);width:calc(var(--u)*68);height:calc(var(--u)*68)}
+  /* cachorro e gato: centralizados na altura do conteúdo (aparecem inteiros ao abrir a tela).
+     O corte à direita (máscara) esconde o resto do gato, para ele não passar dos blocos; a borda some suave. */
+  .pn-pets-img{display:block;left:calc(var(--u)*-34);top:calc(var(--u)*156);width:calc(var(--u)*600);height:auto;
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 72%,transparent 75.5%);mask-image:linear-gradient(90deg,#000 0,#000 72%,transparent 75.5%);
+    filter:drop-shadow(0 12px 16px rgba(10,42,107,.16))}
+  .pn-sombra{display:block;left:calc(var(--u)*20);top:calc(var(--u)*588);width:calc(var(--u)*420);height:calc(var(--u)*46);background:radial-gradient(closest-side,rgba(10,42,107,.2),rgba(10,42,107,0))}
+  .pn-trc-inline{width:calc(var(--u)*46);height:calc(var(--u)*48);margin-left:calc(var(--u)*10)}
+  .pn-trc-pets{display:block;left:calc(var(--u)*292);top:calc(var(--u)*70);width:calc(var(--u)*66);height:calc(var(--u)*38)}
+  .pn-trc-acoes{display:block;left:calc(var(--u)*672);top:calc(var(--u)*402);width:calc(var(--u)*40);height:calc(var(--u)*42)}
+  .pn-trc-cal-amarelo{display:block;right:calc(var(--u)*12);top:calc(var(--u)*6);width:calc(var(--u)*44);height:calc(var(--u)*46);z-index:0}
 }
-@media(max-width:1099px){
-  .pn-pets{width:300px}
+
+@media(max-width:1199px){
+  .pn-cena .pn-d-blob,.pn-p3{display:none}
 }
+@media(max-width:1099px){.pn-pets-mini{width:240px}}
 @media(max-width:899px){
-  .pn-pets{width:240px}
+  .pn-pets-mini{width:190px}
+  .pg-painel-tutor .pn-banner{flex-wrap:wrap}
+  .pg-painel-tutor .pn-banner ul{border-left:0;padding-left:0}
+  .pn-casinha{display:none}
 }
-/* Celular: sem pets e sem enfeites laterais (o conteúdo vem primeiro); ficam a onda e as orelhas no banner */
 @media(max-width:599px){
   .pn-topo{grid-template-columns:minmax(0,1fr)}
-  .pn-pets{display:none}
+  .pn-pets-mini{display:none}
   .pg-painel-tutor h1{font-size:1.9rem}
   .pg-painel-tutor .pagina{padding-bottom:110px}
-  .pg-painel-tutor .pc-onda{height:100px}
-  .pn-cena .pn-d-pata-onda{width:40px;height:40px;right:18px;bottom:14px}
-  .pn-gato{right:50%;translate:50% 0}
+  .pn-cal,.pn-card-pata{display:none}
+  .pn-banner h2{font-size:1.25rem}
+  .pn-banner-titulo{justify-content:center}
 }
+@media(prefers-reduced-motion:reduce){.pg-painel-tutor .pn-acao,.pg-painel-tutor .pn-acao:hover{transition:none;transform:none}}
+@media(forced-colors:active){.pn-cena{display:none}}
+@media print{.pn-cena{display:none}}

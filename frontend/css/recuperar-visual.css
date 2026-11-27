@@ -1,0 +1,135 @@
+/* =====================================================================
+   RECUPERAR SENHA — visual do protótipo SÓ no passo 1 (e-mail): degradê, ondas, patinhas, corações, tracinhos,
+   cão e gato grandes e cartão com ícones. Vale só dentro de <main class="login-pagina tela-rv">, que o 3.18 já esconde
+   nos passos 2 e 3 (telas próprias: redefinir-nova-senha.css e redefinir-sucesso.css).
+   Em telas largas (>= 1200px) tudo é posicionado em "u" (1u = 1px a 1920 de largura) e escala junto com a janela.
+   A faixa do site (topbar + navbar = 100px) fica acima; as medidas abaixo começam logo depois dela.
+   ===================================================================== */
+
+.rv-defs{position:absolute;width:0;height:0}
+
+.tela-rv{--u:calc(100vw/1920);position:relative;overflow:hidden;isolation:isolate;
+  background:radial-gradient(ellipse 60% 45% at 50% 0%,#fff 0%,rgba(255,255,255,0) 70%),linear-gradient(125deg,#f7faff 0%,#e7f0ff 48%,#d8e7fd 100%)}
+.tela-rv .container{position:relative;z-index:1}
+.tela-rv .rv-seguro{display:flex}
+
+/* ---------- Texto da esquerda ---------- */
+.tela-rv .boas-vindas h1,
+.tela-rv .boas-vindas>p:not(.rv-eyebrow):not(.rv-titulo):not(.rv-desc),
+.tela-rv .boas-vindas .aviso,
+.tela-rv .boas-vindas .ac-pets{display:none}
+.tela-rv .rv-texto{display:block;text-align:left}
+.rv-eyebrow{margin:0;font-size:1rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--cor-azul-forte,#0a49b8)}
+.rv-titulo{margin:6px 0 0;font-family:var(--fonte-titulo);font-weight:800;letter-spacing:-.03em;line-height:1.02}
+.rv-l1{display:block;font-size:clamp(2.1rem,1.4rem + 3vw,3.2rem);color:var(--cor-azul-forte,#0a49b8)}
+.rv-l2{display:block;font-size:clamp(1.5rem,1.1rem + 2vw,2.2rem);color:var(--cor-laranja,#f28a0c)}
+.rv-desc{margin:14px 0 0;max-width:34em;font-size:1.0625rem;font-weight:600;line-height:1.4;color:var(--cor-azul-profundo,#0a2a6b)}
+.tela-rv .rv-pets{display:block;width:100%;max-width:520px;height:auto;margin:var(--esp-4,16px) auto 0;filter:drop-shadow(0 14px 22px rgba(10,42,107,.16))}
+
+/* ---------- Cartão ---------- */
+.tela-rv .cartao{position:relative;border:0;border-radius:28px;background:rgba(255,255,255,.97);box-shadow:0 24px 60px rgba(10,42,107,.16),0 2px 6px rgba(10,42,107,.06);text-align:center}
+.tela-rv .cartao .passo{display:inline-block;margin:0 0 var(--esp-3,12px);padding:10px 28px;border-radius:999px;background:#0a49b8;color:#fff;font-size:1rem;font-weight:700;letter-spacing:0;text-transform:none;box-shadow:0 8px 18px rgba(10,73,184,.28)}
+.tela-rv .cartao .ac-progresso{display:none}
+.tela-rv #passo-1 .avatar{position:relative;display:grid;place-items:center;width:104px;height:104px;margin:0 auto var(--esp-3,12px);border-radius:50%;background:radial-gradient(circle,#c4d9fa 0 60%,#e3edfd 61%);color:#1b63e6;line-height:0}
+.tela-rv #passo-1 .avatar svg:first-child{width:50px;height:50px;stroke:#1b63e6;stroke-width:2.4}
+.tela-rv #passo-1 .avatar svg:first-child rect{fill:#1b63e6}
+.tela-rv #passo-1 .avatar svg:first-child path{fill:none}
+.tela-rv #passo-1 h2{font-size:clamp(1.75rem,1.3rem + 1.6vw,2.3rem);font-weight:800;color:var(--cor-azul-forte,#0a49b8);text-align:center}
+.tela-rv #passo-1 .rv-lar{color:var(--cor-laranja,#f28a0c)}
+.tela-rv #passo-1 .sub{margin:var(--esp-2,8px) auto var(--esp-6,24px);max-width:24em;font-size:1.0625rem;font-weight:500;color:var(--cor-azul-profundo,#0a2a6b)}
+.tela-rv #passo-1 .campo{text-align:left}
+.tela-rv #passo-1 .campo label{display:block;margin-bottom:8px;font-size:1.0625rem;font-weight:800;color:var(--cor-azul-forte,#0a49b8)}
+.rv-entrada{position:relative}
+.rv-entrada::before{content:"";position:absolute;left:22px;top:50%;width:26px;height:26px;transform:translateY(-50%);pointer-events:none;
+  background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect x='2' y='5' width='22' height='16' rx='3.5' fill='none' stroke='%230a49b8' stroke-width='2'/%3E%3Cpath d='M3.5 7.500l9.500 7 9.500-7' fill='none' stroke='%230a49b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.tela-rv #passo-1 .campo input{min-height:56px;padding:0 24px 0 62px;border:2px solid #bcd0f1;border-radius:999px;background:#fff;font-size:1.0625rem}
+.tela-rv #passo-1 .campo input::placeholder{color:#5b72a4}
+.tela-rv #passo-1 .btn{min-height:60px;border-radius:999px;background:var(--grad-laranja,linear-gradient(180deg,#ff9f1c,#f28a0c));color:var(--cor-cta-texto,#0a2a6b);font-size:1.125rem;font-weight:800;box-shadow:0 10px 22px rgba(242,138,12,.38)}
+.tela-rv #passo-1 .btn:hover{background:var(--cor-laranja-hover,#e07a00)}
+.rv-ok{display:flex;align-items:center;gap:14px;margin-top:var(--esp-4,16px);padding:14px 18px;border:1.5px solid #b8e5c1;border-radius:22px;background:#dcf5e1;text-align:left;font-size:.9375rem;font-weight:600;line-height:1.4;color:#176b32}
+.rv-ok[hidden]{display:none}
+.rv-ok svg{flex:none;width:34px;height:34px}
+.rv-ok circle{fill:#2e9e4f}
+.tela-rv #passo-1 .troca{margin-top:var(--esp-4,16px);padding-top:0;border-top:0}
+.tela-rv #passo-1 .troca .link{font-size:1.0625rem;font-weight:800;color:var(--cor-azul-forte,#0a49b8)}
+.tela-rv .rv-seguro{align-items:center;justify-content:center;gap:12px;margin:var(--esp-4,16px) auto 0;max-width:520px;padding:14px 22px;border-radius:999px;background:rgba(207,225,251,.75);font-size:1rem;font-weight:700;color:var(--cor-azul-forte,#0a49b8)}
+.tela-rv .rv-seguro svg{flex:none;width:26px;height:26px;stroke:#0a49b8;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tela-rv .rv-seguro rect{fill:#0a49b8}
+
+/* ---------- Telas largas: composição fiel ao protótipo ---------- */
+@media(min-width:1200px){
+  .tela-rv{padding:0;min-height:calc(var(--u)*980)}
+  .tela-rv .container{max-width:none;padding:0;display:block;min-height:calc(var(--u)*980)}
+  .tela-rv .boas-vindas{display:contents}
+
+  /* camada decorativa */
+  .tela-rv .rv-deco{display:block;position:absolute;inset:0;z-index:0;pointer-events:none}
+  .tela-rv .rv-deco>*{position:absolute;display:block;overflow:visible}
+  .rv-p{fill:#1b63e6;opacity:.24}
+  .rv-blob{left:calc(var(--u)*-60);bottom:calc(var(--u)*60);width:calc(var(--u)*980);height:calc(var(--u)*640)}
+  .rv-onda-topo{left:0;top:0;width:calc(var(--u)*270);height:calc(var(--u)*170)}
+  .rv-ondas-base{left:0;bottom:0;width:100%;height:calc(var(--u)*130)}
+  .rv-onda-laranja{right:0;bottom:0;width:calc(var(--u)*440);height:calc(var(--u)*130)}
+  .rv-colina{left:0;top:calc(var(--u)*914);width:calc(var(--u)*1180);height:calc(var(--u)*96)}
+  .rv-p1{left:calc(var(--u)*64);top:calc(var(--u)*40);width:calc(var(--u)*92);height:calc(var(--u)*83);rotate:-12deg}
+  .rv-p2{left:calc(var(--u)*1070);top:calc(var(--u)*14);width:calc(var(--u)*64);height:calc(var(--u)*58);rotate:10deg}
+  .rv-p3{left:calc(var(--u)*50);top:calc(var(--u)*290);width:calc(var(--u)*76);height:calc(var(--u)*68);rotate:-8deg}
+  .rv-p4{left:calc(var(--u)*1034);top:calc(var(--u)*372);width:calc(var(--u)*78);height:calc(var(--u)*70);rotate:12deg}
+  .rv-p5{left:calc(var(--u)*56);top:calc(var(--u)*660);width:calc(var(--u)*86);height:calc(var(--u)*78);rotate:-10deg}
+  .rv-p6{left:calc(var(--u)*1790);top:calc(var(--u)*34);width:calc(var(--u)*92);height:calc(var(--u)*83);rotate:12deg}
+  .rv-p7{left:calc(var(--u)*1774);top:calc(var(--u)*306);width:calc(var(--u)*78);height:calc(var(--u)*70);rotate:-10deg}
+  .rv-p8{left:calc(var(--u)*1784);top:calc(var(--u)*596);width:calc(var(--u)*82);height:calc(var(--u)*74);rotate:10deg}
+  .rv-cor1{left:calc(var(--u)*196);top:calc(var(--u)*420);width:calc(var(--u)*58);height:calc(var(--u)*52);rotate:-8deg}
+  .rv-cor2{left:calc(var(--u)*650);top:calc(var(--u)*392);width:calc(var(--u)*54);height:calc(var(--u)*49);rotate:8deg}
+  .rv-trc-gato{left:calc(var(--u)*1010);top:calc(var(--u)*590);width:calc(var(--u)*50);height:calc(var(--u)*87)}
+
+  /* texto e pets */
+  .tela-rv .rv-texto{position:absolute;left:calc(var(--u)*276);top:calc(var(--u)*40);width:calc(var(--u)*860);z-index:2}
+  .rv-eyebrow{font-size:max(.875rem,calc(var(--u)*24))}
+  .rv-titulo{margin-top:calc(var(--u)*6)}
+  .rv-l1{font-size:max(2.1rem,calc(var(--u)*84))}
+  .rv-l2{font-size:max(1.5rem,calc(var(--u)*60))}
+  .rv-desc{max-width:calc(var(--u)*700);margin-top:calc(var(--u)*18);font-size:max(1rem,calc(var(--u)*26))}
+  .tela-rv .rv-pets{position:absolute;left:calc(var(--u)*150);top:calc(var(--u)*370);width:calc(var(--u)*839);max-width:none;margin:0;z-index:1}
+
+  /* cartão */
+  .tela-rv .cartao{position:absolute;left:calc(var(--u)*1126);top:calc(var(--u)*69);width:calc(var(--u)*617);min-height:calc(var(--u)*700);padding:calc(var(--u)*28) calc(var(--u)*56) calc(var(--u)*22);border-radius:calc(var(--u)*34);z-index:2;
+    display:flex;flex-direction:column;justify-content:center}
+  .tela-rv .cartao .passo{position:absolute;top:calc(var(--u)*-33);left:50%;transform:translateX(-50%);margin:0;padding:calc(var(--u)*12) calc(var(--u)*44);font-size:max(.9rem,calc(var(--u)*28));white-space:nowrap}
+  .tela-rv #passo-1{margin-top:calc(var(--u)*18)}
+  .tela-rv #passo-1 .avatar{width:max(84px,calc(var(--u)*120));height:max(84px,calc(var(--u)*120));margin-bottom:calc(var(--u)*10)}
+  .tela-rv #passo-1 .avatar svg:first-child{width:max(40px,calc(var(--u)*64));height:max(40px,calc(var(--u)*64))}
+  .tela-rv #passo-1 h2{font-size:max(1.6rem,calc(var(--u)*48))}
+  .tela-rv #passo-1 .sub{margin-top:calc(var(--u)*8);margin-bottom:calc(var(--u)*18);font-size:max(.95rem,calc(var(--u)*21))}
+  .tela-rv #passo-1 .campo label{font-size:max(.95rem,calc(var(--u)*22));margin-bottom:calc(var(--u)*8)}
+  .tela-rv #passo-1 .campo input{min-height:calc(var(--u)*60);padding-left:calc(var(--u)*70);font-size:max(.95rem,calc(var(--u)*22))}
+  .rv-entrada::before{left:calc(var(--u)*24);width:calc(var(--u)*30);height:calc(var(--u)*30)}
+  .tela-rv #passo-1 .btn{min-height:calc(var(--u)*64);font-size:max(1rem,calc(var(--u)*26))}
+  .rv-ok{margin-top:calc(var(--u)*16);padding:calc(var(--u)*14) calc(var(--u)*22);border-radius:calc(var(--u)*24);gap:calc(var(--u)*16);font-size:max(.85rem,calc(var(--u)*20))}
+  .rv-ok svg{width:calc(var(--u)*48);height:calc(var(--u)*48)}
+  .tela-rv #passo-1 .troca{margin-top:calc(var(--u)*14)}
+  .tela-rv #passo-1 .troca .link{font-size:max(.95rem,calc(var(--u)*22))}
+  .tela-rv .rv-seguro{position:absolute;left:calc(var(--u)*1131);top:calc(var(--u)*831);width:calc(var(--u)*608);max-width:none;margin:0;padding:0;height:calc(var(--u)*72);font-size:max(.85rem,calc(var(--u)*22));z-index:2}
+  .tela-rv .rv-seguro svg{width:calc(var(--u)*34);height:calc(var(--u)*34)}
+}
+
+/* ---------- Telas menores: pilha simples (texto, pets, cartão) ---------- */
+@media(max-width:1199px){
+  .tela-rv .rv-deco{display:block;position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .tela-rv .rv-deco>*{display:none}
+  .tela-rv .rv-deco>.rv-ondas-base{display:block;position:absolute;left:0;bottom:0;width:100%;height:70px}
+  .tela-rv .rv-deco>.rv-onda-topo{display:block;position:absolute;left:0;top:0;width:150px;height:96px}
+  .tela-rv .rv-pets{max-width:420px}
+  .tela-rv .rv-seguro{margin-top:var(--esp-4,16px)}
+}
+@media(max-width:899px){
+  .tela-rv .rv-texto{text-align:center}
+  .tela-rv .rv-desc{margin-left:auto;margin-right:auto}
+  .tela-rv .rv-pets{max-width:340px}
+}
+@media(max-width:599px){
+  .tela-rv .rv-pets{display:none}      /* no celular o formulário vem logo depois do texto */
+  .tela-rv .rv-desc{font-size:1rem}
+  .tela-rv .cartao .passo{font-size:.9375rem;padding:8px 20px}
+}
+@media(forced-colors:active){.rv-deco{display:none}}

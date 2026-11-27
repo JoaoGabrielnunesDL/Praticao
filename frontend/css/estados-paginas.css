@@ -14,15 +14,15 @@ body.pg-estado .onda{position:absolute;right:0;bottom:0;width:min(440px,62vw);he
 body.pg-estado .pata-onda{position:absolute;right:26px;bottom:20px;width:56px;height:56px;fill:#fff;opacity:.9;transform:rotate(-14deg)}
 
 /* ===== Cartão (acesso negado e sessão expirada) ===== */
-body.pg-estado .estado-cartao{position:relative;z-index:1;max-width:560px;padding:46px 42px 40px;border-radius:28px;border:1px solid #e3ebf7;box-shadow:0 16px 44px rgba(11,58,158,.12)}
+body.pg-estado .estado-cartao{position:relative;z-index:1;max-width:560px;padding:46px 42px 40px;border-radius:28px;border:1px solid #e3ebf7;box-shadow:0 16px 44px rgba(10,73,184,.12)}
 /* Ícone solto, sem caixa em volta (como na referência) */
 body.pg-estado .estado-cartao .icone{width:auto;height:auto;margin:0 auto 16px;display:flex;justify-content:center}
-body.pg-estado .estado-cartao .icone svg{width:84px;height:84px;filter:drop-shadow(0 8px 14px rgba(11,58,158,.22))}
+body.pg-estado .estado-cartao .icone svg{width:84px;height:84px;filter:drop-shadow(0 8px 14px rgba(10,73,184,.22))}
 body.pg-estado .estado-cartao h1{font-size:1.8rem;font-weight:800;letter-spacing:-.01em;line-height:1.2;margin-bottom:10px}
 body.pg-estado .estado-cartao p{color:var(--cinza);font-size:1.05rem;margin-bottom:26px}
 body.pg-estado #btn-principal{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 30px;box-shadow:0 6px 16px rgba(242,138,12,.32)}
 /* Acesso negado: botão de contorno, como na referência */
-body.pg-acesso-negado #btn-principal{background:#fff;color:var(--azul);border:1.5px solid var(--azul);box-shadow:0 4px 12px rgba(11,58,158,.1)}
+body.pg-acesso-negado #btn-principal{background:#fff;color:var(--azul);border:1.5px solid var(--azul);box-shadow:0 4px 12px rgba(10,73,184,.1)}
 body.pg-acesso-negado #btn-principal:hover{background:#eef4ff}
 
 /* ===== 404: banner largo com os pets ===== */
@@ -34,7 +34,7 @@ body.pg-404 .e404-pets .faisca{position:absolute;top:22px;left:14px;width:40px;h
 body.pg-404 .e404-texto{padding:40px 10px;position:relative;z-index:1}
 body.pg-404 .e404-texto h1{font-size:2.1rem;margin-bottom:10px}
 /* p.n404 dentro do cartão: precisa vencer a regra genérica ".estado-cartao p" acima */
-body.pg-404 .estado-cartao p.n404{position:relative;z-index:1;margin:0;font-size:clamp(5.5rem,11vw,9.5rem);font-weight:900;line-height:1;letter-spacing:2px;color:#c3d8fa;text-shadow:0 2px 0 #fff,0 10px 24px rgba(11,58,158,.12);align-self:center;padding-bottom:40px}
+body.pg-404 .estado-cartao p.n404{position:relative;z-index:1;margin:0;font-size:clamp(5.5rem,11vw,9.5rem);font-weight:900;line-height:1;letter-spacing:2px;color:#c3d8fa;text-shadow:0 2px 0 #fff,0 10px 24px rgba(10,73,184,.12);align-self:center;padding-bottom:40px}
 body.pg-404 .pata-404{position:absolute;top:-6px;right:4%;width:56px;height:56px;fill:#a9c8f5;transform:rotate(14deg)}
 body.pg-404 .e404 .onda{z-index:0;width:min(360px,40%);height:130px}
 body.pg-404 .e404 .pata-onda{z-index:0;width:48px;height:48px}

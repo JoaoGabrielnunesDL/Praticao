@@ -21,17 +21,17 @@ function linhaHTML(u) {
   const alternar = ehEu
     ? '<span class="peq">Sua conta</span>'
     : u.ativo
-      ? `<button type="button" class="acao cancelar" data-id="${u.id}" data-acao="desativar">Desativar</button>`
-      : `<button type="button" class="acao concluir" data-id="${u.id}" data-acao="ativar">Reativar</button>`;
+      ? `<button type="button" class="acao cancelar" data-id="${u.id}" data-acao="desativar">⊖ Desativar</button>`
+      : `<button type="button" class="acao concluir" data-id="${u.id}" data-acao="ativar">✓ Reativar</button>`;
   return `<article class="reg">
     <strong>${esc(u.nome)}</strong>
     <span class="peq">${esc(u.email)}</span>
     <span><span class="etiqueta">${esc(PERFIL_TEXTO[u.perfil] || u.perfil)}</span></span>
-    <span><span class="status ${u.ativo ? 'ativa' : 'inativa'}">${u.ativo ? 'Ativo' : 'Inativo'}</span></span>
+    <span><span class="status ${u.ativo ? 'ativa' : 'inativa'}">${u.ativo ? '✓ Ativo' : '✕ Inativo'}</span></span>
     <div class="acoes">
-      <button type="button" class="acao detalhes" data-id="${u.id}" data-acao="detalhes">Ver detalhes</button>
+      <button type="button" class="acao detalhes" data-id="${u.id}" data-acao="detalhes">👁 Ver detalhes</button>
       ${alternar}
-      ${ehEu ? '' : `<button type="button" class="acao excluir" data-id="${u.id}" data-acao="excluir" aria-label="Excluir ${esc(u.nome)} permanentemente">Excluir</button>`}
+      ${ehEu ? '' : `<button type="button" class="acao excluir" data-id="${u.id}" data-acao="excluir" aria-label="Excluir ${esc(u.nome)} permanentemente">🗑 Excluir</button>`}
     </div>
   </article>`;
 }
@@ -56,8 +56,8 @@ function render() {
     // três situações diferentes: nada cadastrado, busca sem resultado (erro tem a sua própria mensagem)
     // Nada cadastrado x pesquisa sem resultado (esta oferece limpar os filtros).
     $('lista').innerHTML = !total && !filtrosAtivos()
-      ? Estados.vazio({ icone: '', titulo: 'Nenhum usuário cadastrado.', texto: 'Os usuários aparecerão aqui assim que forem registrados no sistema.' })
-      : Estados.vazio({ icone: '', titulo: 'Nenhum usuário encontrado.', texto: 'Nenhum usuário corresponde aos filtros escolhidos.', botao: { texto: 'Limpar filtros', attr: 'data-limpar' } });
+      ? Estados.vazio({ icone: '👥', titulo: 'Nenhum usuário cadastrado.', texto: 'Os usuários aparecerão aqui assim que forem registrados no sistema.' })
+      : Estados.vazio({ icone: '🔎', titulo: 'Nenhum usuário encontrado.', texto: 'Nenhum usuário corresponde aos filtros escolhidos.', botao: { texto: 'Limpar filtros', attr: 'data-limpar' } });
   } else {
     $('lista').innerHTML = '<div class="cab" aria-hidden="true"><span>Nome</span><span>E-mail</span><span>Perfil</span><span>Situação</span><span>Ações</span></div>'
       + itens.map(linhaHTML).join('');
@@ -107,7 +107,7 @@ async function verDetalhes(id) {
         <div><strong>${esc(u.nome)}</strong><span>${esc(u.email)}</span></div></div>
       <dl class="dados">
         <dt>Perfil:</dt><dd><span class="etiqueta">${esc(PERFIL_TEXTO[u.perfil] || u.perfil)}</span></dd>
-        <dt>Situação:</dt><dd><span class="status ${u.ativo ? 'ativa' : 'inativa'}">${u.ativo ? 'Ativo' : 'Inativo'}</span></dd>
+        <dt>Situação:</dt><dd><span class="status ${u.ativo ? 'ativa' : 'inativa'}">${u.ativo ? '✓ Ativo' : '✕ Inativo'}</span></dd>
         <dt>Telefone:</dt><dd>${u.telefone ? esc(u.telefone) : '—'}</dd>
         <dt>Cadastro:</dt><dd>${dataCadastro(u.data_cadastro)}</dd>
       </dl>

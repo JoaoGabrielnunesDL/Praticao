@@ -7,12 +7,43 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/dicas.css">
+  <link rel="stylesheet" href="css/curiosidades.css">
+  <link rel="stylesheet" href="css/dicas-telas.css">
+  <link rel="stylesheet" href="css/praticao-ui.css">
 </head>
-<body>
+<body class="pg-artigo">
   <header id="cabecalho"></header>
 
-  <main class="pagina">
-    <div class="container artigo-largura" id="artigo" aria-live="polite"></div>
+  <main class="cu-pagina dc-pagina ar-pagina">
+    <!-- Decoração de fundo: só visual (aria-hidden) -->
+    <div class="cu-cena" aria-hidden="true">
+      <svg class="cu-onda-topo" viewBox="0 0 420 150" preserveAspectRatio="none"><path d="M0 0H420C380 30 330 60 250 80 170 100 90 110 0 150Z" fill="#cfe1fb" opacity=".75"/><path d="M0 0H250C220 24 170 44 110 58 60 70 25 80 0 104Z" fill="#b9d3f8" opacity=".55"/></svg>
+      <svg class="cu-onda-esq" viewBox="0 0 520 120" preserveAspectRatio="none"><path d="M0 40C80 0 150 20 230 60 330 110 430 90 520 120H0Z" fill="#d8e7fc" opacity=".85"/></svg>
+      <svg class="cu-onda-hero" viewBox="0 0 1600 140" preserveAspectRatio="none"><path d="M0 90C150 40 300 120 520 90 740 60 860 20 1080 50 1300 80 1450 40 1600 70V140H0Z" fill="#dcebff" opacity=".7"/></svg>
+      <svg class="cu-onda-fim" viewBox="0 0 1600 230" preserveAspectRatio="none"><defs><linearGradient id="cu-g-az" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe1fb"/><stop offset="1" stop-color="#b3cdf6"/></linearGradient></defs><path d="M0 120C230 60 430 170 700 130 960 92 1200 170 1420 120 1500 102 1560 100 1600 110V230H0Z" fill="url(#cu-g-az)" opacity=".75"/><path d="M0 160C260 120 470 200 760 170 1020 143 1260 205 1600 150V230H0Z" fill="#fff" opacity=".6"/></svg>
+      <svg class="cu-onda-lar-esq" viewBox="0 0 640 220" preserveAspectRatio="none"><defs><linearGradient id="cu-g-lar1" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f28a0c"/><stop offset="1" stop-color="#ffc247"/></linearGradient></defs><path d="M0 40C140 30 290 80 400 150 470 195 560 215 640 220H0Z" fill="url(#cu-g-lar1)"/></svg>
+      <svg class="cu-onda-lar-dir" viewBox="0 0 360 260" preserveAspectRatio="none"><defs><linearGradient id="cu-g-lar2" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f28a0c"/><stop offset="1" stop-color="#ffc247"/></linearGradient></defs><path d="M360 0C320 60 250 100 170 150 100 193 40 230 0 260H360Z" fill="url(#cu-g-lar2)"/></svg>
+      <span class="pc-d pc-f-pata cu-p1"></span>
+      <span class="pc-d pc-f-pata cu-p2"></span>
+      <span class="pc-d pc-f-pata cu-p3"></span>
+      <span class="pc-d pc-f-pata cu-p4"></span>
+      <span class="pc-d pc-f-pata cu-p5"></span>
+      <span class="pc-d pc-f-pata cu-p6"></span>
+      <span class="pc-d pc-f-pata cu-p7"></span>
+      <span class="pc-d pc-f-pata cu-p-lar"></span>
+      <svg class="cu-coracao" viewBox="0 0 64 60" fill="none" stroke="#1b63e6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M32 54C14 40 6 30 6 19 6 11 12 5 20 5c5 0 9.5 2.5 12 7 2.5-4.5 7-7 12-7 8 0 14 6 14 14 0 11-8 21-26 35z" transform="rotate(-6 32 30)"/></svg>
+    </div>
+
+    <section class="cu-hero dc-hero">
+      <div class="cu-hero-texto">
+        <a class="dica-voltar" id="voltar-topo" href="curiosidades.html"><span aria-hidden="true">←</span> Voltar para dicas</a>
+        <h1>Dicas e <span class="cu-destaque">Curiosidades<svg class="cu-risco" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16C80 4 220 2 396 10" fill="none" stroke="#f28a0c" stroke-width="4" stroke-linecap="round"/></svg></span></h1>
+        <p class="cu-sub" id="sub-topo">Cuidados, informações e muito amor para o bem-estar do seu pet!</p>
+      </div>
+      <img class="cu-pets" src="img/dicas/curiosidades/pets-topo.webp" alt="" aria-hidden="true" decoding="async">
+    </section>
+
+    <div class="cu-conteudo ar-conteudo" id="artigo" aria-live="polite"></div>
   </main>
 
   <script src="js/config.js"></script>
@@ -20,6 +51,7 @@
   <script src="js/comum.js"></script>
   <script src="js/header.js"></script>
   <script src="js/artigos-dados.js"></script>
+  <script src="js/artigos-textos.js"></script>
   <script src="js/dicas-comum.js"></script>
   <script src="js/artigo.js"></script>
 </body>

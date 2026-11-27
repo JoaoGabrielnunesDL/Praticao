@@ -34,7 +34,7 @@ function linhaHTML(s) {
     <span class="peq">${s.descricao ? esc(s.descricao) : '—'}</span>
     <span><span class="rot">Preço:</span>${moeda(s.preco)}</span>
     <span><span class="rot">Duração:</span>${s.duracao_min} min</span>
-    <span><span class="status ${s.ativo ? 'ativa' : 'inativa'}">${s.ativo ? 'Ativo' : 'Inativo'}</span></span>
+    <span><span class="status ${s.ativo ? 'ativa' : 'inativa'}">${s.ativo ? '✓ Ativo' : '○ Inativo'}</span></span>
     <div class="acoes">
       <button type="button" class="acao confirmar" data-acao="editar" data-id="${s.id}" aria-label="Editar ${nome}">Editar</button>
       ${botao}
@@ -51,11 +51,11 @@ function render() {
     : `Mostrando ${lista.length} de ${total} serviços.`;
 
   if (!total) {
-    $('lista').innerHTML = `<div class="vazio"><span></span>Nenhum serviço cadastrado
+    $('lista').innerHTML = `<div class="vazio"><span>✂️</span>Nenhum serviço cadastrado
       <p class="sub">Comece adicionando um novo serviço para a sua loja.</p>
       <button type="button" class="btn btn-laranja" data-acao="novo">+ Novo serviço</button></div>`;
   } else if (!lista.length) {
-    $('lista').innerHTML = `<div class="vazio"><span></span>Nenhum serviço encontrado
+    $('lista').innerHTML = `<div class="vazio"><span>🔎</span>Nenhum serviço encontrado
       <p class="sub">Não encontramos serviços com esse nome. Verifique a pesquisa ou limpe os filtros.</p>
       <button type="button" class="btn btn-contorno" data-acao="limpar">Limpar filtros</button></div>`;
   } else {
@@ -73,7 +73,7 @@ async function carregar() {
     carregou = true;
     render();
   } catch (x) {
-    $('lista').innerHTML = `<div class="vazio"><span></span>Não foi possível carregar os serviços
+    $('lista').innerHTML = `<div class="vazio"><span>⚠️</span>Não foi possível carregar os serviços
       <p class="sub">${esc(x.message)}</p>
       <button type="button" class="btn btn-laranja" data-acao="recarregar">Tentar novamente</button></div>`;
     if (x.status === 401) tratarErro(x);

@@ -4,14 +4,33 @@
 // A API ainda não tem o campo "categoria"; por isso ela é deduzida pelo nome do serviço (veja CATEGORIAS).
 // "Agendar este serviço" abre agendamento.html?servico=ID para a tela de agendamento receber o serviço já escolhido.
 
+// Ícones de linha das categorias (SVG inline, herdam a cor do texto).
+const ICO = {
+  todos: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>',
+  banho: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.6L20 18M8 16.4L20 6"/></svg>',
+  saude: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v6a4 4 0 008 0V3"/><path d="M10 13v2a5 5 0 0010 0v-1"/><circle cx="20" cy="12" r="2"/></svg>',
+  estetica: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3l1.8 5.2L17 10l-5.2 1.8L10 17l-1.8-5.2L3 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>',
+  outros: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="11" r="2"/><circle cx="10" cy="6.5" r="2"/><circle cx="15" cy="6.5" r="2"/><circle cx="19" cy="11" r="2"/><path d="M12.5 12c3 0 5.500 3 5.500 5.500 0 2-1.800 2.200-3.300 1.600-1.300-.5-2.700-.5-4 0C9.200 19.700 7.500 19.500 7.500 17.500 7.500 15 9.500 12 12.500 12z"/></svg>'
+};
+
 const CATEGORIAS = [
-  { id: 'todos', nome: 'Todos os serviços', icone: '🐾' },
-  { id: 'banho-e-tosa', nome: 'Banho e Tosa', icone: '🛁', palavras: ['banho', 'tosa'] },
-  { id: 'saude', nome: 'Cuidados de Saúde', icone: '💉', palavras: ['consulta', 'vacin', 'veterin', 'exame', 'vermifug'] },
-  { id: 'estetica', nome: 'Estética', icone: '✨', palavras: ['hidrat', 'unha', 'escov', 'perfum', 'laco', 'laço'] },
-  { id: 'outros', nome: 'Outros Cuidados', icone: '⚙️' }, // tudo que não se encaixa nas anteriores
+  { id: 'todos', nome: 'Todos os serviços', icone: ICO.todos },
+  { id: 'banho-e-tosa', nome: 'Banho e Tosa', icone: ICO.banho, palavras: ['banho', 'tosa'] },
+  { id: 'saude', nome: 'Cuidados de Saúde', icone: ICO.saude, palavras: ['consulta', 'vacin', 'veterin', 'exame', 'vermifug'] },
+  { id: 'estetica', nome: 'Estética', icone: ICO.estetica, palavras: ['hidrat', 'unha', 'escov', 'perfum', 'laco', 'laço'] },
+  { id: 'outros', nome: 'Outros Cuidados', icone: ICO.outros }, // tudo que não se encaixa nas anteriores
 ];
-const ICONES = [['banho', '🛁'], ['tosa', '✂️'], ['hidrat', '🧴'], ['unha', '🐾'], ['consulta', '🩺'], ['vacin', '💉']];
+// Ícones coloridos dos serviços: [palavra do nome, tom do fundo, desenho]. Se nenhum combinar, usa a patinha.
+const ICONES_SVG = {
+  banho: ['azul', '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 32h48v4a14 14 0 01-14 14H22A14 14 0 018 36z" fill="#2a7af5"/><circle cx="22" cy="27" r="8" fill="#fff" stroke="#bcd8ff" stroke-width="2"/><circle cx="34" cy="22" r="9.500" fill="#fff" stroke="#bcd8ff" stroke-width="2"/><circle cx="45" cy="27.500" r="7" fill="#fff" stroke="#bcd8ff" stroke-width="2"/><circle cx="42" cy="11" r="3.500" fill="none" stroke="#2a7af5" stroke-width="2"/><path d="M18 50l-3 6M46 50l3 6" stroke="#0a49b8" stroke-width="4" stroke-linecap="round"/><use href="#pata" x="25" y="35" width="16" height="14" style="fill:#fff"/></svg>'],
+  tosa: ['roxo', '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M24 38L50 10M34 40L12 12" stroke="#8b6fe0" stroke-width="5" stroke-linecap="round"/><circle cx="18" cy="48" r="7" fill="none" stroke="#5b3fd0" stroke-width="5"/><circle cx="38" cy="52" r="7" fill="none" stroke="#5b3fd0" stroke-width="5"/></svg>'],
+  hidrat: ['laranja', '<svg viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-35 32 36)"><rect x="8" y="30" width="48" height="13" rx="5" fill="#ffb23a"/><g stroke="#f28a0c" stroke-width="3.500" stroke-linecap="round"><path d="M14 30v-10M22 30v-10M30 30v-10M38 30v-10M46 30v-10"/></g></g><path d="M48 6l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ffb23a"/><path d="M56 22l1 2.500 2.500 1-2.500 1-1 2.500-1-2.500-2.500-1 2.500-1z" fill="#ffb23a"/></svg>'],
+  unha: ['rosa', '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 8c8 12 14 24 18 44" stroke="#e5484d" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M42 8c-6 10-14 24-12 44" stroke="#ff7a7f" stroke-width="7" stroke-linecap="round" fill="none"/><use href="#pata" x="34" y="38" width="24" height="22" style="fill:#ff6b86"/></svg>'],
+  consulta: ['rosa', '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M30 56C8 40 4 26 12 17c6-6 15-3 18 3 3-6 12-9 18-3 8 9 4 23-18 39z" fill="#ef4d5e"/><path d="M26 22h6v7h7v6h-7v7h-6v-7h-7v-6h7z" fill="#fff"/><use href="#pata" x="40" y="42" width="20" height="18" style="fill:#ff7a8a"/></svg>'],
+  vacin: ['azul', '<svg viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(45 32 32)"><rect x="22" y="14" width="20" height="34" rx="4" fill="#dbeaff" stroke="#2a7af5" stroke-width="4"/><rect x="22" y="26" width="20" height="14" fill="#2a7af5"/><rect x="27" y="4" width="10" height="6" rx="2" fill="#2a7af5"/><path d="M32 48v12" stroke="#2a7af5" stroke-width="4" stroke-linecap="round"/></g><use href="#pata" x="38" y="40" width="22" height="20" style="fill:#2a7af5"/></svg>'],
+  padrao: ['azul', '<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#pata" x="6" y="6" width="52" height="47" style="fill:#2a7af5"/></svg>']
+};
+const ORDEM_ICONES = ['banho', 'tosa', 'hidrat', 'unha', 'consulta', 'vacin'];
 
 let servicos = [];
 let categoria = 'todos';
@@ -26,10 +45,12 @@ function categoriaDe(s) {
   return achada ? achada.id : 'outros';
 }
 const nomeCategoria = id => CATEGORIAS.find(c => c.id === id).nome;
+// Devolve { tom, svg } do serviço (o tom colore o fundo do ícone).
 function iconeDe(s) {
   const nome = normalizar(s.nome);
-  const par = ICONES.find(([p]) => nome.includes(p));
-  return par ? par[1] : CATEGORIAS.find(c => c.id === categoriaDe(s)).icone;
+  const chave = ORDEM_ICONES.find(p => nome.includes(p)) || 'padrao';
+  const [tom, svg] = ICONES_SVG[chave];
+  return { tom, svg };
 }
 
 // Categorias sem nenhum serviço não aparecem (exceto "Todos").
@@ -48,17 +69,18 @@ function renderCategorias() {
   if (!visiveis.some(c => c.id === categoria)) categoria = 'todos';
   // O menu lateral e o filtro superior mostram sempre a mesma categoria (estado único).
   $('cat-lista').innerHTML = visiveis.map(c =>
-    `<button type="button" data-cat="${c.id}" aria-current="${c.id === categoria}"><span aria-hidden="true">${c.icone}</span>${esc(c.nome)}</button>`).join('');
+    `<button type="button" data-cat="${c.id}" aria-current="${c.id === categoria}"><span class="cat-ico" aria-hidden="true">${c.icone}</span>${esc(c.nome)}</button>`).join('');
   $('filtro').innerHTML = visiveis.map(c =>
     `<option value="${c.id}"${c.id === categoria ? ' selected' : ''}>${esc(c.nome)}</option>`).join('');
 }
 
 function cartaoHTML(s) {
   const nome = esc(s.nome);
+  const ic = iconeDe(s);
   return `<button type="button" class="cat-card${s.ativo ? '' : ' indisponivel'}" data-id="${s.id}" aria-label="Ver detalhes de ${nome}">
-    <div class="topo"><span class="cat-icone" aria-hidden="true">${iconeDe(s)}</span><h3>${nome}</h3></div>
+    <div class="topo"><span class="cat-icone tom-${ic.tom}" aria-hidden="true">${ic.svg}</span><h3>${nome}</h3></div>
     <p>${esc(s.descricao)}</p>
-    <div class="base"><span>A partir de <strong>${moeda(s.preco)}</strong></span><span class="cat-seta" aria-hidden="true">→</span></div>
+    <div class="base"><span>A partir de <strong>${moeda(s.preco)}</strong></span><span class="cat-seta" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
   </button>`;
 }
 
@@ -98,7 +120,9 @@ function limparBusca() {
 function abrirDetalhes(id) {
   const s = servicos.find(x => x.id === Number(id));
   if (!s) return;
-  $('det-icone').textContent = iconeDe(s);
+  const ic = iconeDe(s);
+  $('det-icone').className = 'det-icone tom-' + ic.tom;
+  $('det-icone').innerHTML = ic.svg;
   $('det-titulo').textContent = s.nome;
   $('det-categoria').textContent = nomeCategoria(categoriaDe(s));
   $('det-descricao').textContent = s.descricao;

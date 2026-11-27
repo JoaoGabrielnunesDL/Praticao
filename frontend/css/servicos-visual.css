@@ -1,0 +1,135 @@
+/* =====================================================================
+   SERVIÇOS (tutor) — visual do protótipo: degradê, ondas, patinhas, brilhos, calendário, cão e gato.
+   Referência: tela cheia 1920x1080. 1u = 1px a 1920 de largura (escala com a janela, como no login).
+   As medidas = posição no protótipo (1600x900 x 1,2) menos os 100px da faixa do site (topbar 36 + navbar 64).
+   Só vale para <main class="tela-servicos">. Camada decorativa: mesmas coordenadas do login-visual.css.
+   ===================================================================== */
+.tela-servicos{--u:calc(100vw/1920);position:relative;overflow:hidden;isolation:isolate;padding:0;min-height:0;
+  background:radial-gradient(ellipse 60% 45% at 50% 0%,#fff 0%,rgba(255,255,255,0) 70%),linear-gradient(125deg,#f7faff 0%,#e7f0ff 48%,#d8e7fd 100%)}
+.tela-servicos .defs{position:absolute;width:0;height:0}
+.tela-servicos .deco{position:absolute;inset:0;z-index:0;pointer-events:none}
+.tela-servicos .deco>*{position:absolute;display:block;overflow:visible}
+.tela-servicos .pata{fill:#1b63e6;opacity:.24}
+.tela-servicos .pata-contorno{fill:none;stroke:#fff;stroke-width:5;stroke-linejoin:round;opacity:.95}
+.tela-servicos .container{position:relative;z-index:2;max-width:1240px;padding-top:36px;padding-bottom:70px}
+.tela-servicos .sv-pets{display:none}
+
+/* Título (eyebrow laranja escurecido p/ contraste, h1 azul-profundo, subtítulo) */
+.tela-servicos .selo-op{font-size:.9375rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#9c4f00}
+.tela-servicos h1{font-family:var(--fonte-titulo);font-size:clamp(2.25rem,1.6rem + 2.4vw,3.25rem);font-weight:800;letter-spacing:-.025em;line-height:1.04;color:var(--cor-azul-profundo)}
+.tela-servicos .sub{font-size:1.0625rem;color:var(--cor-texto)}
+
+/* Menu lateral */
+.tela-servicos .cat-menu{background:rgba(255,255,255,.93);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 10px 36px rgba(10,42,107,.1);padding:12px}
+.tela-servicos .cat-menu h2{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,var(--cor-azul),var(--cor-azul-forte));color:#fff;border-radius:12px;padding:0 16px;min-height:48px;font-size:1.0625rem;font-weight:700;box-shadow:0 6px 14px rgba(10,73,184,.28)}
+.tela-servicos .cat-menu button{gap:12px;min-height:48px;font-weight:600;color:var(--cor-azul-profundo)}
+.tela-servicos .cat-menu button .cat-ico{display:inline-flex;color:var(--cor-azul)}
+.tela-servicos .cat-menu button[aria-current="true"]{background:#e4eeff;color:var(--cor-azul-profundo);box-shadow:inset 3px 0 0 var(--laranja)}
+
+/* Painel de busca + cartões */
+.tela-servicos .cat-conteudo{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:24px;box-shadow:0 10px 40px rgba(10,42,107,.08);padding:14px}
+.tela-servicos .cat-busca,.tela-servicos .cat-filtro{position:relative}
+.tela-servicos .cat-busca input,.tela-servicos .cat-filtro select{width:100%;min-height:48px;border:1px solid #dbe6f7;border-radius:999px;background:#fff;box-shadow:0 2px 8px rgba(10,42,107,.06);color:var(--cor-texto);font:inherit;font-weight:500}
+.tela-servicos .cat-busca input{padding:0 44px 0 52px}
+.tela-servicos .cat-busca input::placeholder{color:var(--cor-texto-2)}
+.tela-servicos .cat-filtro select{appearance:none;-webkit-appearance:none;padding:0 44px 0 52px;font-weight:600;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a2a6b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center/20px}
+.tela-servicos .cat-lupa,.tela-servicos .cat-funil{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--cor-azul-profundo);pointer-events:none;z-index:1}
+.tela-servicos .cat-busca input:focus,.tela-servicos .cat-filtro select:focus{border-color:var(--cor-azul);box-shadow:var(--anel-foco)}
+.tela-servicos .cat-filtro{flex:0 1 300px}
+
+/* Cartões de serviço: ícone redondo à esquerda, nome + descrição, preço e seta */
+.tela-servicos .cat-card{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"ic h" "ic p" "b b";column-gap:12px;row-gap:2px;padding:14px 16px 12px 12px;border:1px solid #e6eefb;border-radius:20px;box-shadow:0 4px 14px rgba(27,99,230,.08)}
+.tela-servicos .cat-card .topo{display:contents}
+.tela-servicos .cat-card .cat-icone{grid-area:ic;align-self:center;width:84px;height:84px;border-radius:50%}
+.tela-servicos .cat-icone svg{width:58%;height:58%}
+.tela-servicos .tom-azul{background:#e1efff}.tela-servicos .tom-roxo{background:#ece5fb}.tela-servicos .tom-laranja{background:#fff0dc}.tela-servicos .tom-rosa{background:#fde4e8}
+.tela-servicos .cat-card h3{grid-area:h;align-self:end;font-size:1.125rem;font-weight:800;color:var(--cor-azul-profundo)}
+.tela-servicos .cat-card p{grid-area:p;align-self:start;font-size:.875rem;line-height:1.35;color:var(--cor-texto-2)}
+.tela-servicos .cat-card .base{grid-area:b;padding-left:44px;color:#9c4f00;font-weight:600;font-size:.9375rem}   /* 5,0:1 no branco */
+.tela-servicos .cat-card .base strong{font-size:1.0625rem;font-weight:800}
+.tela-servicos .cat-seta{width:42px;height:42px;background:var(--grad-laranja);color:#fff;box-shadow:0 4px 10px rgba(242,138,12,.38)}
+.det-icone svg{width:36px;height:36px}
+.det-icone.tom-azul{background:#e1efff}.det-icone.tom-roxo{background:#ece5fb}.det-icone.tom-laranja{background:#fff0dc}.det-icone.tom-rosa{background:#fde4e8}
+
+/* Banner de chamada para agendar */
+.tela-servicos .cat-banner{position:relative;gap:16px 28px;padding:20px 28px;border-radius:999px;background:var(--grad-azul);box-shadow:0 14px 34px rgba(10,73,184,.3)}
+.tela-servicos .cat-banner-ic{flex:none;width:72px;height:72px}
+.tela-servicos .cat-banner h2{color:#fff;font-size:1.5rem;font-weight:500;line-height:1.2;margin:0}
+.tela-servicos .cat-banner h2 strong{color:#ffb23a;font-weight:800}
+.tela-servicos .cat-banner ul{gap:8px;padding-left:28px;border-left:1px solid rgba(255,255,255,.35);font-size:1rem}
+.tela-servicos .cat-banner li{display:flex;align-items:center;gap:10px;color:#fff}
+.tela-servicos .cat-banner li::before{content:"";flex:none;width:22px;height:22px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Ccircle cx='13' cy='13' r='13' fill='%23fff'/%3E%3Cpath d='M7.5 13.5l3.7 3.7 7.3-7.6' fill='none' stroke='%231b63e6' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.tela-servicos .cat-banner .btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;background:var(--grad-laranja);color:var(--cor-cta-texto);font-weight:800;box-shadow:0 8px 18px rgba(242,138,12,.4)}
+.tela-servicos .cat-banner .btn:hover{background:var(--cor-laranja-hover)}
+
+/* ---------- Telas largas: composição fiel ao protótipo (1920x1080) ---------- */
+@media(min-width:1200px){
+  /* O tutor logado vê só a navbar (64px): o quadro de 1080px começa 36u abaixo do topo, para as medidas baterem com o protótipo */
+  .tela-servicos{padding-top:calc(var(--u)*36);min-height:calc(var(--u)*1016)}
+  .tela-servicos .deco{top:calc(var(--u)*36)}
+  .tela-servicos .container{max-width:none;margin:0;padding:calc(var(--u)*49) calc(var(--u)*46) calc(var(--u)*98) calc(var(--u)*456)}
+  .tela-servicos .selo-op{margin-left:calc(var(--u)*12);font-size:max(.875rem,calc(var(--u)*25));line-height:1.1}
+  .tela-servicos h1{margin:calc(var(--u)*2) 0 0 calc(var(--u)*12);font-size:max(2.25rem,calc(var(--u)*68))}
+  .tela-servicos .sub{margin:calc(var(--u)*6) 0 0 calc(var(--u)*12);font-size:max(1rem,calc(var(--u)*20))}
+  .tela-servicos .catalogo{grid-template-columns:calc(var(--u)*252) minmax(0,1fr);gap:calc(var(--u)*20);margin-top:calc(var(--u)*38)}
+  .tela-servicos .cat-menu{margin-top:calc(var(--u)*6);padding:calc(var(--u)*14) calc(var(--u)*10);border-radius:calc(var(--u)*26)}
+  .tela-servicos .cat-menu h2{min-height:calc(var(--u)*61);border-radius:calc(var(--u)*14);padding:0 calc(var(--u)*18);font-size:max(.9375rem,calc(var(--u)*19));margin-bottom:calc(var(--u)*8)}
+  .tela-servicos .cat-menu{min-height:calc(var(--u)*442)}
+  .tela-servicos .cat-menu button{min-height:calc(var(--u)*62);padding:0 calc(var(--u)*12);gap:calc(var(--u)*10);font-size:max(.875rem,calc(var(--u)*17));border-radius:calc(var(--u)*14)}
+  .tela-servicos .cat-menu nav{gap:calc(var(--u)*7)}
+  .tela-servicos .cat-ico svg{width:max(20px,calc(var(--u)*26));height:max(20px,calc(var(--u)*26))}
+  .tela-servicos .cat-conteudo{padding:calc(var(--u)*12) calc(var(--u)*16) calc(var(--u)*10);border-radius:calc(var(--u)*28)}
+  .tela-servicos .cat-ferramentas{gap:calc(var(--u)*48);flex-wrap:nowrap;margin-bottom:calc(var(--u)*28)}
+  .tela-servicos .cat-busca{flex:1 1 0}
+  .tela-servicos .cat-filtro{flex:0 0 calc(var(--u)*360)}
+  .tela-servicos .cat-busca input,.tela-servicos .cat-filtro select{min-height:max(44px,calc(var(--u)*52));font-size:max(.9375rem,calc(var(--u)*18))}
+  .tela-servicos .cat-busca input{padding-left:max(48px,calc(var(--u)*60))}
+  .tela-servicos .cat-filtro select{padding-left:max(48px,calc(var(--u)*58))}
+  .tela-servicos .cat-lupa,.tela-servicos .cat-funil{left:calc(var(--u)*22)}
+  .tela-servicos .cat-grade{gap:calc(var(--u)*16) calc(var(--u)*18)}
+  .tela-servicos .cat-card{min-height:calc(var(--u)*178);padding:calc(var(--u)*12) calc(var(--u)*18) calc(var(--u)*6) calc(var(--u)*14);column-gap:calc(var(--u)*12);row-gap:0;border-radius:calc(var(--u)*22)}
+  .tela-servicos .cat-card .cat-icone{width:max(64px,calc(var(--u)*104));height:max(64px,calc(var(--u)*104))}
+  .tela-servicos .cat-card .base{margin-top:calc(var(--u)*6)}
+  .tela-servicos .cat-card h3{font-size:max(1rem,calc(var(--u)*20))}
+  .tela-servicos .cat-card p{font-size:max(.8125rem,calc(var(--u)*16.5))}
+  .tela-servicos .cat-card .base{padding-left:calc(var(--u)*62);font-size:max(.875rem,calc(var(--u)*18))}
+  .tela-servicos .cat-card .base strong{font-size:max(1rem,calc(var(--u)*20))}
+  .tela-servicos .cat-seta{width:max(36px,calc(var(--u)*48));height:max(36px,calc(var(--u)*48))}
+  .tela-servicos .cat-banner{flex-wrap:nowrap;margin:calc(var(--u)*36) calc(var(--u)*57) 0 calc(var(--u)*80);min-height:calc(var(--u)*148);padding:0 calc(var(--u)*38);gap:calc(var(--u)*22);white-space:nowrap}
+  .tela-servicos .cat-banner-ic{width:calc(var(--u)*100);height:calc(var(--u)*100)}
+  .tela-servicos .cat-banner h2{font-size:max(1.125rem,calc(var(--u)*33))}
+  .tela-servicos .cat-banner ul{margin-left:calc(var(--u)*8);padding-left:calc(var(--u)*34);font-size:max(.875rem,calc(var(--u)*17.5));gap:calc(var(--u)*8)}
+  .tela-servicos .cat-banner li::before{width:max(18px,calc(var(--u)*24));height:max(18px,calc(var(--u)*24))}
+  .tela-servicos .cat-banner .btn{margin-left:auto;min-height:calc(var(--u)*62);padding:0 calc(var(--u)*26);font-size:max(.9375rem,calc(var(--u)*18));flex:none}
+
+  /* Cão e gato: grandes, preenchendo a faixa à esquerda do menu lateral; cortados na borda do menu (não passam dele) */
+  .tela-servicos .sv-pets{display:block;position:absolute;left:0;top:calc(var(--u)*36);width:calc(var(--u)*452);height:calc(100% - var(--u)*36);overflow:hidden;z-index:1;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - var(--u)*18),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - var(--u)*18),transparent)}
+  .tela-servicos .sv-pets img{position:absolute;left:calc(var(--u)*-170);top:calc(var(--u)*330);height:calc(var(--u)*520);width:auto;max-width:none;filter:drop-shadow(0 14px 22px rgba(10,42,107,.18))}
+
+  /* posições exatas (centro na tela 1920x1080 -> left/top ou bottom em u) */
+  .d-onda-topo{left:0;top:calc(var(--u)*-36);width:calc(var(--u)*270);height:calc(var(--u)*206)}
+  .d-blob{left:0;top:calc(var(--u)*170);width:calc(var(--u)*540);height:calc(var(--u)*640)}
+  .d-onda-calendario{left:calc(var(--u)*1236);top:calc(var(--u)*128);width:calc(var(--u)*520);height:calc(var(--u)*120)}
+  .d-ondas-base{left:0;bottom:0;width:100%;height:calc(var(--u)*130)}
+  .d-onda-laranja{right:0;bottom:0;width:calc(var(--u)*480);height:calc(var(--u)*190)}
+  .d-pata-1{left:calc(var(--u)*85);top:calc(var(--u)*28);width:calc(var(--u)*114);transform:rotate(-15deg)}
+  .d-pata-2{left:calc(var(--u)*1761);top:calc(var(--u)*33);width:calc(var(--u)*130);transform:rotate(14deg)}
+  .d-pata-3{left:calc(var(--u)*1846);top:calc(var(--u)*453);width:calc(var(--u)*100);transform:rotate(-12deg)}
+  .d-pata-4{left:calc(var(--u)*18);bottom:calc(var(--u)*41);width:calc(var(--u)*96);transform:rotate(-8deg)}
+  .d-pata-5{left:calc(var(--u)*1813);bottom:calc(var(--u)*22);width:calc(var(--u)*90);transform:rotate(10deg)}
+  .d-brilho-1{left:calc(var(--u)*204);top:calc(var(--u)*277);width:calc(var(--u)*92);height:calc(var(--u)*52)}
+  .d-calendario{left:calc(var(--u)*1332);top:calc(var(--u)*40);width:calc(var(--u)*290);height:calc(var(--u)*215)}
+}
+
+/* ---------- Telas menores: só ondas e algumas patinhas ---------- */
+@media(max-width:1199px){
+  .tela-servicos .deco>*{display:none}
+  .tela-servicos .deco>.d-ondas-base,.tela-servicos .deco>.d-onda-laranja,.tela-servicos .deco>.d-pata-1,.tela-servicos .deco>.d-pata-2{display:block}
+  .d-ondas-base{left:0;bottom:0;width:100%;height:90px}
+  .d-onda-laranja{right:0;bottom:0;width:260px;height:100px}
+  .d-pata-1{left:12px;top:14px;width:70px;transform:rotate(-15deg)}
+  .d-pata-2{right:12px;top:18px;width:80px;transform:rotate(14deg)}
+  .tela-servicos .cat-banner{border-radius:28px}
+  .tela-servicos .cat-banner ul{border-left:0;padding-left:0}
+}
+@media(max-width:599px){.tela-servicos .deco>.d-pata-1{display:none}.tela-servicos .cat-banner-ic{display:none}}

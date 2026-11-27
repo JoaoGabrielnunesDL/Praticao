@@ -29,7 +29,7 @@ function renderProximo() {
   const caixa = $('proximo');
   if (!ag) {
     caixa.innerHTML = `<p class="vazio-txt">${animais.length ? 'Você ainda não possui agendamentos.' : 'Cadastre seu pet e agende o primeiro atendimento.'}</p>
-      <button type="button" class="btn btn-laranja" data-acao="agendar">📅 Agendar serviço</button>`;
+      <button type="button" class="btn btn-laranja" data-acao="agendar"><span class="pc-ic pc-f-calendario" aria-hidden="true"></span> Agendar serviço</button>`;
     return;
   }
   const st = STATUS[ag.status];

@@ -44,13 +44,23 @@ As 8 variáveis antigas (`--azul`, `--azul-esc`, `--laranja`, `--laranja-esc`, `
 | Token | Cor | Uso | Contraste |
 |---|---|---|---|
 | `--cor-azul-profundo` | `#0a2a6b` | marca, títulos, rodapé | branco sobre ele 13,49:1 |
-| `--cor-azul` | `#1f5fd0` | interação: links, foco, botão secundário | 5,82:1 no branco · 5,27:1 em `#eef4ff` |
-| `--cor-azul-forte` | `#174bb0` | hover do azul, texto informativo | 7,87:1 no branco |
+| `--cor-azul` | `#1b63e6` | **azul padrão**: interação, links, foco, botão secundário | 5,28:1 no branco · 4,79:1 em `#eef4ff` |
+| `--cor-azul-forte` | `#0a49b8` | **azul padrão escuro**: hover, texto informativo, títulos | 7,90:1 no branco |
+| `--cor-azul-vivo` | `#2a7af5` | **azul padrão claro**: só degradês e ilustração, nunca texto | — |
 | `--cor-azul-claro` | `#eef4ff` | fundo de página, superfícies suaves | — |
 | `--cor-azul-superficie` | `#dbe8fb` | superfície destacada, linha selecionada | — |
-| `--cor-laranja` | `#f28a0c` | **só** CTA principal e acentos de marca | texto azul-profundo sobre ele 5,41:1 |
+| `--cor-laranja` | `#f28a0c` | **laranja padrão** (botão Fazer Agendamento): **só** CTA principal e acentos de marca | texto azul-profundo sobre ele 5,41:1 |
+| `--cor-laranja-claro` | `#ffb23a` | **laranja padrão claro**: topo do degradê do botão, destaques sobre azul-escuro | texto azul-profundo 7,51:1 |
 | `--cor-laranja-hover` | `#ff9a2a` | hover do CTA | texto azul-profundo 6,37:1 |
 | `--cor-laranja-texto` | `#9c4f00` | raro: texto de marca laranja em fundo claro | 5,31:1 em `#eaf3ff` |
+
+### Degradês padrão
+| Token | Composição | Uso |
+|---|---|---|
+| `--grad-laranja` | `--cor-laranja-claro` → `--cor-laranja` (180°) | botão "Fazer Agendamento", setas dos cartões, selos |
+| `--grad-azul` | `--cor-azul-forte` → `--cor-azul` → `--cor-azul-vivo` (100°) | banners e blocos de destaque azuis |
+
+> **Paleta padronizada (v1.2):** o site usa só estes 3 azuis (`#0a49b8`, `#1b63e6`, `#2a7af5`), 2 laranjas (`#f28a0c`, `#ffb23a`), o azul-profundo `#0a2a6b` (títulos) e o laranja de texto `#9c4f00`. Não crie tons novos: use os tokens.
 
 ### Neutros
 | Token | Cor | Contraste |
@@ -240,3 +250,9 @@ celular ≤599 · tablet 600–899 · notebook 900–1279 · desktop ≥1280 · 
 2. Usar os componentes `.ds-*` **somando** classes no HTML (nunca removendo IDs, `data-*` ou classes que o JS usa).
 3. Uma única ação primária laranja; o resto secundário/texto.
 4. Retestar a tela (funcional + 360/768/1024/1280/1366/1600/1920 + zoom 200%) e comparar com a linha de base.
+
+---
+
+## Ícones decorativos da home (3.34)
+
+A home (`index.html` + `css/home.css`) usa poucos ícones decorativos (patinhas de tamanhos variados, alguns ossinhos, corações, um peixe e uma carinha de gato), no mesmo ritmo do painel do administrador: nas bordas e no meio dos cabeçalhos, com bastante espaço livre. Regras: ficam sempre atrás do conteúdo (`.hm-deco`, `aria-hidden`), nunca usam "risquinhos" e somem ou diminuem em telas estreitas (`.g` laterais, `.h` faixas, `.w` só em telas largas, `.mo` só no celular). Para mexer em um ícone, ajuste a classe dele no fim de `home.css` (largura `--w`, rotação `--r`, posição `left`/`top`).

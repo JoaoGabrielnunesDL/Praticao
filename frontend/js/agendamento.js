@@ -116,7 +116,7 @@ async function confirmar(e) {
     } else mostrarMensagem('erro', x.message); // os dados preenchidos são mantidos
   } finally {
     enviando = false;
-    $('confirmar').textContent = '📅 Confirmar Agendamento';
+    $('confirmar').innerHTML = '<span class="pc-ic pc-f-calendario" aria-hidden="true"></span> Confirmar Agendamento';
     atualizarResumo();
   }
 }

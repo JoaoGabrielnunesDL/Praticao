@@ -57,7 +57,7 @@
   bottom:12px;
   height:22px;
   border-radius:50%;
-  background:radial-gradient(closest-side,rgba(11,58,158,.16),rgba(11,58,158,0));
+  background:radial-gradient(closest-side,rgba(10,73,184,.16),rgba(10,73,184,0));
 }
 
 /* Círculo atrás dos animais: desativado. Os pets ficam direto sobre o fundo da página. */
@@ -99,7 +99,7 @@
 :root{
   --pc-deco:#c7dbfb;
   --pc-deco-forte:#b3cdf6;
-  --pc-ic-cor:#1f6fe5;
+  --pc-ic-cor:#1b63e6;
   --pc-ic-fundo:#e4eeff;
 }
 
@@ -151,7 +151,7 @@
   bottom:0;
   width:min(440px,62vw);
   height:150px;
-  background:linear-gradient(45deg,#f7931e,#ffb347);
+  background:linear-gradient(45deg,#f28a0c,#ffb23a);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160' preserveAspectRatio='none'%3E%3Cpath d='M0 160C90 150 150 120 210 80S330 10 400 0V160Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160' preserveAspectRatio='none'%3E%3Cpath d='M0 160C90 150 150 120 210 80S330 10 400 0V160Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;
 }

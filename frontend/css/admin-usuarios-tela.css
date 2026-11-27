@@ -29,7 +29,7 @@ body.pg-admin-usuarios .au-topo .sub{font-size:1.02rem}
 body.pg-admin-usuarios .au-pets{position:relative;align-self:end}
 body.pg-admin-usuarios .au-pets img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
 /* sombra de chão bem leve sob as patas (::before é pintado antes da foto) */
-body.pg-admin-usuarios .au-pets::before{content:"";position:absolute;left:8%;right:8%;bottom:-4px;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(11,58,158,.15),rgba(11,58,158,0))}
+body.pg-admin-usuarios .au-pets::before{content:"";position:absolute;left:8%;right:8%;bottom:-4px;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(10,73,184,.15),rgba(10,73,184,0))}
 /* O selo azul redondo com o ícone de usuários ficava sobre os pets (mesmo papel do escudo retirado do Admin): oculto */
 body.pg-admin-usuarios .au-selo-ic{display:none}
 /* Enfeites do kit (praticao-ui.css) perto dos pets */
@@ -54,7 +54,7 @@ body.pg-admin-usuarios .au-d-osso{display:none}
 }
 
 /* ===== Mensagens de sucesso e erro ===== */
-body.pg-admin-usuarios .mensagem{border-radius:16px;padding:12px 14px 12px 16px;margin:16px 0 0;font-size:1rem;font-weight:700;box-shadow:0 6px 18px rgba(11,58,158,.06)}
+body.pg-admin-usuarios .mensagem{border-radius:16px;padding:12px 14px 12px 16px;margin:16px 0 0;font-size:1rem;font-weight:700;box-shadow:0 6px 18px rgba(10,73,184,.06)}
 body.pg-admin-usuarios .mensagem::before{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;color:#fff;font-size:.95rem}
 body.pg-admin-usuarios .mensagem.sucesso::before{background:#2e9e4f}
 body.pg-admin-usuarios .mensagem.erro::before{content:"!";background:#d93025;font-weight:900}
@@ -63,35 +63,31 @@ body.pg-admin-usuarios .mensagem button:hover{background:rgba(255,255,255,.6)}
 
 /* ===== Busca e filtros ===== */
 body.pg-admin-usuarios #filtros{margin:22px 0 14px;gap:10px}
-body.pg-admin-usuarios .filtro input[type=search],body.pg-admin-usuarios .filtro select{min-height:48px;border:1.5px solid var(--borda);box-shadow:0 4px 14px rgba(11,58,158,.06);font-weight:600;color:var(--texto)}
+body.pg-admin-usuarios .filtro input[type=search],body.pg-admin-usuarios .filtro select{min-height:48px;border:1.5px solid var(--borda);box-shadow:0 4px 14px rgba(10,73,184,.06);font-weight:600;color:var(--texto)}
 body.pg-admin-usuarios .filtro input[type=search]{flex:1 1 300px;min-width:240px;padding-left:44px;background:#fff no-repeat 16px center/18px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%231f5fd0' fill-rule='evenodd' d='M10.5 3a7.5 7.5 0 0 1 6 12l4.3 4.3-1.5 1.5-4.3-4.3A7.5 7.5 0 1 1 10.5 3zm0 2.2a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6z'/></svg>")}
-body.pg-admin-usuarios .filtro input:focus,body.pg-admin-usuarios .filtro select:focus{border-color:#1f6fe5;box-shadow:0 0 0 3px rgba(31,111,229,.16);outline:none}
+body.pg-admin-usuarios .filtro input:focus,body.pg-admin-usuarios .filtro select:focus{border-color:#1b63e6;box-shadow:0 0 0 3px rgba(27,99,230,.16);outline:none}
 body.pg-admin-usuarios #btn-atualizar{min-height:48px;padding:10px 22px;box-shadow:0 6px 16px rgba(242,138,12,.28)}
 
 /* ===== Tabela ===== */
-body.pg-admin-usuarios .t-usuarios{border-radius:20px;box-shadow:0 8px 26px rgba(11,58,158,.08);margin-top:0}
+body.pg-admin-usuarios .t-usuarios{border-radius:20px;box-shadow:0 8px 26px rgba(10,73,184,.08);margin-top:0}
 body.pg-admin-usuarios .t-usuarios.ocupada{opacity:.6}
 body.pg-admin-usuarios .t-usuarios .cab{background:#eef4ff;font-weight:800;font-size:.9rem;padding:14px 20px}
 body.pg-admin-usuarios .t-usuarios .reg{padding:14px 20px;border-top:1px solid #edf2fa;transition:background .12s}
 body.pg-admin-usuarios .t-usuarios .reg:hover{background:#f6f9ff}
 body.pg-admin-usuarios .t-usuarios .reg strong{color:var(--azul);font-weight:800}
 body.pg-admin-usuarios .t-usuarios .peq{color:var(--cinza);font-size:.88rem}
-body.pg-admin-usuarios .t-usuarios .etiqueta{padding:5px 12px;font-size:.82rem;font-weight:700;background:#e2edff;color:#1f4fb0}
+body.pg-admin-usuarios .t-usuarios .etiqueta{padding:5px 12px;font-size:.82rem;font-weight:700;background:#e2edff;color:#0a49b8}
 body.pg-admin-usuarios .t-usuarios .status{padding:5px 12px;font-size:.82rem}
 body.pg-admin-usuarios .status.ativa{background:#dcf5e3;color:#1d6b2a}
 body.pg-admin-usuarios .status.inativa{background:#fde3e1;color:#b3261e}
 @media(min-width:801px){
-  /* coluna de ações em rem (cresce junto com a letra: 384px no tamanho normal, 456px com a letra aumentada) e IGUAL no
-     cabeçalho e nas linhas: Ver detalhes, Desativar e Excluir sempre na mesma linha */
-  /* Perfil e Situação também em rem: os selos crescem com a letra e não encostam um no outro */
-  body.pg-admin-usuarios .t-usuarios .cab,body.pg-admin-usuarios .t-usuarios .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 8.75rem 7rem 24rem;gap:12px}
-  body.pg-admin-usuarios .t-usuarios .reg>.acoes{flex-wrap:nowrap}
+  body.pg-admin-usuarios .t-usuarios .cab,body.pg-admin-usuarios .t-usuarios .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 124px 104px 372px;gap:12px}
 }
 
 /* Botões de ação (os ícones já vêm no texto gerado pelo JS) */
 body.pg-admin-usuarios .acoes{gap:8px}
 body.pg-admin-usuarios .acao{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem;background:#fff;border-width:1.5px;transition:background .15s}
-body.pg-admin-usuarios .acao.detalhes{color:#1f5fd0;border-color:#9fc0f2}
+body.pg-admin-usuarios .acao.detalhes{color:#1b63e6;border-color:#9fc0f2}
 body.pg-admin-usuarios .acao.detalhes:hover{background:#eef4ff}
 body.pg-admin-usuarios .acao.cancelar{color:#c62828;border-color:#f1a9a4}
 body.pg-admin-usuarios .acao.cancelar:hover{background:#fdecea}
@@ -116,14 +112,14 @@ body.pg-admin-usuarios .vazio .btn{min-height:46px;padding:10px 24px;margin-top:
 body.pg-admin-usuarios .paginacao{margin-top:16px}
 body.pg-admin-usuarios .paginas{flex-wrap:wrap}
 body.pg-admin-usuarios .paginas button{min-width:40px;height:40px;border-radius:12px}
-body.pg-admin-usuarios .paginas button.atual{background:#1f6fe5;border-color:#1f6fe5;box-shadow:0 4px 10px rgba(31,111,229,.3)}
-body.pg-admin-usuarios #contagem{font-size:.88rem;font-weight:600;background:rgba(255,255,255,.9);padding:6px 14px;border-radius:999px;box-shadow:0 2px 8px rgba(11,58,158,.06)}
+body.pg-admin-usuarios .paginas button.atual{background:#1b63e6;border-color:#1b63e6;box-shadow:0 4px 10px rgba(27,99,230,.3)}
+body.pg-admin-usuarios #contagem{font-size:.88rem;font-weight:600;background:rgba(255,255,255,.9);padding:6px 14px;border-radius:999px;box-shadow:0 2px 8px rgba(10,73,184,.06)}
 
 /* ===== Painel lateral de detalhes ===== */
 body.pg-admin-usuarios #dlg-detalhes{padding:26px 24px}
 body.pg-admin-usuarios #dlg-detalhes h2{font-size:1.3rem;font-weight:800}
 body.pg-admin-usuarios .det-topo{background:#eef4ff;border-radius:18px;padding:14px;margin:8px 0 12px}
-body.pg-admin-usuarios .avatar{background:linear-gradient(145deg,#3d8bff,#0b3a9e);box-shadow:0 6px 14px rgba(11,58,158,.25)}
+body.pg-admin-usuarios .avatar{background:linear-gradient(145deg,#2a7af5,#0a49b8);box-shadow:0 6px 14px rgba(10,73,184,.25)}
 body.pg-admin-usuarios .det-topo strong{font-weight:800}
 body.pg-admin-usuarios #det-corpo .dados{gap:0 14px}
 body.pg-admin-usuarios #det-corpo .dados dt,body.pg-admin-usuarios #det-corpo .dados dd{padding:9px 0;border-bottom:1px solid #edf2fa}
@@ -152,7 +148,7 @@ body.pg-admin-usuarios .au-fechar:hover,body.pg-admin-usuarios .dlg-pergunta .fe
 }
 @media(min-width:801px) and (max-width:1000px){
   /* sem espaço para as ações na mesma linha: elas descem para uma linha própria */
-  body.pg-admin-usuarios .t-usuarios .cab,body.pg-admin-usuarios .t-usuarios .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 8.75rem 7rem}
+  body.pg-admin-usuarios .t-usuarios .cab,body.pg-admin-usuarios .t-usuarios .reg{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 120px 100px}
   body.pg-admin-usuarios .t-usuarios .cab>:last-child{display:none}
   body.pg-admin-usuarios .t-usuarios .reg>.acoes{grid-column:1/-1;justify-content:flex-end}
 }
@@ -163,17 +159,10 @@ body.pg-admin-usuarios .au-fechar:hover,body.pg-admin-usuarios .dlg-pergunta .fe
   body.pg-admin-usuarios #btn-atualizar{flex:1 1 100%}
   /* tabelas.css transforma as linhas em cartões: aqui só o acabamento */
   body.pg-admin-usuarios .t-usuarios{background:none;box-shadow:none;overflow:visible}
-  body.pg-admin-usuarios .t-usuarios .reg{background:#fff;border:1px solid #e3ebf7;border-radius:16px;margin-top:10px;padding:14px 16px;box-shadow:0 4px 14px rgba(11,58,158,.06)}
+  body.pg-admin-usuarios .t-usuarios .reg{background:#fff;border:1px solid #e3ebf7;border-radius:16px;margin-top:10px;padding:14px 16px;box-shadow:0 4px 14px rgba(10,73,184,.06)}
   body.pg-admin-usuarios .t-usuarios .reg>.peq{grid-column:1/-1}
-  body.pg-admin-usuarios #lista>.vazio,body.pg-admin-usuarios #lista>.carregando{border-radius:18px;box-shadow:0 6px 18px rgba(11,58,158,.06)}
+  body.pg-admin-usuarios #lista>.vazio,body.pg-admin-usuarios #lista>.carregando{border-radius:18px;box-shadow:0 6px 18px rgba(10,73,184,.06)}
   body.pg-admin-usuarios .acoes .acao{flex:1 1 auto;min-height:42px}
-  /* celular estreito: "Ver detalhes" ocupa a 1ª linha e Desativar + Excluir ficam sempre lado a lado na 2ª
-     (assim cabe até com a letra aumentada, sem botão passando da borda do cartão) */
-  @media(max-width:420px){
-    body.pg-admin-usuarios .t-usuarios .reg>.acoes{gap:8px}
-    body.pg-admin-usuarios .acoes .acao.detalhes{flex:1 1 100%}
-    body.pg-admin-usuarios .acoes .acao:not(.detalhes){flex:1 1 0;min-width:0;padding:6px 8px;gap:4px}
-  }
   body.pg-admin-usuarios .paginacao{justify-content:center}
 }
 @media(max-width:600px){

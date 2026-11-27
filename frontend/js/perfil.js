@@ -22,9 +22,35 @@ function render() {
   $('ola').textContent = 'Olá, ' + (eu.nome || '').trim().split(' ')[0] + '!';
   $('v-tipo').textContent = PERFIL_TEXTO[eu.perfil] || eu.perfil;
   const st = $('v-status');
-  st.textContent = eu.ativo ? '✔ Ativa' : 'Inativa';
+  st.textContent = eu.ativo ? 'Ativa' : 'Inativa';
   st.className = 'status ' + (eu.ativo ? 'ativa' : 'inativa');
   $('avatar').textContent = (eu.nome || '?').trim().charAt(0).toUpperCase();
+  const info = INFO_CONTA[eu.perfil];
+  if (info) { $('info-conta-t').textContent = 'Conta ' + (eu.perfil === 'tutor' ? 'do Tutor' : eu.perfil === 'funcionario' ? 'do Funcionário' : 'do Administrador'); $('info-conta-p').textContent = info; }
+}
+
+// Texto da faixa de avisos, conforme o tipo de conta (o que cada perfil realmente acessa no menu).
+const INFO_CONTA = {
+  tutor: 'Você está logado como tutor e pode gerenciar seus animais e agendamentos.',
+  funcionario: 'Você está logado como funcionário e pode gerenciar a agenda e os relatórios.',
+  administrador: 'Você está logado como administrador e pode gerenciar usuários, serviços e a agenda.',
+};
+
+// Menu "Minha área" (só navegação): mesmos destinos do menu do cabeçalho de cada perfil.
+const MENU_AREA = {
+  tutor: [['Painel', 'painel.html', 'casa'], ['Meus Animais', 'meus-animais.html', 'pata'], ['Novo Agendamento', 'agendamento.html', 'calendario'], ['Meus Agendamentos', 'meus-agendamentos.html', 'lista'], ['Meu Perfil', 'perfil.html', 'usuario']],
+  funcionario: [['Agenda', 'painel-funcionario.html', 'calendario'], ['Relatórios', 'relatorios.html', 'grafico'], ['Meu Perfil', 'perfil.html', 'usuario']],
+  administrador: [['Visão geral', 'painel-admin.html', 'casa'], ['Usuários', 'admin-usuarios.html', 'usuario'], ['Agenda', 'painel-funcionario.html', 'calendario'], ['Serviços', 'gerenciar-servicos.html', 'tesoura'], ['Relatórios', 'relatorios.html', 'grafico'], ['Meu Perfil', 'perfil.html', 'usuario']],
+};
+function montarMenuArea() {
+  const itens = MENU_AREA[Auth.perfil()] || MENU_AREA.tutor;
+  $('pf-links').innerHTML = itens.map(([texto, href, ic]) => {
+    const atual = href === 'perfil.html';
+    const icone = ic === 'pata'
+      ? '<svg class="ic" viewBox="0 0 80 72" width="26" height="24" aria-hidden="true"><use href="#pata"/></svg>'
+      : `<svg class="ic" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><use href="#i-${ic}"/></svg>`;
+    return `<li><a href="${href}"${atual ? ' aria-current="page" class="ativo"' : ''}>${icone}${texto}</a></li>`;
+  }).join('');
 }
 
 async function carregar() {
@@ -83,11 +109,22 @@ async function salvarDados(e) {
 }
 
 // ---------- sair ----------
-async function sair() {
-  if (!(await perguntar({ titulo: 'Sair da conta?', texto: 'Tem certeza de que deseja sair da sua conta?', rotulo: 'Sim, sair' }))) return;
+async function sair(opcoes = {}) {
+  const { titulo = 'Sair da conta?', texto = 'Tem certeza de que deseja sair da sua conta?', rotulo = 'Sim, sair', destino = 'login.html' } = opcoes;
+  if (!(await perguntar({ titulo, texto, rotulo }))) return;
   try { await api('/logout', { method: 'POST' }); } catch { /* mesmo sem resposta da API, a sessão local é encerrada */ }
   Auth.limpar();
-  location.href = 'login.html';
+  location.href = destino;
+}
+
+// Troca de senha: não há rota para isso com a pessoa logada; o caminho é o fluxo de recuperação (e-mail).
+function redefinirSenha() {
+  sair({
+    titulo: 'Redefinir a senha?',
+    texto: 'Para trocar a senha você vai sair da conta e seguir o passo a passo de recuperação por e-mail. Deseja continuar?',
+    rotulo: 'Sim, continuar',
+    destino: 'redefinir-senha.html',
+  });
 }
 
 function iniciar() {
@@ -96,7 +133,9 @@ function iniciar() {
   $('editar').addEventListener('click', abrirEdicao);
   $('ed-cancelar').addEventListener('click', () => $('dlg-editar').close());
   $('form-dados').addEventListener('submit', salvarDados);
-  $('sair').addEventListener('click', sair);
+  $('sair').addEventListener('click', () => sair());
+  $('trocar-senha').addEventListener('click', redefinirSenha);
+  montarMenuArea();
   $('tentar').addEventListener('click', carregar);
   carregar();
 }

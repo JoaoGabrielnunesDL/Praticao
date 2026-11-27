@@ -10,17 +10,29 @@ let ocupado = false;
 const ICONE = { 'cão': '🐶', 'cao': '🐶', 'gato': '🐱' };
 const iconeDe = a => ICONE[String(a.especie).toLowerCase()] || '🐾';
 
+// Fotos ilustrativas (a API não guarda foto do animal): cão e gato têm arte própria; outras espécies ficam com o ícone.
+const FOTO = { 'cão': 'img/animais/foto-cao.webp', 'cao': 'img/animais/foto-cao.webp', 'gato': 'img/animais/foto-gato.webp' };
+const IC_EDITAR = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>';
+const IC_EXCLUIR = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13M10 11v6M14 11v6"/></svg>';
+
+function fotoHTML(a) {
+  const src = FOTO[String(a.especie).toLowerCase()];
+  return src
+    ? `<div class="an-foto com-foto" aria-hidden="true"><img src="${src}" alt="" loading="lazy" decoding="async"><span class="an-ilustrativa">Imagem ilustrativa</span></div>`
+    : `<div class="an-foto" aria-hidden="true">${iconeDe(a)}</div>`;
+}
+
 function cartaoHTML(a) {
   return `<article class="an-card">
-    <div class="an-foto" aria-hidden="true">${iconeDe(a)}</div>
+    ${fotoHTML(a)}
     <div class="corpo">
       <h3>${esc(a.nome)}</h3>
-      <span><span class="etiqueta">${esc(a.especie)}</span></span>
+      <span><span class="etiqueta"><span class="pc-ic pc-f-pata" aria-hidden="true"></span> ${esc(a.especie)}</span></span>
       <p class="raca">${a.raca ? esc(a.raca) : 'Raça indefinida'}</p>
-      <a class="agendar" href="agendamento.html?animal=${a.id}">📅 Agendar serviço</a>
+      <a class="agendar" href="agendamento.html?animal=${a.id}"><span class="pc-ic pc-f-calendario" aria-hidden="true"></span> Agendar serviço</a>
       <div class="acoes">
-        <button type="button" class="acao confirmar" data-acao="editar" data-id="${a.id}">✏️ Editar</button>
-        <button type="button" class="acao cancelar" data-acao="excluir" data-id="${a.id}">🗑️ Excluir</button>
+        <button type="button" class="acao confirmar" data-acao="editar" data-id="${a.id}">${IC_EDITAR} Editar</button>
+        <button type="button" class="acao cancelar" data-acao="excluir" data-id="${a.id}">${IC_EXCLUIR} Excluir</button>
       </div>
     </div>
   </article>`;
@@ -39,7 +51,7 @@ function render() {
   // Sem animal não há como agendar: os atalhos de agendamento levam ao cadastro.
   $('lista').innerHTML = n
     ? animais.map(cartaoHTML).join('')
-    : '<div class="vazio"><span>🐾</span>Você ainda não cadastrou nenhum animal<p>Cadastre seu primeiro pet para poder agendar serviços.</p><button type="button" class="btn btn-laranja btn-pequeno" data-novo>+ Cadastrar Animal</button></div>';
+    : '<div class="vazio"><span class="pc-ic pc-f-pata" aria-hidden="true"></span>Você ainda não cadastrou nenhum animal<p>Cadastre seu primeiro pet para poder agendar serviços.</p><button type="button" class="btn btn-laranja btn-pequeno" data-novo>+ Cadastrar Animal</button></div>';
 }
 
 async function carregar() {

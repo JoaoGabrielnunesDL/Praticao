@@ -1,4 +1,4 @@
-:root{--azul:#0b3a9e;--azul-esc:#082a75;--laranja:#f28a0c;--laranja-esc:#d97500;--fundo:#f4f8ff;--texto:#1c2b4a;--cinza:#5b6b88;--borda:#dbe6f7}
+:root{--azul:#0a49b8;--azul-esc:#0a2a6b;--laranja:#f28a0c;--laranja-esc:#d97500;--fundo:#f4f8ff;--texto:#1c2b4a;--cinza:#5b6b88;--borda:#dbe6f7}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:'Segoe UI',Arial,sans-serif;color:var(--texto);background:#fff;line-height:1.5;display:flex;flex-direction:column;min-height:100vh}
@@ -20,7 +20,7 @@ section{scroll-margin-top:120px}
 /* Cartões usados em Serviços e Dicas */
 .grade-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .grade-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.card{display:block;background:#fff;border:1px solid var(--borda);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(11,58,158,.08);transition:transform .2s}
+.card{display:block;background:#fff;border:1px solid var(--borda);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(10,73,184,.08);transition:transform .2s}
 .card:hover{transform:translateY(-4px)}
 .card .img-ph{border-radius:0;min-height:130px;font-size:2.4rem}
 .card .corpo{padding:14px}
@@ -35,7 +35,7 @@ section{scroll-margin-top:120px}
 .pagina{background:linear-gradient(160deg,#eaf3ff,#f7fbff);padding:36px 0 60px;min-height:70vh}
 .pagina h1{font-size:2.2rem;color:var(--azul);line-height:1.1}
 .selo-op{color:var(--laranja);font-weight:700;font-size:.85rem}
-.bloco{background:#fff;border-radius:16px;box-shadow:0 6px 20px rgba(11,58,158,.1);padding:18px 20px}
+.bloco{background:#fff;border-radius:16px;box-shadow:0 6px 20px rgba(10,73,184,.1);padding:18px 20px}
 .bloco h2{font-size:1.1rem;color:var(--azul)}
 .filtro{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:18px 0}
 .filtro label{font-weight:700;color:var(--azul)}
@@ -53,7 +53,7 @@ section{scroll-margin-top:120px}
 .acao.detalhes{color:var(--cinza);border-color:var(--borda)}
 .status{display:inline-block;border-radius:999px;padding:4px 12px;font-weight:700;font-size:.85rem}
 .status.pendente{background:#ffe2b8;color:#9a5300}
-.status.confirmado{background:#d6e6ff;color:#0b3a9e}
+.status.confirmado{background:#d6e6ff;color:#0a49b8}
 .status.concluido,.status.ativa{background:#d4f2d0;color:#1d6b2a}
 .status.cancelado,.status.inativa{background:#fcd5d3;color:#b3261e}
 .etiqueta{display:inline-block;border-radius:999px;padding:4px 12px;font-weight:600;font-size:.85rem;background:#eaf1fd;color:var(--azul)}
@@ -62,7 +62,7 @@ section{scroll-margin-top:120px}
 .carregando{color:var(--cinza);font-weight:400}
 /* Janelas (detalhes, confirmação e formulários) */
 dialog{margin:auto;border:0;border-radius:16px;padding:24px;max-width:440px;width:92%;box-shadow:0 10px 40px rgba(0,0,0,.3)}
-dialog::backdrop{background:rgba(8,42,117,.45)}
+dialog::backdrop{background:rgba(10,42,107,.45)}
 dialog.painel{margin:0 0 0 auto;height:100%;max-height:100%;max-width:420px;width:100%;border-radius:16px 0 0 16px}
 dialog h2{color:var(--azul);margin-bottom:10px}
 .dados{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:14px 0}
@@ -110,13 +110,19 @@ dialog.dlg-pergunta{position:relative;text-align:center;max-width:400px}
 :root{
   /* ---------- Cor: marca (primitivas) ---------- */
   --cor-azul-profundo:#0a2a6b;   /* marca, títulos, rodapé. Branco sobre ele: 13,49:1 */
-  --cor-azul:#1f5fd0;            /* interação: links, foco, botão secundário. Sobre branco: 5,82:1; sobre #eef4ff: 5,27:1 */
-  --cor-azul-forte:#174bb0;      /* hover do azul / texto informativo. Sobre #e4eeff: 6,73:1 */
+  --cor-azul:#1b63e6;            /* AZUL PADRÃO (meio do banner): interação, links, foco, botão secundário. Sobre branco: 5,28:1; sobre #eef4ff: 4,79:1 */
+  --cor-azul-forte:#0a49b8;      /* AZUL PADRÃO ESCURO (início do banner): hover, texto informativo, títulos. Sobre branco: 7,90:1; sobre #e4eeff: 6,76:1 */
+  --cor-azul-vivo:#2a7af5;       /* AZUL PADRÃO CLARO (fim do banner): só degradês e ilustração, nunca texto */
   --cor-azul-claro:#eef4ff;      /* fundo de página e superfícies suaves */
   --cor-azul-superficie:#dbe8fb; /* superfície destacada, linha selecionada */
-  --cor-laranja:#f28a0c;         /* SÓ CTA principal e acentos de marca. NUNCA texto sobre branco (2,50:1) */
+  --cor-laranja:#f28a0c;         /* LARANJA PADRÃO (botão Fazer Agendamento): SÓ CTA principal e acentos de marca. NUNCA texto sobre branco (2,50:1) */
+  --cor-laranja-claro:#ffb23a;   /* LARANJA PADRÃO CLARO (topo do degradê do botão): degradês, destaques sobre azul-escuro. Azul-profundo sobre ele: 7,51:1 */
   --cor-laranja-hover:#ff9a2a;   /* hover do CTA (texto azul-profundo: 6,37:1) */
   --cor-laranja-texto:#9c4f00;   /* raro: texto de marca em laranja sobre claro (5,31:1 em #eaf3ff) */
+
+  /* ---------- Cor: degradês padrão (use estes em vez de inventar tons) ---------- */
+  --grad-laranja:linear-gradient(180deg,var(--cor-laranja-claro),var(--cor-laranja)); /* botão Fazer Agendamento, setas, selos */
+  --grad-azul:linear-gradient(100deg,var(--cor-azul-forte) 0%,var(--cor-azul) 62%,var(--cor-azul-vivo) 100%); /* banners e blocos de destaque azuis */
 
   /* ---------- Cor: neutros ---------- */
   --cor-branco:#fff;
@@ -132,7 +138,7 @@ dialog.dlg-pergunta{position:relative;text-align:center;max-width:400px}
   --cor-erro:#b3261e;     --cor-erro-fundo:#fdecea;      /* 5,72:1 */
   --cor-alerta:#8a4600;   --cor-alerta-fundo:#fff1de;    /* 6,39:1 */
   --cor-pendente:#9a5300; --cor-pendente-fundo:#ffe2b8;  /* 4,66:1 */
-  --cor-info:#174bb0;     --cor-info-fundo:#e4eeff;      /* 6,73:1 */
+  --cor-info:#0a49b8;     --cor-info-fundo:#e4eeff;      /* 6,76:1 */
   --cor-perigo:#c62828;   /* botão destrutivo: branco sobre ele 5,62:1; como contorno sobre branco 5,62:1 */
 
   /* ---------- Cor: semânticas (use estas nas telas) ---------- */
@@ -140,7 +146,7 @@ dialog.dlg-pergunta{position:relative;text-align:center;max-width:400px}
   --cor-superficie:var(--cor-branco);
   --cor-titulo:var(--cor-azul-profundo);
   --cor-link:var(--cor-azul);
-  --cor-foco:var(--cor-azul);    /* anel de foco: 5,82:1 no branco, 5,27:1 em #eef4ff, 4,70:1 em #dbe8fb (mín. 3:1) */
+  --cor-foco:var(--cor-azul);    /* anel de foco: 5,28:1 no branco, 4,79:1 em #eef4ff, 4,26:1 em #dbe8fb (mín. 3:1) */
   --cor-cta:var(--cor-laranja);
   --cor-cta-texto:var(--cor-azul-profundo); /* texto do CTA laranja: 5,41:1 (branco sobre laranja reprova: 2,50:1) */
 
@@ -221,7 +227,7 @@ dialog.dlg-pergunta{position:relative;text-align:center;max-width:400px}
 .ds-btn--g{min-height:var(--altura-botao-g);padding:0 var(--esp-6)}
 .ds-btn--primario{background:var(--cor-cta);color:var(--cor-cta-texto)}            /* 5,41:1 */
 .ds-btn--primario:hover{background:var(--cor-laranja-hover)}                         /* 6,37:1 */
-.ds-btn--secundario{background:var(--cor-superficie);color:var(--cor-azul);border-color:var(--cor-azul)} /* 5,82:1 */
+.ds-btn--secundario{background:var(--cor-superficie);color:var(--cor-azul);border-color:var(--cor-azul)} /* 5,28:1 */
 .ds-btn--secundario:hover{background:var(--cor-azul-claro);color:var(--cor-azul-forte);border-color:var(--cor-azul-forte)}
 .ds-btn--texto{background:transparent;color:var(--cor-azul);padding:0 var(--esp-2);text-decoration:underline;text-underline-offset:3px}
 .ds-btn--texto:hover{color:var(--cor-azul-forte)}

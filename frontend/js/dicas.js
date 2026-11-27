@@ -3,6 +3,11 @@
 const params = new URLSearchParams(location.search);
 let categoria = categoriaValida(params.get('categoria')) ? params.get('categoria') : 'todas';
 
+// Nesta tela (Todas as dicas) as fotos de ração dos cartões 4 e 6 usam o mesmo enquadramento da do cartão 1:
+// comedouro inteiro e patinha centralizada. Só vale aqui: Curiosidades e o artigo continuam com as fotos de antes.
+FOTOS_ARTIGO[4] = D + 'racao.webp';
+FOTOS_ARTIGO[6] = D + 'racao.webp';
+
 function render() {
   const termo = $('busca').value.trim();
   $('limpar-busca').hidden = !termo;
@@ -25,7 +30,7 @@ function render() {
     ? vazioDicas('📝', 'Nenhuma dica disponível no momento', 'Estamos preparando novos conteúdos para ajudar você a cuidar ainda melhor do seu pet.')
     : !achados.length
       ? vazioDicas('🔎', 'Nenhuma dica encontrada', 'Tente buscar por outra palavra ou escolha outra categoria.')
-      : `<div class="dica-grade">${achados.map(a => cartaoArtigo(a, 'dicas', categoria)).join('')}</div>`;
+      : `<div class="cu-cards dc-grade">${achados.map(a => cartaoArtigo(a, 'dicas', categoria)).join('')}</div>`;
 }
 
 // Trocar de aba atualiza o endereço (sem recarregar), para o botão Voltar do artigo lembrar a categoria.

@@ -14,7 +14,7 @@ const ICONES = {
   CONCLUIDO: IC_CHECK,
   CANCELADO: svgIcone('<circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.6 8.6 6.8 6.8m0-6.8-6.8 6.8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>'),
 };
-const CORES_BARRAS = ['#1b63e6', '#2a7af5', '#f28a0c', '#0a49b8', '#2e9e4f', '#8e6bd6']; // só cor (paleta do Design System); dados e cálculos não mudam
+const CORES_BARRAS = ['#1b63e6', '#2a7af5', '#f28a0c', '#a5c9f7', '#2e9e4f', '#8e6bd6'];
 const MAX_BARRAS = 6;
 const ALTURA_BARRA = 170; // px da maior barra possível (topo da escala do gráfico)
 const TAMANHO = 10;
@@ -166,7 +166,7 @@ function mudarFiltro(novo) {
 // ---------- tabela ----------
 function itensHTML(d) {
   if (!d.itens.length) {
-    return `<div class="vazio"><span aria-hidden="true"></span>Nenhum agendamento encontrado${filtro.status || filtro.servicoId ? ' com esses filtros' : ' neste período'}.</div>`;
+    return `<div class="vazio"><span>📅</span>Nenhum agendamento encontrado${filtro.status || filtro.servicoId ? ' com esses filtros' : ' neste período'}.</div>`;
   }
   const linhas = d.itens.map((i, n) => `<article class="reg clicavel" data-n="${n}" role="button" tabindex="0" aria-label="Ver detalhes do agendamento de ${esc(i.animal_nome)}">
       <strong>${dataBR(i)}</strong>
@@ -264,7 +264,7 @@ async function exportar() {
     tratarErro(x.status ? x : new Error('Não foi possível exportar o relatório. Confira se a API está rodando.'));
   } finally {
     botao.disabled = false;
-    botao.textContent = 'Exportar CSV'; // o ícone é desenhado pelo CSS (sem emoji)
+    botao.textContent = '⬇ Exportar CSV';
   }
 }
 

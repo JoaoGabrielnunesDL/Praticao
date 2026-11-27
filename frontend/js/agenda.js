@@ -69,9 +69,9 @@ function render() {
 
   const visiveis = filtro === 'TODOS' ? agendamentos : agendamentos.filter(a => a.status === filtro);
   if (!agendamentos.length) {
-    $('lista').innerHTML = `<div class="vazio"><span></span>Nenhum agendamento ${periodo ? 'neste período' : 'para esta data'}.</div>`;
+    $('lista').innerHTML = `<div class="vazio"><span>📅</span>Nenhum agendamento ${periodo ? 'neste período' : 'para esta data'}.</div>`;
   } else if (!visiveis.length) {
-    $('lista').innerHTML = '<div class="vazio"><span></span>Nenhum agendamento com este status.</div>';
+    $('lista').innerHTML = '<div class="vazio"><span>🔎</span>Nenhum agendamento com este status.</div>';
   } else {
     $('lista').innerHTML = `<div class="cab-lista" aria-hidden="true"><span>${periodo ? 'Data / hora' : 'Horário'}</span><span>Tutor</span><span>Animal</span><span>Serviço</span><span>Status</span><span>Ações</span></div>`
       + visiveis.map(itemHTML).join('');

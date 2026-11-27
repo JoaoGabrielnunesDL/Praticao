@@ -11,6 +11,12 @@ function $(id) { return document.getElementById(id); }
 function irParaPasso(n) {
   Object.entries(passos).forEach(([k, el]) => { el.hidden = Number(k) !== n; });
   $('rotulo-passo').textContent = ROTULOS[n];
+  // Passo 3 tem tela própria (css/redefinir-sucesso.css): liga/desliga pela classe do body
+  document.body.classList.toggle('pg-sucesso', n === 3);
+  // Passo 2 também tem tela própria (css/redefinir-nova-senha.css)
+  document.body.classList.toggle('pg-nova', n === 2);
+  if (n === 2) $('rec-nova').focus();
+  if (n === 3) { window.scrollTo(0, 0); $('ok-titulo').focus(); }
 }
 function ocupado(form, sim) {
   const botao = form.querySelector('button[type=submit]');
@@ -28,7 +34,9 @@ document.querySelectorAll('.mostrar').forEach(b => b.addEventListener('click', (
   const campo = $(b.dataset.alvo);
   const oculto = campo.type === 'password';
   campo.type = oculto ? 'text' : 'password';
-  b.textContent = oculto ? 'Ocultar' : 'Mostrar';
+  // o botão tem só ícones (olho / olho cortado): o estado vai no aria-label e no aria-pressed
+  b.setAttribute('aria-pressed', oculto ? 'true' : 'false');
+  b.setAttribute('aria-label', oculto ? 'Ocultar senha' : 'Mostrar senha');
 }));
 
 // Força da senha (simples: tamanho + variedade de caracteres)
@@ -39,7 +47,11 @@ $('rec-nova').addEventListener('input', e => {
   if (s.length >= 8 && /[a-z]/.test(s) && /[A-Z0-9]/.test(s)) pontos++;
   if (s.length >= 10 && /[a-z]/.test(s) && /[A-Z]/.test(s) && /\d/.test(s)) pontos++;
   document.querySelector('.forca').className = 'forca' + (pontos ? ' nivel-' + pontos : '');
-  $('forca-texto').textContent = 'Força da senha: ' + (['—', 'fraca', 'média', 'forte'][pontos]);
+  const rotulo = ['—', 'fraca', 'média', 'forte'][pontos];
+  const alvo = $('forca-texto');
+  const destaque = alvo.querySelector('b');
+  if (destaque) destaque.textContent = rotulo; else alvo.textContent = 'Força da senha: ' + rotulo;
+  alvo.dataset.nivel = pontos;
 });
 
 // PASSO 1: pedir o link
@@ -47,6 +59,8 @@ passos[1].addEventListener('submit', async e => {
   e.preventDefault();
   const f = passos[1];
   erro(f, '');
+  const okCaixa = f.querySelector('.rv-ok');
+  if (okCaixa) okCaixa.hidden = true;
   const email = f.email.value.trim();
   if (!email) return erro(f, 'Informe o e-mail da sua conta.');
   ocupado(f, true);
@@ -61,7 +75,9 @@ passos[1].addEventListener('submit', async e => {
       irParaPasso(2);
     } else {
       erro(f, '');
-      f.querySelector('.sub').textContent = r.mensagem; // sem token: o link iria por e-mail
+      // sem token: o link iria por e-mail; a mensagem aparece na caixa verde
+      if (okCaixa) { okCaixa.querySelector('span').textContent = r.mensagem; okCaixa.hidden = false; }
+      else f.querySelector('.sub').textContent = r.mensagem;
     }
   } catch (x) {
     erro(f, x.status === 422 ? 'Informe um e-mail válido.' : x.message);

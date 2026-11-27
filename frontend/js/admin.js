@@ -72,7 +72,7 @@ function desenharAgendamentos() {
     ? `<div class="cab-prev" aria-hidden="true"><span>Horário</span><span>Pet</span><span>Serviço</span><span>Tutor</span><span>Status</span></div>`
       + previa.map(a => `<button type="button" class="linha-ag" data-id="${a.id}"><strong>${hora(a)}</strong><span class="c-pet">${esc(a.animal_nome)}</span><span class="c-serv">${esc(a.servico_nome)}</span><span class="c-tutor">${esc(a.tutor_nome)}</span><span class="status ${STATUS[a.status].classe}">${ICONE_STATUS[a.status] || ''}${STATUS[a.status].texto}</span></button>`).join('')
       + (total > previa.length ? `<p class="nota">Mostrando ${previa.length} de ${total} agendamentos de hoje.</p>` : '')
-    : '<div class="vazio"><span></span>Não existem agendamentos registrados para hoje.</div>';
+    : '<div class="vazio"><span>📅</span>Não existem agendamentos registrados para hoje.</div>';
 }
 
 async function carregarAgenda() {
@@ -97,7 +97,7 @@ async function atualizar(manual) {
   botao.textContent = 'Atualizando...';
   await Promise.all([carregarUsuarios(), carregarAgenda()]);
   botao.disabled = false;
-  botao.textContent = 'Atualizar';
+  botao.textContent = '↻ Atualizar';
   carregando = false;
   if (manual && $('erro-agenda').hidden && $('erro-usuarios').hidden) mostrarMensagem('sucesso', 'Dados do painel atualizados com sucesso!');
 }
