@@ -29,7 +29,7 @@ def test_busca_pagina_de_5_em_5(client, admin, db_session):
 
 def test_busca_por_nome_ou_email_sem_diferenciar_maiusculas(client, admin, db_session):
     _criar_usuarios(db_session, 3)
-    r = client.get('/admin/usuarios/busca?busca=  PESSOA01 ', headers=admin).json()
+    r = client.get('/admin/usuarios/busca?busca=  PESSOA 01 ', headers=admin).json()
     assert [u['email'] for u in r['itens']] == ['pessoa1@teste.com']
     r = client.get('/admin/usuarios/busca?busca=@TESTE.com', headers=admin).json()
     assert r['total'] == 4  # as 3 pessoas + o admin
