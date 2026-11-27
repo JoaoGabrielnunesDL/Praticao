@@ -2,7 +2,7 @@
 .tabela{background:#fff;border-radius:16px;box-shadow:0 6px 20px rgba(10,73,184,.1);overflow:hidden;margin-top:8px}
 .tabela.ocupada{opacity:.6;pointer-events:none}
 .tabela .cab,.tabela .reg{display:grid;gap:10px;align-items:center;padding:12px 18px}
-.tabela .cab{background:#eaf1fd;color:var(--azul);font-weight:700;font-size:.9rem}
+.tabela .cab{background:#eaf1fd;color:#0a49b8;font-weight:700;font-size:.9rem}
 .tabela .reg{border-top:1px solid var(--borda)}
 .tabela .reg:hover{background:#f6f9ff}
 .tabela .peq{font-size:.85rem;color:var(--cinza);word-break:break-word}

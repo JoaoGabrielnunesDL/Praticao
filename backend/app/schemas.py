@@ -1,17 +1,73 @@
 from datetime import datetime
+from typing import Literal
 from pydantic import BaseModel, EmailStr, Field, ConfigDict, field_validator, model_validator
+
+
+def _limpar(valor):
+    """Tira os espaços das pontas; texto só com espaços vira vazio (e o min_length recusa)."""
+    return valor.strip() if isinstance(valor, str) else valor
+
+
+def _limpar_ou_none(valor):
+    valor = _limpar(valor)
+    return valor or None if isinstance(valor, str) else valor
 
 
 class UsuarioCriar(BaseModel):
     nome: str = Field(min_length=2, max_length=100)
     email: EmailStr
     senha: str = Field(min_length=6)
-    telefone: str | None = None
+    telefone: str | None = Field(default=None, max_length=20)
+
+    @field_validator('nome', mode='before')
+    @classmethod
+    def tirar_espacos_nome(cls, valor):
+        return _limpar(valor)
+
+    @field_validator('telefone', mode='before')
+    @classmethod
+    def tirar_espacos_telefone(cls, valor):
+        return _limpar_ou_none(valor)
+
+    @field_validator('email')
+    @classmethod
+    def email_minusculo(cls, valor: str) -> str:
+        # Ana@x.com e ana@x.com são o mesmo e-mail; o limite de 150 é o da coluna do banco.
+        valor = valor.strip().lower()
+        if len(valor) > 150:
+            raise ValueError('O e-mail pode ter no máximo 150 caracteres.')
+        return valor
+
+    @field_validator('senha')
+    @classmethod
+    def validar_limite_bcrypt(cls, valor: str) -> str:
+        if len(valor.encode('utf-8')) > 72:
+            raise ValueError('A senha não pode exceder 72 bytes em UTF-8.')
+        return valor
+
+
+class UsuarioAdminCriar(UsuarioCriar):
+    # Usado pelo administrador para cadastrar funcionários (ou outros administradores).
+    perfil: Literal['tutor', 'funcionario', 'administrador'] = 'funcionario'
+
+
+class PerfilAtualizar(BaseModel):
+    perfil: Literal['tutor', 'funcionario', 'administrador']
 
 
 class UsuarioAtualizar(BaseModel):
     nome: str = Field(min_length=2, max_length=100)
-    telefone: str | None = None
+    telefone: str | None = Field(default=None, max_length=20)
+
+    @field_validator('nome', mode='before')
+    @classmethod
+    def tirar_espacos_nome(cls, valor):
+        return _limpar(valor)
+
+    @field_validator('telefone', mode='before')
+    @classmethod
+    def tirar_espacos_telefone(cls, valor):
+        return _limpar_ou_none(valor)
 
 
 class UsuarioAlterarSenha(BaseModel):
@@ -28,6 +84,11 @@ class UsuarioAlterarSenha(BaseModel):
 
 class RecuperarSenhaEntrada(BaseModel):
     email: EmailStr
+
+    @field_validator('email')
+    @classmethod
+    def email_minusculo(cls, valor: str) -> str:
+        return valor.strip().lower()
 
 
 class RecuperarSenhaSaida(BaseModel):
@@ -93,7 +154,17 @@ class Token(BaseModel):
 class AnimalCriar(BaseModel):
     nome: str = Field(min_length=1, max_length=100)
     especie: str = Field(min_length=1, max_length=50)
-    raca: str | None = None
+    raca: str | None = Field(default=None, max_length=80)
+
+    @field_validator('nome', 'especie', mode='before')
+    @classmethod
+    def tirar_espacos(cls, valor):
+        return _limpar(valor)
+
+    @field_validator('raca', mode='before')
+    @classmethod
+    def tirar_espacos_raca(cls, valor):
+        return _limpar_ou_none(valor)
 
 
 class AnimalSaida(AnimalCriar):

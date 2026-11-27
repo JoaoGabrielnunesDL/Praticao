@@ -50,10 +50,19 @@ function itemHTML(ag) {
   return `<article class="ma-item">
     <div class="ma-pet">${fotoPet(ag)}<div><strong>${esc(ag.animal_nome)}</strong><small><span class="pc-ic pc-f-pata" aria-hidden="true"></span> ${esc(especieDe(ag))}</small></div></div>
     <div class="ma-serv"><span class="ma-serv-ic ma-t-${cor}" aria-hidden="true"><span class="pc-ic pc-f-${forma}"></span></span>
-      <div><strong>${esc(ag.servico_nome)}</strong><small><span class="pc-ic pc-f-calendario" aria-hidden="true"></span> ${diaSemana(ag)}, ${dataBR(ag)} às ${hora(ag)}</small><small><span class="pc-ic pc-f-relogio" aria-hidden="true"></span> Duração: ~ ${duracao(ag.servico_duracao_min)}</small></div></div>
+      <div><strong>${esc(ag.servico_nome)}</strong><small><span class="pc-ic pc-f-calendario" aria-hidden="true"></span> ${diaSemana(ag)}, ${dataBR(ag)} às ${hora(ag)}</small><small><span class="pc-ic pc-f-relogio" aria-hidden="true"></span> Duração: ~ ${duracao(ag.servico_duracao_min)}</small>${linhaPagamento(ag)}</div></div>
     <span class="status ${st.classe}">${st.texto}</span>
     <button type="button" class="btn btn-contorno btn-pequeno" data-id="${ag.id}"><span class="pc-ic pc-f-olho" aria-hidden="true"></span> Ver detalhes</button>
   </article>`;
+}
+
+// Situação do pagamento (simulado): chip + botão "Pagar agora" enquanto não foi pago nem combinado.
+const ativoAg = ag => ag.status === 'AGENDADO' || ag.status === 'CONFIRMADO';
+const linhaPagamento = ag => (Pagamento.obter(ag) || ativoAg(ag))
+  ? `<small class="pg-linha-pagar">${Pagamento.chipHTML(ag)}${Pagamento.pode(ag) ? `<button type="button" class="pg-mini" data-pagar="${ag.id}">Pagar agora</button>` : ''}</small>` : '';
+function pagar(id) {
+  const ag = agendamentos.find(a => a.id === Number(id));
+  if (ag) Pagamento.abrir({ ag, aoFechar: render });
 }
 
 function render() {
@@ -95,10 +104,12 @@ function abrirDetalhes(id) {
     <dt>Horário</dt><dd>${hora(ag)}</dd>
     <dt>Duração</dt><dd>~ ${duracao(ag.servico_duracao_min)}</dd>
     <dt>Valor</dt><dd>${moeda(ag.servico_preco)}</dd>
+    <dt>Pagamento</dt><dd>${(Pagamento.obter(ag) || ativoAg(ag)) ? Pagamento.chipHTML(ag) : '—'}</dd>
     <dt>Status</dt><dd><span class="status ${st.classe}">${st.texto}</span></dd>
     <dt>Observações</dt><dd>${ag.observacao ? esc(ag.observacao) : '—'}</dd>`;
   const ativo = ag.status === 'AGENDADO' || ag.status === 'CONFIRMADO';
   $('det-cancelar').hidden = !ativo;
+  $('det-pagar').hidden = !Pagamento.pode(ag);
   $('det-novamente').hidden = ativo; // concluído ou cancelado: só consulta e novo agendamento
   $('det-novamente').href = `agendamento.html?servico=${ag.servico_id}&animal=${ag.animal_id}`;
   const aviso = $('det-aviso');
@@ -154,10 +165,16 @@ function iniciar() {
   $('limpar-busca').addEventListener('click', () => { termo = ''; $('busca').value = ''; render(); $('busca').focus(); });
   $('lista').addEventListener('click', e => {
     if (e.target.closest('[data-limpar]')) { termo = ''; $('busca').value = ''; return escolherStatus('TODOS'); }
+    const p = e.target.closest('[data-pagar]');
+    if (p) return pagar(p.dataset.pagar);
     const b = e.target.closest('[data-id]');
     if (b) abrirDetalhes(b.dataset.id);
   });
   $('det-fechar').addEventListener('click', () => $('dlg-detalhes').close());
+  $('det-pagar').addEventListener('click', () => {
+    const ag = aberto; $('dlg-detalhes').close();
+    Pagamento.abrir({ ag, aoFechar: () => { render(); abrirDetalhes(ag.id); } });
+  });
   $('det-cancelar').addEventListener('click', cancelar);
   $('atualizar').addEventListener('click', () => carregar(false));
   $('tentar').addEventListener('click', () => carregar());

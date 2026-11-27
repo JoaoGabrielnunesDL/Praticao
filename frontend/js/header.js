@@ -1,8 +1,7 @@
 // Monta o cabeçalho e o rodapé de TODAS as telas, conforme a pessoa: visitante, tutor, funcionário ou administrador.
 // Fase 2 do Design System: mesma lógica de antes (menus por perfil, item ativo, Sair com confirmação para a equipe,
 // tamanho da letra guardado); muda só a apresentação:
-// - visitante: faixa de contato no topo + rodapé completo;
-// - logado: sem faixa institucional (o "A A A" vai para a barra), rodapé compacto;
+// - todas as telas (visitante, tutor, funcionário e administrador): faixa de contato com o "A A A" no topo + barra branca do menu, e rodapé completo;
 // - telas estreitas: menu recolhido num botão "Menu" (aria-expanded/aria-controls), sem links quebrando em várias linhas;
 // - o rodapé começa com uma onda (transição orgânica entre o conteúdo e o rodapé).
 const MENU_DESLOGADO = [['Início', '#inicio'], ['Serviços', '#servicos'], ['Agendamento', '#agendamento'], ['Curiosidades', 'curiosidades.html'], ['Sobre Nós', '#sobre'], ['Contato', '#contato']];
@@ -47,19 +46,12 @@ const PAGAMENTOS = [['Pix', 'pix'], ['Cartão', 'cartao'], ['Boleto', 'boleto'],
 
 function montarRodape({ logado, linksHTML }) {
   const rodape = document.createElement('footer');
-  rodape.className = 'rodape ' + (logado ? 'rodape--compacto' : 'rodape--completo');
+  rodape.className = 'rodape rodape--completo';
   rodape.id = 'contato'; // destino do botão "Contato"
   const marca = `<p class="rodape-marca"><img src="img/logo-praticao.webp" alt="PratiCão" width="88" height="88"></p>`;
   const contatoCurto = `<ul class="rodape-contato"><li>${escHeader(CONTATO.telefone)}</li><li>${escHeader(CONTATO.email)}</li></ul>`;
   const copy = `<p class="copy">© 2026 PratiCão. Todos os direitos reservados.</p>`;
-  if (logado) {
-    // Área logada: só o essencial (marca, contato, copyright). A navegação já está no cabeçalho.
-    rodape.innerHTML = `${ONDA_RODAPE}<div class="container rodape-in">
-      <div class="rodape-col">${marca}<p class="rodape-frase">Cuidamos do seu pet com carinho e profissionalismo.</p></div>
-      ${contatoCurto}
-      ${copy}
-    </div>`;
-  } else {
+  {
     rodape.innerHTML = `${ONDA_RODAPE}<div class="container rodape-in">
       <div class="rodape-col rodape-sobre">${marca}<p class="rodape-frase">Cuidamos do seu pet com carinho e profissionalismo.</p>${contatoCurto}${redesSociaisHTML()}</div>
       <nav class="rodape-col" aria-label="Links rápidos"><h2 class="rodape-titulo">Links rápidos</h2><ul class="rodape-links">${linksHTML}</ul></nav>
@@ -95,8 +87,8 @@ function montarHeader() {
     return `<a href="${href}"${atual}>${texto}</a>`;
   };
 
-  // Visitante: faixa de contato + letra no topo. Logado: sem faixa institucional (letra vai para a barra).
-  const faixa = logado ? '' : `
+  // Todas as telas: faixa de contato + letra (A A A) no topo.
+  const faixa = `
     <div class="topbar"><div class="container">
       <div class="contatos"><span>${escHeader(CONTATO.telefone)}</span><span>${escHeader(CONTATO.email)}</span></div>
       ${CONTROLES_FONTE}
@@ -112,11 +104,11 @@ function montarHeader() {
       </button>
       <div class="menu-painel" id="menu-principal">
         <div class="menu">${itens.map(link).join('')}</div>
-        <div class="utilidades">${logado ? CONTROLES_FONTE : ''}<div class="conta" id="conta"></div></div>
+        <div class="utilidades"><div class="conta" id="conta"></div></div>
       </div>
     </div></nav>`;
 
-  // Rodapé: "Links rápidos" (só no rodapé completo, do visitante) acompanha o menu, sem o Perfil.
+  // Rodapé completo em todas as telas: "Links rápidos" acompanha o menu da pessoa, sem o Perfil.
   montarRodape({ logado, linksHTML: itens.filter(([t]) => !/perfil/i.test(t)).map(i => `<li>${link(i)}</li>`).join('') });
 
   const conta = document.getElementById('conta');

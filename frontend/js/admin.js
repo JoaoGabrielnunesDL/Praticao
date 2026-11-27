@@ -69,8 +69,8 @@ function desenharAgendamentos() {
   // Prévia: os primeiros atendimentos do dia (a API já devolve em ordem de horário).
   const previa = agendamentosHoje.slice(0, LIMITE_PREVIA);
   $('previa').innerHTML = previa.length
-    ? `<div class="cab-prev" aria-hidden="true"><span>Horário</span><span>Pet</span><span>Serviço</span><span>Tutor</span><span>Status</span></div>`
-      + previa.map(a => `<button type="button" class="linha-ag" data-id="${a.id}"><strong>${hora(a)}</strong><span class="c-pet">${esc(a.animal_nome)}</span><span class="c-serv">${esc(a.servico_nome)}</span><span class="c-tutor">${esc(a.tutor_nome)}</span><span class="status ${STATUS[a.status].classe}">${ICONE_STATUS[a.status] || ''}${STATUS[a.status].texto}</span></button>`).join('')
+    ? `<div class="cab-prev" aria-hidden="true"><span>Horário</span><span>Pet</span><span>Serviço</span><span>Tutor</span><span>Status / pagamento</span></div>`
+      + previa.map(a => `<button type="button" class="linha-ag" data-id="${a.id}"><strong>${hora(a)}</strong><span class="c-pet">${esc(a.animal_nome)}</span><span class="c-serv">${esc(a.servico_nome)}</span><span class="c-tutor">${esc(a.tutor_nome)}</span><span class="c-st"><span class="status ${STATUS[a.status].classe}">${ICONE_STATUS[a.status] || ''}${STATUS[a.status].texto}</span>${Pagamento.chipStaffHTML(a, true)}</span></button>`).join('')
       + (total > previa.length ? `<p class="nota">Mostrando ${previa.length} de ${total} agendamentos de hoje.</p>` : '')
     : '<div class="vazio"><span>📅</span>Não existem agendamentos registrados para hoje.</div>';
 }
@@ -115,6 +115,7 @@ function abrirDetalhes(id) {
       <dt>Horário</dt><dd>${hora(ag)} (${dataBR(ag)})</dd>
       <dt>Duração</dt><dd>${ag.servico_duracao_min} minutos</dd>
       <dt>Valor</dt><dd>${moeda(ag.servico_preco)}</dd>
+      <dt>Pagamento</dt><dd>${esc(Pagamento.detalheEquipe(ag))}</dd>
       <dt>Observações</dt><dd>${ag.observacao ? esc(ag.observacao) : 'Nenhuma observação.'}</dd>
     </dl>`;
   $('det-agenda').href = urlAgenda(ag.status);

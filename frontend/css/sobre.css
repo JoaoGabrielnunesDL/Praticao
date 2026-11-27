@@ -3,5 +3,5 @@
 .petshop p{margin:10px 0 18px;color:var(--cinza)}
 .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .mini div{border:1px solid var(--borda);border-radius:8px;padding:10px;font-size:.8rem;color:var(--cinza)}
-.mini strong{display:block;color:var(--azul)}
+.mini strong{display:block;color:#0a49b8}
 @media(max-width:800px){.petshop .container{grid-template-columns:1fr}}

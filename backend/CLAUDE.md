@@ -14,7 +14,8 @@ API FastAPI + PostgreSQL, (pasta `backend/` do monolito; o front-end estático f
 
 - `app/main.py` registra routers e a rota `/` (redireciona para `/docs`); a API não serve o front-end (ele roda à parte, em `../frontend`, na porta 5500)
 - `app/routes/` usuarios, animais, servicos, agendamentos, admin, relatorios
-- `app/models.py` 4 tabelas: usuarios (perfis tutor/funcionario/administrador), animais, servicos, agendamentos
+- `app/models.py` 5 tabelas: usuarios (perfis tutor/funcionario/administrador), animais, servicos, agendamentos, tokens_revogados (logout)
+- `app/regras.py` expediente (espelha `EXPEDIENTE` de `frontend/js/config.js`) e `validar_horario`
 - `app/schemas.py` Pydantic · `app/auth.py` bcrypt + JWT + dependências de permissão
 - `tests/conftest.py` cria/usa o banco `<banco>_test` e recria as tabelas a cada teste; fixtures `client`, `tutor`, helper `fazer_login`
 
@@ -23,7 +24,9 @@ API FastAPI + PostgreSQL, (pasta `backend/` do monolito; o front-end estático f
 - Erros no formato `{"detail": "..."}`; login via form `username`/`password` → `access_token` Bearer
 - Tutor só acessa os próprios animais/agendamentos
 - Agendamento: animal do tutor, serviço ativo, data futura, sem conflito (fim = início + duração do serviço); datas sem fuso (`2026-12-10T14:00:00`)
-- Cancelamento pelo tutor com ≥ 2h de antecedência; cancelado fica no histórico
+- Agendamento também respeita o expediente (seg–sex 8–18h, sáb 8–14h, dom 8–12h), de 30 em 30 min, terminando até o fechamento; `GET /agendamentos/horarios` lista os horários livres
+- Logout revoga o token (jti em `tokens_revogados`); e-mail é único sem diferenciar maiúsculas; `POST /admin/usuarios` e `PATCH /admin/usuarios/{id}/perfil` (admin não altera o próprio perfil)
+- Cancelamento pelo tutor com ≥ 2h de antecedência (confirmado com o PO); cancelado fica no histórico
 - Status: AGENDADO→CONFIRMADO|CANCELADO; CONFIRMADO→CONCLUIDO|CANCELADO
 - Animal com agendamentos não pode ser excluído; admin não desativa a si mesmo; conta desativada não loga
 - Recuperação de senha: `/recuperar-senha` e `/redefinir-senha`; token JWT com `tipo=recuperacao`, 30 min, uso único (marca do hash da senha); nunca aceito como login; `RECUPERACAO_DEMO=1` devolve o token na resposta (sem e-mail)

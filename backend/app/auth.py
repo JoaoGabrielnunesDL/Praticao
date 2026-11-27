@@ -1,9 +1,11 @@
 import os
+import uuid
 import bcrypt
 from datetime import datetime, timedelta, timezone
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app import models
@@ -28,7 +30,31 @@ def verificar_senha(senha: str, senha_hash: str) -> bool:
 
 def criar_token(usuario_id: int) -> str:
     expira = datetime.now(timezone.utc) + timedelta(hours=8)
-    return jwt.encode({'sub': str(usuario_id), 'exp': expira}, SECRET_KEY, algorithm=ALGORITHM)
+    # jti = identificador único do token; é ele que o logout marca como encerrado.
+    return jwt.encode({'sub': str(usuario_id), 'exp': expira, 'jti': uuid.uuid4().hex}, SECRET_KEY, algorithm=ALGORITHM)
+
+
+def buscar_por_email(db: Session, email: str):
+    """Procura o usuário pelo e-mail sem diferenciar maiúsculas de minúsculas."""
+    return db.query(models.Usuario).filter(func.lower(models.Usuario.email) == email.strip().lower()).first()
+
+
+def revogar_token(token: str, db: Session) -> None:
+    """Logout: guarda o token como encerrado, então ele deixa de valer mesmo antes de expirar."""
+    try:
+        dados = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    except JWTError:
+        return
+    jti = dados.get('jti')
+    if not jti:
+        return
+    agora = datetime.now(timezone.utc).replace(tzinfo=None)
+    # Limpeza: tokens que já expiraram sozinhos não precisam ficar guardados.
+    db.query(models.TokenRevogado).filter(models.TokenRevogado.expira < agora).delete()
+    if not db.get(models.TokenRevogado, jti):
+        expira = datetime.fromtimestamp(dados['exp'], timezone.utc).replace(tzinfo=None)
+        db.add(models.TokenRevogado(jti=jti, expira=expira))
+    db.commit()
 
 
 # ----- Recuperação de senha -----
@@ -87,6 +113,10 @@ def usuario_atual(token: str = Depends(oauth2), db: Session = Depends(get_db)):
         raise erro
     if 'tipo' in dados:
         # Token de recuperação de senha não vale como login.
+        raise erro
+    jti = dados.get('jti')
+    if jti and db.get(models.TokenRevogado, jti):
+        # Sessão encerrada pelo logout.
         raise erro
     usuario = db.get(models.Usuario, usuario_id)
     if not usuario or not usuario.ativo:

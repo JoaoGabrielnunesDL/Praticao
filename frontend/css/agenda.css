@@ -17,10 +17,10 @@ body.pg-agenda{
 
 /* ===== Estrutura original (o agenda.js depende destas classes) ===== */
 body.pg-agenda .ind{text-align:center;cursor:pointer;font:inherit}
-body.pg-agenda .ind strong{display:block;color:var(--azul)}
+body.pg-agenda .ind strong{display:block;color:#0a49b8}
 body.pg-agenda .lista{background:#fff;overflow:hidden}
 body.pg-agenda .cab-lista,body.pg-agenda .item{display:grid;align-items:center}
-body.pg-agenda .cab-lista{color:var(--azul)}
+body.pg-agenda .cab-lista{color:#0a49b8}
 body.pg-agenda .item{cursor:pointer}
 
 /* ===== Página, fundo e decoração ===== */
@@ -42,7 +42,7 @@ body.pg-agenda .ag-conteudo{position:relative;min-width:0}
 /* Pets direto sobre o fundo (sem painel, círculo, selo ou moldura). A foto aparece INTEIRA, na proporção
    original 16:9 (sem object-fit/recorte). brightness: o fundo cinza-claro da foto vira branco e some no multiply.
    Nada entre a foto e o fundo pode ter z-index/isolation/opacity/transform/sticky, senão o branco apareceria. */
-body.pg-agenda .ag-pets{position:relative;color:var(--laranja)}
+body.pg-agenda .ag-pets{position:relative;color:#f28a0c}
 body.pg-agenda .ag-pets img{display:block;width:100%;height:auto;filter:brightness(1.07);mix-blend-mode:multiply}
 /* A prancheta azul era um selo sobre os pets (mesmo papel do escudo retirado do Painel Admin): fica oculta */
 body.pg-agenda .ag-pets .prancheta{display:none}
@@ -55,23 +55,23 @@ body.pg-agenda .ag-deco .pc-d{display:none}
 /* ===== Título ===== */
 /* Grade: a faísca fica sempre colada ao fim do título (o texto do título muda para o administrador) */
 body.pg-agenda .ag-topo{position:relative;display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:start;align-content:start}
-body.pg-agenda .ag-topo .selo-op{grid-column:1/-1;grid-row:1;text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
+body.pg-agenda .ag-topo .selo-op{grid-column:1/-1;grid-row:1;text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#f28a0c}
 body.pg-agenda .agenda h1{grid-column:1;grid-row:2;font-size:2.6rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
 body.pg-agenda .ag-topo .sub{grid-column:1/-1;grid-row:3;font-size:1.02rem;color:#0a49b8}
-body.pg-agenda .faisca-titulo{grid-column:2;grid-row:2;width:36px;height:36px;margin-top:2px;color:var(--laranja)}
+body.pg-agenda .faisca-titulo{grid-column:2;grid-row:2;width:36px;height:36px;margin-top:2px;color:#f28a0c}
 
 /* ===== Filtro de data ===== */
 body.pg-agenda .filtro{gap:10px;margin:22px 0 14px}
 body.pg-agenda .ag-data{display:inline-flex;align-items:center;gap:8px;min-height:52px;padding:4px 6px 4px 14px;background:#fff;border:1.5px solid var(--borda);border-radius:999px;box-shadow:0 4px 14px rgba(10,73,184,.07)}
-body.pg-agenda .ag-data:focus-within{border-color:#1b63e6;box-shadow:0 0 0 3px rgba(27,99,230,.16)}
-body.pg-agenda .ag-data-ic{width:22px;height:22px;flex:none;fill:none;stroke:#1b63e6;stroke-width:2;stroke-linecap:round}
+body.pg-agenda .ag-data:focus-within{border-color:#0a49b8;box-shadow:0 0 0 3px rgba(27,99,230,.16)}
+body.pg-agenda .ag-data-ic{width:22px;height:22px;flex:none;fill:none;stroke:#0a49b8;stroke-width:2;stroke-linecap:round}
 body.pg-agenda .filtro label{font-weight:800}
 body.pg-agenda .filtro .ag-data input{border:0;box-shadow:none;padding:8px 10px;min-height:42px;background:#f5f9ff;font-weight:600;color:var(--texto)}
 body.pg-agenda .filtro .ag-data input:focus{outline:none}
 body.pg-agenda .filtro .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
 body.pg-agenda .filtro .btn-laranja{padding:12px 26px;box-shadow:0 6px 16px rgba(242,138,12,.32)}
 body.pg-agenda .filtro .btn-contorno{padding:10px 18px;font-size:.93rem;box-shadow:0 2px 8px rgba(10,73,184,.06)}
-body.pg-agenda .filtro .btn.ativo{background:var(--azul);color:#fff;border-color:var(--azul)}
+body.pg-agenda .filtro .btn.ativo{background:#0a49b8;color:#fff;border-color:#0a49b8}
 body.pg-agenda .btn-ic{width:18px;height:18px;flex:none;fill:currentColor}
 body.pg-agenda #info-periodo{margin:-4px 0 14px;font-size:.88rem;font-weight:600}
 
@@ -80,11 +80,11 @@ body.pg-agenda .indicadores{display:grid;grid-template-columns:repeat(5,minmax(0
 body.pg-agenda .ind{min-height:76px;padding:12px 10px;background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:0 6px 18px rgba(10,73,184,.08);color:var(--cinza);font-weight:600;font-size:.88rem;transition:transform .15s,box-shadow .15s,border-color .15s}
 body.pg-agenda .ind:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(10,73,184,.13)}
 body.pg-agenda .ind strong{font-size:1.7rem;font-weight:800;line-height:1.15}
-body.pg-agenda .ind[data-filtro=AGENDADO] strong{color:#9c4f00}
-body.pg-agenda .ind[data-filtro=CONFIRMADO] strong{color:#1b63e6}
+body.pg-agenda .ind[data-filtro=AGENDADO] strong{color:#f28a0c}
+body.pg-agenda .ind[data-filtro=CONFIRMADO] strong{color:#0a49b8}
 body.pg-agenda .ind[data-filtro=CONCLUIDO] strong{color:#1d7a34}
 body.pg-agenda .ind[data-filtro=CANCELADO] strong{color:#c62828}
-body.pg-agenda .ind.ativo{border-color:var(--laranja);background:#fffaf2;box-shadow:0 6px 18px rgba(242,138,12,.18)}
+body.pg-agenda .ind.ativo{border-color:#f28a0c;background:#fffaf2;box-shadow:0 6px 18px rgba(242,138,12,.18)}
 
 /* ===== Lista (tabela) ===== */
 body.pg-agenda .lista{border-radius:20px;box-shadow:0 8px 26px rgba(10,73,184,.08)}
@@ -101,7 +101,7 @@ body.pg-agenda .item{min-height:48px}
   body.pg-agenda .item>.acoes{flex-wrap:wrap;align-content:center;gap:6px}
 }
 body.pg-agenda .cab-lista span{display:inline-flex;align-items:center;gap:7px;min-width:0}
-body.pg-agenda .cab-lista span::before{content:"";width:17px;height:17px;flex:none;background:#1b63e6;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+body.pg-agenda .cab-lista span::before{content:"";width:17px;height:17px;flex:none;background:#0a49b8;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 body.pg-agenda .cab-lista span:nth-child(1){--ic:var(--ag-ic-relogio)}
 body.pg-agenda .cab-lista span:nth-child(2){--ic:var(--ag-ic-pessoa)}
 body.pg-agenda .cab-lista span:nth-child(3){--ic:var(--ag-ic-pata)}
@@ -110,7 +110,7 @@ body.pg-agenda .cab-lista span:nth-child(5){--ic:var(--ag-ic-etiqueta)}
 body.pg-agenda .cab-lista span:nth-child(6){--ic:var(--ag-ic-engrenagem)}
 body.pg-agenda .item{border-top:1px solid #edf2fa;transition:background .12s}
 body.pg-agenda .item:hover{background:#f6f9ff}
-body.pg-agenda .c-hora{color:var(--azul);font-weight:800;line-height:1.25}
+body.pg-agenda .c-hora{color:#0a49b8;font-weight:800;line-height:1.25}
 body.pg-agenda .c-tutor{font-weight:600}
 
 /* Etiquetas de status (lista e detalhes) com ícone desenhado em CSS */
@@ -125,7 +125,7 @@ body.pg-agenda .status.cancelado{--ic:var(--ag-ic-x-circulo)}
 body.pg-agenda .acoes{gap:8px}
 body.pg-agenda .acao{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:34px;padding:4px 11px;border-radius:999px;font-weight:700;font-size:.82rem;background:#fff;border-width:1.5px;transition:background .15s}
 body.pg-agenda .acao::before{content:"";width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
-body.pg-agenda .acao.confirmar{--ic:var(--ag-ic-check);color:#1b63e6;border-color:#9fc0f2}
+body.pg-agenda .acao.confirmar{--ic:var(--ag-ic-check);color:#0a49b8;border-color:#9fc0f2}
 body.pg-agenda .acao.confirmar:hover{background:#eef4ff}
 body.pg-agenda .acao.concluir{--ic:var(--ag-ic-check);color:#1d7a34;border-color:#9fd694}
 body.pg-agenda .acao.concluir:hover{background:#e7f7e9}

@@ -256,3 +256,25 @@ celular ≤599 · tablet 600–899 · notebook 900–1279 · desktop ≥1280 · 
 ## Ícones decorativos da home (3.34)
 
 A home (`index.html` + `css/home.css`) usa poucos ícones decorativos (patinhas de tamanhos variados, alguns ossinhos, corações, um peixe e uma carinha de gato), no mesmo ritmo do painel do administrador: nas bordas e no meio dos cabeçalhos, com bastante espaço livre. Regras: ficam sempre atrás do conteúdo (`.hm-deco`, `aria-hidden`), nunca usam "risquinhos" e somem ou diminuem em telas estreitas (`.g` laterais, `.h` faixas, `.w` só em telas largas, `.mo` só no celular). Para mexer em um ícone, ajuste a classe dele no fim de `home.css` (largura `--w`, rotação `--r`, posição `left`/`top`).
+
+
+---
+
+## Paleta e estrutura das telas (3.37)
+
+- **Paleta única de azul e laranja** (as cores do título "PratiCão!"): azul `#0a49b8` e laranja `#f28a0c`. Valem para textos, links, ícones, bordas, botões e pílulas de todas as telas. As cores de fundo (páginas, cartões, faixas, rodapé, banners e ondas) não mudaram.
+- Exceções de propósito: textos de **status e avisos** (ex.: "Pendente", mensagens de atenção), que continuam em tons escuros de laranja para ler bem sobre o fundo claro, e a cor de passagem do mouse (hover) dos botões.
+- **Cabeçalho de duas barras em todas as telas**: faixa azul-escura (contato + "A A A") e barra branca (logo, menu por perfil, Entrar/Cadastrar ou usuário/Sair). O rodapé completo (marca, links rápidos, segurança e formas de pagamento, onde estamos) também aparece em todas. Tudo é montado por `js/header.js`; as telas não têm mais cabeçalho ou rodapé próprios.
+- Telas de composição fixa (Login, Perfil, Serviços) começam logo abaixo das duas barras (100px).
+
+
+---
+
+## Pagamento simulado (3.38)
+
+Exemplo de pagamento para o trabalho acadêmico: **nada é cobrado e nada vai para a API**. A situação do pagamento fica só no navegador (`localStorage`, chave `praticao_pagamentos`), por agendamento.
+
+- Janela única em `js/pagamento.js` + `css/pagamento.css` (não é tela nova). Formas: **cartão** (débito/crédito, com validação do formulário), **Pix** (QR Code ilustrativo, "copia e cola" e contagem de 15 min), **boleto** (com linha digitável e código de barras ilustrativos) e **dinheiro** ("Acertar no estabelecimento", exige marcar a caixa de ciência; troco opcional).
+- Cada forma tem o botão **"Já realizei o pagamento"** (ou "Confirmar", no dinheiro): a janela mostra a confirmação e fecha como se tivesse pago. "Pagar depois" deixa o agendamento como pendente.
+- Onde aparece: no aviso de sucesso do **Agendamento** (botão "Pagar agora") e em **Meus Agendamentos** (chip de situação na lista e nos detalhes, com o botão "Pagar agora" enquanto não foi pago nem combinado).
+- Para usar em outra tela: `Pagamento.abrir({ ag, aoFechar })`, `Pagamento.chipHTML(ag)` e `Pagamento.pode(ag)`.

@@ -2,11 +2,11 @@ from datetime import datetime, timedelta, date, time
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, selectinload
 from app.database import get_db
-from app import models, schemas, auth
+from app import models, schemas, auth, regras
 
 router = APIRouter(prefix='/agendamentos', tags=['Agendamentos'])
 
-ANTECEDENCIA_CANCELAMENTO_HORAS = 2  # confirmar essa regra com o PO
+ANTECEDENCIA_CANCELAMENTO_HORAS = 2  # regra confirmada com o PO
 TRANSICOES = {
     'AGENDADO': ['CONFIRMADO', 'CANCELADO'],
     'CONFIRMADO': ['CONCLUIDO', 'CANCELADO'],
@@ -24,6 +24,42 @@ def _buscar(db: Session, agendamento_id: int, usuario) -> models.Agendamento:
     return ag
 
 
+def _conflita(inicio: datetime, fim: datetime, ativos) -> bool:
+    """True se [inicio, fim) bate com algum agendamento ativo (fim de cada um = início + duração do serviço)."""
+    for outro in ativos:
+        outro_fim = outro.data_hora + timedelta(minutes=outro.servico.duracao_min)
+        if inicio < outro_fim and outro.data_hora < fim:
+            return True
+    return False
+
+
+@router.get('/horarios')
+def horarios_livres(data: date, servico_id: int, db: Session = Depends(get_db), usuario=Depends(auth.usuario_atual)):
+    """Horários livres de um dia para um serviço: dentro do expediente, sem passado e sem conflito."""
+    servico = db.get(models.Servico, servico_id)
+    if not servico or not servico.ativo:
+        raise HTTPException(status_code=400, detail='Serviço indisponível')
+    abertura, fechamento = regras.janela_do_dia(datetime.combine(data, time.min))
+    ativos = (db.query(models.Agendamento)
+              .options(selectinload(models.Agendamento.servico))
+              .filter(models.Agendamento.status.in_(['AGENDADO', 'CONFIRMADO']),
+                      models.Agendamento.data_hora >= abertura - timedelta(days=1),
+                      models.Agendamento.data_hora < fechamento).all())
+    agora = datetime.now()
+    livres = []
+    inicio = abertura
+    while inicio + timedelta(minutes=servico.duracao_min) <= fechamento:
+        fim = inicio + timedelta(minutes=servico.duracao_min)
+        if inicio > agora and not _conflita(inicio, fim, ativos):
+            livres.append(inicio.strftime('%H:%M'))
+        inicio += timedelta(minutes=regras.PASSO_MIN)
+    resposta = {'data': data.isoformat(), 'servico_id': servico.id,
+                'duracao_min': servico.duracao_min, 'horarios': livres}
+    if not livres:
+        resposta['mensagem'] = 'Não há horários disponíveis nesta data. Escolha outra data.'
+    return resposta
+
+
 @router.post('', response_model=schemas.AgendamentoSaida, status_code=201)
 def criar(dados: schemas.AgendamentoCriar, db: Session = Depends(get_db), usuario=Depends(auth.usuario_atual)):
     animal = db.get(models.Animal, dados.animal_id)
@@ -32,16 +68,17 @@ def criar(dados: schemas.AgendamentoCriar, db: Session = Depends(get_db), usuari
     servico = db.get(models.Servico, dados.servico_id)
     if not servico or not servico.ativo:
         raise HTTPException(status_code=400, detail='Serviço indisponível')
+    if dados.data_hora.tzinfo is not None:
+        raise HTTPException(status_code=400, detail='Envie a data e a hora sem fuso (ex.: 2026-12-10T14:00:00)')
     if dados.data_hora <= datetime.now():
         raise HTTPException(status_code=400, detail='Escolha uma data e um horário futuros')
+    regras.validar_horario(dados.data_hora, servico.duracao_min)
 
     inicio = dados.data_hora
     fim = inicio + timedelta(minutes=servico.duracao_min)
     ativos = db.query(models.Agendamento).filter(models.Agendamento.status.in_(['AGENDADO', 'CONFIRMADO'])).all()
-    for outro in ativos:
-        outro_fim = outro.data_hora + timedelta(minutes=outro.servico.duracao_min)
-        if inicio < outro_fim and outro.data_hora < fim:
-            raise HTTPException(status_code=409, detail='Horário indisponível')
+    if _conflita(inicio, fim, ativos):
+        raise HTTPException(status_code=409, detail='Horário indisponível')
 
     ag = models.Agendamento(**dados.model_dump())
     db.add(ag)

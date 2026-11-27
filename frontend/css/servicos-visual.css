@@ -15,16 +15,16 @@
 .tela-servicos .sv-pets{display:none}
 
 /* Título (eyebrow laranja escurecido p/ contraste, h1 azul-profundo, subtítulo) */
-.tela-servicos .selo-op{font-size:.9375rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#9c4f00}
-.tela-servicos h1{font-family:var(--fonte-titulo);font-size:clamp(2.25rem,1.6rem + 2.4vw,3.25rem);font-weight:800;letter-spacing:-.025em;line-height:1.04;color:var(--cor-azul-profundo)}
+.tela-servicos .selo-op{font-size:.9375rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#f28a0c}
+.tela-servicos h1{font-family:var(--fonte-titulo);font-size:clamp(2.25rem,1.6rem + 2.4vw,3.25rem);font-weight:800;letter-spacing:-.025em;line-height:1.04;color:#0a49b8}
 .tela-servicos .sub{font-size:1.0625rem;color:var(--cor-texto)}
 
 /* Menu lateral */
 .tela-servicos .cat-menu{background:rgba(255,255,255,.93);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 10px 36px rgba(10,42,107,.1);padding:12px}
 .tela-servicos .cat-menu h2{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,var(--cor-azul),var(--cor-azul-forte));color:#fff;border-radius:12px;padding:0 16px;min-height:48px;font-size:1.0625rem;font-weight:700;box-shadow:0 6px 14px rgba(10,73,184,.28)}
-.tela-servicos .cat-menu button{gap:12px;min-height:48px;font-weight:600;color:var(--cor-azul-profundo)}
-.tela-servicos .cat-menu button .cat-ico{display:inline-flex;color:var(--cor-azul)}
-.tela-servicos .cat-menu button[aria-current="true"]{background:#e4eeff;color:var(--cor-azul-profundo);box-shadow:inset 3px 0 0 var(--laranja)}
+.tela-servicos .cat-menu button{gap:12px;min-height:48px;font-weight:600;color:#0a49b8}
+.tela-servicos .cat-menu button .cat-ico{display:inline-flex;color:#0a49b8}
+.tela-servicos .cat-menu button[aria-current="true"]{background:#e4eeff;color:#0a49b8;box-shadow:inset 3px 0 0 var(--laranja)}
 
 /* Painel de busca + cartões */
 .tela-servicos .cat-conteudo{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:24px;box-shadow:0 10px 40px rgba(10,42,107,.08);padding:14px}
@@ -33,8 +33,8 @@
 .tela-servicos .cat-busca input{padding:0 44px 0 52px}
 .tela-servicos .cat-busca input::placeholder{color:var(--cor-texto-2)}
 .tela-servicos .cat-filtro select{appearance:none;-webkit-appearance:none;padding:0 44px 0 52px;font-weight:600;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a2a6b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center/20px}
-.tela-servicos .cat-lupa,.tela-servicos .cat-funil{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--cor-azul-profundo);pointer-events:none;z-index:1}
-.tela-servicos .cat-busca input:focus,.tela-servicos .cat-filtro select:focus{border-color:var(--cor-azul);box-shadow:var(--anel-foco)}
+.tela-servicos .cat-lupa,.tela-servicos .cat-funil{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:#0a49b8;pointer-events:none;z-index:1}
+.tela-servicos .cat-busca input:focus,.tela-servicos .cat-filtro select:focus{border-color:#0a49b8;box-shadow:var(--anel-foco)}
 .tela-servicos .cat-filtro{flex:0 1 300px}
 
 /* Cartões de serviço: ícone redondo à esquerda, nome + descrição, preço e seta */
@@ -43,9 +43,9 @@
 .tela-servicos .cat-card .cat-icone{grid-area:ic;align-self:center;width:84px;height:84px;border-radius:50%}
 .tela-servicos .cat-icone svg{width:58%;height:58%}
 .tela-servicos .tom-azul{background:#e1efff}.tela-servicos .tom-roxo{background:#ece5fb}.tela-servicos .tom-laranja{background:#fff0dc}.tela-servicos .tom-rosa{background:#fde4e8}
-.tela-servicos .cat-card h3{grid-area:h;align-self:end;font-size:1.125rem;font-weight:800;color:var(--cor-azul-profundo)}
+.tela-servicos .cat-card h3{grid-area:h;align-self:end;font-size:1.125rem;font-weight:800;color:#0a49b8}
 .tela-servicos .cat-card p{grid-area:p;align-self:start;font-size:.875rem;line-height:1.35;color:var(--cor-texto-2)}
-.tela-servicos .cat-card .base{grid-area:b;padding-left:44px;color:#9c4f00;font-weight:600;font-size:.9375rem}   /* 5,0:1 no branco */
+.tela-servicos .cat-card .base{grid-area:b;padding-left:44px;color:#f28a0c;font-weight:600;font-size:.9375rem}   /* 5,0:1 no branco */
 .tela-servicos .cat-card .base strong{font-size:1.0625rem;font-weight:800}
 .tela-servicos .cat-seta{width:42px;height:42px;background:var(--grad-laranja);color:#fff;box-shadow:0 4px 10px rgba(242,138,12,.38)}
 .det-icone svg{width:36px;height:36px}
@@ -55,18 +55,18 @@
 .tela-servicos .cat-banner{position:relative;gap:16px 28px;padding:20px 28px;border-radius:999px;background:var(--grad-azul);box-shadow:0 14px 34px rgba(10,73,184,.3)}
 .tela-servicos .cat-banner-ic{flex:none;width:72px;height:72px}
 .tela-servicos .cat-banner h2{color:#fff;font-size:1.5rem;font-weight:500;line-height:1.2;margin:0}
-.tela-servicos .cat-banner h2 strong{color:#ffb23a;font-weight:800}
+.tela-servicos .cat-banner h2 strong{color:#f28a0c;font-weight:800}
 .tela-servicos .cat-banner ul{gap:8px;padding-left:28px;border-left:1px solid rgba(255,255,255,.35);font-size:1rem}
 .tela-servicos .cat-banner li{display:flex;align-items:center;gap:10px;color:#fff}
 .tela-servicos .cat-banner li::before{content:"";flex:none;width:22px;height:22px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Ccircle cx='13' cy='13' r='13' fill='%23fff'/%3E%3Cpath d='M7.5 13.5l3.7 3.7 7.3-7.6' fill='none' stroke='%231b63e6' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
-.tela-servicos .cat-banner .btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;background:var(--grad-laranja);color:var(--cor-cta-texto);font-weight:800;box-shadow:0 8px 18px rgba(242,138,12,.4)}
+.tela-servicos .cat-banner .btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;background:var(--grad-laranja);color:#0a49b8;font-weight:800;box-shadow:0 8px 18px rgba(242,138,12,.4)}
 .tela-servicos .cat-banner .btn:hover{background:var(--cor-laranja-hover)}
 
 /* ---------- Telas largas: composição fiel ao protótipo (1920x1080) ---------- */
 @media(min-width:1200px){
-  /* O tutor logado vê só a navbar (64px): o quadro de 1080px começa 36u abaixo do topo, para as medidas baterem com o protótipo */
-  .tela-servicos{padding-top:calc(var(--u)*36);min-height:calc(var(--u)*1016)}
-  .tela-servicos .deco{top:calc(var(--u)*36)}
+  /* Cabeçalho de duas barras (faixa 36 + menu 64 = 100px) em todas as telas: o quadro começa logo abaixo */
+  .tela-servicos{padding-top:0;min-height:calc(var(--u)*980)}
+  .tela-servicos .deco{top:0}
   .tela-servicos .container{max-width:none;margin:0;padding:calc(var(--u)*49) calc(var(--u)*46) calc(var(--u)*98) calc(var(--u)*456)}
   .tela-servicos .selo-op{margin-left:calc(var(--u)*12);font-size:max(.875rem,calc(var(--u)*25));line-height:1.1}
   .tela-servicos h1{margin:calc(var(--u)*2) 0 0 calc(var(--u)*12);font-size:max(2.25rem,calc(var(--u)*68))}
@@ -103,7 +103,7 @@
   .tela-servicos .cat-banner .btn{margin-left:auto;min-height:calc(var(--u)*62);padding:0 calc(var(--u)*26);font-size:max(.9375rem,calc(var(--u)*18));flex:none}
 
   /* Cão e gato: grandes, preenchendo a faixa à esquerda do menu lateral; cortados na borda do menu (não passam dele) */
-  .tela-servicos .sv-pets{display:block;position:absolute;left:0;top:calc(var(--u)*36);width:calc(var(--u)*452);height:calc(100% - var(--u)*36);overflow:hidden;z-index:1;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - var(--u)*18),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - var(--u)*18),transparent)}
+  .tela-servicos .sv-pets{display:block;position:absolute;left:0;top:0;width:calc(var(--u)*452);height:calc(100% - var(--u)*36);overflow:hidden;z-index:1;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - var(--u)*18),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - var(--u)*18),transparent)}
   .tela-servicos .sv-pets img{position:absolute;left:calc(var(--u)*-170);top:calc(var(--u)*330);height:calc(var(--u)*520);width:auto;max-width:none;filter:drop-shadow(0 14px 22px rgba(10,42,107,.18))}
 
   /* posições exatas (centro na tela 1920x1080 -> left/top ou bottom em u) */

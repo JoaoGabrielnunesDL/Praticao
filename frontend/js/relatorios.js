@@ -14,7 +14,7 @@ const ICONES = {
   CONCLUIDO: IC_CHECK,
   CANCELADO: svgIcone('<circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.6 8.6 6.8 6.8m0-6.8-6.8 6.8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>'),
 };
-const CORES_BARRAS = ['#1b63e6', '#2a7af5', '#f28a0c', '#a5c9f7', '#2e9e4f', '#8e6bd6'];
+const CORES_BARRAS = ['#0a49b8', '#2a7af5', '#f28a0c', '#a5c9f7', '#2e9e4f', '#8e6bd6'];
 const MAX_BARRAS = 6;
 const ALTURA_BARRA = 170; // px da maior barra possível (topo da escala do gráfico)
 const TAMANHO = 10;

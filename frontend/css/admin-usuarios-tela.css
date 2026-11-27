@@ -18,10 +18,10 @@ body.pg-admin-usuarios .au-container{position:relative}
 
 /* ===== Título + pets ===== */
 body.pg-admin-usuarios .au-hero{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:center}
-body.pg-admin-usuarios .au-topo .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
+body.pg-admin-usuarios .au-topo .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#f28a0c}
 body.pg-admin-usuarios .au-topo h1{font-size:2.6rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
 body.pg-admin-usuarios .sem-quebra{white-space:nowrap}
-body.pg-admin-usuarios .faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:var(--laranja)}
+body.pg-admin-usuarios .faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:#f28a0c}
 body.pg-admin-usuarios .au-topo .sub{font-size:1.02rem}
 /* Pets direto sobre o fundo (sem painel, círculo, selo ou moldura). A foto aparece INTEIRA, na proporção
    original 3:2 (sem object-fit/recorte); o fundo branco da foto some no fundo da página (multiply).
@@ -65,7 +65,7 @@ body.pg-admin-usuarios .mensagem button:hover{background:rgba(255,255,255,.6)}
 body.pg-admin-usuarios #filtros{margin:22px 0 14px;gap:10px}
 body.pg-admin-usuarios .filtro input[type=search],body.pg-admin-usuarios .filtro select{min-height:48px;border:1.5px solid var(--borda);box-shadow:0 4px 14px rgba(10,73,184,.06);font-weight:600;color:var(--texto)}
 body.pg-admin-usuarios .filtro input[type=search]{flex:1 1 300px;min-width:240px;padding-left:44px;background:#fff no-repeat 16px center/18px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%231f5fd0' fill-rule='evenodd' d='M10.5 3a7.5 7.5 0 0 1 6 12l4.3 4.3-1.5 1.5-4.3-4.3A7.5 7.5 0 1 1 10.5 3zm0 2.2a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6z'/></svg>")}
-body.pg-admin-usuarios .filtro input:focus,body.pg-admin-usuarios .filtro select:focus{border-color:#1b63e6;box-shadow:0 0 0 3px rgba(27,99,230,.16);outline:none}
+body.pg-admin-usuarios .filtro input:focus,body.pg-admin-usuarios .filtro select:focus{border-color:#0a49b8;box-shadow:0 0 0 3px rgba(27,99,230,.16);outline:none}
 body.pg-admin-usuarios #btn-atualizar{min-height:48px;padding:10px 22px;box-shadow:0 6px 16px rgba(242,138,12,.28)}
 
 /* ===== Tabela ===== */
@@ -74,7 +74,7 @@ body.pg-admin-usuarios .t-usuarios.ocupada{opacity:.6}
 body.pg-admin-usuarios .t-usuarios .cab{background:#eef4ff;font-weight:800;font-size:.9rem;padding:14px 20px}
 body.pg-admin-usuarios .t-usuarios .reg{padding:14px 20px;border-top:1px solid #edf2fa;transition:background .12s}
 body.pg-admin-usuarios .t-usuarios .reg:hover{background:#f6f9ff}
-body.pg-admin-usuarios .t-usuarios .reg strong{color:var(--azul);font-weight:800}
+body.pg-admin-usuarios .t-usuarios .reg strong{color:#0a49b8;font-weight:800}
 body.pg-admin-usuarios .t-usuarios .peq{color:var(--cinza);font-size:.88rem}
 body.pg-admin-usuarios .t-usuarios .etiqueta{padding:5px 12px;font-size:.82rem;font-weight:700;background:#e2edff;color:#0a49b8}
 body.pg-admin-usuarios .t-usuarios .status{padding:5px 12px;font-size:.82rem}
@@ -87,7 +87,7 @@ body.pg-admin-usuarios .status.inativa{background:#fde3e1;color:#b3261e}
 /* Botões de ação (os ícones já vêm no texto gerado pelo JS) */
 body.pg-admin-usuarios .acoes{gap:8px}
 body.pg-admin-usuarios .acao{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem;background:#fff;border-width:1.5px;transition:background .15s}
-body.pg-admin-usuarios .acao.detalhes{color:#1b63e6;border-color:#9fc0f2}
+body.pg-admin-usuarios .acao.detalhes{color:#0a49b8;border-color:#9fc0f2}
 body.pg-admin-usuarios .acao.detalhes:hover{background:#eef4ff}
 body.pg-admin-usuarios .acao.cancelar{color:#c62828;border-color:#f1a9a4}
 body.pg-admin-usuarios .acao.cancelar:hover{background:#fdecea}
@@ -112,14 +112,14 @@ body.pg-admin-usuarios .vazio .btn{min-height:46px;padding:10px 24px;margin-top:
 body.pg-admin-usuarios .paginacao{margin-top:16px}
 body.pg-admin-usuarios .paginas{flex-wrap:wrap}
 body.pg-admin-usuarios .paginas button{min-width:40px;height:40px;border-radius:12px}
-body.pg-admin-usuarios .paginas button.atual{background:#1b63e6;border-color:#1b63e6;box-shadow:0 4px 10px rgba(27,99,230,.3)}
+body.pg-admin-usuarios .paginas button.atual{background:#0a49b8;border-color:#0a49b8;box-shadow:0 4px 10px rgba(27,99,230,.3)}
 body.pg-admin-usuarios #contagem{font-size:.88rem;font-weight:600;background:rgba(255,255,255,.9);padding:6px 14px;border-radius:999px;box-shadow:0 2px 8px rgba(10,73,184,.06)}
 
 /* ===== Painel lateral de detalhes ===== */
 body.pg-admin-usuarios #dlg-detalhes{padding:26px 24px}
 body.pg-admin-usuarios #dlg-detalhes h2{font-size:1.3rem;font-weight:800}
 body.pg-admin-usuarios .det-topo{background:#eef4ff;border-radius:18px;padding:14px;margin:8px 0 12px}
-body.pg-admin-usuarios .avatar{background:linear-gradient(145deg,#2a7af5,#0a49b8);box-shadow:0 6px 14px rgba(10,73,184,.25)}
+body.pg-admin-usuarios .avatar{background:#0a49b8;box-shadow:0 6px 14px rgba(10,73,184,.25)}
 body.pg-admin-usuarios .det-topo strong{font-weight:800}
 body.pg-admin-usuarios #det-corpo .dados{gap:0 14px}
 body.pg-admin-usuarios #det-corpo .dados dt,body.pg-admin-usuarios #det-corpo .dados dd{padding:9px 0;border-bottom:1px solid #edf2fa}
@@ -138,7 +138,7 @@ body.pg-admin-usuarios .dlg-confirma #exc-aviso-admin{background:#fff6dd;border:
 body.pg-admin-usuarios .dlg-confirma .rodape-dlg,body.pg-admin-usuarios .dlg-pergunta .rodape-dlg{margin-top:22px;gap:12px}
 body.pg-admin-usuarios .dlg-confirma .rodape-dlg .btn,body.pg-admin-usuarios .dlg-pergunta .rodape-dlg .btn{flex:1 1 140px;min-height:48px}
 body.pg-admin-usuarios .dlg-confirma .btn-perigo{box-shadow:0 6px 16px rgba(217,48,37,.28)}
-body.pg-admin-usuarios .au-fechar,body.pg-admin-usuarios .dlg-pergunta .fechar-x{position:absolute;top:12px;right:14px;width:40px;height:40px;border:0;border-radius:50%;background:none;color:var(--azul);font-size:1.7rem;line-height:1;cursor:pointer}
+body.pg-admin-usuarios .au-fechar,body.pg-admin-usuarios .dlg-pergunta .fechar-x{position:absolute;top:12px;right:14px;width:40px;height:40px;border:0;border-radius:50%;background:none;color:#0a49b8;font-size:1.7rem;line-height:1;cursor:pointer}
 body.pg-admin-usuarios .au-fechar:hover,body.pg-admin-usuarios .dlg-pergunta .fechar-x:hover{background:#eef4ff}
 
 /* ===== Responsivo ===== */

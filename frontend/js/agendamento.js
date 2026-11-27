@@ -89,6 +89,14 @@ function validar() {
 }
 
 // ---------- envio ----------
+let sucAg = null; // agendamento recém-criado, usado pelo pagamento simulado
+
+// Mostra a situação do pagamento no aviso de sucesso e esconde "Pagar agora" quando já foi pago ou combinado.
+function atualizarPagamento() {
+  $('suc-pag').innerHTML = Pagamento.chipHTML(sucAg);
+  $('suc-pagar').hidden = !Pagamento.pode(sucAg);
+}
+
 async function confirmar(e) {
   e.preventDefault();
   if (enviando || !validar()) return;
@@ -105,7 +113,9 @@ async function confirmar(e) {
     alterado = false;
     $('suc-dados').innerHTML = `<dt>Número</dt><dd>#${ag.id}</dd><dt>Pet</dt><dd>${esc(ag.animal_nome)}</dd><dt>Serviço</dt><dd>${esc(ag.servico_nome)}</dd>
       <dt>Data</dt><dd>${dataBR(ag)}</dd><dt>Horário</dt><dd>${hora(ag)}</dd><dt>Valor</dt><dd>${moeda(ag.servico_preco)}</dd>
-      <dt>Status</dt><dd><span class="status ${STATUS[ag.status].classe}">${STATUS[ag.status].texto}</span></dd>`;
+      <dt>Status</dt><dd><span class="status ${STATUS[ag.status].classe}">${STATUS[ag.status].texto}</span></dd><dt>Pagamento</dt><dd id="suc-pag"></dd>`;
+    sucAg = ag;
+    atualizarPagamento();
     $('dlg-sucesso').showModal();
   } catch (x) {
     if (x.status === 401) tratarErro(x);
@@ -178,6 +188,7 @@ function iniciar() {
   $('form').addEventListener('submit', confirmar);
   $('cancelar').addEventListener('click', cancelar);
   $('tentar').addEventListener('click', carregar);
+  $('suc-pagar').addEventListener('click', () => Pagamento.abrir({ ag: sucAg, aoFechar: atualizarPagamento }));
   $('suc-novo').addEventListener('click', async () => {
     $('dlg-sucesso').close();
     try { meus = (await api('/agendamentos')).filter(g => g.status === 'AGENDADO' || g.status === 'CONFIRMADO'); } catch { /* mantém a lista anterior */ }

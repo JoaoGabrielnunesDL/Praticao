@@ -46,3 +46,10 @@ class Agendamento(Base):
     observacao: Mapped[str | None] = mapped_column(String(300), nullable=True)
     animal: Mapped['Animal'] = relationship()
     servico: Mapped['Servico'] = relationship()
+
+
+class TokenRevogado(Base):
+    """Tokens de login encerrados pelo logout. Guarda só o identificador (jti) até o token expirar."""
+    __tablename__ = 'tokens_revogados'
+    jti: Mapped[str] = mapped_column(String(64), primary_key=True)
+    expira: Mapped[datetime] = mapped_column(DateTime)

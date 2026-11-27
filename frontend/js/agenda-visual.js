@@ -35,7 +35,7 @@
       const r = $('av-rosca');
       if (soma > 0) {
         let a = 0; const fatia = (n, cor) => { const ini = a; a += n / soma * 100; return cor + ' ' + ini + '% ' + a + '%'; };
-        r.style.background = 'conic-gradient(' + [fatia(v.p, '#f28a0c'), fatia(v.c, '#4d8ff5'), fatia(v.k, '#2e9e4f'), fatia(v.x, '#d93025')].join(',') + ')';
+        r.style.background = 'conic-gradient(' + [fatia(v.p, '#f28a0c'), fatia(v.c, '#0a49b8'), fatia(v.k, '#2e9e4f'), fatia(v.x, '#d93025')].join(',') + ')';
       } else r.style.background = '';
       const data = $('data'), periodo = $('info-periodo');
       const periodoVisivel = periodo && !periodo.hidden;

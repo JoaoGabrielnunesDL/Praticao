@@ -54,7 +54,7 @@ function itemHTML(ag) {
     <span class="c-tutor">${esc(ag.tutor_nome)}</span>
     <span class="c-animal">${esc(ag.animal_nome)}</span>
     <span class="c-servico">${esc(ag.servico_nome)}</span>
-    <span class="c-status"><span class="status ${s.classe}">${s.texto}</span></span>
+    <span class="c-status"><span class="status ${s.classe}">${s.texto}</span>${Pagamento.chipStaffHTML(ag, true)}</span>
     <div class="acoes">${botoes(ag)}<button type="button" class="acao detalhes">Detalhes</button></div>
   </article>`;
 }
@@ -73,7 +73,7 @@ function render() {
   } else if (!visiveis.length) {
     $('lista').innerHTML = '<div class="vazio"><span>🔎</span>Nenhum agendamento com este status.</div>';
   } else {
-    $('lista').innerHTML = `<div class="cab-lista" aria-hidden="true"><span>${periodo ? 'Data / hora' : 'Horário'}</span><span>Tutor</span><span>Animal</span><span>Serviço</span><span>Status</span><span>Ações</span></div>`
+    $('lista').innerHTML = `<div class="cab-lista" aria-hidden="true"><span>${periodo ? 'Data / hora' : 'Horário'}</span><span>Tutor</span><span>Animal</span><span>Serviço</span><span>Status / pagamento</span><span>Ações</span></div>`
       + visiveis.map(itemHTML).join('');
   }
 }
@@ -118,6 +118,7 @@ function abrirDetalhes(id) {
       <dt>Data</dt><dd>${dataBR(ag)}</dd>
       <dt>Duração</dt><dd>${ag.servico_duracao_min} minutos</dd>
       <dt>Valor</dt><dd>${moeda(ag.servico_preco)}</dd>
+      <dt>Pagamento</dt><dd>${esc(Pagamento.detalheEquipe(ag))}</dd>
       <dt>Observações</dt><dd>${ag.observacao ? esc(ag.observacao) : 'Nenhuma observação.'}</dd>
     </dl>`;
   $('det-acoes').innerHTML = botoes(ag);

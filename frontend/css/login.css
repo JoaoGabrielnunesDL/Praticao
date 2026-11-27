@@ -13,15 +13,15 @@
 /* ---------- Área de marca ---------- */
 .boas-vindas{display:flex;flex-direction:column;align-self:stretch;justify-content:center}
 .boas-vindas h1{font-family:var(--fonte-titulo);font-size:var(--texto-22);font-weight:var(--peso-medio);color:var(--cor-texto-2);line-height:1.2} /* 5,76:1 */
-.boas-vindas h1 strong{display:block;margin-top:var(--esp-1);font-size:clamp(2.5rem,1.6rem + 2.4vw,3.5rem);font-weight:var(--peso-forte);letter-spacing:-.025em;line-height:1.04;color:var(--cor-titulo)}
-.boas-vindas h1 em{font-style:normal;color:var(--cor-laranja-texto)}                         /* 5,31:1 (o laranja puro daria 2,26:1) */
+.boas-vindas h1 strong{display:block;margin-top:var(--esp-1);font-size:clamp(2.5rem,1.6rem + 2.4vw,3.5rem);font-weight:var(--peso-forte);letter-spacing:-.025em;line-height:1.04;color:#0a49b8}
+.boas-vindas h1 em{font-style:normal;color:#f28a0c}                         /* 5,31:1 (o laranja puro daria 2,26:1) */
 .boas-vindas>p{margin-top:var(--esp-3);font-size:var(--texto-18);line-height:var(--altura-linha-texto);color:var(--cor-texto-2);max-width:40ch}
 /* Pets direto sobre o fundo: o branco da foto some no azul-claro (multiply), sem círculo ou moldura */
 .ac-pets{display:block;width:100%;max-width:560px;height:auto;margin-top:var(--esp-6);mix-blend-mode:multiply}
 
 /* ---------- Cartão do formulário ---------- */
 .cartao{background:var(--cor-superficie);border:1px solid var(--cor-borda);border-radius:var(--raio-xg);padding:var(--esp-8) 36px;box-shadow:var(--sombra-sutil)}
-.cartao h2{font-family:var(--fonte-titulo);font-size:1.75rem;font-weight:var(--peso-forte);letter-spacing:-.015em;line-height:1.15;color:var(--cor-titulo)}
+.cartao h2{font-family:var(--fonte-titulo);font-size:1.75rem;font-weight:var(--peso-forte);letter-spacing:-.015em;line-height:1.15;color:#0a49b8}
 .cartao .sub{margin:var(--esp-2) 0 var(--esp-6);font-size:var(--texto-16);color:var(--cor-texto-2)} /* 6,36:1 */
 
 /* Campos (padrão do Design System: 44px, raio 12, borda com 3:1, foco azul com anel) */
@@ -29,22 +29,22 @@
 .cartao .campo label{font-size:var(--texto-14);font-weight:var(--peso-medio);color:var(--cor-texto);margin-bottom:6px}
 .cartao .campo input{min-height:var(--altura-controle);padding:0 var(--esp-3);border:1.5px solid var(--cor-borda-controle);border-radius:var(--raio-m);font-size:var(--texto-16);color:var(--cor-texto)} /* borda 3,39:1 */
 .cartao .campo input:hover{border-color:var(--cor-texto-2)}
-.cartao .campo input:focus{border-color:var(--cor-foco);box-shadow:var(--anel-foco)}
+.cartao .campo input:focus{border-color:#0a49b8;box-shadow:var(--anel-foco)}
 .cartao .campo input.com-botao{padding-right:92px}
 .cartao .campo small{font-size:.8125rem;color:var(--cor-texto-2)}
-.cartao .mostrar{min-height:32px;padding:0 var(--esp-2);border-radius:var(--raio-p);color:var(--cor-azul);font-size:var(--texto-14);font-weight:var(--peso-medio)} /* 5,82:1 */
+.cartao .mostrar{min-height:32px;padding:0 var(--esp-2);border-radius:var(--raio-p);color:#0a49b8;font-size:var(--texto-14);font-weight:var(--peso-medio)} /* 5,82:1 */
 .cartao .mostrar:hover{background:var(--cor-azul-claro)}
 .cartao .mostrar:focus-visible{outline:none;box-shadow:var(--anel-foco)}
 
 /* Linha "lembrar" + "esqueci" */
 .linha{display:flex;justify-content:space-between;align-items:center;gap:var(--esp-2) var(--esp-3);flex-wrap:wrap;margin:var(--esp-2) 0 var(--esp-6);font-size:var(--texto-14);color:var(--cor-texto)}
 .linha label{display:inline-flex;align-items:center;gap:var(--esp-2);min-height:32px;cursor:pointer}
-.linha input[type=checkbox]{width:18px;height:18px;accent-color:var(--cor-azul)}
-.cartao .link{display:inline-flex;align-items:center;min-height:24px;color:var(--cor-azul);font-weight:var(--peso-medio);text-underline-offset:3px}  /* 5,82:1; alvo mínimo 24px (WCAG 2.5.8) */
+.linha input[type=checkbox]{width:18px;height:18px;accent-color:#0a49b8}
+.cartao .link{display:inline-flex;align-items:center;min-height:24px;color:#0a49b8;font-weight:var(--peso-medio);text-underline-offset:3px}  /* 5,82:1; alvo mínimo 24px (WCAG 2.5.8) */
 .cartao .link:focus-visible,.linha input:focus-visible{outline:none;box-shadow:var(--anel-foco);border-radius:var(--raio-p)}
 
 /* Botão principal: laranja da marca com texto azul-profundo (branco reprovava: 2,50:1) */
-.cartao .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:var(--altura-botao-g);padding:0 var(--esp-6);border-radius:var(--raio-m);background:var(--cor-cta);color:var(--cor-cta-texto);font-size:var(--texto-16);font-weight:var(--peso-forte);transition:background-color var(--transicao)} /* 5,41:1 */
+.cartao .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:var(--altura-botao-g);padding:0 var(--esp-6);border-radius:var(--raio-m);background:#f28a0c;color:#0a49b8;font-size:var(--texto-16);font-weight:var(--peso-forte);transition:background-color var(--transicao)} /* 5,41:1 */
 .cartao .btn:hover{background:var(--cor-laranja-hover)}                                       /* 6,37:1 */
 .cartao .btn:focus-visible{outline:none;box-shadow:var(--anel-foco)}
 .cartao .btn:disabled{opacity:.6;cursor:wait}

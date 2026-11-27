@@ -1,8 +1,11 @@
 from datetime import datetime, timedelta
+from app import models
 
 
 def horario(hora=10, minuto=0, dias=3):
     d = datetime.now() + timedelta(days=dias)
+    while d.isoweekday() >= 6:  # sábado e domingo têm expediente menor: os testes usam dia útil
+        d += timedelta(days=1)
     return d.replace(hour=hora, minute=minuto, second=0, microsecond=0).isoformat()
 
 
@@ -67,10 +70,13 @@ def test_cancelar_duas_vezes(client, tutor, animal, servico):
     assert r.status_code == 400
 
 
-def test_cancelar_fora_do_prazo(client, tutor, animal, servico):
-    daqui_1h = (datetime.now() + timedelta(hours=1)).replace(microsecond=0).isoformat()
-    ag = agendar(client, tutor, animal, servico, daqui_1h).json()
-    r = client.post('/agendamentos/' + str(ag['id']) + '/cancelar', headers=tutor)
+def test_cancelar_fora_do_prazo(client, tutor, animal, servico, db_session):
+    # Criado direto no banco: um horário "daqui a 1h" não passaria pela regra do expediente da API.
+    ag = models.Agendamento(animal_id=animal['id'], servico_id=servico['id'],
+                            data_hora=datetime.now() + timedelta(hours=1))
+    db_session.add(ag)
+    db_session.commit()
+    r = client.post('/agendamentos/' + str(ag.id) + '/cancelar', headers=tutor)
     assert r.status_code == 400
 
 

@@ -20,16 +20,16 @@
 
 /* Ilustração dos pets: componente .pc-pets (praticao-ui.css) cuida do fundo, do círculo e da foto.
    Aqui ficam só o escudo, a faísca e as posições próprias desta tela. */
-.adm-pets{color:var(--laranja)}
+.adm-pets{color:#f28a0c}
 .adm-pets .escudo{position:absolute;width:72px;height:82px;filter:drop-shadow(0 8px 14px rgba(10,73,184,.28))}
 .adm-pets .faisca{position:absolute;width:32px;height:32px;transform:rotate(-10deg)}
 .adm-pets .pc-pets-trilha{display:none}
 
 /* ===== Título ===== */
-.adm-topo .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
+.adm-topo .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#f28a0c}
 .adm-topo h1{font-size:2.4rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
 .sem-quebra{white-space:nowrap}
-.faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:var(--laranja)}
+.faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:#f28a0c}
 .adm-topo .sub{font-size:1.02rem}
 
 /* ===== Grade de cartões =====
@@ -39,14 +39,14 @@
 .bloco-status{grid-column:span 9}
 .bloco-agenda{grid-column:span 11}
 .adm-pagina .bloco{position:relative;min-width:0;border-radius:20px;box-shadow:0 8px 26px rgba(10,73,184,.08);padding:20px 22px}
-.adm-pagina .bloco h2{display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:800;color:var(--azul)}
+.adm-pagina .bloco h2{display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:800;color:#0a49b8}
 .cab-bloco{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .cab-faixa{background:#eef4ff;margin:-20px -22px 16px;padding:12px 22px;border-radius:20px 20px 0 0;min-height:66px}
 /* "Administradores" é uma palavra só: sem recuo lateral e com letras um pouco mais juntas, cabe inteira */
 .bloco-usuarios .num{font-size:.74rem;padding-left:0;padding-right:0;letter-spacing:-.01em}
 .bloco-status{display:flex;flex-direction:column}
 .bloco-status .grafico{flex:1}
-.tit-ic{width:34px;height:34px;border-radius:11px;background:#e2edff;color:#1b63e6;display:grid;place-items:center;flex:none}
+.tit-ic{width:34px;height:34px;border-radius:11px;background:#e2edff;color:#0a49b8;display:grid;place-items:center;flex:none}
 .cab-faixa .tit-ic{background:#fff}
 .tit-ic svg{width:19px;height:19px;fill:currentColor}
 .pata-canto{position:absolute;top:16px;right:18px;width:30px;height:30px;fill:#cfe0fb}
@@ -59,10 +59,10 @@
 .num{display:block;text-align:center;padding:8px 4px;border-radius:12px;color:var(--cinza);font-size:.8rem;font-weight:600;line-height:1.25;position:relative;transition:background .15s}
 .num+.num::before{content:"";position:absolute;left:0;top:14%;bottom:14%;border-left:1px solid #dfe8f6}
 .num:hover{background:#f1f6ff}
-.num strong{display:block;font-size:1.85rem;font-weight:800;color:var(--azul);line-height:1.15}
-.num.cor-pendente,.num.cor-pendente strong{color:#9c4f00}
-.num.cor-pendente strong{color:#9c4f00}
-.num.cor-confirmado,.num.cor-confirmado strong{color:#1b63e6}
+.num strong{display:block;font-size:1.85rem;font-weight:800;color:#0a49b8;line-height:1.15}
+.num.cor-pendente,.num.cor-pendente strong{color:#f28a0c}
+.num.cor-pendente strong{color:#f28a0c}
+.num.cor-confirmado,.num.cor-confirmado strong{color:#0a49b8}
 .num.cor-concluido,.num.cor-concluido strong{color:#1d7a34}
 .num.cor-cancelado,.num.cor-cancelado strong{color:#c62828}
 .nota{font-size:.78rem;color:var(--cinza);margin-top:10px}
@@ -71,46 +71,47 @@
 /* ===== Gráfico de rosca (CSS puro: conic-gradient) ===== */
 .grafico{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;min-height:200px}
 .rosca{width:180px;height:180px;border-radius:50%;background:#e3eaf6;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 18px rgba(10,73,184,.12)}
-.rosca .miolo{width:108px;height:108px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--azul);font-weight:700;font-size:.9rem;box-shadow:inset 0 2px 8px rgba(10,73,184,.1)}
-.rosca .miolo strong{font-size:2.1rem;font-weight:800;color:var(--azul);line-height:1}
+.rosca .miolo{width:108px;height:108px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#0a49b8;font-weight:700;font-size:.9rem;box-shadow:inset 0 2px 8px rgba(10,73,184,.1)}
+.rosca .miolo strong{font-size:2.1rem;font-weight:800;color:#0a49b8;line-height:1}
 .legenda{list-style:none;display:grid;gap:4px;flex:1 1 160px;min-width:0;max-width:260px}
 .legenda a{display:flex;align-items:center;gap:10px;min-height:40px;padding:6px 10px;border-radius:10px;font-weight:600;color:var(--texto)}
 .legenda a:hover{background:#f1f6ff}
 .legenda i{width:14px;height:14px;border-radius:50%;flex:none}
-.legenda .pct{margin-left:auto;font-weight:700;color:var(--azul)}
+.legenda .pct{margin-left:auto;font-weight:700;color:#0a49b8}
 
 /* ===== Prévia da agenda (tabela) ===== */
-.ver-mais{font-size:.9rem;color:var(--azul);font-weight:700;padding:6px 2px}
-.ver-mais:hover{color:var(--laranja-esc)}
+.ver-mais{font-size:.9rem;color:#0a49b8;font-weight:700;padding:6px 2px}
+.ver-mais:hover{color:#f28a0c}
 .previa{border:1px solid #e3ebf7;border-radius:14px;overflow:hidden}
-.previa .cab-prev,.previa .linha-ag{display:grid;grid-template-columns:62px minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr) 128px;gap:10px;align-items:center;padding:10px 14px;text-align:left}
-.previa .cab-prev{background:#eef4ff;color:var(--azul);font-weight:800;font-size:.84rem}
+.previa .cab-prev,.previa .linha-ag{display:grid;grid-template-columns:62px minmax(0,.85fr) minmax(0,1fr) minmax(0,1fr) 150px;gap:10px;align-items:center;padding:10px 14px;text-align:left}
+.previa .cab-prev{background:#eef4ff;color:#0a49b8;font-weight:800;font-size:.84rem}
 .previa .linha-ag{width:100%;background:#fff;border:0;border-top:1px solid #edf2fa;font:inherit;font-size:.92rem;color:var(--texto);cursor:pointer;transition:background .12s}
 .previa .linha-ag:hover{background:#f5f9ff}
-.previa .linha-ag strong{font-weight:700;color:var(--azul)}
+.previa .linha-ag strong{font-weight:700;color:#0a49b8}
 .previa .linha-ag>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.previa .linha-ag>.c-st{display:flex;flex-direction:column;align-items:flex-start;gap:4px;overflow:visible;white-space:normal}
 .previa .status{display:inline-flex;align-items:center;justify-content:center;gap:5px;justify-self:start;font-size:.78rem;padding:3px 10px 3px 5px}
 .previa .status .ic{width:15px;height:15px;flex:none}
 .previa .status.pendente .ic{color:#f28a0c}
-.previa .status.confirmado .ic{color:#1b63e6}
+.previa .status.confirmado .ic{color:#0a49b8}
 .previa .status.concluido .ic{color:#2e9e4f}
 .previa .status.cancelado .ic{color:#e53935}
 .previa>.nota{margin:0;padding:10px 14px;border-top:1px solid #edf2fa;background:#fafcff}
 .previa>.vazio{padding:36px 16px;background:#fff}
 /* Antes da 1ª resposta a prévia está vazia: mostra um indicador de carregamento (só CSS) */
 .previa:empty{min-height:140px;display:grid;place-items:center;background:#fff}
-.previa:empty::before{content:"";width:34px;height:34px;border:4px solid #cfe0fb;border-top-color:var(--azul);border-radius:50%;animation:girar .8s linear infinite}
+.previa:empty::before{content:"";width:34px;height:34px;border:4px solid #cfe0fb;border-top-color:#0a49b8;border-radius:50%;animation:girar .8s linear infinite}
 .adm-pagina:has(#erro-agenda:not([hidden])) .previa:empty::before{content:"Agenda indisponível no momento.";width:auto;height:auto;border:0;animation:none;color:var(--cinza);font-weight:600}
 @media(prefers-reduced-motion:reduce){.previa:empty::before{animation-duration:3s}}
 
 /* ===== Acesso rápido ===== */
 .atalhos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .atalhos a{display:flex;align-items:center;gap:14px;min-height:84px;padding:14px 16px;background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:0 6px 18px rgba(10,73,184,.08);transition:transform .15s,box-shadow .15s,border-color .15s}
-.atalhos a:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(10,73,184,.13);border-color:var(--laranja)}
-.atalho-ic{width:52px;height:52px;border-radius:50%;background:#eaf2ff;color:#1b63e6;display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px #d6e5fb}
+.atalhos a:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(10,73,184,.13);border-color:#f28a0c}
+.atalho-ic{width:52px;height:52px;border-radius:50%;background:#eaf2ff;color:#0a49b8;display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px #d6e5fb}
 .atalho-ic svg{width:26px;height:26px;fill:currentColor}
 .atalho-txt{display:flex;flex-direction:column;min-width:0;line-height:1.2}
-.atalhos strong{color:var(--azul);font-weight:800;font-size:.98rem}
+.atalhos strong{color:#0a49b8;font-weight:800;font-size:.98rem}
 .atalhos small{color:var(--cinza);font-size:.8rem;margin-top:2px}
 
 /* Janela de detalhes */
@@ -204,7 +205,7 @@
   .previa .linha-ag>.c-pet{grid-area:pet;font-weight:700}
   .previa .linha-ag>.c-serv{grid-area:serv;font-size:.86rem}
   .previa .linha-ag>.c-tutor{grid-area:tutor;color:var(--cinza);font-size:.8rem;text-align:right}
-  .previa .linha-ag>.status{grid-area:st;justify-self:end}
+  .previa .linha-ag>.c-st{grid-area:st;justify-self:end;align-items:flex-end}
   .atalhos{gap:10px}
   .atalhos a{flex-direction:column;align-items:center;text-align:center;gap:8px;padding:14px 8px;min-height:120px}
   .atalho-txt{align-items:center}

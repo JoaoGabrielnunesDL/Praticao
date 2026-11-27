@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/novo-agendamento.css">
   <link rel="stylesheet" href="css/praticao-ui.css">
+  <link rel="stylesheet" href="css/pagamento.css">
 </head>
 <body class="pg-agendamento">
   <header id="cabecalho"></header>
@@ -137,7 +138,8 @@
     <dl class="dados" id="suc-dados"></dl>
     <div class="rodape-dlg">
       <button type="button" class="btn btn-contorno" id="suc-novo">Novo agendamento</button>
-      <a class="btn btn-laranja" href="meus-agendamentos.html">Ver meus agendamentos</a>
+      <a class="btn btn-contorno" href="meus-agendamentos.html">Ver meus agendamentos</a>
+      <button type="button" class="btn btn-laranja" id="suc-pagar" hidden>Pagar agora</button>
     </div>
   </dialog>
 
@@ -146,6 +148,7 @@
   <script src="js/api.js"></script>
   <script src="js/comum.js"></script>
   <script src="js/header.js"></script>
+  <script src="js/pagamento.js"></script>
   <script src="js/agendamento.js"></script>
 </body>
 </html>

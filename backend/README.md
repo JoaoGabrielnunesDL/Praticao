@@ -1,4 +1,4 @@
-# PratiCão (back-end) – versão 2.0
+# PratiCão (back-end) – versão final
 
 API de gestão de animais e agendamento de serviços de banho e tosa. Tutores cadastram seus animais e agendam serviços; funcionários acompanham atendimentos e relatórios; administradores também gerenciam serviços e usuários.
 
@@ -6,7 +6,18 @@ API de gestão de animais e agendamento de serviços de banho e tosa. Tutores ca
 
 ## Tecnologias
 
-Python 3.14 · FastAPI · SQLAlchemy (psycopg2) · PostgreSQL 16 · JWT + bcrypt · pytest · Docker Compose
+| Tecnologia | Para que serve no projeto |
+|---|---|
+| Python 3.14 | linguagem da API (imagem `python:3.14-slim`) |
+| FastAPI + Uvicorn | API REST e documentação interativa (Swagger em `/docs`) |
+| Pydantic (e-mail-validator) | validação dos dados enviados (campos obrigatórios, e-mail, tamanhos) |
+| SQLAlchemy + psycopg2 | acesso ao banco (ORM) |
+| PostgreSQL 16 | banco de dados (container `praticao-db`) |
+| JWT (python-jose) + bcrypt | login com token e senhas guardadas com hash |
+| pytest + httpx | testes automatizados da API |
+| Docker + Docker Compose | sobe banco e API com um comando; **é a única forma de rodar a API** |
+
+Front-end (pasta `../frontend`): HTML, CSS e JavaScript puro, servido na porta 5500 (Live Server ou `python -m http.server`).
 
 ## Requisitos
 
@@ -17,17 +28,19 @@ docker --version
 docker compose version
 ```
 
-## Como rodar
+## Como rodar (passo a passo)
 
-1. Dentro da pasta `backend/`, o arquivo `.env` já vem pronto para desenvolvimento. Se ele não existir: `copy .env.example .env` (Windows) ou `cp .env.example .env`, e preencha `SECRET_KEY` (gere com `python -c "import secrets; print(secrets.token_urlsafe(48))"`).
-2. Suba tudo (banco + API):
+1. Abra o **Docker Desktop** e espere ficar "running".
+2. Dentro da pasta `backend/`, o arquivo `.env` já vem pronto para desenvolvimento. Se ele não existir: `copy .env.example .env` (Windows) ou `cp .env.example .env`, e preencha `SECRET_KEY` (gere com `python -c "import secrets; print(secrets.token_urlsafe(48))"`).
+3. Suba tudo (banco + API). Na primeira vez as tabelas e os dados iniciais (usuários de teste e serviços) são criados sozinhos:
 
 ```
 docker compose up -d --build
 ```
 
-3. Acompanhe: `docker compose logs -f api` (deve mostrar `Dados iniciais criados` e `Application startup complete`).
-4. Abra http://localhost:8000/docs (Swagger). A raiz `http://localhost:8000` redireciona para lá.
+4. Acompanhe: `docker compose logs -f api` (deve mostrar `Dados iniciais criados` e `Application startup complete`).
+5. Abra http://localhost:8000/docs (Swagger). A raiz `http://localhost:8000` redireciona para lá.
+6. Para parar: `docker compose down` (os dados continuam salvos). Para subir de novo: `docker compose up -d`.
 
 Sempre que alterar o código: `docker compose up -d --build`.
 
@@ -81,7 +94,8 @@ Exigem login (token Bearer), exceto os marcados como públicos.
 |---|---|---|
 | Usuários | `POST /cadastro`, `POST /login` | público |
 | | `POST /recuperar-senha` (corpo `{email}`), `POST /redefinir-senha` (corpo `{token, nova_senha}`) | público |
-| | `GET /me`, `PUT /me`, `POST /me/alterar-senha`, `POST /logout` | usuário logado |
+| | `GET /me`, `PUT /me`, `POST /me/alterar-senha` | usuário logado |
+| | `POST /logout` (encerra a sessão: o token deixa de valer) | usuário logado |
 | Animais | `GET /animais`, `POST /animais` | tutor |
 | | `GET /animais/{id}`, `PUT /animais/{id}`, `DELETE /animais/{id}` | tutor (somente os próprios) |
 | Serviços | `GET /servicos` (só os ativos) | público |
@@ -89,9 +103,12 @@ Exigem login (token Bearer), exceto os marcados como públicos.
 | | `POST /servicos`, `PUT /servicos/{id}`, `PATCH /servicos/{id}/desativar`, `PATCH /servicos/{id}/ativar` | **administrador** |
 | | `DELETE /servicos/{id}` (exclusão permanente; 409 se o serviço tiver agendamentos) | **administrador** |
 | Agendamentos | `POST /agendamentos`, `GET /agendamentos` (filtro `?data=AAAA-MM-DD` ou período `?inicio=AAAA-MM-DD&fim=AAAA-MM-DD`, máx. 12 meses) | tutor (os próprios) ou funcionário (todos) |
+| | `GET /agendamentos/horarios?data=AAAA-MM-DD&servico_id=N` (horários livres do dia para o serviço: dentro do expediente, sem passado e sem conflito) | usuário logado |
 | | `POST /agendamentos/{id}/cancelar` | tutor (dono) ou funcionário |
 | | `PATCH /agendamentos/{id}/status` | funcionário ou administrador |
 | Administração | `GET /admin/usuarios`, `GET /admin/usuarios/{id}` | administrador |
+| | `POST /admin/usuarios` (cadastra funcionário, padrão, ou outro administrador/tutor; corpo `{nome, email, senha, telefone, perfil}`) | administrador |
+| | `PATCH /admin/usuarios/{id}/perfil` (define as permissões: `tutor`, `funcionario` ou `administrador`; 400 na própria conta) | administrador |
 | | `GET /admin/usuarios/busca` (tela Gerenciar usuários: filtros `busca`, `perfil` e `situacao` = `ativas`/`inativas`, funcionando juntos; paginação `pagina`, padrão 1, e `tamanho`, padrão 5, máximo 50) | administrador |
 | | `DELETE /admin/usuarios/{id}` (exclusão permanente; 400 na própria conta, 409 se o usuário tiver animais; serve também para excluir o administrador antigo numa troca de gerente: como ninguém se exclui, sempre sobra um administrador) | administrador |
 | | `GET /admin/usuarios/{id}/detalhes` (dados + data de cadastro + últimos 5 agendamentos + quantidade de agendamentos futuros) | administrador |
@@ -107,9 +124,10 @@ Erros seguem o formato `{"detail": "mensagem"}`. O login é `POST /login` com fo
 
 ## Regras de negócio
 
-- O agendamento exige animal do próprio tutor, serviço ativo e data/hora futuras.
+- O agendamento exige animal do próprio tutor, serviço ativo e data/hora futuras, sem fuso (`2026-12-10T14:00:00`).
+- Expediente (os mesmos horários do site, definidos em `app/regras.py`): segunda a sexta 8h às 18h, sábado 8h às 14h, domingo 8h às 12h. Os horários são de 30 em 30 minutos e o serviço precisa terminar até o fechamento; fora disso a API devolve 400 com a mensagem do motivo.
 - Não há horários conflitantes: o fim de cada agendamento é a duração do serviço somada ao início.
-- O tutor cancela com no mínimo 2 horas de antecedência; o cancelado continua no histórico.
+- O tutor cancela com no mínimo 2 horas de antecedência (regra confirmada com o PO); o cancelado continua no histórico.
 - Status: `AGENDADO`→`CONFIRMADO` ou `CANCELADO`; `CONFIRMADO`→`CONCLUIDO` ou `CANCELADO`.
 - Serviço: o nome é único (sem diferenciar maiúsculas de minúsculas e ignorando espaços nas pontas); repetir devolve 409 `Já existe um serviço com este nome`, no cadastro e na edição. A descrição é opcional.
 - Só o administrador cria, edita, ativa, desativa e exclui serviços (funcionário recebe 403). Funcionário e administrador veem os inativos com `?todos=true`.
@@ -117,6 +135,10 @@ Erros seguem o formato `{"detail": "mensagem"}`. O login é `POST /login` com fo
 - Exclusão permanente (`DELETE /servicos/{id}`): só se o serviço não tiver nenhum agendamento (inclusive cancelado); senão 409 `Este serviço possui agendamentos e não pode ser excluído. Desative-o em vez de excluir.`
 - Relatório: a data considerada é a do atendimento (`data_hora`). `status` aceita AGENDADO, CONFIRMADO, CONCLUIDO ou CANCELADO (outro valor dá 400). Os itens trazem também espécie/raça do pet, telefone do tutor, valor, duração e observação.
 - Conta desativada não faz login, e o histórico é mantido. O administrador não desativa a própria conta.
+- Cadastro público (`/cadastro`) cria só tutores. Funcionários e administradores são cadastrados pelo administrador (`POST /admin/usuarios`) ou têm o perfil alterado por ele (`PATCH /admin/usuarios/{id}/perfil`); o administrador não altera o próprio perfil, então sempre sobra um administrador.
+- E-mail único sem diferenciar maiúsculas de minúsculas (`Ana@x.com` = `ana@x.com`). Senhas guardadas com hash bcrypt (máx. 72 bytes). Nome com espaços nas pontas é cortado; telefone até 20 caracteres, raça até 80, e-mail até 150.
+- Logout: o token usado é registrado como encerrado (tabela `tokens_revogados`) e passa a dar 401, mesmo antes de expirar (8 horas).
+- Nomes de animais podem se repetir (um tutor pode ter vários pets com o mesmo nome).
 - Um tutor nunca acessa animais ou agendamentos de outro tutor. Animal com agendamentos não pode ser excluído.
 
 ## Recuperação de senha
@@ -141,7 +163,8 @@ backend/
 ├── app/
 │   ├── main.py        # aplicação e rotas
 │   ├── database.py    # conexão (somente PostgreSQL, somente Docker)
-│   ├── models.py      # tabelas
+│   ├── models.py      # tabelas (usuarios, animais, servicos, agendamentos, tokens_revogados)
+│   ├── regras.py      # expediente e validação de horário
 │   ├── schemas.py     # validação
 │   ├── auth.py        # senhas, token e permissões
 │   └── routes/        # usuarios, animais, servicos, agendamentos, admin, relatorios
@@ -163,4 +186,5 @@ backend/
 | `port is already allocated` (8000 ou 5433) | outro programa usa a porta | fechar o programa ou trocar a porta no `docker-compose.yml` |
 | `password authentication failed` | senha do `.env` mudou depois da criação do volume | `docker compose down -v` e subir de novo (apaga os dados) |
 | API reiniciando em loop | banco ainda iniciando ou erro de configuração | `docker compose logs api` |
+| `docker compose` pede `SECRET_KEY` | `.env` sem a chave | preencher `SECRET_KEY` (veja "Como rodar") |
 | `Cannot connect to the Docker daemon` | Docker Desktop fechado | abrir o Docker Desktop e esperar ficar "running" |

@@ -1,9 +1,18 @@
 # PratiCão 🐾
 
-Sistema de gestão de animais e agendamento de serviços de banho e tosa (monolito, versão 2.0).
+Sistema de gestão de animais e agendamento de serviços de banho e tosa (monolito, versão final da API).
 Tutores cadastram animais e agendam serviços; funcionários acompanham a agenda e os relatórios; administradores também gerenciam serviços e usuários.
 
-**Stack:** HTML/CSS/JavaScript puro (front) · Python 3.14 + FastAPI + SQLAlchemy (API) · PostgreSQL 16 · JWT + bcrypt · Docker Compose · pytest
+## Tecnologias
+
+| Camada | Tecnologias |
+|---|---|
+| Front-end | HTML, CSS e JavaScript puro (sem framework), fonte Figtree |
+| API (back-end) | Python 3.14, FastAPI, Uvicorn, Pydantic, SQLAlchemy, psycopg2 |
+| Banco de dados | PostgreSQL 16 |
+| Segurança | login com JWT (python-jose), senhas com hash bcrypt, perfis tutor / funcionário / administrador |
+| Testes | pytest + httpx (rodam dentro do Docker, em banco separado) |
+| Infraestrutura | Docker e Docker Compose (banco + API), Live Server ou `python -m http.server` para o front |
 
 ## Estrutura do repositório
 
@@ -97,6 +106,17 @@ Acesse **http://localhost:5500** (abre o `index.html`).
 | Banco do zero (apaga dados) | `backend/` | `docker compose down -v && docker compose up -d --build` |
 | Endereço da API usado pelo front | `frontend/js/config.js` | `API_URL = 'http://localhost:8000'` |
 
+## Como iniciar a API (resumo)
+
+```powershell
+cd backend
+copy .env.example .env        # só se o .env não existir; depois preencha SECRET_KEY
+docker compose up -d --build  # sobe PostgreSQL + API (cria tabelas e dados iniciais sozinho)
+```
+
+Pronto: Swagger em http://localhost:8000/docs. Para abrir o site: Live Server na raiz (Go Live) ou `cd frontend && python -m http.server 5500`, e acesse http://localhost:5500.
+Para parar: `docker compose down` (mantém os dados) · para zerar o banco: `docker compose down -v`.
+
 ## Contas de teste (criadas pelo `seed.py`, senha `123456`)
 
 | Perfil | E-mail | Entra em |
@@ -109,6 +129,7 @@ Acesse **http://localhost:5500** (abre o `index.html`).
 
 - API, regras de negócio e problemas comuns: [`backend/README.md`](backend/README.md)
 - Telas do front-end: [`docs/frontend.md`](docs/frontend.md)
+- Critérios de aceitação x o que a API faz (e qual teste cobre): [`docs/criterios-de-aceitacao.md`](docs/criterios-de-aceitacao.md)
 - Convenções do back-end: [`backend/CLAUDE.md`](backend/CLAUDE.md)
 
 > O `.env` incluído é só de desenvolvimento. Em uso real, troque senhas e `SECRET_KEY`, defina `RECUPERACAO_DEMO=0` e **não** versione o `.env`.

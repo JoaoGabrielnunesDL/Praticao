@@ -19,6 +19,21 @@ def _buscar(db: Session, usuario_id: int) -> models.Usuario:
     return alvo
 
 
+@router.post('/usuarios', response_model=schemas.UsuarioSaida, status_code=201)
+def criar_usuario(dados: schemas.UsuarioAdminCriar, db: Session = Depends(get_db), _=Depends(auth.exigir_admin)):
+    """O administrador cadastra funcionários (ou outros administradores): o /cadastro público só cria tutores."""
+    if auth.buscar_por_email(db, dados.email):
+        raise HTTPException(status_code=409, detail='E-mail já cadastrado')
+    usuario = models.Usuario(
+        nome=dados.nome, email=dados.email, senha_hash=auth.gerar_hash(dados.senha),
+        telefone=dados.telefone, perfil=dados.perfil,
+    )
+    db.add(usuario)
+    db.commit()
+    db.refresh(usuario)
+    return usuario
+
+
 @router.get('/usuarios', response_model=list[schemas.UsuarioSaida])
 def listar_usuarios(db: Session = Depends(get_db), _=Depends(auth.exigir_admin)):
     return db.query(models.Usuario).order_by(models.Usuario.id).all()
@@ -94,6 +109,19 @@ def desativar_usuario(usuario_id: int, db: Session = Depends(get_db), admin=Depe
     # Só desativa a conta (ativo = False): animais e agendamentos continuam no banco.
     # Como o próprio admin nunca se desativa, sempre sobra pelo menos um administrador ativo.
     alvo.ativo = False
+    db.commit()
+    db.refresh(alvo)
+    return alvo
+
+
+@router.patch('/usuarios/{usuario_id}/perfil', response_model=schemas.UsuarioSaida)
+def alterar_perfil(usuario_id: int, dados: schemas.PerfilAtualizar, db: Session = Depends(get_db), admin=Depends(auth.exigir_admin)):
+    """Define as permissões do usuário (tutor, funcionário ou administrador)."""
+    alvo = _buscar(db, usuario_id)
+    if alvo.id == admin.id:
+        # Assim sempre sobra pelo menos um administrador.
+        raise HTTPException(status_code=400, detail='Você não pode alterar o próprio perfil')
+    alvo.perfil = dados.perfil
     db.commit()
     db.refresh(alvo)
     return alvo

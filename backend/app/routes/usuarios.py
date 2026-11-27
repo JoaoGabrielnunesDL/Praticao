@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.exc import IntegrityError
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from app.database import get_db
@@ -9,7 +10,7 @@ router = APIRouter(tags=['Usuários'])
 
 @router.post('/cadastro', response_model=schemas.UsuarioSaida, status_code=201)
 def cadastro(dados: schemas.UsuarioCriar, db: Session = Depends(get_db)):
-    if db.query(models.Usuario).filter_by(email=dados.email).first():
+    if auth.buscar_por_email(db, dados.email):
         raise HTTPException(status_code=409, detail='E-mail já cadastrado')
     usuario = models.Usuario(
         nome=dados.nome,
@@ -18,14 +19,19 @@ def cadastro(dados: schemas.UsuarioCriar, db: Session = Depends(get_db)):
         telefone=dados.telefone,
     )
     db.add(usuario)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Dois cadastros iguais ao mesmo tempo: o banco também garante o e-mail único.
+        db.rollback()
+        raise HTTPException(status_code=409, detail='E-mail já cadastrado')
     db.refresh(usuario)
     return usuario
 
 
 @router.post('/login', response_model=schemas.Token)
 def login(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    usuario = db.query(models.Usuario).filter_by(email=form.username).first()
+    usuario = auth.buscar_por_email(db, form.username)
     if not usuario or not auth.verificar_senha(form.password, usuario.senha_hash):
         raise HTTPException(status_code=401, detail='E-mail ou senha incorretos')
     if not usuario.ativo:
@@ -38,7 +44,7 @@ def recuperar_senha(dados: schemas.RecuperarSenhaEntrada, db: Session = Depends(
     # A resposta é sempre a mesma, exista o e-mail ou não (não revela quem tem conta).
     resposta = {'mensagem': 'Se o e-mail estiver cadastrado, enviamos um link. Ele vale por 30 minutos.'}
     if auth.recuperacao_demo():
-        usuario = db.query(models.Usuario).filter_by(email=dados.email).first()
+        usuario = auth.buscar_por_email(db, dados.email)
         if usuario and usuario.ativo:
             resposta['token'] = auth.criar_token_recuperacao(usuario)
         else:
@@ -83,6 +89,8 @@ def alterar_senha(dados: schemas.UsuarioAlterarSenha, db: Session = Depends(get_
 
 
 @router.post('/logout')
-def logout(_=Depends(auth.usuario_atual)):
-    # com JWT a sessão é encerrada quando o front-end descarta o token
+def logout(token: str = Depends(auth.oauth2), db: Session = Depends(get_db), _=Depends(auth.usuario_atual)):
+    # O token fica registrado como encerrado: mesmo que alguém o guarde, ele não funciona mais.
+    # (O front-end também descarta o token do navegador.)
+    auth.revogar_token(token, db)
     return {'mensagem': 'Sessão encerrada'}

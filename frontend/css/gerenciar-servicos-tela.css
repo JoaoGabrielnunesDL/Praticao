@@ -30,21 +30,21 @@ body.pg-gerenciar-servicos .gs-container{position:relative}
 /* ===== Título + pets ===== */
 body.pg-gerenciar-servicos .gs-hero{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:center}
 body.pg-gerenciar-servicos .topo-pagina{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:18px}
-body.pg-gerenciar-servicos .topo-pagina .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#9c4f00}
+body.pg-gerenciar-servicos .topo-pagina .selo-op{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.85rem;color:#f28a0c}
 body.pg-gerenciar-servicos .topo-pagina h1{font-size:2.6rem;font-weight:800;letter-spacing:-.01em;margin:2px 0 6px}
 body.pg-gerenciar-servicos .sem-quebra{white-space:nowrap}
-body.pg-gerenciar-servicos .faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:var(--laranja)}
+body.pg-gerenciar-servicos .faisca-titulo{display:inline-block;width:34px;height:34px;margin-left:6px;vertical-align:top;color:#f28a0c}
 body.pg-gerenciar-servicos .topo-pagina .sub{font-size:1.02rem}
 body.pg-gerenciar-servicos #btn-novo{min-height:50px;padding:12px 28px;box-shadow:0 6px 16px rgba(242,138,12,.32)}
 /* Pets: cachorro e gato direto sobre o fundo da página (sem painel, círculo ou moldura).
    O fundo branco da foto some no fundo (multiply); a foto aparece inteira, na proporção original (sem recorte).
    Nada entre a foto e o fundo pode ter z-index/isolation/opacity/transform, senão o branco apareceria. */
-body.pg-gerenciar-servicos .gs-pets{position:relative;align-self:end;color:var(--laranja)}
+body.pg-gerenciar-servicos .gs-pets{position:relative;align-self:end;color:#f28a0c}
 body.pg-gerenciar-servicos .gs-pets img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
 /* sombra de chão bem leve sob as patas (::before é pintado antes da foto) */
 body.pg-gerenciar-servicos .gs-pets::before{content:"";position:absolute;left:8%;right:8%;bottom:-4px;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(10,73,184,.15),rgba(10,73,184,0))}
 /* Tesoura: enfeite secundário, pequeno e claro, perto da orelha do gato */
-body.pg-gerenciar-servicos .gs-pets .tesoura{position:absolute;top:2px;right:2px;width:30px;height:30px;fill:#1b63e6;opacity:.4;transform:rotate(-25deg)}
+body.pg-gerenciar-servicos .gs-pets .tesoura{position:absolute;top:2px;right:2px;width:30px;height:30px;fill:#0a49b8;opacity:.4;transform:rotate(-25deg)}
 /* Brilho do kit perto da cabeça do cachorro */
 body.pg-gerenciar-servicos .gs-d-brilho{top:-6px;left:18%;width:18px;height:18px;background-color:var(--pc-deco-forte)}
 /* Bolhas de banho (CSS desta tela): no espaço livre à esquerda dos pets */
@@ -86,7 +86,7 @@ body.pg-gerenciar-servicos .gs-barra{display:flex;align-items:center;justify-con
 body.pg-gerenciar-servicos .gs-barra .filtro{margin:0;flex:1 1 auto;gap:10px}
 body.pg-gerenciar-servicos .filtro input[type=search],body.pg-gerenciar-servicos .filtro select{min-height:48px;border:1.5px solid var(--borda);box-shadow:0 4px 14px rgba(10,73,184,.06);font-weight:600;color:var(--texto)}
 body.pg-gerenciar-servicos .filtro input[type=search]{flex:0 1 380px;min-width:300px;padding-left:44px;background:#fff no-repeat 16px center/18px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%231f5fd0' fill-rule='evenodd' d='M10.5 3a7.5 7.5 0 0 1 6 12l4.3 4.3-1.5 1.5-4.3-4.3A7.5 7.5 0 1 1 10.5 3zm0 2.2a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6z'/></svg>")}
-body.pg-gerenciar-servicos .filtro input:focus,body.pg-gerenciar-servicos .filtro select:focus{border-color:#1b63e6;box-shadow:0 0 0 3px rgba(27,99,230,.16);outline:none}
+body.pg-gerenciar-servicos .filtro input:focus,body.pg-gerenciar-servicos .filtro select:focus{border-color:#0a49b8;box-shadow:0 0 0 3px rgba(27,99,230,.16);outline:none}
 body.pg-gerenciar-servicos #btn-limpar{min-height:48px;padding:10px 22px}
 body.pg-gerenciar-servicos #contagem{font-size:.88rem;font-weight:600}
 
@@ -96,7 +96,7 @@ body.pg-gerenciar-servicos .t-servicos{border-radius:20px;box-shadow:0 8px 26px 
 body.pg-gerenciar-servicos .t-servicos .cab{background:#eef4ff;font-weight:800;font-size:.9rem;padding:14px 20px}
 body.pg-gerenciar-servicos .t-servicos .reg{padding:14px 20px;border-top:1px solid #edf2fa;transition:background .12s}
 body.pg-gerenciar-servicos .t-servicos .reg:hover{background:#f6f9ff}
-body.pg-gerenciar-servicos .t-servicos .reg strong{color:var(--azul);font-weight:800}
+body.pg-gerenciar-servicos .t-servicos .reg strong{color:#0a49b8;font-weight:800}
 body.pg-gerenciar-servicos .t-servicos .reg.desativado{background:#fafbfd}
 body.pg-gerenciar-servicos .t-servicos .reg.desativado strong{color:var(--cinza)}
 body.pg-gerenciar-servicos .t-servicos .reg.selecionado{background:#fff7ea}
@@ -113,7 +113,7 @@ body.pg-gerenciar-servicos .t-servicos .status.inativa{background:#e8edf5;color:
 body.pg-gerenciar-servicos .acoes{gap:8px}
 body.pg-gerenciar-servicos .acao{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem;background:#fff;border-width:1.5px;transition:background .15s,box-shadow .15s}
 body.pg-gerenciar-servicos .acao::before{content:"";width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
-body.pg-gerenciar-servicos .acao.confirmar{--ic:var(--gs-ic-editar);color:#1b63e6;border-color:#9fc0f2}
+body.pg-gerenciar-servicos .acao.confirmar{--ic:var(--gs-ic-editar);color:#0a49b8;border-color:#9fc0f2}
 body.pg-gerenciar-servicos .acao.confirmar:hover{background:#eef4ff}
 body.pg-gerenciar-servicos .acao.cancelar{--ic:var(--gs-ic-desativar);color:#c62828;border-color:#f1a9a4}
 body.pg-gerenciar-servicos .acao.cancelar:hover{background:#fdecea}
@@ -125,7 +125,7 @@ body.pg-gerenciar-servicos .acao.excluir:hover{background:#b3261e;border-color:#
 /* ===== Estados: carregando, vazio, sem resultado e erro ===== */
 body.pg-gerenciar-servicos .esqueleto{height:56px;margin:12px 20px;border-radius:12px}
 body.pg-gerenciar-servicos #lista>.esqueleto:first-child{margin-top:18px}
-body.pg-gerenciar-servicos #lista>.vazio{padding:46px 20px;background:#fff;color:var(--azul);font-size:1.15rem;font-weight:800}
+body.pg-gerenciar-servicos #lista>.vazio{padding:46px 20px;background:#fff;color:#0a49b8;font-size:1.15rem;font-weight:800}
 body.pg-gerenciar-servicos #lista>.vazio>span:first-child{position:relative;display:block;font-size:0;width:84px;height:84px;margin:0 auto 14px;border-radius:24px;background:#e8f1ff}
 body.pg-gerenciar-servicos #lista>.vazio>span:first-child::after{content:"";position:absolute;inset:20px;background:#1b63e6;-webkit-mask:var(--gs-ic-tesoura) center/contain no-repeat;mask:var(--gs-ic-tesoura) center/contain no-repeat}
 body.pg-gerenciar-servicos #lista>.vazio:has([data-acao=limpar])>span:first-child::after{-webkit-mask-image:var(--gs-ic-busca);mask-image:var(--gs-ic-busca)}
@@ -137,13 +137,13 @@ body.pg-gerenciar-servicos #lista>.vazio .btn{min-height:46px;margin-top:18px}
 /* ===== Painel de cadastro/edição ===== */
 body.pg-gerenciar-servicos .painel-form form{position:relative;z-index:1}
 body.pg-gerenciar-servicos .painel-deco{position:absolute;top:14px;right:16px;width:64px;height:64px;fill:#dbe8fc;transform:rotate(-20deg);pointer-events:none;z-index:0}
-body.pg-gerenciar-servicos .selo-form{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.78rem;color:#9c4f00;margin-bottom:2px}
+body.pg-gerenciar-servicos .selo-form{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.78rem;color:#f28a0c;margin-bottom:2px}
 body.pg-gerenciar-servicos .selo-form::before{content:"Novo cadastro"}
 body.pg-gerenciar-servicos:has(.t-servicos .reg.selecionado) .selo-form::before{content:"Edição"}
-body.pg-gerenciar-servicos .painel-topo h2{font-size:1.35rem;font-weight:800;color:var(--azul);margin-bottom:16px}
+body.pg-gerenciar-servicos .painel-topo h2{font-size:1.35rem;font-weight:800;color:#0a49b8;margin-bottom:16px}
 body.pg-gerenciar-servicos .painel-form .campo label{font-weight:700}
 body.pg-gerenciar-servicos .painel-form .campo input,body.pg-gerenciar-servicos .painel-form .campo textarea{border-radius:14px;background:#fbfdff;min-height:48px;transition:border-color .15s,box-shadow .15s}
-body.pg-gerenciar-servicos .painel-form .campo input:focus,body.pg-gerenciar-servicos .painel-form .campo textarea:focus{border-color:#1b63e6;box-shadow:0 0 0 3px rgba(27,99,230,.16);background:#fff}
+body.pg-gerenciar-servicos .painel-form .campo input:focus,body.pg-gerenciar-servicos .painel-form .campo textarea:focus{border-color:#0a49b8;box-shadow:0 0 0 3px rgba(27,99,230,.16);background:#fff}
 body.pg-gerenciar-servicos .painel-form .campo.invalido input,body.pg-gerenciar-servicos .painel-form .campo.invalido textarea{border-color:#d93025;background:#fff8f7}
 body.pg-gerenciar-servicos .painel-form .rodape-dlg .btn{flex:1 1 auto;min-height:48px}
 body.pg-gerenciar-servicos #serv-salvar{box-shadow:0 6px 16px rgba(242,138,12,.28)}
@@ -155,7 +155,7 @@ body.pg-gerenciar-servicos #serv-erro{border-radius:12px;padding:10px 14px}
 
 /* ===== Janelas de confirmação (desativar e excluir) ===== */
 body.pg-gerenciar-servicos .dlg-confirma{position:relative;max-width:420px;border-radius:24px;padding:34px 28px 28px}
-body.pg-gerenciar-servicos .dlg-confirma .icone-alerta{width:64px;height:64px;margin-bottom:14px;border-color:#1b63e6;color:#1b63e6;background:#eef4ff}
+body.pg-gerenciar-servicos .dlg-confirma .icone-alerta{width:64px;height:64px;margin-bottom:14px;border-color:#0a49b8;color:#0a49b8;background:#eef4ff}
 body.pg-gerenciar-servicos .dlg-confirma .icone-alerta.perigo{border-color:#d93025;color:#d93025;background:#fdecea}
 body.pg-gerenciar-servicos .dlg-confirma h2{font-size:1.35rem;font-weight:800}
 body.pg-gerenciar-servicos .dlg-confirma .sub{font-size:.95rem}
@@ -164,7 +164,7 @@ body.pg-gerenciar-servicos .dlg-confirma .rodape-dlg .btn{flex:1 1 140px;min-hei
 body.pg-gerenciar-servicos .dlg-confirma .btn-perigo{box-shadow:0 6px 16px rgba(217,48,37,.28)}
 body.pg-gerenciar-servicos .dlg-confirma .btn-perigo::before{content:"";width:18px;height:18px;flex:none;background:currentColor;-webkit-mask:var(--gs-ic-lixeira) center/contain no-repeat;mask:var(--gs-ic-lixeira) center/contain no-repeat}
 body.pg-gerenciar-servicos #dlg-desativar .btn-perigo::before{-webkit-mask-image:var(--gs-ic-desativar);mask-image:var(--gs-ic-desativar)}
-body.pg-gerenciar-servicos .gs-fechar{position:absolute;top:12px;right:14px;width:40px;height:40px;border:0;border-radius:50%;background:none;color:var(--azul);font-size:1.7rem;line-height:1;cursor:pointer}
+body.pg-gerenciar-servicos .gs-fechar{position:absolute;top:12px;right:14px;width:40px;height:40px;border:0;border-radius:50%;background:none;color:#0a49b8;font-size:1.7rem;line-height:1;cursor:pointer}
 body.pg-gerenciar-servicos .gs-fechar:hover{background:#eef4ff}
 
 /* ===== Responsivo ===== */

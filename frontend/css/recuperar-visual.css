@@ -19,40 +19,40 @@
 .tela-rv .boas-vindas .aviso,
 .tela-rv .boas-vindas .ac-pets{display:none}
 .tela-rv .rv-texto{display:block;text-align:left}
-.rv-eyebrow{margin:0;font-size:1rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--cor-azul-forte,#0a49b8)}
+.rv-eyebrow{margin:0;font-size:1rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#0a49b8}
 .rv-titulo{margin:6px 0 0;font-family:var(--fonte-titulo);font-weight:800;letter-spacing:-.03em;line-height:1.02}
-.rv-l1{display:block;font-size:clamp(2.1rem,1.4rem + 3vw,3.2rem);color:var(--cor-azul-forte,#0a49b8)}
-.rv-l2{display:block;font-size:clamp(1.5rem,1.1rem + 2vw,2.2rem);color:var(--cor-laranja,#f28a0c)}
-.rv-desc{margin:14px 0 0;max-width:34em;font-size:1.0625rem;font-weight:600;line-height:1.4;color:var(--cor-azul-profundo,#0a2a6b)}
+.rv-l1{display:block;font-size:clamp(2.1rem,1.4rem + 3vw,3.2rem);color:#0a49b8}
+.rv-l2{display:block;font-size:clamp(1.5rem,1.1rem + 2vw,2.2rem);color:#f28a0c}
+.rv-desc{margin:14px 0 0;max-width:34em;font-size:1.0625rem;font-weight:600;line-height:1.4;color:#0a49b8}
 .tela-rv .rv-pets{display:block;width:100%;max-width:520px;height:auto;margin:var(--esp-4,16px) auto 0;filter:drop-shadow(0 14px 22px rgba(10,42,107,.16))}
 
 /* ---------- Cartão ---------- */
 .tela-rv .cartao{position:relative;border:0;border-radius:28px;background:rgba(255,255,255,.97);box-shadow:0 24px 60px rgba(10,42,107,.16),0 2px 6px rgba(10,42,107,.06);text-align:center}
 .tela-rv .cartao .passo{display:inline-block;margin:0 0 var(--esp-3,12px);padding:10px 28px;border-radius:999px;background:#0a49b8;color:#fff;font-size:1rem;font-weight:700;letter-spacing:0;text-transform:none;box-shadow:0 8px 18px rgba(10,73,184,.28)}
 .tela-rv .cartao .ac-progresso{display:none}
-.tela-rv #passo-1 .avatar{position:relative;display:grid;place-items:center;width:104px;height:104px;margin:0 auto var(--esp-3,12px);border-radius:50%;background:radial-gradient(circle,#c4d9fa 0 60%,#e3edfd 61%);color:#1b63e6;line-height:0}
-.tela-rv #passo-1 .avatar svg:first-child{width:50px;height:50px;stroke:#1b63e6;stroke-width:2.4}
-.tela-rv #passo-1 .avatar svg:first-child rect{fill:#1b63e6}
+.tela-rv #passo-1 .avatar{position:relative;display:grid;place-items:center;width:104px;height:104px;margin:0 auto var(--esp-3,12px);border-radius:50%;background:radial-gradient(circle,#c4d9fa 0 60%,#e3edfd 61%);color:#0a49b8;line-height:0}
+.tela-rv #passo-1 .avatar svg:first-child{width:50px;height:50px;stroke:#0a49b8;stroke-width:2.4}
+.tela-rv #passo-1 .avatar svg:first-child rect{fill:#0a49b8}
 .tela-rv #passo-1 .avatar svg:first-child path{fill:none}
-.tela-rv #passo-1 h2{font-size:clamp(1.75rem,1.3rem + 1.6vw,2.3rem);font-weight:800;color:var(--cor-azul-forte,#0a49b8);text-align:center}
-.tela-rv #passo-1 .rv-lar{color:var(--cor-laranja,#f28a0c)}
-.tela-rv #passo-1 .sub{margin:var(--esp-2,8px) auto var(--esp-6,24px);max-width:24em;font-size:1.0625rem;font-weight:500;color:var(--cor-azul-profundo,#0a2a6b)}
+.tela-rv #passo-1 h2{font-size:clamp(1.75rem,1.3rem + 1.6vw,2.3rem);font-weight:800;color:#0a49b8;text-align:center}
+.tela-rv #passo-1 .rv-lar{color:#f28a0c}
+.tela-rv #passo-1 .sub{margin:var(--esp-2,8px) auto var(--esp-6,24px);max-width:24em;font-size:1.0625rem;font-weight:500;color:#0a49b8}
 .tela-rv #passo-1 .campo{text-align:left}
-.tela-rv #passo-1 .campo label{display:block;margin-bottom:8px;font-size:1.0625rem;font-weight:800;color:var(--cor-azul-forte,#0a49b8)}
+.tela-rv #passo-1 .campo label{display:block;margin-bottom:8px;font-size:1.0625rem;font-weight:800;color:#0a49b8}
 .rv-entrada{position:relative}
 .rv-entrada::before{content:"";position:absolute;left:22px;top:50%;width:26px;height:26px;transform:translateY(-50%);pointer-events:none;
   background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect x='2' y='5' width='22' height='16' rx='3.5' fill='none' stroke='%230a49b8' stroke-width='2'/%3E%3Cpath d='M3.5 7.500l9.500 7 9.500-7' fill='none' stroke='%230a49b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
 .tela-rv #passo-1 .campo input{min-height:56px;padding:0 24px 0 62px;border:2px solid #bcd0f1;border-radius:999px;background:#fff;font-size:1.0625rem}
 .tela-rv #passo-1 .campo input::placeholder{color:#5b72a4}
-.tela-rv #passo-1 .btn{min-height:60px;border-radius:999px;background:var(--grad-laranja,linear-gradient(180deg,#ff9f1c,#f28a0c));color:var(--cor-cta-texto,#0a2a6b);font-size:1.125rem;font-weight:800;box-shadow:0 10px 22px rgba(242,138,12,.38)}
+.tela-rv #passo-1 .btn{min-height:60px;border-radius:999px;background:var(--grad-laranja,linear-gradient(180deg,#ff9f1c,#f28a0c));color:#0a49b8;font-size:1.125rem;font-weight:800;box-shadow:0 10px 22px rgba(242,138,12,.38)}
 .tela-rv #passo-1 .btn:hover{background:var(--cor-laranja-hover,#e07a00)}
 .rv-ok{display:flex;align-items:center;gap:14px;margin-top:var(--esp-4,16px);padding:14px 18px;border:1.5px solid #b8e5c1;border-radius:22px;background:#dcf5e1;text-align:left;font-size:.9375rem;font-weight:600;line-height:1.4;color:#176b32}
 .rv-ok[hidden]{display:none}
 .rv-ok svg{flex:none;width:34px;height:34px}
 .rv-ok circle{fill:#2e9e4f}
 .tela-rv #passo-1 .troca{margin-top:var(--esp-4,16px);padding-top:0;border-top:0}
-.tela-rv #passo-1 .troca .link{font-size:1.0625rem;font-weight:800;color:var(--cor-azul-forte,#0a49b8)}
-.tela-rv .rv-seguro{align-items:center;justify-content:center;gap:12px;margin:var(--esp-4,16px) auto 0;max-width:520px;padding:14px 22px;border-radius:999px;background:rgba(207,225,251,.75);font-size:1rem;font-weight:700;color:var(--cor-azul-forte,#0a49b8)}
+.tela-rv #passo-1 .troca .link{font-size:1.0625rem;font-weight:800;color:#0a49b8}
+.tela-rv .rv-seguro{align-items:center;justify-content:center;gap:12px;margin:var(--esp-4,16px) auto 0;max-width:520px;padding:14px 22px;border-radius:999px;background:rgba(207,225,251,.75);font-size:1rem;font-weight:700;color:#0a49b8}
 .tela-rv .rv-seguro svg{flex:none;width:26px;height:26px;stroke:#0a49b8;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .tela-rv .rv-seguro rect{fill:#0a49b8}
 
@@ -65,7 +65,7 @@
   /* camada decorativa */
   .tela-rv .rv-deco{display:block;position:absolute;inset:0;z-index:0;pointer-events:none}
   .tela-rv .rv-deco>*{position:absolute;display:block;overflow:visible}
-  .rv-p{fill:#1b63e6;opacity:.24}
+  .rv-p{fill:#0a49b8;opacity:.24}
   .rv-blob{left:calc(var(--u)*-60);bottom:calc(var(--u)*60);width:calc(var(--u)*980);height:calc(var(--u)*640)}
   .rv-onda-topo{left:0;top:0;width:calc(var(--u)*270);height:calc(var(--u)*170)}
   .rv-ondas-base{left:0;bottom:0;width:100%;height:calc(var(--u)*130)}

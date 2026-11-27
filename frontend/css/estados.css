@@ -2,13 +2,13 @@
 .estado-pagina{background:linear-gradient(160deg,#eaf3ff,#f7fbff);min-height:65vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
 .estado-cartao{background:#fff;border-radius:22px;box-shadow:0 10px 30px rgba(10,73,184,.14);padding:36px 40px;text-align:center;max-width:540px;width:100%}
 .estado-cartao .icone{font-size:4rem;line-height:1;margin-bottom:8px}
-.estado-cartao h1{font-size:1.7rem;color:var(--azul);margin-bottom:8px}
+.estado-cartao h1{font-size:1.7rem;color:#0a49b8;margin-bottom:8px}
 .estado-cartao p{color:var(--texto);margin-bottom:20px}
 .estado-cartao .n404{font-size:6.5rem;font-weight:800;line-height:1;color:#b9d3fb;letter-spacing:4px}
 .estado-cartao .btn{display:inline-block}
 
 /* Blocos usados dentro das telas (lista vazia, erro ao carregar) */
-.vazio .titulo-estado{display:block;color:var(--azul);font-size:1.1rem}
+.vazio .titulo-estado{display:block;color:#0a49b8;font-size:1.1rem}
 .vazio .texto-estado{display:block;font-weight:400;color:var(--cinza);margin-top:2px}
 .vazio .btn{margin-top:12px}
 @media(max-width:600px){.estado-cartao{padding:28px 20px}.estado-cartao .n404{font-size:4.5rem}}

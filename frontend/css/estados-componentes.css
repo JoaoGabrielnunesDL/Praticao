@@ -14,10 +14,10 @@ body.ui-estados .mensagem button:hover{background:rgba(255,255,255,.6)}
 
 /* ===== Carregando (.carregando) ===== */
 body.ui-estados .carregando{padding:46px 20px;color:var(--cinza);font-weight:600}
-body.ui-estados .carregando::before{width:44px;height:44px;margin-bottom:14px;border:5px dotted #1b63e6;border-top-color:transparent;animation-duration:1.1s}
+body.ui-estados .carregando::before{width:44px;height:44px;margin-bottom:14px;border:5px dotted #0a49b8;border-top-color:transparent;animation-duration:1.1s}
 
 /* ===== Vazio e erro ao carregar (Estados.vazio / Estados.erro e .vazio das telas) ===== */
-body.ui-estados .vazio{padding:44px 20px;color:var(--azul);font-weight:800}
+body.ui-estados .vazio{padding:44px 20px;color:#0a49b8;font-weight:800}
 /* base.css aumenta todo "span" dentro de .vazio (feito para o ícone); o texto volta ao tamanho normal */
 body.ui-estados .vazio>span:first-child{width:84px;height:84px;margin:0 auto 14px;border-radius:24px;background:#e8f1ff;display:grid;place-items:center;font-size:2.4rem;line-height:1}
 body.ui-estados .vazio:has([data-tentar],[data-recarregar],#btn-tentar)>span:first-child{background:#fdecea}
