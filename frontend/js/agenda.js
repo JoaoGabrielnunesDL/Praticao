@@ -1,6 +1,7 @@
 // Agenda do Dia (funcionário/administrador). Usa a API real:
 //   GET   /agendamentos?data=AAAA-MM-DD                       (um dia)
 //   GET   /agendamentos?inicio=AAAA-MM-DD&fim=AAAA-MM-DD      (botões "Últimos 7 dias" e "Último mês")
+//   GET   /agendamentos?inicio=AAAA-MM-DD[&fim=AAAA-MM-DD]    (botões "Agendamentos futuros": Todos, Próx. 7 dias, 15 dias e mês)
 //   PATCH /agendamentos/{id}/status   corpo: {"status": "CONFIRMADO" | "CONCLUIDO" | "CANCELADO"}
 const PERFIS = ['funcionario', 'administrador'];
 
@@ -18,14 +19,27 @@ const SUCESSO = {
 let agendamentos = [];
 let filtro = 'TODOS';
 let ocupado = false;
-let periodo = null;   // null = um dia só (campo Data); {inicio, fim} = botão de período ativo
+let periodo = null;   // null = um dia só (campo Data); {inicio, fim, futuro} = botão de período ativo (fim null = sem data final)
 
 const dataIso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 const dataCurta = iso => iso.split('-').reverse().join('/');
 
+// Mesma data daqui a N meses; se o mês de destino for mais curto, usa o último dia dele (31/jan + 1 mês = 28/fev).
+function maisMeses(d, n) {
+  const ultimoDia = new Date(d.getFullYear(), d.getMonth() + n + 1, 0).getDate();
+  return new Date(d.getFullYear(), d.getMonth() + n, Math.min(d.getDate(), ultimoDia));
+}
+
 // Últimos 7 dias = hoje e os 6 dias anteriores. Último mês = o mês anterior inteiro.
+// Futuros (contam a partir de hoje): Todos = sem data final · 7 dias = hoje + 6 · 15 dias = hoje + 14 · Próx. mês = hoje até a mesma data do mês seguinte.
 function calcularPeriodo(nome) {
   const h = new Date();
+  if (nome.startsWith('fut-')) {
+    const hoje = dataIso(h);
+    const dias = n => dataIso(new Date(h.getFullYear(), h.getMonth(), h.getDate() + n));
+    const fim = { 'fut-todos': null, 'fut-7': dias(6), 'fut-15': dias(14), 'fut-mes': dataIso(maisMeses(h, 1)) }[nome];
+    return { inicio: hoje, fim, futuro: true };
+  }
   if (nome === '7dias') return { inicio: dataIso(new Date(h.getFullYear(), h.getMonth(), h.getDate() - 6)), fim: dataIso(h) };
   return { inicio: dataIso(new Date(h.getFullYear(), h.getMonth() - 1, 1)), fim: dataIso(new Date(h.getFullYear(), h.getMonth(), 0)) };
 }
@@ -37,7 +51,11 @@ function marcarAtalho(nome) {
   });
   const info = $('info-periodo');
   info.hidden = !periodo;
-  if (periodo) info.textContent = `Período: ${dataCurta(periodo.inicio)} a ${dataCurta(periodo.fim)}`;
+  if (periodo) {
+    info.textContent = !periodo.futuro ? `Período: ${dataCurta(periodo.inicio)} a ${dataCurta(periodo.fim)}`
+      : periodo.fim ? `Agendamentos futuros: ${dataCurta(periodo.inicio)} a ${dataCurta(periodo.fim)}`
+      : `Agendamentos futuros: a partir de ${dataCurta(periodo.inicio)}`;
+  }
 }
 
 // ---------- desenho da lista ----------
@@ -69,7 +87,7 @@ function render() {
 
   const visiveis = filtro === 'TODOS' ? agendamentos : agendamentos.filter(a => a.status === filtro);
   if (!agendamentos.length) {
-    $('lista').innerHTML = `<div class="vazio"><span>📅</span>Nenhum agendamento ${periodo ? 'neste período' : 'para esta data'}.</div>`;
+    $('lista').innerHTML = `<div class="vazio"><span>📅</span>Nenhum agendamento ${!periodo ? 'para esta data' : !periodo.futuro ? 'neste período' : periodo.fim ? 'futuro neste período' : 'futuro'}.</div>`;
   } else if (!visiveis.length) {
     $('lista').innerHTML = '<div class="vazio"><span>🔎</span>Nenhum agendamento com este status.</div>';
   } else {
@@ -82,7 +100,7 @@ async function carregar() {
   $('lista').innerHTML = '<p class="carregando">Carregando agendamentos...</p>';
   try {
     agendamentos = await api(periodo
-      ? `/agendamentos?inicio=${periodo.inicio}&fim=${periodo.fim}`
+      ? `/agendamentos?inicio=${periodo.inicio}${periodo.fim ? '&fim=' + periodo.fim : ''}`
       : '/agendamentos?data=' + $('data').value);
     render();
   } catch (x) {

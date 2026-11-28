@@ -39,7 +39,7 @@
       } else r.style.background = '';
       const data = $('data'), periodo = $('info-periodo');
       const periodoVisivel = periodo && !periodo.hidden;
-      $('av-titulo-hoje').textContent = periodoVisivel ? 'Atendimentos do período' : (data && data.value && data.value !== hojeISO() ? 'Atendimentos da data' : 'Atendimentos de Hoje');
+      $('av-titulo-hoje').textContent = periodoVisivel ? (periodo.textContent.indexOf('Agendamentos futuros') === 0 ? 'Agendamentos futuros' : 'Atendimentos do período') : (data && data.value && data.value !== hojeISO() ? 'Atendimentos da data' : 'Atendimentos de Hoje');
     }
     atualizar();
     const alvo = document.querySelector('.indicadores');

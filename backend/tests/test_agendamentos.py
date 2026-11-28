@@ -182,6 +182,16 @@ def test_agenda_por_periodo(client, tutor, animal, servico, funcionario):
     assert len(client.get(ate_30, headers=funcionario).json()) == 2
 
 
+def test_agenda_futuros_so_com_inicio_sem_data_final(client, tutor, animal, servico, funcionario):
+    # Botão "Agendamentos futuros > Todos" da agenda: só o início (hoje), sem data final.
+    agendar(client, tutor, animal, servico, horario(dias=3))
+    agendar(client, tutor, animal, servico, horario(dias=60))
+    hoje = datetime.now().date()
+    r = client.get('/agendamentos?inicio=' + str(hoje), headers=funcionario)
+    assert r.status_code == 200
+    assert len(r.json()) == 2
+
+
 def test_agenda_por_periodo_invalido(client, funcionario):
     assert client.get('/agendamentos?inicio=2026-12-10&fim=2026-12-01', headers=funcionario).status_code == 400
     assert client.get('/agendamentos?inicio=2024-01-01&fim=2026-12-01', headers=funcionario).status_code == 400

@@ -238,3 +238,10 @@ body.pg-agenda-dia .ag-resumo-wrap{padding-top:48px}
   body.pg-agenda-dia .pata-deco.p3{display:none}
 }
 @media(max-width:1279px){body.pg-agenda-dia .ag-resumo-wrap{padding-top:40px}}
+
+/* ===== Agendamentos futuros: segunda linha dentro do filtro (Todos, Próx. 7 dias, Próx. 15 dias, Próx. mês) ===== */
+body.pg-agenda-dia .ag-futuros{flex:1 1 100%;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+body.pg-agenda-dia .ag-futuros-rot{font-weight:800;color:#0a49b8;margin-right:2px}
+@media(max-width:600px){
+  body.pg-agenda-dia .ag-futuros-rot{flex:1 1 100%}
+}

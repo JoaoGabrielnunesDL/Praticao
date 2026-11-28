@@ -84,6 +84,14 @@
           <button class="btn btn-contorno" type="button" id="btn-hoje">Hoje</button>
           <button class="btn btn-contorno" type="button" data-atalho="7dias" aria-pressed="false">Últimos 7 dias</button>
           <button class="btn btn-contorno" type="button" data-atalho="mes" aria-pressed="false">Último mês</button>
+          <!-- Agendamentos futuros: contam a partir de hoje (js/agenda.js, data-atalho="fut-...") -->
+          <span class="ag-futuros" role="group" aria-label="Agendamentos futuros">
+            <span class="ag-futuros-rot">Agendamentos futuros:</span>
+            <button class="btn btn-contorno" type="button" data-atalho="fut-todos" aria-pressed="false">Todos</button>
+            <button class="btn btn-contorno" type="button" data-atalho="fut-7" aria-pressed="false">Próx. 7 dias</button>
+            <button class="btn btn-contorno" type="button" data-atalho="fut-15" aria-pressed="false">Próx. 15 dias</button>
+            <button class="btn btn-contorno" type="button" data-atalho="fut-mes" aria-pressed="false">Próx. mês</button>
+          </span>
         </form>
         <p class="sub" id="info-periodo" aria-live="polite" hidden></p>
 
